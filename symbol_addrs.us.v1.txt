@@ -67,6 +67,15 @@ __ll_lshift = 0x800CEB04;
 __ll_div = 0x800CEB6C;
 __ll_mul = 0x800CEBC8;
 __ull_divremi = 0x800CEBF8;
+_bcmp = 0x800CE050;
+__osCurrentTime = 0x8012D220; // type:u64
+osSetTime = 0x800CD260;
+guPerspectiveF = 0x800CC920;
+guPerspective = 0x800CCB50;
+osSetThreadPri = 0x800CC840;
+osInitialize = 0x800CC5A0;
+__d_to_ll = 0x800C9B30;
+alSynSetPriority = 0x800C9AE0;
 
 SP_MEM_ADDR_REG = 0xA4040000;
 SP_DRAM_ADDR_REG = 0xA4040004;

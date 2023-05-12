@@ -34,11 +34,11 @@ diff_count = args.count
 if args.make:
     check_call(["make", "-j4", "COMPARE=0"])
 
-baseimg = f"baserom.kiosk.z64"
-basemap = f"expected/jfg.kiosk.map"
+baseimg = f"baserom.us.v1.z64"
+basemap = f"expected/dkr.us.v1.map"
 
-myimg =   f"build/jfg.kiosk.z64"
-mymap = f"build/jfg.kiosk.map"
+myimg =   f"build/dkr.us.v1.z64"
+mymap = f"build/dkr.us.v1.map"
 
 if not os.path.isfile(baseimg):
     print(f"{baseimg} must exist.")
