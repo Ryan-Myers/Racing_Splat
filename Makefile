@@ -24,7 +24,7 @@ ASM_DIRS  = asm asm/data asm/libultra #For libultra handwritten files
 else
 BUILD_DIR = build_$(REGION)_$(VERSION)
 SRC_DIR   = src_$(REGION)_$(VERSION)
-ASM_DIRS  = asm_$(REGION)_$(VERSION) asm_$(VERSION)/data asm_$(REGION)_$(VERSION)/libultra #For libultra handwritten files
+ASM_DIRS  = asm_$(REGION)_$(VERSION) asm_$(REGION)_$(VERSION)/data asm_$(REGION)_$(VERSION)/libultra #For libultra handwritten files
 endif
 
 LIBULTRA_SRC_DIRS = $(SRC_DIR)/libultra
