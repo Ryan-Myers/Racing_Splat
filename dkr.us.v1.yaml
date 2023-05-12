@@ -193,12 +193,12 @@ segments:
       - [0xD7100, asm]
       - [0xD7160, asm]
       - [0xD71B0, asm]
-      - [0xD7200, asm]
-      - [0xD7300, asm]
-      - [0xD75A0, asm]
-      - [0xD8060, asm]
-      - [0xD8070, hasm, lldiv]
-      - [0xD8170, hasm, ldiv]
+      - [0xD7200, c, libultra/osDestroyThread]
+      - [0xD7300, c, libultra/xlitob]
+      - [0xD75A0, c, libultra/xldtob]
+      - [0xD8060, hasm, libultra/__osSetCompare]
+      - [0xD8070, hasm, libultra/lldiv]
+      - [0xD8170, hasm, libultra/ldiv]
       - [0xD8200, bin, ucode_audio]
       - [0xD90C0, bin, ucode_boot] # + 0xEC0
       - [0xD9190, bin, ucode_f3ddkr_dram] # + 0xD0
