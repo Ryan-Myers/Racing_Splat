@@ -1,0 +1,2 @@
+mathRnd = 0x8006FA2C;
+rngSeed = 0x800DEDD4;
