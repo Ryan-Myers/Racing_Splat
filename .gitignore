@@ -29,6 +29,8 @@ build_pal_v2/
 #binaries ripped from the ROMs
 assets/
 assets/*
+assets_*/
+assets_*/*
 bin/
 bin/*
 

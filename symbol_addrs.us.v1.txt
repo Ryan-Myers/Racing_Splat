@@ -1,2 +1,4 @@
 mathRnd = 0x8006F94C;
 rngSeed = 0x800DD434;
+lldiv = 0x800D7470;
+ldiv = 0x800D7570;

@@ -14,6 +14,7 @@ options:
   asm_path: asm
   src_path: src
   build_path: build
+  asset_path: assets
   #extensions_path: tools/splat_ext
   #mips_abi_float_regs: o32
   section_order: [".text", ".data", ".rodata", ".bss"]
@@ -196,9 +197,15 @@ segments:
       - [0xD7300, asm]
       - [0xD75A0, asm]
       - [0xD8060, asm]
-      - [0xD8070, asm]
-      - [0xD8200, bin]
-      - [0xD8370, data]
+      - [0xD8070, hasm, lldiv]
+      - [0xD8170, hasm, ldiv]
+      - [0xD8200, bin, ucode_audio]
+      - [0xD90C0, bin, ucode_boot] # + 0xEC0
+      - [0xD9190, bin, ucode_f3ddkr_dram] # + 0xD0
+      - [0xDA390, bin, ucode_f3ddkr_fifo] # + 0x1200
+      - [0xDB570, bin, ucode_f3ddkr_xbus] # + 0x11E0
+      - [0xDC770, bin, ucode_unknown_2] # + 0x1200
+      - [0xDD230, data] # + 0xAC0
       - { start: 0xECB60, type: bss, vram: 0x800EBF60 }
 
   - type: bin

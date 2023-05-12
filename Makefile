@@ -15,13 +15,14 @@ CYAN    := \033[0;36m
 
 # Directories
 
-BIN_DIRS  = assets
 
 ifeq ($(REGION)$(VERSION),usv1)
+BIN_DIRS  = assets
 BUILD_DIR = build
 SRC_DIR   = src
 ASM_DIRS  = asm asm/data asm/libultra #For libultra handwritten files
 else
+BIN_DIRS  = assets_$(REGION)_$(VERSION)
 BUILD_DIR = build_$(REGION)_$(VERSION)
 SRC_DIR   = src_$(REGION)_$(VERSION)
 ASM_DIRS  = asm_$(REGION)_$(VERSION) asm_$(REGION)_$(VERSION)/data asm_$(REGION)_$(VERSION)/libultra #For libultra handwritten files
@@ -78,7 +79,7 @@ LOOP_UNROLL    =
 
 MIPSISET       = -mips1 -32
 
-INCLUDE_CFLAGS = -I . -I include/libc  -I include/PR -I include/sys -I include -I assets -I $(SRC_DIR)/os 
+INCLUDE_CFLAGS = -I . -I include/libc  -I include/PR -I include/sys -I include -I $(BIN_DIRS) -I $(SRC_DIR)/os 
 
 ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 OBJCOPYFLAGS   = -O binary
@@ -119,7 +120,7 @@ GCC_FLAGS += -Wall -Wextra -Wno-missing-braces
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION)
 LD_SCRIPT  = $(BASENAME).$(REGION).$(VERSION).ld
 
-LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_funcs_auto.$(REGION).$(VERSION).txt  -T undefined_syms_auto.$(REGION).$(VERSION).txt -T libultra_undefined_syms.$(REGION).$(VERSION).txt
+LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_funcs_auto.$(REGION).$(VERSION).txt  -T undefined_syms_auto.$(REGION).$(VERSION).txt
 LD_FLAGS  += -Map $(TARGET).map --no-check-sections
 
 ifeq ($(REGION)$(VERSION),usv1)
@@ -186,22 +187,35 @@ cleanall:
 	rm -rf build_pal_v2
 	rm -rf build_jpn_v2
 
-
 distclean: clean
 	rm -rf $(ASM_DIRS)
+	rm -rf $(BIN_DIRS)
+	rm -f *auto.$(REGION).$(VERSION).txt
+	rm -f $(LD_SCRIPT)
+
+distcleanall: cleanall
+	rm -rf asm
+	rm -rf asm_us_v2
+	rm -rf asm_pal_v1
+	rm -rf asm_jpn_v1
+	rm -rf asm_pal_v2
+	rm -rf asm_jpn_v2
 	rm -rf assets
+	rm -rf assets_us_v2
+	rm -rf assets_pal_v1
+	rm -rf assets_pal_v2
+	rm -rf assets_jpn_v1
+	rm -f *auto.*.txt
+	rm -f dkr.us.v1.ld
+	rm -f dkr.us.v2.ld
+	rm -f dkr.pal.v1.ld
+	rm -f dkr.pal.v2.ld
+	rm -f dkr.jpn.v1.ld
 	rm -f *auto.us.v1.txt
 	rm -f *auto.pal.v1.txt
 	rm -f *auto.jpn.v1.txt
 	rm -f *auto.us.v2.txt
 	rm -f *auto.pal.v2.txt
-	rm -f $(LD_SCRIPT)
-
-distcleanall: clean
-	rm -rf $(ASM_DIRS)
-	rm -rf assets
-	rm -f *auto.$(REGION).$(VERSION).txt
-	rm -f $(LD_SCRIPT)
 
 #When you just need to wipe old symbol names and re-extract
 cleanextract: distclean extract

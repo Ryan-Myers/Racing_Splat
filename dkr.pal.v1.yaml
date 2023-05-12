@@ -14,6 +14,7 @@ options:
   asm_path: asm_pal_v1
   src_path: src_pal_v1
   build_path: build_pal_v1
+  asset_path: assets_pal_v1
   #extensions_path: tools/splat_ext
   #mips_abi_float_regs: o32
   section_order: [".text", ".data", ".rodata", ".bss"]
