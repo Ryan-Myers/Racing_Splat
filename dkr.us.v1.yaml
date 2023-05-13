@@ -266,7 +266,25 @@ segments:
       - [0xDA390, bin, ucode_f3ddkr_fifo] # + 0x1200
       - [0xDB570, bin, ucode_f3ddkr_xbus] # + 0x11E0
       - [0xDC770, bin, ucode_unknown_2] # + 0x1200
-      - [0xDD230, data] # + 0xAC0
+      - [0xDD230, data, audio] # + 0xAC0
+      - [0xDD280, data, audiomgr]
+      - [0xDD2B0, data, audiosfx]
+      - [0xDD2D0, data, unknown_005740]
+      - [0xDD2E0, data, unknown_008C40]
+      - [0xDD2F0, data, objects]
+      - [0xDD470, data, unknown_0255E0] #Could be 0xDD474?
+      - [0xDD550, data, unknown_032760]
+      - [0xDD570, data, object_functions]
+      - [0xDD750, data, racer]
+      - [0xDD9E0, data, vehicle_tricky]
+      - [0xDDA00, data, vehicle_bluey]
+      - [0xDDA40, data, vehicle_bubbler]
+      - [0xDDA60, data, vehicle_wizpig]
+      - [0xDDA80, data, vehicle_rocket]
+      - [0xDDAA0, data, object_models]
+      - [0xDDAB0, data, libultra/mips1_al_reverb]
+      - [0xDDAC0, data, libultra/mips1_al_alFxNew]
+      - [0xDDC50, data]
       - { start: 0xECB60, type: bss, vram: 0x800EBF60 }
 
   - type: bin
