@@ -19,7 +19,7 @@ options:
   #mips_abi_float_regs: o32
   section_order: [".text", ".data", ".rodata", ".bss"]
   auto_all_sections: [".data", ".rodata", ".bss"]
-  symbol_name_format: $VRAM_$ROM
+  migrate_rodata_to_functions: False
   #libultra_symbols: True
   #hardware_regs: True
 segments:
@@ -105,7 +105,7 @@ segments:
       - [0xB8910, hasm, get_stack_pointer]
       - [0xB8920, c, waves]
       - [0xC0D70, c, fade_transition]
-      - [0xC35F0, c, gametext]
+      - [0xC35F0, c, game_text]
       - [0xC4800, c, font]
       - [0xC6C00, c, libultra/osCreatePiManager]
       - [0xC6D70, c, gzip]
@@ -224,6 +224,7 @@ segments:
       - [0xD3860, c, libultra/alSynDelete]
       - [0xD3870, c, libultra/thread]
       - [0xD38B0, hasm, libultra/exception]
+      - [0xD41B0, hasm, libultra/__osProbeTLB]
       - [0xD4270, c, libultra/__osAiDeviceBusy]
       - [0xD42A0, c, libultra/osJamMesg]
       - [0xD43F0, c, libultra/osPiGetCmdQueue]
@@ -241,7 +242,8 @@ segments:
       - [0xD53F0, c, libultra/__osSetHWIntrRoutine]
       - [0xD5440, c, libultra/guMtxUtil]
       - [0xD56B0, c, libultra/cosf]
-      - [0xD5820, c, libultra/osTimer]
+      - [0xD5820, c, libultra/sinf]
+      - [0xD59E0, c, libultra/osTimer]
       - [0xD5AC0, c, libultra/si]
       - [0xD5EF0, c, libultra/contpfs]
       - [0xD6C50, c, libultra/__osDpDeviceBusy]
@@ -320,7 +322,62 @@ segments:
       - [0xE54A0, data, libultra/exception] #alCopy in main DKR repo, but exceptasm in ultralib
       - [0xE54C0, data, libultra/xprintf]
       - [0xE5510, data, libultra/osTimer]
-      - [0xE5520, data]
+      - [0xE5520, data, libultra/xlitob]
+      - [0xE5550, rodata, audio]
+      - [0xE55F0, rodata, audiomgr]
+      - [0xE69F0, rodata, unknown_0255E0]
+      - [0xE6B80, rodata, unknown_032760]
+      - [0xE6BA0, rodata, object_functions]
+      - [0xE6E80, rodata, racer]
+      - [0xE7610, rodata, vehicle_tricky]
+      - [0xE7630, rodata, vehicle_bluey]
+      - [0xE7650, rodata, vehicle_smokey]
+      - [0xE76A0, rodata, vehicle_bubbler]
+      - [0xE76B0, rodata, vehicle_wizpig]
+      - [0xE7700, rodata, vehicle_rocket]
+      - [0xE7720, rodata, object_models]
+      - [0xE7820, rodata, libultra/mips1_al_csplayer]
+      - [0xE7A70, rodata, libultra/mips1_al_reverb]
+      - [0xE7AA0, rodata, libultra/mips1_al_alFxNew]
+      - [0xE7AC0, rodata, libultra/mips1_al_synthesizer]
+      - [0xE7AD0, rodata, main]
+      - [0xE7B00, rodata, camera]
+      - [0xE7CB0, rodata, game]
+      - [0xE7E10, rodata, memory]
+      - [0xE8190, rodata, save_data]
+      - [0xE8400, rodata, libultra/mips1_sched]
+      - [0xE8590, rodata, video]
+      - [0xE8730, rodata, textures_sprites]
+      - [0xE8890, rodata, screen_asset]
+      - [0xE88B0, rodata, menu]
+      - [0xE9240, rodata, game_ui]
+      - [0xE93F0, rodata, particles]
+      - [0xE9800, rodata, printf]
+      - [0xE9A70, rodata, thread0_epc]
+      - [0xE9D60, rodata, waves]
+      - [0xE9ED0, rodata, fade_transition]
+      - [0xE9F30, rodata, game_text]
+      - [0xE9F60, rodata, font]
+      - [0xE9FC0, rodata, gzip]
+      - [0xEA0B0, rodata, libultra/al_cseq]
+      - [0xEA0C0, rodata, libultra/al_cents2ratio]
+      - [0xEA0D0, rodata, libultra/osSetIntMask]
+      - [0xEA150, rodata, libultra/llcvt]
+      - [0xEA160, rodata, libultra/al_env]
+      - [0xEA200, rodata, libultra/al_resample]
+      - [0xEA240, rodata, libultra/guPerspectiveF]
+      - [0xEA250, rodata, libultra/devmgr]
+      - [0xEA270, rodata, libultra/exception]
+      - [0xEA2C0, rodata, libultra/xprintf]
+      - [0xEA3C0, rodata, libultra/cosf]
+      - [0xEA410, rodata, libultra/sinf]
+      - [0xEA460, rodata, libultra/xldtob]
+      - [0xEA4C0, rodata, libultra/libm_vals]
+      - [0xEA4D0, rodata] #aspMainDataStart
+      - [0xEA7A0, rodata] #rspF3DDKRDataDramStart
+      - [0xEAFA0, rodata] #rspF3DDKRDataFifoStart
+      - [0xEB7A0, rodata] #rspF3DDKRDataXbusStart
+      - [0xEBFA0, rodata] #rspUnknown2DataStart
       - { start: 0xECB60, type: bss, vram: 0x800EBF60 }
 
   - type: bin

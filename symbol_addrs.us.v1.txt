@@ -117,6 +117,8 @@ func_800B3E64 = 0x800B3E64;
 set_rsp_segment = 0x8007A2D0;
 __osTimerList = 0x800e4910;
 __osBaseTimer = 0x8012D200; // type:OSTimer size:0x20
+udigs = 0x800e4934; // type:asciz
+ldigs = 0x800e4920; // type:asciz
 
 
 SP_MEM_ADDR_REG = 0xA4040000;
