@@ -68,10 +68,8 @@ extern UNUSED s32 D_80126128[18];
 
 /*******************************/
 
-//static 
-void __scMain(void *arg);
-//static 
-s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP);
+static void __scMain(void *arg);
+static s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP);
 
 void osCreateScheduler(OSSched *sc, void *stack, OSPri priority, u8 mode, u8 numFields) {
     sc->curRSPTask      = 0;
@@ -156,8 +154,7 @@ UNUSED void scGetAudioTaskTimers(f32 *timer0, f32 *timer1, f32 *timer2) {
     *timer2 = gAudTaskTimer3;
 }
 
-//static v
-void __scMain(void *arg) {
+static void __scMain(void *arg) {
     OSMesg msg = NULL;
     OSSched *sc = (OSSched *)arg;
     OSScClient *client;
@@ -502,8 +499,7 @@ void __scYield(OSSched *sc) {
 /*
  * Schedules the tasks to be run on the RCP
  */
-//static 
-s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)  {
+static s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)  {
     s32 avail = availRCP;
     OSScTask *gfx = sc->gfxListHead;
     OSScTask *audio = sc->audioListHead;

@@ -192,7 +192,7 @@ segments:
       - [0xD0B90, c, libultra/osPfsReFormat]
       - [0xD0F90, c, libultra/osPfsNumFiles]
       - [0xD10E0, hasm, libultra/_blkclr]
-      - [0xD1180, asm, libultra/osPfsFileState]
+      - [0xD1180, c, libultra/osPfsFileState]
       - [0xD1470, c, libultra/osPfsDeleteFile]
       - [0xD1A80, c, libultra/osPfsFindFile]
       - [0xD1C40, c, libultra/pfsallocatefile]
