@@ -14,8 +14,8 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/func_800B76B8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/func_800B76DC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/get_lockup_status.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/func_800B77D4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/lockup_screen_loop.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/func_800B7810.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/render_epc_lock_up_display.s")

@@ -10,7 +10,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B5E88.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B5EDC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/render_printf.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B5F78.s")
 

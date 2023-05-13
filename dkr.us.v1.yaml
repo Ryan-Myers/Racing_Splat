@@ -373,11 +373,11 @@ segments:
       - [0xEA410, rodata, libultra/sinf]
       - [0xEA460, rodata, libultra/xldtob]
       - [0xEA4C0, rodata, libultra/libm_vals]
-      - [0xEA4D0, rodata] #aspMainDataStart
-      - [0xEA7A0, rodata] #rspF3DDKRDataDramStart
-      - [0xEAFA0, rodata] #rspF3DDKRDataFifoStart
-      - [0xEB7A0, rodata] #rspF3DDKRDataXbusStart
-      - [0xEBFA0, rodata] #rspUnknown2DataStart
+      - [0xEA4D0, bin, data_audio]
+      - [0xEA7A0, bin, data_f3ddkr_dram]
+      - [0xEAFA0, bin, data_f3ddkr_fifo]
+      - [0xEB7A0, bin, data_f3ddkr_xbus]
+      - [0xEBFA0, bin, data_unknown_2]
       - [0xECB60, bss]
       #- [0xECB60, bss, audio]
       #- [0x116B90, bss, audiomgr]
@@ -410,10 +410,21 @@ segments:
       #- [0x126F90, bss, menu]
       #- [0x1278D0, bss, game_ui]
       #- [0x1287B0, bss, weather]
-      #- [0x, bss, ]
-      #- [0x, bss, ]
-      #- [0x, bss, ]
-      #- [0x, bss, ]
+      #- [0x128880, bss, particles]
+      #- [0x1288A0, bss, printf]
+      #- [0x1291E0, bss, thread0_epc]
+      #- [0x12A7B0, bss, stacks] #Could be earlier as main repo has a 0x100 byte unused var in it. Could also leave it out, and keep it all in thread0_epc above.
+      #- [0x12ABC0, bss, waves]
+      #- [0x12B330, bss, fade_transition]
+      #- [0x12B380, bss, game_text]
+      #- [0x12B3E0, bss, font]
+      #- [0x12B400, bss, libultra/osCreatePiManager]
+      #- [0x12B6D0, bss, gzip]
+      #- [0x12B6E0, bss, thread30_track_loading]
+      #- [0x12B8C0, bss, libultra/osViMgr] #This has gThread30Stack and __osFinalrom, but they really should be defined in other places.
+      #- [0x12D8D0, bss, libultra/osSetEventMesg]
+      #- [0x12D950, bss, libultra/controller]
+      #- [0x12DA20, bss, libultra/siacs]
       - { start: 0xECB60, type: bss, vram: 0x800EBF60 }
 
   - type: bin
