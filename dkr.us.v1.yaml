@@ -284,7 +284,20 @@ segments:
       - [0xDDAA0, data, object_models]
       - [0xDDAB0, data, libultra/mips1_al_reverb]
       - [0xDDAC0, data, libultra/mips1_al_alFxNew]
-      - [0xDDC50, data]
+      - [0xDDC50, data, libultra/mips1_al_alSynStartVoiceParams]
+      - [0xDDC60, data, camera]
+      - [0xDDF00, data, controller]
+      - [0xDDF10, data, game]
+      - [0xDE030, data, math_util]
+      - [0xDF040, data, save_data]
+      - [0xDF090, data, unknown_078050]
+      - [0xDF330, data, libultra/mips1_sched]
+      - [0xDF370, data, video]
+      - [0xDF3C0, data, textures_sprites]
+      - [0xE0040, data, screen_asset]
+      - [0xE0050, data, menu]
+      - [0xE2A60, data, game_ui]
+      - [0xE3450, data]
       - { start: 0xECB60, type: bss, vram: 0x800EBF60 }
 
   - type: bin
