@@ -59,12 +59,12 @@ const char D_800E7958[] = "\tdata_size\t\t= %u\n";
 
 /************ .bss ************/
 
-extern s32 gCurRSPTaskIsSet;
-extern s32 gCurRDPTaskIsSet;
-extern OSTime gYieldTime;
-extern u32 gRSPAudTaskFlushTime;
-extern u32 gRSPAudTaskDoneTime;
-extern UNUSED s32 D_80126128[18];
+s32 gCurRSPTaskIsSet;
+s32 gCurRDPTaskIsSet;
+OSTime gYieldTime;
+u32 gRSPAudTaskFlushTime;
+u32 gRSPAudTaskDoneTime;
+UNUSED s32 D_80126128[18];
 
 /*******************************/
 
@@ -483,8 +483,6 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp) {
     }
 }
 
-#ifdef NON_MATCHING
-//Needs BSS to be migrated so that gYieldTime can be properly referenced as a u64 OSTime
 void __scYield(OSSched *sc) {
     if (sc->curRSPTask->list.t.type == M_GFXTASK) {
         sc->curRSPTask->state |= OS_SC_YIELD;
@@ -492,9 +490,6 @@ void __scYield(OSSched *sc) {
         osSpTaskYield();
     } 
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_sched/__scYield.s")
-#endif
 
 /*
  * Schedules the tasks to be run on the RCP

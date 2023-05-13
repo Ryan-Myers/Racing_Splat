@@ -154,12 +154,13 @@ osScGetCmdQ = 0x80079574;
 osCreateScheduler = 0x80079350;
 osScAddClient = 0x80079480;
 osScGetInterruptQ = 0x8007957C;
-gCurRSPTaskIsSet = 0x80126110;
-gCurRDPTaskIsSet = 0x80126114;
-gYieldTime = 0x80126118; // type:u64
-gRSPAudTaskFlushTime = 0x80126120;
-gRSPAudTaskDoneTime = 0x80126124;
-D_80126128 = 0x80126128;
+
+gCurRSPTaskIsSet = 0x80126110; // type:s32 size:0x4
+gCurRDPTaskIsSet = 0x80126114; // type:s32 size:0x4
+gYieldTime = 0x80126118; // type:u64 size:0x8
+gRSPAudTaskFlushTime = 0x80126120; // type:u32 size:0x4
+gRSPAudTaskDoneTime = 0x80126124; // type:u32 size:0x4
+D_80126128 = 0x80126128; // type:s32 size:0x48
 __scYield = 0x8007A080;
 
 __ASSETS_LUT_START = 0xECB60;
