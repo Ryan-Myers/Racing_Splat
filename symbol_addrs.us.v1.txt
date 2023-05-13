@@ -115,6 +115,8 @@ load_and_set_texture = 0x8007B4E8;
 func_80069A40 = 0x80069A40;
 func_800B3E64 = 0x800B3E64;
 set_rsp_segment = 0x8007A2D0;
+__osTimerList = 0x800e4910;
+__osBaseTimer = 0x8012D200; // type:OSTimer size:0x20
 
 
 SP_MEM_ADDR_REG = 0xA4040000;
