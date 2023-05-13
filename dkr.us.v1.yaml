@@ -154,7 +154,7 @@ segments:
       - [0xCA630, hasm, libultra/osSetIntMask]
       - [0xCA6D0, hasm, libultra/sqrtf]
       - [0xCA6E0, c, libultra/al_alSynSetPriority]
-      - [0xCA6F0, asm] #0x40 bytes of zeroes
+      - [0xCA6F0, bin] #0x40 bytes of zeroes
       - [0xCA730, c, libultra/llcvt]
       - [0xCA940, c, libultra/rmonPrintf]
       - [0xCA9A0, hasm, libultra/_bcopy]
@@ -378,6 +378,42 @@ segments:
       - [0xEAFA0, rodata] #rspF3DDKRDataFifoStart
       - [0xEB7A0, rodata] #rspF3DDKRDataXbusStart
       - [0xEBFA0, rodata] #rspUnknown2DataStart
+      - [0xECB60, bss]
+      #- [0xECB60, bss, audio]
+      #- [0x116B90, bss, audiomgr]
+      #- [0x11A7D0, bss, audiosfx]
+      #- [0x11A830, bss, unknown_005740]
+      #- [0x11B820, bss, objects]
+      #- [0x11BCA0, bss, unknown_0255E0]
+      #- [0x11E0C0, bss, unknown_032760]
+      #- [0x11E0D0, bss, object_functions]
+      #- [0x11E0F0, bss, racer]
+      #- [0x11E1C0, bss, vehicle_tricky]
+      #- [0x11E1D0, bss, vehicle_bluey]
+      #- [0x11E1E0, bss, vehicle_smokey]
+      #- [0x11E1F0, bss, vehicle_bubbler]
+      #- [0x11E200, bss, vehicle_wizpig]
+      #- [0x11E210, bss, vehicle_rocket]
+      #- [0x11E220, bss, object_models]
+      #- [0x11E350, bss, main]
+      #- [0x1216C0, bss, camera]
+      #- [0x121CE0, bss, controller]
+      #- [0x121D60, bss, game]
+      #- [0x124180, bss, memory]
+      #- [0x1249D0, bss, libultra/osMotor]
+      #- [0x124C10, bss, save_data]
+      #- [0x124E00, bss, asset_loading]
+      #- [0x124EA0, bss, unknown_078050]
+      #- [0x126D10, bss, libultra/mips1_sched]
+      #- [0x126D70, bss, video]
+      #- [0x126F20, bss, textures_sprites]
+      #- [0x126F90, bss, menu]
+      #- [0x1278D0, bss, game_ui]
+      #- [0x1287B0, bss, weather]
+      #- [0x, bss, ]
+      #- [0x, bss, ]
+      #- [0x, bss, ]
+      #- [0x, bss, ]
       - { start: 0xECB60, type: bss, vram: 0x800EBF60 }
 
   - type: bin
