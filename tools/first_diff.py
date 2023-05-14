@@ -34,7 +34,7 @@ diff_count = args.count
 if args.make:
     check_call(["make", "-j4", "COMPARE=0"])
 
-baseimg = f"baserom.us.v1.z64"
+baseimg = f"baseroms/baserom.us.v1.z64"
 basemap = f"expected/dkr.us.v1.map"
 
 myimg =   f"build/dkr.us.v1.z64"

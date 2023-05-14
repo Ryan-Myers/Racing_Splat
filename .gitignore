@@ -1,5 +1,4 @@
 # ignore all rom files
-baseroms/*
 *.z64
 *.n64
 *.v64

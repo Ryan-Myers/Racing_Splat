@@ -163,14 +163,14 @@ no_verify: $(TARGET).z64
 splat: $(SPLAT)
 
 extract: splat tools
-	$(PYTHON) $(SPLAT) $(BASENAME).$(REGION).$(VERSION).yaml
+	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).$(REGION).$(VERSION).yaml
 
 extractall: splat tools
-	$(PYTHON) $(SPLAT) $(BASENAME).us.v1.yaml
-	$(PYTHON) $(SPLAT) $(BASENAME).pal.v1.yaml
-	$(PYTHON) $(SPLAT) $(BASENAME).jpn.v1.yaml
-	$(PYTHON) $(SPLAT) $(BASENAME).us.v2.yaml
-	$(PYTHON) $(SPLAT) $(BASENAME).pal.v2.yaml
+	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).us.v1.yaml
+	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).pal.v1.yaml
+	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).jpn.v1.yaml
+	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).us.v2.yaml
+	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).pal.v2.yaml
 
 dependencies: tools
 	@make -C tools
@@ -287,7 +287,7 @@ $(SPLAT):
 	git submodule update --init --recursive
 
 baserom.$(REGION).$(VERSION).z64:
-	$(error Place the Diddy Kong Racing $(REGION) $(VERSION) ROM, named '$@', in the root of this repo and try again.)
+	$(error Place the Diddy Kong Racing $(REGION) $(VERSION) ROM, named '$@', in the baseroms folder of this repo and try again.)
 
 ### Settings
 .SECONDARY:

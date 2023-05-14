@@ -2,8 +2,8 @@ name: Diddy Kong Racing (Japanese)
 sha1: 23ba3d302025153d111416e751027cef11213a19
 options:
   basename: dkr.jpn.v1
-  target_path: baserom.jpn.v1.z64
-  base_path: .
+  target_path: baseroms/baserom.jpn.v1.z64
+  base_path: ../
   compiler: IDO
   find_file_boundaries: True
   header_encoding: ASCII

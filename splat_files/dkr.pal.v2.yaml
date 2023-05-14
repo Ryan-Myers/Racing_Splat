@@ -2,8 +2,8 @@ name: Diddy Kong Racing (European (basic spec.))
 sha1: b7f628073237b3d211d40406aa0884ff8fdd70d5
 options:
   basename: dkr.pal.v2
-  target_path: baserom.pal.v2.z64
-  base_path: .
+  target_path: baseroms/baserom.pal.v2.z64
+  base_path: ../
   compiler: IDO
   find_file_boundaries: True
   header_encoding: ASCII
