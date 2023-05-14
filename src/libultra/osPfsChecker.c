@@ -1,7 +1,7 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/osPfsChecker/func_800CF530.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/osPfsChecker/osPfsChecker.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/osPfsChecker/func_800CFBF4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/osPfsChecker/corrupted_init.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/osPfsChecker/func_800CFDA8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/osPfsChecker/corrupted.s")

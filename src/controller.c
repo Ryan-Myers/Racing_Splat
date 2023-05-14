@@ -1,29 +1,29 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A100.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/get_si_mesg_queue.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A10C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/init_controllers.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A1C4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/handle_save_data_and_read_controller.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A434.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/initialise_player_ids.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A458.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/assign_player_ids.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A4F8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/get_player_id.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A50C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/swap_player_1_and_2_ids.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A528.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/get_buttons_held_from_player.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A554.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/get_buttons_pressed_from_player.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A578.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/get_buttons_released_from_player.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A59C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/clamp_joystick_x_axis.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A5E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/clamp_joystick_y_axis.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A624.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/clamp_joystick.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/controller/func_8006A6A0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/controller/disable_button_mask.s")

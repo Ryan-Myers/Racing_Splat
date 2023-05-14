@@ -1,26 +1,28 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B4940.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/_itoa.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B4A08.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B4A14.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/sprintf.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B4A40.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/vsprintf.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B5E88.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/amGetSfxCount.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/diPrintfInit.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/printf/render_printf.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B5F78.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/print_debug_strings.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B61E0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B620C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/set_render_printf_colour.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B62B4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/set_render_printf_background_colour.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B635C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/printf/set_render_printf_position.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B63F4.s")
 

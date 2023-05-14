@@ -1,8 +1,8 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/func_800B6F50.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/thread0_create.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/func_800B6FC4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/thread0_Main.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/func_800B70D0.s")
 

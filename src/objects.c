@@ -12,9 +12,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000BF44.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000BF8C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/allocate_object_pools.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000C2D8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/decrypt_magic_codes.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000C460.s")
 
@@ -24,7 +24,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000C844.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000C8B4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/normalise_time.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000C8F8.s")
 
@@ -38,7 +38,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E0B0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E128.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/instShowBearBar.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E138.s")
 
@@ -50,21 +50,21 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E194.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E1B8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/fontUseFont.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E1CC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/find_non_car_racers.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E1DC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/check_if_silver_coin_race.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E1EC.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E2B4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E4BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/set_time_trial_enabled.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E4C8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/is_time_trial_enabled.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E4D8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/is_in_time_trial.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E4E8.s")
 
@@ -76,21 +76,21 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E898.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E948.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_object.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E988.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/objGetObjList.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E9B0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/getObjectCount.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E9C0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E9D0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000EA54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/spawn_object.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000F648.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/objFreeAssets.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000F758.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/lightSetupLightSources.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000F7EC.s")
 
@@ -98,7 +98,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FAC4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FBCC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/init_object_shadow.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FC6C.s")
 
@@ -108,13 +108,13 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FD54.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FFB8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/gParticlePtrList_addObject.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80010018.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80010028.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001004C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/gParticlePtrList_flush.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800101AC.s")
 
@@ -132,23 +132,23 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001139C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800113AC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_race_start_timer.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800113BC.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800113CC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011560.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/ignore_bounds_check.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011570.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/move_object.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011960.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011AD0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011C94.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_3d_billboard.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800120C8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_3d_model.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80012C30.s")
 
@@ -160,13 +160,13 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80012D5C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80012E28.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/object_do_player_tumble.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80012F30.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/object_undo_player_tumble.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80012F94.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001348C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_object.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80013548.s")
 
@@ -174,9 +174,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800138A8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80013A0C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_racer_shield.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80013DCC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_racer_magnet.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80014090.s")
 
@@ -218,15 +218,15 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80017A18.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80017E74.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/set_taj_challenge_type.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80017E88.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_taj_challenge_type.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80017E98.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800185E4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80018C6C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/find_taj_object.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80018CE0.s")
 
@@ -266,7 +266,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B738.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B780.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/has_ghost_to_save.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B790.s")
 
@@ -274,31 +274,31 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B834.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B954.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B974.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BA00.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_checkpoint_node.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BA1C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/find_next_checkpoint_node.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BA64.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_checkpoint_count.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BA74.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_racer_objects.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BA90.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_racer_objects_by_port.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BAAC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_racer_objects_by_position.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BAC8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_racer_object.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BB18.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_racer_object_by_port.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BB68.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/debug_render_checkpoints.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BC40.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/debug_render_checkpoint_node.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BC54.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BD94.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_camera_object.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BDD4.s")
 
@@ -324,7 +324,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D214.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D248.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D23C.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D258.s")
 
@@ -332,17 +332,17 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D4B4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D5E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/update_envmap_position.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D6E4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/calc_dyn_light_and_env_map_for_object.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D80C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/calc_dynamic_lighting_for_object_1.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001DD54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/calc_env_mapping_for_object.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E13C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E29C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_misc_asset.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E2EC.s")
 
@@ -396,19 +396,19 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80021600.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80022540.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/catmull_rom_interpolation.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8002263C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/cubic_spline_interpolation.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8002277C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80022888.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/lerp.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800228B0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800228DC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800228EC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/init_racer_for_challenge.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80022948.s")
 
@@ -418,7 +418,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800230D0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8002341C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/is_taj_challenge.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8002342C.s")
 
@@ -430,11 +430,11 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800235DC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800238BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/run_object_init_func.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80023E30.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80023F48.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/run_object_loop_func.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8002458C.s")
 

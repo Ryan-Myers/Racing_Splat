@@ -12,7 +12,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800AE490.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800AE530.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/particles/init_particle_assets.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800AE728.s")
 
@@ -30,7 +30,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800AF134.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800AF1E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/particles/partInitTrigger.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800AF29C.s")
 
@@ -110,4 +110,4 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800B4848.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800B490C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/particles/memset.s")

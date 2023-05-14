@@ -1,41 +1,41 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80077450.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/setup_ostask_xbus.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_800775B0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/setup_ostask_xbus_2.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80077734.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/setup_ostask_fifo.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_800778C8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/setup_ostask_fifo_2.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80077A54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/wait_for_gfx_task.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80077AAC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80077B34.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/set_background_prim_colour.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80077B5C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/set_background_fill_colour.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80077B9C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/render_background.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80078054.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/init_rdp_and_framebuffer.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_800780DC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/init_rsp.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80078100.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/setup_gfx_mesg_queues.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80078170.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80078190.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80078778.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/set_chequer_background.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_800787F0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/disable_chequer_background.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_800787FC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/render_chequer_background.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80078AAC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/set_background_draw_function.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80078AB8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/render_textured_rectangle.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/func_80078D00.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_078050/render_texture_rectangle_scaled.s")

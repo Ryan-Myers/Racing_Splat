@@ -1,17 +1,17 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/func_80064950.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/init_lpfilter.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/func_80064A08.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/alFxNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/func_80064E54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/alEnvmixerNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/func_80064EF8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/alLoadNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/func_80064F9C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/alResampleNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/func_80065024.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/alAuxBusNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/func_80065084.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/alMainBusNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/func_800650E4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_alFxNew/alSaveNew.s")

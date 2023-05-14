@@ -1,10 +1,10 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_800249E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/set_scene_viewport_num.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_800249F0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80024D54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/render_scene.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80025510.s")
 
@@ -28,55 +28,55 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80027E24.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80027FC4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/spawn_skydome.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80028044.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/set_skydome_visbility.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80028050.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_800289B8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/draw_gradient_background.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80028C10.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/render_skydome.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80028CD0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/initialise_player_viewport_vars.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80028FA0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/set_anti_aliasing.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80028FAC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/render_level_geometry_and_objects.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80029658.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/render_level_segment.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80029AF8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/traverse_segments_bsp_tree.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80029D14.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/add_segment_to_order.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80029DE0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/check_if_inside_segment.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80029F18.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/get_level_segment_index_from_position.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002A05C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/get_inside_segment_count_xz.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002A134.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/get_inside_segment_count_xyz.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002A29C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/get_segment.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002A2DC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/get_segment_bounding_box.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002A31C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002A5F8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/should_segment_be_visible.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002A900.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/check_if_in_draw_range.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002AC00.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002ACA0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/dayGetTrackFade.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002ACC8.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002ACD4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002AD08.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/get_wave_properties.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002B0F4.s")
 
@@ -88,17 +88,17 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002C71C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002C7C4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/get_current_level_model.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002C7D4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/free_track.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002C954.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002CC30.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002D30C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/trackMakeAbsolute.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002D384.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/render_object_shadow.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8002D670.s")
 
@@ -126,18 +126,18 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80030664.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80030750.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/get_fog_settings.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_800307BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/reset_fog.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80030838.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/update_fog.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_8003093C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/apply_fog.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80030A74.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/obj_loop_fogchanger.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80030DE0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80030FA0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/update_perspective_and_envmap.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/func_80031018.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_0255E0/compute_scene_camera_transform_matrix.s")

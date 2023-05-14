@@ -14,11 +14,11 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_008C40/func_800092A8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_008C40/func_80009558.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_008C40/play_sound_at_position.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_008C40/func_800095E8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_008C40/func_800096D8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_008C40/update_spatial_audio_position.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_008C40/func_800096F8.s")
 

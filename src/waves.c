@@ -58,4 +58,4 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BFE98.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BFFDC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/waves/obj_loop_wavepower.s")

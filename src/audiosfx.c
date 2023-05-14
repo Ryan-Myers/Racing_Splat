@@ -1,16 +1,16 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_80003160.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/set_sfx_volume_slider.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_8000317C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/get_sfx_volume_slider.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_8000318C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/set_sound_channel_count.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_800031C0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/alSndPNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_800033C8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/_sndpVoiceHandler.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_80003470.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/_handleEvent.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_8000410C.s")
 
@@ -44,6 +44,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_800049F8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_80004A3C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/get_sound_channel_volume.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_80004A60.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/set_sound_channel_volume.s")

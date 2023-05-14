@@ -1,6 +1,6 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_models/func_8005F850.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_models/allocate_object_model_pools.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/object_models/func_8005F99C.s")
 
@@ -8,7 +8,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/object_models/func_8005FF40.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_models/func_80060058.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_models/free_object_model.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/object_models/func_8006017C.s")
 

@@ -1,7 +1,7 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main/func_80065D40.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main/main.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main/func_80065D98.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main/thread1_main.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main/func_80065E30.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main/thread3_verify_stack.s")

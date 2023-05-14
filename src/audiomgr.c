@@ -1,10 +1,10 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiomgr/func_80002660.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiomgr/amCreateAudioMgr.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiomgr/func_80002A50.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiomgr/audioStartThread.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiomgr/func_80002A74.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiomgr/audioStopThread.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/audiomgr/func_80002A98.s")
 

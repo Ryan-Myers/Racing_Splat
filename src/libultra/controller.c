@@ -1,7 +1,7 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/controller/func_800CCC20.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/controller/osContInit.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/controller/func_800CCE18.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/controller/__osContGetInitData.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/controller/func_800CCEE8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/controller/__osPackRequestData.s")

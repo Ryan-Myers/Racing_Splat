@@ -1,341 +1,341 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80033CC0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_scenery.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80033DD0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_scenery.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80033F44.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_fireball_octoweapon.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80033F60.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_fireball_octoweapon.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80034530.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_lasergun.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800345A0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_lasergun.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80034844.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_laserbolt.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80034860.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_laserbolt.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80034AF0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_torch_mist.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80034B4C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_torch_mist.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80034B68.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_effectbox.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80034B74.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_effectbox.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80034E70.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_trophycab.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80034E9C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_trophycab.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003522C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_collectegg.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80035260.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_collectegg.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80035640.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_eggcreator.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003564C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_eggcreator.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003572C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_lighthouse_rocketsignpost.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800357D4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_rocketsignpost.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003588C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_airzippers_waterzippers.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003596C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_airzippers_waterzippers.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80035AE8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_groundzipper.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80035C50.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_groundzipper.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80035E20.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_unknown58.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80035E34.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_unknown58.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80035EF8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_characterflag.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80035F6C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_characterflag.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80036040.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80036194.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_stopwatchman.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800361E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_stopwatchman.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80036BCC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/play_tt_voice_clip.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80036C30.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_fish.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800370D4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_fish.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037578.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_lavaspurt.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037594.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_lavaspurt.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037624.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_posarrow.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003763C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_posarrow.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800376E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_animator.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800377E4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_animator.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037A18.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_animation.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037CE8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_animobject.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037D08.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_dooropener.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037D54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_overridepos.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037D60.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_overridepos.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037D6C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_wizpigship.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80037D78.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_wizpigship.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800380F8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_vehicleanim.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003818C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_hittester.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800381C0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_hittester.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800381E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_dynamic_lighting_object.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038214.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_unknown96.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038248.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_snowball.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003827C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_snowball.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038330.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_char_select.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003833C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_char_select.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038710.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_animcamera.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800387C0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_animcar.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800387CC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_animcar.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038854.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_infopoint.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800388D4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_infopoint.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800389AC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_smoke.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800389B8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_smoke.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038A6C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_unknown25.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038A78.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_unknown25.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038AC8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_wardensmoke.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038AD4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_wardensmoke.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038B74.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_bombexplosion.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038BF4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_bombexplosion.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038D58.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_teleport.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038DC4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_teleport.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038E3C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_exit.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80038F58.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_exit.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80039160.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_cameracontrol.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80039184.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_cameracontrol.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80039190.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_setuppoint.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800391BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_setuppoint.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800391C8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_dino_whale.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800391FC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_dino_whale.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800392B8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_parkwarden.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80039320.s")
-// file split?
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80039330.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/set_taj_voice_line.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003AC3C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_parkwarden.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003ACA0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/play_taj_voice_clip.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003ACAC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_gbparkwarden.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003ACBC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/get_npc_pos_y.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003AD28.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_checkpoint.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003AD34.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_checkpoint.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003AE50.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_modechange.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003B058.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_modechange.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003B174.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_bonus.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003B368.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_bonus.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003B4BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_goldenballoon.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003B7CC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_goldenballoon.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003B988.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_door.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003C1E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_door.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003C2E4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_ttdoor.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003C644.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_ttdoor.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003C7A4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_trigger.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003C9EC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_trigger.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003CA68.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_bridge_whaleramp.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003CE64.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_bridge_whaleramp.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003CEA0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_rampswitch.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003CF00.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_rampswitch.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003CF0C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_seamonster.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003CF18.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_seamonster.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003CF58.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_fogchanger.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003CF98.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_skycontrol.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003CFE0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_skycontrol.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003D02C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_ainode.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003D038.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_ainode.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003D058.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_treasuresucker.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003D2AC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_treasuresucker.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003D2B8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_flycoin.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003D3EC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_flycoin.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003D3FC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_bananacreator.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003D534.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_bananacreator.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003D5A0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_banana.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003DBA0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_banana.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003DC5C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_silvercoin_adv2.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003DD14.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_silvercoin.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003DE74.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_silvercoin.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003DF08.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_worldkey.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003DFCC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_worldkey.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003E140.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_weaponballoon.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003E5B0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_weaponballoon.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003E5BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_wballoonpop.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003E5C8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_wballoonpop.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003E630.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_weapon.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003E694.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_weapon.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003EC14.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/handle_rocket_projectile.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003EDD8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/rocket_prevent_overshoot.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/homing_rocket_prevent_overshoot.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003F0D0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003F0DC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003F0F8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/play_rocket_trailing_sound.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003F2E8.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003FC44.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003FD68.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_audio.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8003FEF4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_audioline.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8004001C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_audioreverb.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800400A4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_texscroll.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80040148.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_texscroll.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800403A8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_rgbalight.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800403D8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_buoy_pirateship.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80040448.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_buoy_pirateship.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8004049C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_log.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80040570.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_log.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80040800.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_weather.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80040820.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_weather.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8004092C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_lensflare.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8004094C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_lensflareswitch.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800409A4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_wavegenerator.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800409C8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_butterfly.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80040C54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_butterfly.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80041A90.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_midifade.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80041E80.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_midifadepoint.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042014.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_midichset.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8004203C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_bubbler.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042090.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_bubbler.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8004210C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_boost.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042150.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_unknown94.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042160.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_unknown94.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_8004216C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_rangetrigger.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042178.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_rangetrigger.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042210.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_frog.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_800422F0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_frog.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042998.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_pigrocketeer.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042A1C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_levelname.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042A90.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_levelname.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/func_80042CD0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_wizghosts.s")

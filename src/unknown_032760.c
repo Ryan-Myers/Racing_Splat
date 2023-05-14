@@ -18,7 +18,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_032760/func_80032344.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/unknown_032760/func_80032398.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/unknown_032760/lightUpdateLights.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/unknown_032760/func_80032424.s")
 

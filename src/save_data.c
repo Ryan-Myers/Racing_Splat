@@ -16,13 +16,13 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80072708.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80072718.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/rumble_controllers.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80072C54.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80072E28.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_8007306C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/populate_settings_from_save_data.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800732E8.s")
 
@@ -30,37 +30,37 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800738A4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80073C4C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_game_data_file_size.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80073C54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_time_data_file_size.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80073C5C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_file_extension.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80073E1C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/read_game_data_from_controller_pak.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80073F5C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/write_game_data_to_controller_pak.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80074018.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/read_time_data_from_controller_pak.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80074148.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/write_time_data_to_controller_pak.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80074204.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/read_save_file.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_8007431C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/erase_save_file.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800744DC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/write_save_data.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800745D0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/read_eeprom_data.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800746F0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/write_eeprom_data.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_8007480C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/calculate_eeprom_settings_checksum.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80074874.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/read_eeprom_settings.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_8007497C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/write_eeprom_settings.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80074A4C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/calculate_ghost_header_checksum.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80074AA8.s")
 
@@ -76,38 +76,38 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800756D4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800758DC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_si_device_status.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80075AEC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/start_reading_controller_data.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80075B18.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/init_controller_paks.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80075CE0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/check_for_rumble_pak.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80075D38.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/repair_controller_pak.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80075DC4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/reformat_controller_pak.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80075E60.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_controller_pak_file_list.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80076164.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/packDirectoryFree.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80076194.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_free_space.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800762C8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/delete_file.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80076388.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/copy_controller_pak_data.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800764E8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_file_number.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80076610.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/read_data_from_controller_pak.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_800766D4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/write_controller_pak_file.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80076924.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_file_size.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_8007698C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/font_codes_to_string.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80076A38.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/string_to_font_codes.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/save_data/func_80076AF4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_file_type.s")

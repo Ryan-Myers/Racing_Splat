@@ -1,19 +1,19 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/func_80065130.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/alSynNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/func_80065494.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/alAudioFrame.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/func_80065668.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/__allocParam.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/func_8006569C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/__freeParam.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/func_800656BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/__collectPVoices.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/func_8006571C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/__freePVoices.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/func_80065754.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/__timeToSamplesNoRound.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/func_800657C4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/__timeToSamples.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/func_800657EC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_synthesizer/__nextSampleTime.s")

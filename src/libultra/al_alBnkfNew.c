@@ -11,6 +11,6 @@ void func_800C75A8(void) {
 void func_800C769C(void) {
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/al_alBnkfNew/func_800C76A4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/al_alBnkfNew/alBnkfNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/al_alBnkfNew/func_800C77A8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/al_alBnkfNew/alSeqFileNew.s")
