@@ -154,6 +154,8 @@ osScGetCmdQ = 0x80079574;
 osCreateScheduler = 0x80079350;
 osScAddClient = 0x80079480;
 osScGetInterruptQ = 0x8007957C;
+gAlSndPlayer = 0x80119BD0;
+gSoundChannelVolume = 0x80119C28;
 
 gCurRSPTaskIsSet = 0x80126110; // type:s32 size:0x4
 gCurRDPTaskIsSet = 0x80126114; // type:s32 size:0x4
