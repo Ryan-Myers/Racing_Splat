@@ -15,13 +15,9 @@ options:
   src_path: src
   build_path: build
   asset_path: assets
-  #extensions_path: tools/splat_ext
-  #mips_abi_float_regs: o32
   section_order: [".text", ".data", ".rodata", ".bss"]
   auto_all_sections: [".data", ".rodata", ".bss"]
   migrate_rodata_to_functions: False
-  #libultra_symbols: True
-  #hardware_regs: True
 segments:
   - name: header
     type: header
@@ -324,7 +320,12 @@ segments:
       - [0xE5520, data, libultra/xlitob]
       - [0xE5550, rodata, audio]
       - [0xE55F0, rodata, audiomgr]
+      - [0xE57B0, rodata, audiosfx]
+      - [0xE57F0, rodata, unknown_005740]
+      - [0xE5900, rodata, unknown_008C40]
+      - [0xE5B60, rodata, objects]
       - [0xE69F0, rodata, unknown_0255E0]
+      - [0xE6B60, rodata, collision]
       - [0xE6B80, rodata, unknown_032760]
       - [0xE6BA0, rodata, object_functions]
       - [0xE6E80, rodata, racer]
@@ -350,7 +351,8 @@ segments:
       - [0xE8890, rodata, screen_asset]
       - [0xE88B0, rodata, menu]
       - [0xE9240, rodata, game_ui]
-      - [0xE93F0, rodata, particles]
+      - [0xE93F0, rodata, weather]
+      - [0xE9440, rodata, particles]
       - [0xE9800, rodata, printf]
       - [0xE9A70, rodata, thread0_epc]
       - [0xE9D60, rodata, waves]
