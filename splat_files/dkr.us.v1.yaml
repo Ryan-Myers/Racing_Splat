@@ -323,6 +323,7 @@ segments:
       - [0xE57B0, rodata, audiosfx]
       - [0xE57F0, rodata, unknown_005740]
       - [0xE5900, rodata, unknown_008C40]
+      - [0xE5B30, rodata, libultra/mips1_seqplayer]
       - [0xE5B60, rodata, objects]
       - [0xE69F0, rodata, unknown_0255E0]
       - [0xE6B60, rodata, collision]
