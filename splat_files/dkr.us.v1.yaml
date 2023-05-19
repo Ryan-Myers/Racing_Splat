@@ -78,6 +78,7 @@ segments:
       - [0x66AA0, c, camera]
       - [0x6AD00, c, controller]
       - [0x6B2B0, c, game]
+      - [0x6CF30, c, thread3_main]
       - [0x70110, hasm, math_util]
       - [0x71730, c, memory]
       - [0x72930, c, libultra/osMotor]
@@ -285,6 +286,7 @@ segments:
       - [0xDDC60, data, camera]
       - [0xDDF00, data, controller]
       - [0xDDF10, data, game]
+      - [0xDDF40, data, thread3_main]
       - [0xDE030, data, math_util]
       - [0xDF040, data, save_data]
       - [0xDF090, data, unknown_078050]
@@ -326,7 +328,7 @@ segments:
       - [0xE5B30, rodata, libultra/mips1_seqplayer]
       - [0xE5B60, rodata, objects]
       - [0xE69F0, rodata, unknown_0255E0]
-      - [0xE6B60, rodata, collision]
+      - [0xE6B60, rodata, collision] #Always rodata for hasm
       - [0xE6B80, rodata, unknown_032760]
       - [0xE6BA0, rodata, object_functions]
       - [0xE6E80, rodata, racer]
@@ -343,10 +345,10 @@ segments:
       - [0xE7AC0, rodata, libultra/mips1_al_synthesizer]
       - [0xE7AD0, rodata, main]
       - [0xE7B00, rodata, camera]
-      - [0xE7CB0, rodata, game]
+      - [0xE7CB0, rodata, thread3_main]
       - [0xE7E10, rodata, memory]
       - [0xE8190, rodata, save_data]
-      - [0xE8400, .rodata, libultra/mips1_sched]
+      - [0xE8400, .rodata, libultra/mips1_sched] #Fully migrated
       - [0xE8590, rodata, video]
       - [0xE8730, rodata, textures_sprites]
       - [0xE8890, rodata, screen_asset]
@@ -360,21 +362,21 @@ segments:
       - [0xE9ED0, rodata, fade_transition]
       - [0xE9F30, rodata, game_text]
       - [0xE9F60, rodata, font]
-      - [0xE9FC0, rodata, gzip]
+      - [0xE9FC0, rodata, gzip] #Always rodata for hasm
       - [0xEA0B0, rodata, libultra/al_cseq]
       - [0xEA0C0, rodata, libultra/al_cents2ratio]
-      - [0xEA0D0, rodata, libultra/osSetIntMask]
+      - [0xEA0D0, rodata, libultra/osSetIntMask] #Always rodata for hasm
       - [0xEA150, rodata, libultra/llcvt]
       - [0xEA160, rodata, libultra/al_env]
       - [0xEA200, rodata, libultra/al_resample]
       - [0xEA240, rodata, libultra/guPerspectiveF]
       - [0xEA250, rodata, libultra/devmgr]
-      - [0xEA270, rodata, libultra/exception]
+      - [0xEA270, rodata, libultra/exception] #Always rodata for hasm
       - [0xEA2C0, rodata, libultra/xprintf]
-      - [0xEA3C0, rodata, libultra/cosf]
-      - [0xEA410, rodata, libultra/sinf]
+      - [0xEA3C0, rodata, libultra/cosf] #Always rodata
+      - [0xEA410, rodata, libultra/sinf] #Always rodata
       - [0xEA460, rodata, libultra/xldtob]
-      - [0xEA4C0, rodata, libultra/libm_vals]
+      - [0xEA4C0, rodata, libultra/libm_vals] #Always rodata for hasm
       - [0xEA4D0, bin, data_audio]
       - [0xEA7A0, bin, data_f3ddkr_dram]
       - [0xEAFA0, bin, data_f3ddkr_fifo]
@@ -401,6 +403,7 @@ segments:
       - { start: 0xECB60, type: bss, vram: 0x80120AC0, name: camera }
       - { start: 0xECB60, type: bss, vram: 0x801210E0, name: controller }
       - { start: 0xECB60, type: bss, vram: 0x80121160, name: game }
+      - { start: 0xECB60, type: bss, vram: 0x801211F0, name: thread3_main }
       - { start: 0xECB60, type: bss, vram: 0x80123580, name: memory }
       - { start: 0xECB60, type: bss, vram: 0x80123DD0, name: libultra/osMotor }
       - { start: 0xECB60, type: bss, vram: 0x80124010, name: save_data }
