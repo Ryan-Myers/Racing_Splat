@@ -1,5 +1,10 @@
 #include "common.h"
 
+// //glabel D_800E302C
+// const char D_800E8F00[] = "setup";
+// const char D_800E8F08[] = "control";
+// const char D_800E8F10[] = "print";
+
 #pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/thread0_create.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread0_epc/thread0_Main.s")

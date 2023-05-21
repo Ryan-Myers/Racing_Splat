@@ -1,5 +1,138 @@
 #include "common.h"
 
+// //gCreditsArray
+// const char D_800E7D08[] = "CREDITS";
+// const char D_800E7D10[] = "Software Director";
+// const char D_800E7D24[] = "R.Harrison";
+// const char D_800E7D30[] = "Software Engineers";
+// const char D_800E7D44[] = "P.Mountain";
+// const char D_800E7D50[] = "J.Pegg";
+// const char D_800E7D58[] = "R.Gale";
+// const char D_800E7D60[] = "Art Director";
+// const char D_800E7D70[] = "K.Bayliss";
+// const char D_800E7D7C[] = "3D Artists";
+// const char D_800E7D88[] = "L.Musgrave";
+// const char D_800E7D94[] = "K.Rabbette";
+// const char D_800E7DA0[] = "D.Smith";
+// const char D_800E7DA8[] = "J.Christensen";
+// const char D_800E7DB8[] = "B.Smyth";
+// const char D_800E7DC0[] = "P.Cunningham";
+// const char D_800E7DD0[] = "Music";
+// const char D_800E7DD8[] = "D.Wise";
+// const char D_800E7DE0[] = "Sound Effects";
+// const char D_800E7DF0[] = "G.Norgate";
+// const char D_800E7DFC[] = "ALSO";
+// const char D_800E7E04[] = "Additional Design";
+// const char D_800E7E18[] = "M.Wakeley";
+// const char D_800E7E24[] = "Documentation";
+// const char D_800E7E34[] = "L.Loveday";
+// const char D_800E7E40[] = "Liason";
+// const char D_800E7E48[] = "E.Hochberg";
+// const char D_800E7E54[] = "Character Voices";
+// const char D_800E7E68[] = "K.Bayliss";
+// const char D_800E7E74[] = "J.Christensen";
+// const char D_800E7E84[] = "E.Fischer";
+// const char D_800E7E90[] = "K.Rabbette";
+// const char D_800E7E9C[] = "L.Ray";
+// const char D_800E7EA4[] = "L.Schuneman";
+// const char D_800E7EB0[] = "C.Seavor";
+// const char D_800E7EBC[] = "D.Smith";
+// const char D_800E7EC4[] = "J.Stamper";
+// const char D_800E7ED0[] = "K.Stamper";
+// const char D_800E7EDC[] = "C.Sutherland";
+// const char D_800E7EEC[] = "Rare Quality Assurance";
+// const char D_800E7F04[] = "H.Ward";
+// const char D_800E7F0C[] = "G.Richards";
+// const char D_800E7F18[] = "S.Farmer";
+// const char D_800E7F24[] = "J.Williams";
+// const char D_800E7F30[] = "D.Wong";
+// const char D_800E7F38[] = "G.Jones";
+// const char D_800E7F40[] = "M.Penny";
+// const char D_800E7F48[] = "S.Brand";
+// const char D_800E7F50[] = "S.Malpass";
+// const char D_800E7F5C[] = "A.Wilson";
+// const char D_800E7F68[] = "NOA Thanks To";
+// const char D_800E7F78[] = "M.Fukuda";
+// const char D_800E7F84[] = "K.Lobb";
+// const char D_800E7F8C[] = "M.Kelbaugh";
+// const char D_800E7F98[] = "A.Williams";
+// const char D_800E7FA4[] = "R.Johnson";
+// const char D_800E7FB0[] = "M.Forrest";
+// const char D_800E7FBC[] = "P.Sandhop";
+// const char D_800E7FC8[] = "H.Sterchi";
+// const char D_800E7FD4[] = "T.Hertzog";
+// const char D_800E7FE0[] = "D.Bridgham";
+// const char D_800E7FEC[] = "G.Richardson";
+// const char D_800E7FFC[] = "B.Smith";
+// const char D_800E8004[] = "NOA Thanks To";
+// const char D_800E8014[] = "NOA Tree House";
+// const char D_800E8024[] = "NOA Tree Branch";
+// const char D_800E8034[] = "NCL Thank You's";
+// const char D_800E8044[] = "K.Terasaki";
+// const char D_800E8050[] = "M.Goto";
+// const char D_800E8058[] = "H.Yamada";
+// const char D_800E8064[] = "Mario Club";
+// const char D_800E8070[] = "NOE Thank You's";
+// const char D_800E8080[] = "J.Kraft";
+// const char D_800E8088[] = "J.Bardakoff";
+// const char D_800E8094[] = "Special Thanks To";
+// const char D_800E80A8[] = "J.Hochberg";
+// const char D_800E80B4[] = "H.Lincoln";
+// const char D_800E80C0[] = "M.Arakawa";
+// const char D_800E80CC[] = "Game Director";
+// const char D_800E80DC[] = "L.Schuneman";
+// const char D_800E80E8[] = "Producer";
+// const char D_800E80F4[] = "C.Stamper";
+// const char D_800E8100[] = "Executive Producer";
+// const char D_800E8114[] = "T.Stamper";
+
+// //glabel gCreditsBestTimesArray
+// const char D_800E8120[] = "0:53:43";
+// const char D_800E8128[] = "1:21:55";
+// const char D_800E8130[] = "0:54:13";
+// const char D_800E8138[] = "1:22:48";
+// const char D_800E8140[] = "1:04:11";
+// const char D_800E8148[] = "1:13:51";
+// const char D_800E8150[] = "1:25:01";
+// const char D_800E8158[] = "0:55:05";
+// const char D_800E8160[] = "1:37:63";
+// const char D_800E8168[] = "1:56:60";
+// const char D_800E8170[] = "0:57:81";
+// const char D_800E8178[] = "1:28:01";
+// const char D_800E8180[] = "1:51:15";
+// const char D_800E8188[] = "1:31:80";
+// const char D_800E8190[] = "2:03:16";
+// const char D_800E8198[] = "0:58:25";
+// const char D_800E81A0[] = "2:00:38";
+// const char D_800E81A8[] = "2:05:68";
+// const char D_800E81B0[] = "1:52:96";
+// const char D_800E81B8[] = "1:55:00";
+
+// //glabel gCreditsLastMessageArray
+// const char D_800E81C0[] = "THE END?";
+// const char D_800E81CC[] = "TO BE CONTINUED ...";
+// const char D_800E81E0[] = "THE END";
+// const char D_800E81E8[] = "NO CHEAT";
+// const char D_800E81F4[] = "THIS TIME.";
+
+// //D_800DF83C
+// const char D_800E7CB0[] = "TIMBER";
+// const char D_800E7CB8[] = "BUMPER";
+// const char D_800E7CC0[] = "CONKER";
+// const char D_800E7CC8[] = "TIPTUP";
+// const char D_800E7CD0[] = "DRUMSTICK";
+// const char D_800E7CDC[] = "PIPSY";
+// const char D_800E7CE4[] = "BANJO";
+// const char D_800E7CEC[] = "KRUNCH";
+// const char D_800E7CF4[] = "WIZPIG";
+// const char D_800E7CFC[] = "DIDDY";
+
+// //glabel gQMarkPtr
+// const char D_800E7D04[] = "?";
+
+// //glabel D_800E1E10
+// const char D_800E8200[] = " (ADV.";
+
 #pragma GLOBAL_ASM("asm/nonmatchings/menu/load_menu_text.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/menu/func_8007FF88.s")

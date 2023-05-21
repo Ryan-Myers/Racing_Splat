@@ -375,7 +375,7 @@ segments:
       - [0xEA2C0, rodata, libultra/xprintf]
       - [0xEA3C0, rodata, libultra/cosf] #Always rodata
       - [0xEA410, rodata, libultra/sinf] #Always rodata
-      - [0xEA460, rodata, libultra/xldtob]
+      - [0xEA460, rodata, libultra/pows] #Always rodata
       - [0xEA4C0, rodata, libultra/libm_vals] #Always rodata for hasm
       - [0xEA4D0, bin, data_audio]
       - [0xEA7A0, bin, data_f3ddkr_dram]

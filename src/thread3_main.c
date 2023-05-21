@@ -1,5 +1,12 @@
 #include "common.h"
 
+// const char sDebugVersionInfoString[] = "1.1605";
+// const char sDebugBuildDateString[] = "02/10/97 16:03";
+// const char sDebugUsernameString[] = "pmountain";
+// const char sDebugCarString[] = "CAR";
+// const char sDebugHovercraftString[] = "HOV";
+// const char sDebugPlaneString[] = "PLN";
+
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/thread3_main.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/init_game.s")
