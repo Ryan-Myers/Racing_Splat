@@ -101,6 +101,7 @@ func_800049D8 = 0x800049D8;
 func_800049F8 = 0x800049F8;
 get_sound_channel_volume = 0x80004A3C;
 set_sound_channel_volume = 0x80004A60;
+
 func_80004B40 = 0x80004B40;
 func_800050D0 = 0x800050D0;
 func_80005254 = 0x80005254;
@@ -113,6 +114,7 @@ func_80007F78 = 0x80007F78;
 func_80007F88 = 0x80007F88;
 func_80007F94 = 0x80007F94;
 func_80007FA4 = 0x80007FA4;
+
 func_80008040 = 0x80008040;
 func_80008140 = 0x80008140;
 func_80008168 = 0x80008168;
@@ -134,6 +136,7 @@ func_80009D6C = 0x80009D6C;
 func_8000A184 = 0x8000A184;
 func_8000A2E8 = 0x8000A2E8;
 func_8000A414 = 0x8000A414;
+
 dummy_8000A710 = 0x8000A710;
 __mapVoice = 0x8000A71C;
 __unmapVoice = 0x8000A7C4;
@@ -150,6 +153,7 @@ __resetPerfChanState = 0x8000ADF4;
 __initChanState = 0x8000AE90;
 __seqpStopOsc = 0x8000AEFC;
 set_voice_limit = 0x8000B010;
+
 func_8000B020 = 0x8000B020;
 func_8000B290 = 0x8000B290;
 func_8000B38C = 0x8000B38C;
@@ -368,8 +372,10 @@ run_object_loop_func = 0x80023F48;
 func_8002458C = 0x8002458C;
 func_80024594 = 0x80024594;
 func_800245B4 = 0x800245B4;
+
 func_800245F0 = 0x800245F0;
 calc_dynamic_lighting_for_object_2 = 0x80024744;
+
 set_scene_viewport_num = 0x800249E0;
 func_800249F0 = 0x800249F0;
 render_scene = 0x80024D54;
@@ -1418,6 +1424,7 @@ is_in_adventure_two = 0x8009EC70;
 is_in_two_player_adventure = 0x8009EC80;
 is_tt_unlocked = 0x8009ECB8;
 is_drumstick_unlocked = 0x8009ECD0;
+
 func_8009ECF0 = 0x8009ECF0;
 func_8009F034 = 0x8009F034;
 func_800A003C = 0x800A003C;

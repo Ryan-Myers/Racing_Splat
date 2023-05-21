@@ -15,13 +15,8 @@ options:
   src_path: src_pal_v2
   build_path: build_pal_v2
   asset_path: assets_pal_v2
-  #extensions_path: tools/splat_ext
-  #mips_abi_float_regs: o32
   section_order: [".text", ".data", ".rodata", ".bss"]
   auto_all_sections: [".data", ".rodata", ".bss"]
-  symbol_name_format: $VRAM_$ROM
-  #libultra_symbols: True
-  #hardware_regs: True
 segments:
   - name: header
     type: header
@@ -45,11 +40,13 @@ segments:
     follows_vram: entry
     bss_size: 0x414D0
     subsegments:
-      - [0x1050, asm]
-      - [0x3260, asm]
-      - [0x5740, asm]
-      - [0xB310, asm]
-      - [0xBC20, asm]
+      - [0x1050, c, audio]
+      - [0x3260, c, audiomgr]
+      - [0x3D60, c, audiosfx]
+      - [0x5740, c, unknown_005740]
+      - [0x8C40, c, unknown_008C40]
+      - [0xB310, c, libultra/mips1_seqplayer]
+      - [0xBC20, c, objects]
       - [0x25230, asm]
       - [0x25620, asm]
       - [0x31D70, asm]
