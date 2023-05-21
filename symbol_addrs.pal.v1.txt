@@ -1255,6 +1255,9 @@ menu_options_loop = 0x8008435C;
 
 get_random_number_from_range = 0x8006F94C;
 gCurrentRNGSeed = 0x800DD4C4;
+sDebugVersionInfoString = 0x800E71A0; // type:asciz
+sDebugBuildDateString = 0x800E71A8; // type:asciz
+sDebugUsernameString = 0x800E71B8; // type:asciz
 
 SP_MEM_ADDR_REG = 0xA4040000;
 SP_DRAM_ADDR_REG = 0xA4040004;

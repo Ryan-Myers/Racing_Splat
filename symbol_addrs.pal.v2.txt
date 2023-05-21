@@ -276,6 +276,9 @@ func_800159C8 = 0x800159C8;
 
 get_random_number_from_range = 0x8006FB8C;
 gCurrentRNGSeed = 0x800DDA34;
+sDebugVersionInfoString = 0x800E7730; // type:asciz
+sDebugBuildDateString = 0x800E7738; // type:asciz
+sDebugUsernameString = 0x800E7748; // type:asciz
 
 SP_MEM_ADDR_REG = 0xA4040000;
 SP_DRAM_ADDR_REG = 0xA4040004;
