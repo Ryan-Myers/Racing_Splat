@@ -101,13 +101,3 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800B4668.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800B46BC.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800B4710.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800B4744.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800B4794.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/particles/func_800B4848.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/particles/memset.s")

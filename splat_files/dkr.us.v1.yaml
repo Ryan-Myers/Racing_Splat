@@ -95,6 +95,7 @@ segments:
       - [0x9F8F0, c, game_ui]
       - [0xABDF0, c, weather]
       - [0xAEE70, c, particles]
+      - [0xB5310, c, unused_string]
       - [0xB5540, c, printf]
       - [0xB7B30, c, audio_assert]
       - [0xB7B50, c, thread0_epc]
