@@ -52,7 +52,7 @@ basebin = open(baseimg, "rb").read()
 
 if len(mybin) != len(basebin):
     print("Modified ROM has different size...")
-    exit(1)
+    # exit(1)
 
 if mybin == basebin:
     print("No differences!")
