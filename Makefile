@@ -174,7 +174,7 @@ no_verify: $(TARGET).z64
 extract: tools
 	$(SPLAT) splat_files/$(BASENAME).$(REGION).$(VERSION).yaml
 
-extractall: splat tools
+extractall: tools
 	$(SPLAT) splat_files/$(BASENAME).us.v1.yaml
 	$(SPLAT) splat_files/$(BASENAME).pal.v1.yaml
 	$(SPLAT) splat_files/$(BASENAME).jpn.v1.yaml
@@ -287,13 +287,6 @@ $(TARGET).z64: $(TARGET).bin
 	@$(TOOLS_DIR)/CopyRom.py $< $@ #Mask
 	@printf "[$(GREEN) CRC $(NO_COL)]  $<\n"
 	@$(CRC)
-
-# fake targets for better error handling
-$(SPLAT):
-	$(info Repo cloned without submodules, attempting to fetch them now...)
-	@which git >/dev/null || echo "ERROR: git binary not found on PATH"
-	@which git >/dev/null
-	git submodule update --init --recursive
 
 baserom.$(REGION).$(VERSION).z64:
 	$(error Place the Diddy Kong Racing $(REGION) $(VERSION) ROM, named '$@', in the baseroms folder of this repo and try again.)
