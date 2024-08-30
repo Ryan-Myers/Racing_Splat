@@ -378,11 +378,11 @@ segments:
       - [0xEA410, rodata, libultra/sinf] #Always rodata
       - [0xEA460, rodata, libultra/pows] #Always rodata
       - [0xEA4C0, rodata, libultra/libm_vals] #Always rodata for hasm
-      # - [0xEA4D0, bin, data_audio]
-      # - [0xEA7A0, bin, data_f3ddkr_dram]
-      # - [0xEAFA0, bin, data_f3ddkr_fifo]
-      # - [0xEB7A0, bin, data_f3ddkr_xbus]
-      # - [0xEBFA0, bin, data_unknown_2]
+      - [0xEA4D0, rodata, data_audio]
+      - [0xEA7A0, rodata, data_f3ddkr_dram]
+      - [0xEAFA0, rodata, data_f3ddkr_fifo]
+      - [0xEB7A0, rodata, data_f3ddkr_xbus]
+      - [0xEBFA0, rodata, data_unknown_2]
       - [0xECB60, bin, assets]
       - { start: 0xECB60, type: bss, vram: 0x800EBF60, name: audio }
       - { start: 0xECB60, type: bss, vram: 0x80115F90, name: audiomgr }
