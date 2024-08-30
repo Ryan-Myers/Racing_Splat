@@ -4366,7 +4366,7 @@ __osCurrentTime = 0x8012D220; // type:u64
 __osBaseCounter = 0x8012D228;
 __osViIntrCount = 0x8012D22C;
 __osTimerCounter = 0x8012D230;
-D_8012D234 = 0x8012D238;
+D_8012D238 = 0x8012D238;
 gInterruptedThread = 0x8012D240; // type:OSThread size:0x1B0
 gMainMemoryPool = 0x8012D3F0; // type:MemoryPoolSlot size:0x14
 

@@ -138,9 +138,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/audio/func_80002570.s")
 
-void func_8006492C(u8 arg0);
-void func_80002608(u8 arg0) {
-    func_8006492C(arg0);
-}
+#pragma GLOBAL_ASM("asm/nonmatchings/audio/func_80002608.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/audio/func_80002630.s")

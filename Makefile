@@ -107,12 +107,10 @@ DEFINES += -DVERSION_$(REGION)_$(VERSION)
 
 VERIFY = verify
 
-#Soon
-#ifeq ($(NON_MATCHING),1)
-#DEFINES += -DNON_MATCHING
-#VERIFY = no_verify
-#PROGRESS_NONMATCHING = --non-matching
-#endif
+ifeq ($(NON_MATCHING),1)
+DEFINES += -DNON_MATCHING
+VERIFY = no_verify
+endif
 
 CFLAGS := -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -fullwarn -nostdinc -G 0
 CFLAGS += $(DEFINES)
@@ -122,11 +120,6 @@ CFLAGS += $(INCLUDE_CFLAGS)
 
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wunused-function -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
 CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -funsigned-char -std=gnu90 -m32 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
-
-GCC_FLAGS := $(INCLUDE_CFLAGS) $(DEFINES)
-GCC_FLAGS += -G 0 -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float
-GCC_FLAGS += -mdivide-breaks -fno-stack-protector -fno-common -fno-zero-initialized-in-bss -fno-PIC -mno-abicalls -fno-strict-aliasing -fno-inline-functions -ffreestanding -fwrapv
-GCC_FLAGS += -Wall -Wextra -Wno-missing-braces
 
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION)
 LD_SCRIPT  = $(BASENAME).$(REGION).$(VERSION).ld
@@ -162,8 +155,6 @@ ldflags:
 
 dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
-
-check: .baserom.$(REGION).$(VERSION).ok
 
 verify: $(TARGET).z64
 	@sha1sum -c $(BASENAME).$(REGION).$(VERSION).sha1
@@ -240,10 +231,6 @@ expected: verify
 
 ### Recipes
 
-.baserom.$(REGION).$(VERSION).ok: baserom.$(REGION).$(VERSION).z64
-	@echo "$$(cat $(BASENAME).$(REGION).$(VERSION).sha1)  $<" | sha1sum --check
-	@touch $@
-
 $(TARGET).elf: dirs $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES)
 	@$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
 	@printf "[$(PINK) Linker $(NO_COL)]  $<\n"
@@ -287,9 +274,6 @@ $(TARGET).z64: $(TARGET).bin
 	@$(TOOLS_DIR)/CopyRom.py $< $@ #Mask
 	@printf "[$(GREEN) CRC $(NO_COL)]  $<\n"
 	@$(CRC)
-
-baserom.$(REGION).$(VERSION).z64:
-	$(error Place the Diddy Kong Racing $(REGION) $(VERSION) ROM, named '$@', in the baseroms folder of this repo and try again.)
 
 ### Settings
 .SECONDARY:

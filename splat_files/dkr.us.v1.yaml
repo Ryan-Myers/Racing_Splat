@@ -151,7 +151,7 @@ segments:
       - [0xCA630, hasm, libultra/osSetIntMask]
       - [0xCA6D0, hasm, libultra/sqrtf]
       - [0xCA6E0, c, libultra/al_alSynSetPriority]
-      - [0xCA6F0, bin] #0x40 bytes of zeroes
+      - [0xCA6F0, hasm, libultra/nops] #0x40 bytes of zeroes
       - [0xCA730, c, libultra/llcvt]
       - [0xCA940, c, libultra/rmonPrintf]
       - [0xCA9A0, hasm, libultra/_bcopy]
@@ -259,12 +259,12 @@ segments:
       - [0xD8060, hasm, libultra/__osSetCompare]
       - [0xD8070, hasm, libultra/lldiv]
       - [0xD8170, hasm, libultra/ldiv]
-      - [0xD8200, bin, ucode_audio]
-      - [0xD90C0, bin, ucode_boot] # + 0xEC0
-      - [0xD9190, bin, ucode_f3ddkr_dram] # + 0xD0
-      - [0xDA390, bin, ucode_f3ddkr_fifo] # + 0x1200
-      - [0xDB570, bin, ucode_f3ddkr_xbus] # + 0x11E0
-      - [0xDC770, bin, ucode_unknown_2] # + 0x1200
+      - [0xD8200, textbin, ucode_audio]
+      - [0xD90C0, textbin, ucode_boot] # + 0xEC0
+      - [0xD9190, textbin, ucode_f3ddkr_dram] # + 0xD0
+      - [0xDA390, textbin, ucode_f3ddkr_fifo] # + 0x1200
+      - [0xDB570, textbin, ucode_f3ddkr_xbus] # + 0x11E0
+      - [0xDC770, textbin, ucode_unknown_2] # + 0x1200
       - [0xDD230, data, audio] # + 0xAC0
       - [0xDD280, data, audiomgr]
       - [0xDD2B0, data, audiosfx]
@@ -378,11 +378,11 @@ segments:
       - [0xEA410, rodata, libultra/sinf] #Always rodata
       - [0xEA460, rodata, libultra/pows] #Always rodata
       - [0xEA4C0, rodata, libultra/libm_vals] #Always rodata for hasm
-      - [0xEA4D0, bin, data_audio]
-      - [0xEA7A0, bin, data_f3ddkr_dram]
-      - [0xEAFA0, bin, data_f3ddkr_fifo]
-      - [0xEB7A0, bin, data_f3ddkr_xbus]
-      - [0xEBFA0, bin, data_unknown_2]
+      # - [0xEA4D0, bin, data_audio]
+      # - [0xEA7A0, bin, data_f3ddkr_dram]
+      # - [0xEAFA0, bin, data_f3ddkr_fifo]
+      # - [0xEB7A0, bin, data_f3ddkr_xbus]
+      # - [0xEBFA0, bin, data_unknown_2]
       - [0xECB60, bin, assets]
       - { start: 0xECB60, type: bss, vram: 0x800EBF60, name: audio }
       - { start: 0xECB60, type: bss, vram: 0x80115F90, name: audiomgr }

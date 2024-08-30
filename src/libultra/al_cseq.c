@@ -8,9 +8,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/libultra/al_cseq/func_800C7CA4.s")
 
-void func_800C7CFC(void) {
-}
-
 #pragma GLOBAL_ASM("asm/nonmatchings/libultra/al_cseq/alCSeqNextEvent.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/libultra/al_cseq/alCSeqNew.s")
