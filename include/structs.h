@@ -63,6 +63,23 @@ typedef struct Vec4f {
   };
 } Vec4f;
 
+/* Size: 0x24 / 36 bytes */
+typedef struct SoundMask {
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ u16 soundId;
+    /* 0x0E */ u8 volume;
+    /* 0x0F */ u8 pitch;
+    /* 0x10 */ u8 unk10;
+    /* 0x11 */ u8 unk11;
+    /* 0x12 */ u8 unk12;
+    /* 0x14 */ s32 distance;
+    /* 0x18 */ s32 unk18;
+    /* 0x1C */ struct SoundMask **soundMask;
+    /* 0x20 */ u8 unk20;
+    /* 0x21 */ u8 unk21;
+    /* 0x22 */ u8 unk22;
+} SoundMask;
+
 /* Size: 0x20 bytes */
 typedef struct TextureHeader {
   /* 0x00 */ u8 width;
@@ -134,7 +151,7 @@ typedef struct MenuElement {
   /* 0x0C */ u8 filterRed;
   /* 0x0D */ u8 filterGreen;
   /* 0x0E */ u8 filterBlue;
-  /* 0x0F */ u8 filterAlpha; // 0 = no filter color, 0xFF = full color.
+  /* 0x0F */ u8 filterBlendFactor; // 0 = no filter color, 0xFF = full color.
   /* 0x10 */ u8 opacity;
   // Element Properties
   /* 0x11 */ u8 textFont;
@@ -145,15 +162,27 @@ typedef struct MenuElement {
   /* 0x14 */ void *element;   // Generic pointer
   /* 0x14 */ char *asciiText; // Pointer to ascii text to be displayed on the screen.
   /* 0x14 */ TextureHeader *texture;    // Pointer to texture to be displayed on the screen.
+  /* 0x14 */ DrawTexture *drawTexture;    // Pointer to texture to be displayed on the screen.
   /* 0x14 */ s32 *number;     // Pointer to a number to be displayed on the screen.
   /* 0x14 */ u16 *numberU16;  // Pointer to a number to be displayed on the screen.
-  /* 0x14 */ s32 value;       // Some value for elementType == 5
-  } unk14_a;
-  // Element Background Color/Transparency
-  /* 0x18 */ s16 backgroundRed;
-  /* 0x1A */ s16 backgroundGreen;
-  /* 0x1C */ s16 backgroundBlue;
-  /* 0x1E */ s16 backgroundAlpha; // 0x0000 = No background, 0x00FF = full background color.
+  /* 0x14 */ s32 assetID;       // Some value for elementType == 5
+  } t;
+  union {
+    struct {
+        // Element Background Color/Transparency
+        /* 0x18 */ s16 backgroundRed;
+        /* 0x1A */ s16 backgroundGreen;
+        /* 0x1C */ s16 backgroundBlue;
+        /* 0x1E */ s16 backgroundAlpha; // 0x0000 = No background, 0x00FF = full background color.
+    } background;
+    struct {        
+        // Texture Size
+        /* 0x18 */ s16 width;
+        /* 0x1A */ s16 height;
+        /* 0x1C */ s16 borderWidth;
+        /* 0x1E */ s16 borderHeight;
+    } texture;
+  } details;
 } MenuElement;
 
 #define TEX_FORMAT_RGBA32 0
@@ -180,11 +209,11 @@ typedef struct Racer {
 
 /* Unknown Size */
 typedef struct Settings4C {
-    u8 unk0;
-    u8 unk1;
-    s8 unk2;
+    u8 courseID; //courseId?
+    u8 unk1; // This value + 8 is cutsceneId index? gGameCurrentCutscene = gLevelSettings[gLevelSettings[1] + 8];
+    s8 mapID; //mapId?
     u8 pad3[0xC];
-    u8 unkF;
+    u8 entranceID; //entranceId?
 } Settings4C;
 
 #define TAJ_FLAGS_CAR_CHAL_UNLOCKED    0x01
@@ -305,18 +334,35 @@ typedef struct Settings {
   /* 0x004C */ Settings4C *unk4C;
   /* 0x0050 */ u32 filename;
   /* 0x0054 */ Racer racers[8];
-  /* 0x0114 */ u8 timeTrialRacer;
-  /* 0x0115 */ char unk115[2];
-  /* 0x0117 */ u8 display_times;
+  /* 0x0114 */ s8 timeTrialRacer;
+  /* 0x0115 */ s8 unk115[2];
+  /* 0x0117 */ s8 display_times;
 } Settings;
+
+/* Size: 8 bytes */
+typedef struct LevelHeader_70_18 {
+    s32 unk0; //0x0000001E
+    u8 red; //0xFF
+    u8 green; //0x70
+    u8 blue; //0x00
+    u8 alpha; //0xFF
+} LevelHeader_70_18;
 
 /* Unknown size */
 typedef struct LevelHeader_70 {
-             u8 pad0[0x10];
-  /* 0x10 */ u8 red;
-  /* 0x11 */ u8 green;
-  /* 0x12 */ u8 blue;
-  /* 0x13 */ u8 alpha;
+  /* 0x00 */ s32 unk0;  //0x00000004
+  /* 0x04 */ s32 unk4;  //0x00000000
+  /* 0x08 */ s32 unk8;  //0x00000000
+  /* 0x0C */ s32 unkC;  //0x00000000
+  /* 0x10 */ u8 red;    //0x72
+  /* 0x11 */ u8 green;  //0x75
+  /* 0x12 */ u8 blue;   //0x73
+  /* 0x13 */ u8 alpha;  //0x20
+  /* 0x14 */ u8 red2;   //0xFF
+  /* 0x15 */ u8 green2; //0x00
+  /* 0x16 */ u8 blue2;  //0x00
+  /* 0x17 */ u8 alpha2; //0xFF
+  /* 0x18 */ LevelHeader_70_18 unk18[1]; // Actual length depends on unk0
 } LevelHeader_70;
 
 // Used to update the pulsating lights in Spaceport Alpha
@@ -344,7 +390,7 @@ typedef struct LevelHeader {
   /* 0x08 */ f32 course_height;
   /* 0x0C */ u8 unkC[10];
   /* 0x16 */ u8 unk16[10];
-  /* 0x20 */ s32 *unk20;
+  /* 0x20 */ s8 *AILevelTable;
 
   /* 0x24 */ u8 pad24[6];
   /* 0x2A */ u8 unk2A;
@@ -375,14 +421,38 @@ typedef struct LevelHeader {
   /* 0x52 */ u8 music;
   /* 0x53 */ u8 unk53;
   /* 0x54 */ u16 instruments;
+  /* 0x56 */ u8 unk56;
+  /* 0x57 */ u8 unk57;
+  /* 0x58 */ u8 unk58;
+  /* 0x59 */ u8 unk59;
+  /* 0x5A */ s16 unk5A;
+  /* 0x5C */ u8 unk5C;
+  /* 0x5D */ u8 unk5D;
+  /* 0x5E */ s16 unk5E;
+  /* 0x60 */ s16 unk60;
+  /* 0x62 */ s16 wavePower;
+  /* 0x64 */ s16 unk64; // Some form of secondary power
+  /* 0x66 */ s16 unk66;
+  /* 0x68 */ s16 unk68;
+  /* 0x6A */ u8 unk6A;
+  /* 0x6B */ u8 unk6B;
+  /* 0x6C */ s8 unk6C;
+  /* 0x6D */ s8 unk6D;
+  /* 0x6E */ s16 unk6E;
 
-  /* 0x56 */ u8 pad56[0x1A];
-
+    //func_800B8134 Seems to use this struct, and it differs on unk70 only.
+    union {
   /* 0x70 */ LevelHeader_70 *unk70;
-  /* 0x74 */ s8 *unk74[7];
+        struct {
+  /* 0x70 */ u8 unk70_u8;
+  /* 0x71 */ u8 unk71;
+        };
+    };
+
+  /* 0x74 */ LevelHeader_70 *unk74[7];
 
   // Weather related?
-  /* 0x90 */ s16 weatherEnable;
+  /* 0x90 */ s16 weatherEnable; // This affects snow density, but for rain, it simply needs to be nonzero.
   /* 0x92 */ s16 weatherType;
   /* 0x94 */ u8 weatherIntensity;
   /* 0x95 */ u8 weatherOpacity;
@@ -409,17 +479,18 @@ typedef struct LevelHeader {
   /* 0xB5 */ u8 unkB5;
   /* 0xB6 */ u8 unkB6;
   /* 0xB7 */ u8 unkB7;
-  /* 0xB8 */ s8 unkB8;
+  /* 0xB8 */ s8 bossRaceID;
   /* 0xB9 */ u8 unkB9;
   /* 0xBA */ s16 unkBA;
   /* 0xBC */ u8 unkBC;
   /* 0xBD */ s8 unkBD;
-  /* 0xBE */ u8 unkBE;
-  /* 0xBF */ u8 unkBF;
-  /* 0xC0 */ u8 unkC0;
-  /* 0xC1 */ u8 unkC1;
-  /* 0xC2 */ u8 unkC2;
-  /* 0xC3 */ u8 unkC3;
+  // Multiplayer gradient background
+  /* 0xBE */ u8 BGColourBottomR;
+  /* 0xBF */ u8 BGColourBottomG;
+  /* 0xC0 */ u8 BGColourBottomB;
+  /* 0xC1 */ u8 BGColourTopR;
+  /* 0xC2 */ u8 BGColourTopG;
+  /* 0xC3 */ u8 BGColourTopB;
 } LevelHeader;
 
 /* Size: 0x50 bytes */
@@ -476,7 +547,10 @@ typedef struct TexCoords {
     };
 } TexCoords;
 
-/* Size: 16 bytes */
+#define BACKFACE_CULL 0x00
+#define BACKFACE_DRAW 0x40
+
+/* Size: 0x10 bytes */
 typedef struct Triangle {
     union {
         struct {
@@ -517,7 +591,10 @@ typedef struct TriangleBatchInfo {
 
 /* Size: 8 bytes */
 typedef struct ObjectModel_44 {
+    union {
 /* 0x00 */ s32 *anim;
+/* 0x00 */ u8 *animData;
+    };
 /* 0x04 */ s32 unk4; // Number of frames in animation?
 } ObjectModel_44;
 
@@ -530,11 +607,8 @@ typedef struct ObjectModel {
     /* 0x14 */ s16 *unk14;
     /* 0x18 */ s16 unk18;
     /* 0x1A */ s16 unk1A;
-    /* 0x1C */ s8 unk1C;
-    /* 0x1D */ s8 unk1D;
-    /* 0x1E */ s8 unk1E;
-    /* 0x1F */ s8 unk1F;
-    /* 0x20 */ u8 pad20[2];
+    /* 0x1C */ s16 *unk1C;
+    /* 0x20 */ s16 unk20;
     /* 0x22 */ s16 numberOfTextures;
     /* 0x24 */ s16 numberOfVertices;
     /* 0x26 */ s16 numberOfTriangles;
@@ -542,14 +616,16 @@ typedef struct ObjectModel {
     /* 0x2A */ u8 pad2A[4];
     /* 0x2E */ u8 unk2E;
     /* 0x2F */ char pad2F[1];
-    /* 0x30 */ s16 unk30;
-    /* 0x32 */ u8 pad32[6];
+    /* 0x30 */ s16 references;
+    /* 0x32 */ s16 unk32;
+    /* 0x34 */ u8 pad34[4];
     /* 0x38 */ TriangleBatchInfo* batches;
-    /* 0x3C */ u8 pad3C[4];
+    /* 0x3C */ f32 unk3C;
     /* 0x40 */ s32* unk40;
     /* 0x44 */ ObjectModel_44* animations;
     /* 0x48 */ s16 numberOfAnimations;
-    /* 0x4A */ u8 pad4A[6];
+    /* 0x4A */ s16 unk4A;
+    /* 0x4C */ s32 *unk4C;
     /* 0x50 */ s16 unk50;
     /* 0x52 */ s16 unk52;
 } ObjectModel;      
@@ -561,15 +637,15 @@ typedef struct LevelModelSegment {
 /* 0x08 */ s32 unk8;
 /* 0x0C */ TriangleBatchInfo *batches;
 /* 0x10 */ s16 *unk10;
-/* 0x14 */ u8 *unk14;
-/* 0x18 */ s16 *unk18;
+/* 0x14 */ u16 *unk14;
+/* 0x18 */ f32 *unk18;
 /* 0x1C */ s16 numberOfVertices;
 /* 0x1E */ s16 numberOfTriangles;
 /* 0x20 */ s16 numberOfBatches;
            u8 pad22[0x06];
 /* 0x28 */ s16 unk28;
 /* 0x2A */ s8 unk2A;
-/* 0x2B */ s8 unk2B;
+/* 0x2B */ s8 hasWaves;
 /* 0x2C */ Vertex *unk2C;
 /* 0x30 */ s16 unk30;
 /* 0x32 */ s16 unk32;
@@ -629,14 +705,6 @@ typedef struct LevelModel {
 /* 0x48 */ s32 modelSize;
 } LevelModel;
 
-typedef enum {
-    OBJECT_MODEL_TYPE_3D_MODEL,
-    OBJECT_MODEL_TYPE_SPRITE_BILLBOARD,
-    OBJECT_MODEL_TYPE_VEHICLE_PART,
-    OBJECT_MODEL_TYPE_UNKNOWN3,
-    OBJECT_MODEL_TYPE_UNKNOWN4
-} ObjectModelType;
-
 typedef struct ObjHeaderParticleEntry {
   /* 0x00 */ s32 upper;
   /* 0x04 */ s32 lower;
@@ -644,43 +712,71 @@ typedef struct ObjHeaderParticleEntry {
 
 // Size: 0x18 bytes
 typedef struct ObjectHeader24 {
-    u8 pad0[0x18];
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+    u8 unk4;
+    u8 unk5;
+    u16 unk6; //Misc Asset Id?
+    union {
+        u32 unk8;
+        struct {
+            u8 unk8A;
+            u8 unk9;
+            u8 unkA;
+            u8 unkB;
+        };
+    };
+    s16 homeX;
+    s16 homeY;
+    s16 homeZ;
+    u16 radius;
+    u16 unk14;
+    u16 unk16;
 } ObjectHeader24;
 
 typedef struct ObjectHeader {
-             u8 pad0[0x4];
+  /* 0x00 */ s32 unk0; // The one use I've seen for this so far is water effect animation speed.
   /* 0x04 */ f32 shadowScale;
   /* 0x08 */ f32 unk8;
   /* 0x0C */ f32 scale;
   /* 0x10 */ s32 *modelIds;
   /* 0x14 */ s32 *vehiclePartIds;
-  /* 0x18 */ s8  *vehiclePartIndices;
+  /* 0x18 */ s8 *vehiclePartIndices;
   /* 0x1C */ ObjHeaderParticleEntry *objectParticles;
              s32 pad20;
   /* 0x24 */ ObjectHeader24 *unk24;
-             u8 pad28[8];
-  /* 0x30 */ u16 unk30;
-  /* 0x32 */ s16 unk32;
-  /* 0x32 */ s16 unk34;
-  /* 0x32 */ s16 unk36;
-             u8 pad38[5];
+  /* 0x28 */ f32 shadeBrightness;
+  /* 0x2C */ f32 shadeAmbient;
+  /* 0x30 */ u16 flags;
+  /* 0x32 */ s16 shadowGroup;
+  /* 0x34 */ s16 unk34;
+  /* 0x36 */ s16 waterEffectGroup;
+  /* 0x38 */ s16 unk38;
+  /* 0x3A */ u8 unk3A;
+  /* 0x3B */ u8 unk3B;
+  /* 0x3C */ u8 unk3C;
   /* 0x3D */ u8 unk3D;
-             u8 pad3E[4];
+  /* 0x3E */ s16 shadeAngleY;
+  /* 0x40 */ s16 shadeAngleZ;
   /* 0x42 */ s16 unk42;
   /* 0x44 */ s16 unk44;
-             u8 pad46[4];
+  /* 0x48 */ s16 unk46;
+  /* 0x48 */ s16 unk48;
   /* 0x4A */ s16 unk4A;
   /* 0x4C */ s16 unk4C;
   /* 0x4E */ s16 drawDistance;
-             u8 pad50[3];
+  /* 0x50 */ s16 unk50;
+  /* 0x52 */ s8 unk52;
   /* 0x53 */ s8 modelType;
   /* 0x54 */ s8 behaviorId;
   /* 0x55 */ s8 numberOfModelIds; // size of array pointed by Object->unk68
-  /* 0x56 */ u8 pad56;
-  /* 0x57 */ s8 unk57;
+  /* 0x56 */ s8 unk56;
+  /* 0x57 */ s8 particleCount; // Number of different particle types that are attached
   /* 0x58 */ s8 unk58;
   /* 0x59 */ u8 pad59;
-  /* 0x5A */ s8 unk5A;
+  /* 0x5A */ s8 numLightSources;
   /* 0x5B */ u8 unk5B;
   /* 0x5C */ u8 unk5C;
   /* 0x5D */ u8 unk5D; //Misc Asset index?
@@ -688,7 +784,7 @@ typedef struct ObjectHeader {
   /* 0x60 */ char internalName[16];
   /* 0x70 */ u8 unk70;
   /* 0x71 */ u8 unk71;
-  /* 0x71 */ u8 unk72;
+  /* 0x72 */ u8 unk72;
              u8 pad73[0x5];
 } ObjectHeader;
 
@@ -719,27 +815,41 @@ typedef struct Object_44 {
 } Object_44;
 
 typedef struct ObjectInteraction {
-    struct Object *obj;
-    f32 x_position;
-    f32 y_position;
-    f32 z_position;
-    u8 hitboxRadius;
-    u8 unk11;
-    u8 pushForce;
-    u8 distance;
-    s16 flags;
-    s8 unk16;
-    s8 unk17;
+ /* 0x00 */ struct Object *obj;
+ /* 0x04 */ f32 x_position;
+ /* 0x08 */ f32 y_position;
+ /* 0x0C */ f32 z_position;
+ /* 0x10 */ s8 hitboxRadius;
+ /* 0x11 */ u8 unk11;
+ /* 0x12 */ u8 pushForce;
+ /* 0x13 */ u8 distance;
+ /* 0x14 */ s16 flags;
+ /* 0x16 */ s8 unk16;
+ /* 0x17 */ s8 unk17;
+ /* 0x18 */ s32 pad[4];
 } ObjectInteraction;
 
 typedef struct ShadowData {
     f32 scale;
     TextureHeader *texture;
-    s16 unk8;
-    s16 unkA;
+    s16 meshStart;
+    s16 meshEnd;
+    s16 unkC;
+    s16 unkE;
 } ShadowData;
 
-typedef struct Object_54 {
+typedef struct WaterEffect {
+    f32 scale;
+    TextureHeader *texture;
+    s16 meshStart;
+    s16 meshEnd;
+    s16 textureFrame;
+    s16 animationSpeed;
+    s16 unk10;
+    s16 unk12;
+} WaterEffect;
+
+typedef struct ShadeProperties {
     f32 unk0;
     u8 unk4;
     u8 unk5;
@@ -759,24 +869,15 @@ typedef struct Object_54 {
     u8 unk19;
     u8 unk1A;
     u8 unk1B;
-    u8 pad1C[12];
-    f32 unk28;
-    f32 unk2C;
-} Object_54;
-
-typedef struct Object_58_4 {
-    u8 pad0[0x12];
-    u16 unk12;
-} Object_58_4;
-
-typedef struct Object_58 {
-    f32 unk0;
-    Object_58_4 *unk4;
-    s16 unk8;
-    s16 unkA;
-    s16 unkC;
-    s16 unkE;
-} Object_58;
+    s16 unk1C;
+    s16 unk1E;
+    s16 unk20;
+    s16 unk22;
+    s16 unk24;
+    s16 unk26;
+    f32 brightness;
+    f32 ambient;
+} ShadeProperties;
 
 typedef f32 FakeHalfMatrix[2][4];
 typedef struct Object_5C {
@@ -786,16 +887,17 @@ typedef struct Object_5C {
  };
   /* 0x0100 */ void *unk100;
   /* 0x0104 */ u8 unk104;
+  /* 0x0105 */ u8 unk105;
+  /* 0x0106 */ u8 unk106;
+  /* 0x0107 */ u8 unk107;
+  /* 0x0108 */ s32 unk108;
 } Object_5C;
 
 typedef struct Object_60 {
     s32 unk0;
-    struct Object *unk4;
-    u8 unk8[0x24];
+    struct Object *unk4[10];
     s8 *unk2C;
 } Object_60;
-
-struct Object;
 
 typedef struct Object_LaserGun {
   /* 0x00 */ s32 unk0;
@@ -829,13 +931,65 @@ typedef struct Object_Animator {
 } Object_Animator;
 
 typedef struct Object_Animation {
-  /* 0x00 */ u8 pad0[0x4A];
+  /* 0x00 */ f32 unk0;
+  /* 0x04 */ f32 unk4;
+  /* 0x08 */ f32 unk8;
+  /* 0x0C */ f32 x;
+  /* 0x10 */ f32 y;
+  /* 0x14 */ f32 z; 
+  /* 0x18 */ u8 *unk18; 
+  /* 0x1C */ struct Object *unk1C;
+  /* 0x20 */ s32 unk20;
+  /* 0x24 */ s16 unk24;
+  /* 0x26 */ s16 unk26;
+  /* 0x28 */ u16 unk28;
+  /* 0x2A */ u16 startDelay;
+  /* 0x2C */ u8 unk2C;
+  /* 0x2D */ u8 unk2D;
+  /* 0x2E */ u8 unk2E;
+  /* 0x2F */ u8 unk2F;
+  /* 0x30 */ s8 cameraID;
+  /* 0x31 */ u8 unk31;
+  /* 0x32 */ u8 unk32;
+  /* 0x33 */ u8 unk33;
+  /* 0x34 */ u8 unk34;
+  /* 0x35 */ u8 unk35;
+  /* 0x36 */ s16 pauseCounter;
+  /* 0x38 */ u8 unk38;
+  /* 0x39 */ u8 unk39;
+  /* 0x3A */ u8 unk3A;
+  /* 0x3V */ u8 unk3B;
+  /* 0x3C */ u8 unk3C;
+  /* 0x3D */ u8 unk3D;
+  /* 0x3E */ u8 unk3E;
+  /* 0x3F */ u8 unk3F;
+  /* 0x40 */ u8 unk40;
+  /* 0x41 */ u8 unk41;
+  /* 0x42 */ u8 unk42;
+  /* 0x43 */ u8 unk43;
+  /* 0x44 */ u8 unk44;
+  /* 0x45 */ u8 unk45;
+  /* 0x46 */ u8 pad46[4];
   /* 0x4A */ s16 unk4A;
+  /* 0x4C */ u8 pad4C[0x10];
+  /* 0x5C */ s32 unk5C;
 } Object_Animation;
 
+typedef struct Object_Animation2 {
+  /* 0x00 */ u8 pad0[6];
+  /* 0x06 */ s16 flags;
+} Object_Animation2;
+
+typedef struct Object_OverridePos {
+  /* 0x00 */ f32 x;
+  /* 0x04 */ f32 y;
+  /* 0x08 */ f32 z;
+  /* 0x0C */ Object_Animation *anim;
+} Object_OverridePos;
+
 typedef struct Object_WeaponBalloon {
-  /* 0x0 */ f32 radius;
-  /* 0x4 */ s16 unk4;
+  /* 0x0 */ f32 scale;
+  /* 0x4 */ s16 respawnTime;
   /* 0x6 */ s8 unk6[0x2];
 } Object_WeaponBalloon;
 
@@ -850,7 +1004,7 @@ typedef struct Object_Weapon {
   /* 0x18 */ u8 weaponID;
   /* 0x19 */ s8 checkpoint;
   /* 0x19 */ s16 unk1A;
-  /* 0x19 */ s32 soundMask;
+  /* 0x19 */ SoundMask *soundMask;
 } Object_Weapon;
 
 typedef struct Object_Butterfly {
@@ -865,6 +1019,7 @@ typedef struct Object_Butterfly {
   /* 0x104 */ s16 unk104;
   /* 0x106 */ s16 unk106;
   /* 0x108 */ f32 unk108;
+  /* 0x10C */ f32 unk10C;
 } Object_Butterfly;
 
 typedef struct Object_Fish {
@@ -873,12 +1028,17 @@ typedef struct Object_Fish {
   /* 0x0F8 */ TextureHeader *texture;
   /* 0x0FC */ u8 unkFC;
   /* 0x0FD */ u8 unkFD;
-  /* 0x0FE */ u8 unkFE;
-  /* 0x0FF */ u8 unkFF;
-  /* 0x100 */ s32 unk100;
+  /* 0x0FE */ s16 unkFE;
+  /* 0x100 */ s16 unk100;
+  /* 0x102 */ s16 unk102;
   /* 0x104 */ s16 unk104;
   /* 0x106 */ s16 unk106;
   /* 0x108 */ f32 unk108;
+  /* 0x10C */ f32 unk10C;
+  /* 0x110 */ f32 unk110;
+  /* 0x114 */ f32 unk114;
+  /* 0x118 */ f32 unk118;
+  /* 0x11c */ f32 unk11C;
 } Object_Fish;
 
 typedef struct Object_Boost {
@@ -917,36 +1077,22 @@ typedef struct Object_CharacterFlag {
   /* 0x24 */ TextureHeader *texture;
 } Object_CharacterFlag;
 
-typedef struct Object_Snowball {
-  /* 0x00 */ u8 pad0[0x20];
-  /* 0x20 */ u32 soundMask;
-  /* 0x24 */ s16 unk24;
-  /* 0x28 */ u8 pad28[0x12];
-  /* 0x38 */ s8 unk38;
-} Object_Snowball;
-
 typedef struct Object_AnimCamera {
   /* 0x00 */ u8 pad0[0x30];
-  /* 0x30 */ s8 unk30;
-  /* 0x31 */ u8 pad31[0x13];
-  /* 0x44 */ s8 unk44;
+  /* 0x30 */ s8 cameraID;
+  /* 0x31 */ u8 pad31[0xB];
+  /* 0x3C */ s32 unk3C;
+  /* 0x40 */ u8 pad40[4];
+  /* 0x44 */ u8 unk44;
+  /* 0x45 */ u8 pad45[5];
+  /* 0x4A */ s16 unk4A;
+  /* 0x4C */ u8 pad4C[8];
+  /* 0x54 */ s8 unk54;
 } Object_AnimCamera;
 
 typedef struct Object_InfoPoint {
   /* 0x0 */ s16 unk0;
 } Object_InfoPoint;
-
-typedef struct Object_TTDoor {
-  /* 0x00 */ f32 homeY;
-  /* 0x04 */ s32 *soundMask;
-  /* 0x08 */ s32 unk8;
-  /* 0x0C */ s16 unkC;
-  /* 0x0C */ s8 unkE;
-  /* 0x0F */ u8 doorID;
-  /* 0x10 */ u8 pad10[2];
-  /* 0x12 */ u8 unk12;
-  /* 0x13 */ s8 unk13;
-} Object_TTDoor;
 
 typedef struct Object_WorldKey {
   /* 0x0 */ s16 unk0;
@@ -967,7 +1113,7 @@ typedef struct Object_AudioLine {
                  } unk_struct;
                  s32 unk8_word;
              } unk_union;
-  /* 0x0C */ u8 unkC;
+  /* 0x0C */ u8 lineID;
   /* 0x0D */ u8 unkD;
   /* 0x0E */ u8 unkE;
   /* 0x0F */ u8 unkF;
@@ -979,7 +1125,7 @@ typedef struct Object_AudioLine {
 typedef struct Object_AudioReverb {
   /* 0x0 */ u16 pad0;
   /* 0x2 */ s16 unk2;
-  /* 0x4 */ u8 unk4;
+  /* 0x4 */ u8 lineID;
   /* 0x5 */ u8 unk5;
 } Object_AudioReverb;
 
@@ -1030,25 +1176,31 @@ typedef struct Object_Exit {
   /* 0x14 */ s8 bossFlag; // Dictates boss level version. 0 is first encounter, 1 is rematch. -1 means no boss.
 } Object_Exit;
 
+typedef struct Object_AiNode {
+   /* 0x00 */ struct Object *nodeObj[4];
+   /* 0x10 */ s16 distToNode[4];
+   /* 0x18 */ s8 directions[4];
+} Object_AiNode;
+
 /* Size: 0x224 - 548 bytes */
 typedef struct Object_Racer {
   /* 0x000 */ s16 playerIndex; // -1 = AI Controlled, 0 to 3 = Object controlled
-  /* 0x002 */ s8 unk2;
+  /* 0x002 */ s8 racerIndex; // Unique ID for each racer object.
   /* 0x003 */ s8 characterId; // Affects minimap color, horn, voice, etc.
   /* 0x004 */ s32 unk4;
   /* 0x008 */ f32 forwardVel;
-  /* 0x00C */ f32 unkC;
+  /* 0x00C */ f32 animationSpeed;
   /* 0x010 */ s32 unk10;
   /* 0x014 */ s32 unk14;
   /* 0x018 */ s32 unk18;
   /* 0x01C */ s32 unk1C;
   /* 0x020 */ s32 unk20;
-  /* 0x024 */ s32 soundMask;
+  /* 0x024 */ SoundMask *soundMask;
   /* 0x028 */ u16 lastSoundID;
   /* 0x02A */ u16 unk2A;
   /* 0x02C */ f32 velocity;
   /* 0x030 */ f32 lateral_velocity;
-  /* 0x034 */ s32 unk34; // I think this is the engine pitch for the hovercraft and plane, but I cannot yet confirm.
+  /* 0x034 */ f32 unk34; // Vehicle pitch.
   /* 0x038 */ f32 ox1;
   /* 0x03C */ f32 oy1;
   /* 0x040 */ f32 oz1;
@@ -1097,13 +1249,11 @@ typedef struct Object_Racer {
   /* 0x10C */ s32 unk10C;
   /* 0x110 */ s32 unk110;
   /* 0x114 */ s32 unk114;
-  /* 0x118 */ s32 unk118;
+  /* 0x118 */ struct VehicleSoundData *vehicleSound;
   /* 0x11C */ f32 unk11C;
   /* 0x120 */ f32 unk120;
   /* 0x124 */ f32 unk124;
-  /* 0x128 */ s32 lap_times[3];
-  /* 0x134 */ s32 unk134;
-  /* 0x138 */ s32 unk138;
+  /* 0x128 */ s32 lap_times[5]; //mode_init_taj_race implies there should be at least 5 lap times.
   /* 0x13C */ s32 unk13C;
   /* 0x140 */ struct Object *magnetTargetObj;
   /* 0x144 */ struct Object *held_obj;
@@ -1111,8 +1261,8 @@ typedef struct Object_Racer {
   /* 0x14C */ struct Object *zipperObj;
   /* 0x150 */ struct Object *unk150;
   /* 0x154 */ struct Object *unk154;
-  /* 0x158 */ struct Object *unk158;
-  /* 0x15C */ struct Object *unk15C;
+  /* 0x158 */ struct Object *nodeCurrent;
+  /* 0x15C */ struct Object *challengeMarker;
   /* 0x160 */ s16 y_rotation_offset;
   /* 0x162 */ s16 x_rotation_offset;
   /* 0x164 */ s16 z_rotation_offset;
@@ -1128,8 +1278,8 @@ typedef struct Object_Racer {
   /* 0x175 */ s8 magnetTimer;
   /* 0x176 */ s16 unk176;
   /* 0x178 */ void *magnetSoundMask;
-  /* 0x17C */ s32 shieldSoundMask;
-  /* 0x180 */ s32 bananaSoundMask;
+  /* 0x17C */ SoundMask *shieldSoundMask;
+  /* 0x180 */ SoundMask *bananaSoundMask;
   /* 0x184 */ s8 magnetModelID;
   /* 0x185 */ s8 bananas;
   /* 0x186 */ u8 unk186;
@@ -1144,7 +1294,7 @@ typedef struct Object_Racer {
   /* 0x193 */ s8 lap;
   /* 0x194 */ s8 countLap;
   /* 0x195 */ s8 magnetLevel3;
-  /* 0x196 */ s16 unk196;
+  /* 0x196 */ s16 cameraYaw;
   /* 0x198 */ s16 unk198;
   /* 0x19A */ s16 unk19A;
   /* 0x19C */ s16 unk19C;
@@ -1155,8 +1305,8 @@ typedef struct Object_Racer {
   /* 0x1A6 */ s16 z_rotation_vel;
   /* 0x1A8 */ s16 unk1A8;
   /* 0x1AA */ u16 unk1AA;
-  /* 0x1AC */ s16 unk1AC;
-  /* 0x1AE */ s16 unk1AE;
+  /* 0x1AC */ s16 finishPosition;
+  /* 0x1AE */ s16 racePosition;
   /* 0x1B0 */ s16 unk1B0;
   /* 0x1B2 */ s16 unk1B2;
   /* 0x1B4 */ s32 unk1B4;
@@ -1189,7 +1339,7 @@ typedef struct Object_Racer {
   /* 0x1DA */ u8 unk1DA;
   /* 0x1DB */ s8 spinout_timer;
   /* 0x1DC */ u8 wheel_surfaces[4];
-  /* 0x1E0 */ s8 unk1E0;
+  /* 0x1E0 */ s8 trickType; // This depends on which vehicle you're using, but this name fits the most for now.
   /* 0x1E1 */ s8 steerAngle;
   /* 0x1E2 */ s8 groundedWheels;
   /* 0x1E3 */ s8 unk1E3;
@@ -1200,8 +1350,8 @@ typedef struct Object_Racer {
   /* 0x1E8 */ s8 unk1E8;
   /* 0x1E9 */ s8 unk1E9;
   /* 0x1EA */ s8 unk1EA;
-  /* 0x1EB */ s8 unk1EB;
-  /* 0x1EC */ s8 unk1EC;
+  /* 0x1EB */ s8 tapTimerR;
+  /* 0x1EC */ s8 tappedR;
   /* 0x1ED */ s8 squish_timer;
   /* 0x1EE */ u8 unk1EE;
   /* 0x1EF */ u8 boost_sound;
@@ -1225,7 +1375,7 @@ typedef struct Object_Racer {
   /* 0x201 */ s8 unk201;
   /* 0x202 */ s8 silverCoinCount;
   /* 0x203 */ s8 boostType;
-  /* 0x204 */ s16 unk204;
+  /* 0x204 */ s16 bubbleTrapTimer;
   /* 0x206 */ s16 unk206;
   /* 0x208 */ s8 unk208;
   /* 0x209 */ u8 unk209;
@@ -1236,7 +1386,7 @@ typedef struct Object_Racer {
   /* 0x20E */ u16 delaySoundID;
   /* 0x210 */ u8 delaySoundTimer;
   /* 0x211 */ s8 unk211;
-  /* 0x212 */ s8 unk212;
+  /* 0x212 */ s8 elevation; // Some maps like Icicle Pyramid have elevation levels that are communicated on the minimap.
   /* 0x213 */ s8 unk213;
   /* 0x214 */ s8 unk214;
   /* 0x215 */ s8 unk215;
@@ -1249,16 +1399,17 @@ typedef struct Object_Racer {
 
 typedef struct Object_Door {
   /* 0x00 */ f32 homeY;
-  /* 0x04 */ u8 pad4[0x4];
-  /* 0x08 */ s32 unk8;
-  /* 0x0A */ s16 padA;
-  /* 0x0E */ s8 unkE;
-  /* 0x0F */ u8 unkF;
-  /* 0x10 */ u8 unk10;
-  /* 0x11 */ u8 unk11;
-  /* 0x12 */ u8 unk12;
-  /* 0x13 */ u8 unk13;
-  /* 0x14 */ s8 unk14;
+  /* 0x04 */ SoundMask *soundMask;
+  /* 0x08 */ s32 jingleTimer;
+  /* 0x0A */ s16 jingleCooldown;
+  /* 0x0E */ s8 doorID;
+  /* 0x0F */ u8 doorType;
+  /* 0x10 */ u8 balloonCount;
+  /* 0x11 */ u8 balloonCountUnused;
+  /* 0x12 */ u8 radius;
+  /* 0x13 */ s8 textID;
+  /* 0x14 */ s8 keyID;
+  /* 0x15 */ s8 openDir;
 } Object_Door;
 
 typedef struct Object_Trigger {
@@ -1280,7 +1431,7 @@ typedef struct Object_Audio {
   /* 0x05 */ u8 unk5;
   /* 0x06 */ u8 unk6;
   /* 0x07 */ u8 unk7;
-  /* 0x08 */ s32 soundMask;
+  /* 0x08 */ SoundMask *soundMask;
   /* 0x0C */ u8 unkC;
   /* 0x0D */ u8 unkD;
 } Object_Audio;
@@ -1323,7 +1474,7 @@ typedef struct Object_Banana {
   /* 0x0 */ s32 unk0;
   /* 0x4 */ struct Object *spawner;
   /* 0x8 */ s8 unk8;
-  /* 0x9 */ s8 unk9;
+  /* 0x9 */ s8 droppedVehicleID;
 } Object_Banana;
 
 typedef struct Object_FogChanger {
@@ -1334,11 +1485,11 @@ typedef struct Object_NPC {
    /* 0x00 */ f32 unk0;
    /* 0x04 */ f32 animFrameF;
    /* 0x08 */ s32 unk8;
-   /* 0x0C */ s8 unkC;
-   /* 0x0D */ u8 unkD;
-   /* 0x0E */ u8 unkE;
-   /* 0x0F */ u8 unkF;
-   /* 0x10 */ u8 unk10;
+   /* 0x0C */ s8 nodeBack1; // One node backwards
+   /* 0x0D */ u8 nodeCurrent; // Intended target node
+   /* 0x0E */ u8 nodeBack2; // Two nodes backward
+   /* 0x0F */ u8 nodeForward1; // One node forward
+   /* 0x10 */ u8 nodeForward2; // Two nodes forward
    /* 0x11 */ u8 fogR;
    /* 0x12 */ u8 fogG;
    /* 0x13 */ u8 fogB;
@@ -1353,7 +1504,7 @@ typedef struct Object_NPC {
    /* 0x2A */ s16 unk2A;
    /* 0x2C */ s32 unk2C;
    /* 0x30 */ s32 unk30;
-   /* 0x34 */ u16 unk34;
+   /* 0x34 */ u16 musicFade;
    /* 0x36 */ s8 unk36;
 } Object_NPC;
 
@@ -1364,8 +1515,8 @@ typedef struct Object_TT {
 } Object_TT;
 
 typedef struct Object_Bridge_WhaleRamp {
-  /* 0x0 */ f32 unk0;
-  /* 0x4 */ s32 unk4;
+  /* 0x0 */ f32 homeY;
+  /* 0x4 */ SoundMask *soundMask;
 } Object_Bridge_WhaleRamp;
 
 typedef struct Object_8001B7A8 {
@@ -1384,7 +1535,15 @@ typedef struct Object_80021400_64 {
 } Object_80021400_64;
 
 typedef struct Object_Log {
-    s32 unk0;
+    /* 0x00 */ s16 unk0;
+    /* 0x02 */ u8 unk2;
+    /* 0x04 */ u8 unk3;
+    /* 0x04 */ u16 unk4;
+    /* 0x06 */ u16 unk6;
+    /* 0x08 */ u16 unk8;
+    /* 0x0A */ u16 unkA;
+    /* 0x0C */ u16 unkC;
+    /* 0x0E */ s8 unkE[2];
 } Object_Log;
 
 typedef struct Object_Fireball_Octoweapon {
@@ -1393,12 +1552,18 @@ typedef struct Object_Fireball_Octoweapon {
 } Object_Fireball_Octoweapon;
 
 typedef struct Object_AnimatedObject {
-    u8 pad0[0x28];
+    u8 pad0[0x20];
+  /* 0x20 */ u32 soundMask;
+  /* 0x24 */ s16 currentSound;
+  /* 0x26 */ s16 unk26;
     s16 unk28;
     u8 pad2A[0xC];
     s16 unk36;
-    u8 pad38[0x2];
+    s8 soundID;
+    s8 unk39;
     s8 unk3A;
+    s8 unk3B;
+    s8 pad3C[0xC];
 } Object_AnimatedObject;
 
 typedef struct Object_WizpigRocket {
@@ -1410,12 +1575,50 @@ typedef struct Object_WizpigRocket {
     f32 unk74;
 } Object_WizpigRocket;
 
+typedef struct Object_8001E89C_64_C {
+    /* 0x00 */ u8 pad0[0xC];
+    /* 0x0C */ f32 unkC;
+    /* 0x10 */ f32 unk10;
+    /* 0x14 */ f32 unk14;
+} Object_8001E89C_64_C;
+
+typedef struct Object_8001E89C_64 {
+    /* 0x00 */ f32 unk0;
+    /* 0x04 */ f32 unk4;
+    /* 0x08 */ f32 unk8;
+    /* 0x0C */ Object_8001E89C_64_C *unkC;
+} Object_8001E89C_64;
+
+typedef struct Object_CharacterSelect {
+    u8 pad0[0x14];
+    f32 unk14;
+    u8 pad18[0x10];
+    s16 unk28;
+    u8 unk2A[2];
+    u8 unk2C;
+    u8 pad2D[2];
+    u8 unk2F;
+    u8 pad30[6];
+    s16 unk36;
+    u8 unk38;
+    u8 unk39;
+    s8 unk3A;
+    s8 unk3B;
+    s8 unk3C;
+    s8 pad3D[2];
+    s8 unk3F;
+    s8 unk40;
+    s8 unk41;
+    s8 pad42;
+    s8 unk43;
+} Object_CharacterSelect;
 typedef struct Object_64 {
     union {
         Object_Laser laser;
         Object_TrophyCabinet trophy_cabinet;
         Object_Animator animator;
         Object_Animation animation;
+        Object_Animation2 animation2;
         Object_WeaponBalloon weapon_balloon;
         Object_Weapon weapon;
         Object_Butterfly butterfly;
@@ -1426,10 +1629,8 @@ typedef struct Object_64 {
         Object_CollectEgg egg;
         Object_UnkId58 unkid58;
         Object_CharacterFlag character_flag;
-        Object_Snowball snowball;
         Object_AnimCamera anim_camera;
         Object_InfoPoint info_point;
-        Object_TTDoor tt_door;
         Object_WorldKey world_key;
         Object_AudioLine audio_line;
         Object_AudioReverb audio_reverb;
@@ -1449,52 +1650,72 @@ typedef struct Object_64 {
         Object_NPC npc;
         Object_TT tt;
         Object_Bridge_WhaleRamp bridge_whale_ramp;
-        Object_8001B7A8 obj8001B7A8;
         Object_80021400_64 obj80021400_64;
         Object_Log log;
         Object_Fireball_Octoweapon fireball_octoweapon;
         Object_LaserGun lasergun;
         Object_AnimatedObject animatedObject;
         Object_WizpigRocket wizpigRocket;
+        Object_8001E89C_64 obj8001E89C_64;
+        Object_CharacterSelect characterSelect;
+        Object_AiNode ai_node;
+        Object_OverridePos override_pos;
     };
 } Object_64;
+
+// Size: 0xC
+typedef struct Object_68_38 {
+ /* 0x00 */ u8 unk0[8];
+ /* 0x08 */ s32 unk8;
+} Object_68_38;
 
 typedef struct Object_68 {
   /* 0x00 */ union {
       ObjectModel *objModel;
       TextureHeader *texHeader;
   };
-  /* 0x04 */ s32 *unk4[3];
-  /* 0x10 */ s16 unk10;
-  /* 0x12 */ u8 pad12[4];
-  /* 0x16 */ s16 unk16;
-  /* 0x18 */ s16 unk18;
-  /* 0x1A */ s16 unk1A;
+  /* 0x04 */ Vertex *unk4[2];
+  /* 0x0C */ s32 *unkC;
+  /* 0x10 */ s16 animationID;
+  /* 0x12 */ s16 animationFrame;
+  /* 0x14 */ s16 animationFrameCount;
+  /* 0x16 */ s16 offsetX;
+  /* 0x18 */ s16 offsetY;
+  /* 0x1A */ s16 offsetZ;
   /* 0x1C */ s16 unk1C;
   /* 0x1E */ s8 unk1E;
-  /* 0x1F */ s8 unk1F;
+  /* 0x1F */ s8 animationTaskNum;
   /* 0x20 */ s8 unk20;
   /* 0x21 */ s8 unk21;
   /* 0x22 */ s16 unk22;
   /* 0x24 */ s32 unk24;
-  /* 0x28 */ s32 unk28;
+  /* 0x28 */ s16 unk28;
+  /* 0x2A */ s16 unk2A;
   /* 0x2C */ s32 unk2C;
   /* 0x30 */ s32 unk30;
+  /* 0x34 */ u8 pad34[0x4];
+  /* 0x38 */ Object_68_38 *unk38; //Array Size unknown
+  /* 0x40 */ u8 pad40[0x14];
+  /* 0x50 */ s16 unk50;
  } Object_68;
  
 /* Size: 0x20 bytes */
-typedef struct Object_6C {
-    u8  pad0[0x4];
-    s16 unk4;
-    u8  pad6[0x1A];
-} Object_6C;
+typedef struct ParticleEmitter {
+    /* 0x00 */ struct Particle *unk0;
+    /* 0x04 */ s16 unk4;
+    /* 0x06 */ u8 unk6;
+    /* 0x07 */ u8 unk7;
+    /* 0x08 */ s16 unk8;
+    /* 0x0A */ s16 unkA;
+    /* 0x0C */ u8  padC[0x14];
+} ParticleEmitter;
 
 /* Size: 0xA0 bytes */
 typedef struct ParticleBehavior {
     s32 flags;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
+    f32 velX;
+    f32 velY;
+    f32 velZ;
     f32 unk10;
     s16 unk14;
     s16 unk16;
@@ -1516,17 +1737,16 @@ typedef struct ParticleBehavior {
     f32 unk3C;
     s16 unk40;
     s16 unk42;
-    // These names are pretty bad, but they're better than nothing.
+    s16 angleOffsetY;
+    s16 angleOffsetX;
+    s16 angleOffsetZ;
     s16 angleVelY;
     s16 angleVelX;
     s16 angleVelZ;
-    s16 unk4A;
-    s16 unk4C;
-    s16 unk4E;
     f32 unk50;
     f32 unk54;
     f32 forwardVel;
-    s32 unk5C;
+    s32 behaviourFlags;
     s32 gravityRange1;
     s16 angleRangeY1;
     s16 angleRangeX1;
@@ -1562,15 +1782,6 @@ typedef struct unk800AF29C_C_400 {
     s16 unk16;
 } unk800AF29C_C_400;
 
-typedef struct unk800AF29C_C {
-    s16 unkC;
-    s16 unkE;
-    s16 unk10;
-    s16 unk12;
-    s16 unk14;
-    s16 unk16;
-} unk800AF29C_C;
-
 typedef struct unk800B2260_C {
     s32 unk0;
     s32 unk4;
@@ -1603,20 +1814,20 @@ typedef struct SegmentPropertiesObject {
   /* 0x0030 */ f32 distanceToCamera;
   /* 0x0034 */ s16 cameraSegmentID;
   /* 0x0036 */ s16 unk36;
-  /* 0x0038 */ u8 unk38;
+  /* 0x0038 */ s8 unk38;
   /* 0x0039 */ u8 opacity;
-  /* 0x003A */ s8 numModelIDs;
+  /* 0x003A */ s8 modelIndex;
   /* 0x003B */ s8 animationID;
 } SegmentPropertiesObject;
 
 typedef struct SegmentPropertiesParticle {
   /* 0x002C */ s16 unk2C;
-  /* 0x002E */ s16 unk2E;
+  /* 0x002E */ s16 blockID;
   /* 0x0030 */ f32 unk30;
   /* 0x0034 */ f32 unk34;
   /* 0x0038 */ u8 unk38;
-  /* 0x0039 */ u8 unk39;
-  /* 0x003A */ s16 unk3A;
+  /* 0x0039 */ u8 movementType;
+  /* 0x003A */ s16 destroyTimer;
 } SegmentPropertiesParticle;
 
 typedef struct SegmentPropertiesCamera {
@@ -1645,44 +1856,53 @@ typedef struct ObjectSegment {
   /* 0x0040 */ ObjectHeader *header;
 } ObjectSegment;
 
-typedef struct unk800B0698_44_0 {
-    u8 pad0[0x3];
-    /* 0x04 */ s16 unk4;
-    /* 0x06 */ s16 unk6;
-    /* 0x08 */ Vertex *unk8;
-    /* 0x0C */ Triangle *unkC;
-    /* 0x10 */ u16 unk10;
-    /* 0x12 */ u16 unk12;
-} unk800B0698_44_0;
+typedef struct Object_LightData_UnkC_Unk44 {
+    u8 pad0[8];
+    Vertex *unk8;
+} Object_LightData_UnkC_Unk44;
 
-typedef struct unk800B0698_44 {
-    union {
-        unk800B0698_44_0 *unk0Ptr;
-        s16 unk0;
-        struct unk800B0698_44_0 unk0struct;
-    };
-} unk800B0698_44;
+typedef struct Object_LightData_UnkC {
+  /* 0x00 */ ObjectTransform trans;
+  /* 0x18 */ u8 pad18[0x22];
+  /* 0x3A */ s16 unk3A;
+  /* 0x3C */ u8 pad3C[0x8];
+  /* 0x44 */ Object_LightData_UnkC_Unk44 *unk44;
+  /* 0x48 */ u8 pad48[0x14];
+  /* 0x5C */ s16 unk5C;
+  /* 0x5E */ u8 pad5E[0xE];
+  /* 0x6C */ u8 unk6C;
+  /* 0x6D */ u8 unk6D;
+  /* 0x6E */ u8 unk6E;
+  /* 0x6F */ u8 pad6F[0x6];
+  /* 0x75 */ u8 unk75;
+  /* 0x76 */ u8 pad76;
+  /* 0x77 */ s8 unk77;
+} Object_LightData_UnkC;
+
+typedef struct Object_LightData {
+  /* 0x00 */ u8 pad0[6];
+  /* 0x06 */ u8 unk6;
+  /* 0x07 */ u8 pad7[5];
+  /* 0x0C */ Object_LightData_UnkC **unkC;
+} Object_LightData;
 
 /* Size: 0x0630 bytes */
 typedef struct Object {
   /* 0x0000 */ ObjectSegment segment;
-  union {
   /* 0x0044 */ Vertex *unk44;
-  /* 0x0044 */ unk800B0698_44 *unk44_0;
-  };
   /* 0x0048 */ s16 behaviorId;
-  /* 0x004A */ s16 unk4A;
+  /* 0x004A */ s16 objectID; // First 9 bits are object ID, last 7 bits are header size
   /* 0x004C */ ObjectInteraction *interactObj; //player + 0x318
   /* 0x0050 */ ShadowData *shadow; //player + 0x2F4
-  /* 0x0054 */ Object_54 *unk54; //player + 0x2C0
-  /* 0x0058 */ void *unk58; //player + 0x304
+  /* 0x0054 */ ShadeProperties *shading; //player + 0x2C0
+  /* 0x0058 */ WaterEffect *waterEffect; //player + 0x304
   /* 0x005C */ Object_5C *unk5C;
   /* 0x0060 */ Object_60 *unk60; //player + 0x340
   /* 0x0064 */ Object_64 *unk64; //player + 0x98
   /* 0x0068 */ Object_68 **unk68; //player + 0x80
-  /* 0x006C */ Object_6C *unk6C; //player + 0x370
-  /* 0x0070 */ u32 *unk70;
-  /* 0x0074 */ u32 unk74;
+  /* 0x006C */ ParticleEmitter *particleEmitter; //player + 0x370
+  /* 0x0070 */ Object_LightData **lightData;
+  /* 0x0074 */ u32 particleEmitFlags;
   /* 0x0078 */ ObjProperties properties;
   /* 0x0080 */ void *unk80;
   /* 0x0084 */ u32 unk84;
@@ -1690,78 +1910,7 @@ typedef struct Object {
   /* 0x008C */ u32 unk8C;
   /* 0x0090 */ u32 unk90;
   /* 0x0094 */ u32 unk94;
-  /* 0x0098 */ Object_64 obj;
-
-  // May be a part of obj (likely Object_Player).
-  /* 0x02B8 */ u8 pad2A8[0x8];
-
-  /* 0x02C0 */ f32 unk2C0;
-
-  /* 0x02C4 */ u8 red;
-  /* 0x02C5 */ u8 blue;
-  /* 0x02C6 */ u8 green;
-  /* 0x02C7 */ u8 alpha;
-
-  /* 0x02C8 */ u32 unk2C8;
-  /* 0x02CC */ u32 unk2CC;
-  /* 0x02D0 */ u32 unk2D0;
-  /* 0x02D4 */ u32 unk2D4;
-  /* 0x02D8 */ u32 unk2D8;
-
-  /* 0x02DC */ u16 unk2DC;
-  /* 0x02DE */ u16 unk2DE;
-  /* 0x02E0 */ u16 unk2E0;
-
-  /* 0x02E2 */ u16 unk2E2;
-  /* 0x02E4 */ u32 unk2E4;
-
-  /* 0x02E8 */ f32 unk2E8;
-  /* 0x02EC */ f32 unk2EC;
-  /* 0x02F0 */ u32 unk2F0;
-
-  /* 0x02F4 */ f32 shadow_scale;
-  /* 0x02F8 */ void *unk2F8;
-  /* 0x02FC */ u16 unk2FC;
-  /* 0x02FE */ u16 unk2FE;
-  /* 0x0300 */ u32 unk300;
-
-  /* 0x0304 */ f32 unk0304;
-
-  /* 0x0308 */ u32 unk308;
-  /* 0x030C */ u32 unk30C;
-  /* 0x0310 */ u32 unk310;
-  /* 0x0314 */ u32 unk314;
-
-  /* 0x0318 */ void *nearest_obj_ptr;
-  /* 0x031C */ f32 unk31C;
-  /* 0x0320 */ f32 unk320;
-  /* 0x0324 */ f32 unk324;
-
-  /* 0x0328 */ u32 unk328;
-  /* 0x032C */ u32 unk32C;
-  /* 0x0330 */ u32 unk330;
-  /* 0x0334 */ u32 unk334;
-  /* 0x0338 */ u32 unk338;
-  /* 0x033C */ u32 unk33C;
-
-  /* 0x0340 */ u32 unk340;
-  /* 0x0344 */ void *unk344;
-  /* 0x0348 */ void *unk348;
-  /* 0x034C */ void *unk34C;
-  /* 0x0350 */ void *unk350;
-
-  /* 0x0354 */ u32 unk354;
-  /* 0x0358 */ u32 unk358;
-  /* 0x035C */ u32 unk35C;
-  /* 0x0360 */ u32 unk360;
-  /* 0x0364 */ u32 unk364;
-  /* 0x0368 */ u32 unk368;
-  /* 0x036C */ u32 unk36C;
-
-  /* 0x0370 */ void *unk370;
-  /* 0x0374 */ s32 unk374;
-
-  u32 unk378[174]; // Not an array. Unknown values.
+  /* 0x0098 */ Object_8001B7A8 obj;
 } Object;
 
 // Unused
@@ -1783,40 +1932,25 @@ typedef struct GhostHeader {
       };
       s16 unk2;
     };
-    s16 time; // In frames, where 60 frames = 1 second.
+    union {
+        struct {
+            u8 unk4;
+            s8 unk5;
+        };
+        s16 time; // In frames, where 60 frames = 1 second.
+    };
     s16 nodeCount;
 } GhostHeader;
 
 /* Size: 12 bytes */
 typedef struct GhostNode {
-    s16 x;
-    s16 y;
-    s16 z;
-    s16 zRotation; // This order is correct.
-    s16 xRotation;
-    s16 yRotation;
+  /* 0x00 */ s16 x;
+  /* 0x02 */ s16 y;
+  /* 0x04 */ s16 z;
+  /* 0x06 */ s16 zRotation; // This order is correct.
+  /* 0x08 */ s16 xRotation;
+  /* 0x0A */ s16 yRotation;
 } GhostNode;
-
-/* Size: 12 bytes */
-typedef struct GhostDataFrame {
-    u8 pad0[12];
-} GhostDataFrame;
-
-/* Size: 0x18 bytes */
-typedef struct unk8011D510 {
-    /* 0x00 */ s16 unk0;
-    /* 0x02 */ s16 unk2;
-    /* 0x04 */ s16 unk4;
-    /* 0x06 */ u16 unk6;
-    /* 0x08 */ f32 unk8;
-    /* 0x0C */ f32 unkC;
-    /* 0x10 */ f32 unk10;
-    /* 0x14 */ f32 unk14;
-} unk8011D510;
-
-typedef struct unk80042178 {
-    u8 pad0[0x20];
-} unk80042178;
 
 typedef struct ByteColour {
     u8 red;

@@ -42,7 +42,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_800049D8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/func_800049F8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/sound_event_update.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/audiosfx/get_sound_channel_volume.s")
 

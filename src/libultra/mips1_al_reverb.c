@@ -16,6 +16,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_reverb/_doModFunc.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_reverb/func_8006492C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_reverb/alFxReverbSet.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/libultra/mips1_al_reverb/func_8006493C.s")
