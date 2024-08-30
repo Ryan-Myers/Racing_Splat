@@ -35,6 +35,17 @@ SRC_DIRS = $(DEFINE_SRC_DIRS)
 
 TOOLS_DIR = tools
 
+UNAME_S := $(shell uname -s)
+ifeq ($(OS),Windows_NT)
+	$(error Native Windows is currently unsupported for building this repository, use WSL instead c:)
+else ifeq ($(UNAME_S),Linux)
+	DETECTED_OS := linux
+else ifeq ($(UNAME_S),Darwin)
+	DETECTED_OS := macos
+endif
+
+RECOMP_DIR := $(TOOLS_DIR)/ido-recomp/$(DETECTED_OS)
+
 # Files
 
 S_FILES         = $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
@@ -70,9 +81,9 @@ XGCC     = mips64-elf-gcc
 GREP     = grep -rl
 
 #Options
-CC       = $(TOOLS_DIR)/ido-static-recomp/build/5.3/out/cc
-SPLAT    = $(TOOLS_DIR)/splat/split.py
-CRC      = @tools/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64
+CC       = $(RECOMP_DIR)/cc
+SPLAT    ?= python3 -m splat split
+CRC      = @$(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64
 
 OPT_FLAGS      = -O2
 LOOP_UNROLL    =
@@ -160,21 +171,19 @@ verify: $(TARGET).z64
 no_verify: $(TARGET).z64
 	@echo "Skipping SHA1SUM check!"
 
-splat: $(SPLAT)
-
-extract: splat tools
-	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).$(REGION).$(VERSION).yaml
+extract: tools
+	$(SPLAT) splat_files/$(BASENAME).$(REGION).$(VERSION).yaml
 
 extractall: splat tools
-	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).us.v1.yaml
-	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).pal.v1.yaml
-	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).jpn.v1.yaml
-	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).us.v2.yaml
-	$(PYTHON) $(SPLAT) splat_files/$(BASENAME).pal.v2.yaml
+	$(SPLAT) splat_files/$(BASENAME).us.v1.yaml
+	$(SPLAT) splat_files/$(BASENAME).pal.v1.yaml
+	$(SPLAT) splat_files/$(BASENAME).jpn.v1.yaml
+	$(SPLAT) splat_files/$(BASENAME).us.v2.yaml
+	$(SPLAT) splat_files/$(BASENAME).pal.v2.yaml
 
 dependencies: tools
-	@make -C tools
-	@$(PYTHON) -m pip install -r tools/splat/requirements.txt #Installing the splat dependencies
+	@make -C $(TOOLS_DIR)
+	@$(PYTHON) -m pip install -r requirements.txt #Installing the splat dependencies
 
 clean:
 	rm -rf $(BUILD_DIR)
@@ -275,7 +284,7 @@ $(TARGET).bin: $(TARGET).elf
 
 $(TARGET).z64: $(TARGET).bin
 	@printf "[$(BLUE) CopyRom $(NO_COL)]  $<\n"
-	@tools/CopyRom.py $< $@ #Mask
+	@$(TOOLS_DIR)/CopyRom.py $< $@ #Mask
 	@printf "[$(GREEN) CRC $(NO_COL)]  $<\n"
 	@$(CRC)
 
