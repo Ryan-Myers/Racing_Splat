@@ -108,14 +108,17 @@ DEFINES += -DVERSION_$(REGION)_$(VERSION)
 VERIFY = verify
 
 ifeq ($(NON_MATCHING),1)
-DEFINES += -DNON_MATCHING
-VERIFY = no_verify
+	DEFINES += -DNON_MATCHING
+	DEFINES += AVOID_UB=1
+	VERIFY = no_verify
+else
+	DEFINES += -DANTI_TAMPER
 endif
 
 CFLAGS := -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -fullwarn -nostdinc -G 0
 CFLAGS += $(DEFINES)
 # ignore compiler warnings about anonymous structs
-CFLAGS += -woff 649,838
+CFLAGS += -woff 649,838,624
 CFLAGS += $(INCLUDE_CFLAGS)
 
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wunused-function -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion

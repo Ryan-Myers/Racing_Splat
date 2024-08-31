@@ -41,8 +41,8 @@ segments:
     follows_vram: entry
     bss_size: 0x41490
     subsegments:
-      - [0x1050, c, audio]
-      - [0x3260, c, audiomgr]
+      - [0x1050, c, audio] #Done
+      - [0x3260, c, audiomgr] #Done
       - [0x3D60, c, audiosfx]
       - [0x5740, c, unknown_005740]
       - [0x8C40, c, unknown_008C40]
@@ -266,7 +266,7 @@ segments:
       - [0xDB570, textbin, ucode_f3ddkr_xbus] # + 0x11E0
       - [0xDC770, textbin, ucode_unknown_2] # + 0x1200
       - [0xDD230, .data, audio] # + 0xAC0
-      - [0xDD280, data, audiomgr]
+      - [0xDD280, .data, audiomgr]
       - [0xDD2B0, data, audiosfx]
       - [0xDD2D0, data, unknown_005740]
       - [0xDD2E0, data, unknown_008C40]
@@ -322,7 +322,7 @@ segments:
       - [0xE5510, data, libultra/osTimer]
       - [0xE5520, data, libultra/xlitob]
       - [0xE5550, .rodata, audio]
-      - [0xE55F0, rodata, audiomgr]
+      - [0xE55F0, .rodata, audiomgr]
       - [0xE57B0, rodata, audiosfx]
       - [0xE57F0, rodata, unknown_005740]
       - [0xE5900, rodata, unknown_008C40]
@@ -385,7 +385,7 @@ segments:
       - [0xEBFA0, rodata, data_unknown_2]
       - [0xECB60, bin, assets]
       - { start: 0xECB60, type: .bss, vram: 0x800EBF60, name: audio }
-      - { start: 0xECB60, type: bss, vram: 0x80115F90, name: audiomgr }
+      - { start: 0xECB60, type: .bss, vram: 0x80115F90, name: audiomgr }
       - { start: 0xECB60, type: bss, vram: 0x80119BD0, name: audiosfx }
       - { start: 0xECB60, type: bss, vram: 0x80119C30, name: unknown_005740 }
       - { start: 0xECB60, type: bss, vram: 0x8011AC20, name: objects }
