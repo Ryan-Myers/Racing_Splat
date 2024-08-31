@@ -90,7 +90,7 @@ LOOP_UNROLL    =
 
 MIPSISET       = -mips1 -32
 
-INCLUDE_CFLAGS = -I . -I include/libc  -I include/PR -I include/sys -I include -I $(BIN_DIRS) -I $(SRC_DIR)/os 
+INCLUDE_CFLAGS = -I . -I include/libc  -I include/PR -I include/sys -I include -I $(BIN_DIRS) -I $(SRC_DIR)/os -I src 
 
 ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 OBJCOPYFLAGS   = -O binary
