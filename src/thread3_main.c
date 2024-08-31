@@ -1,11 +1,39 @@
 #include "common.h"
+#include "thread3_main.h"
 
-// const char sDebugVersionInfoString[] = "1.1605";
-// const char sDebugBuildDateString[] = "02/10/97 16:03";
-// const char sDebugUsernameString[] = "pmountain";
-// const char sDebugCarString[] = "CAR";
-// const char sDebugHovercraftString[] = "HOV";
-// const char sDebugPlaneString[] = "PLN";
+/************ .data ************/
+
+UNUSED char gBuildString[40] = "Version 7.7 29/09/97 15.00 L.Schuneman";
+
+s8 sAntiPiracyTriggered = 0;
+UNUSED s32 D_800DD378 = 1;
+s32 gSaveDataFlags = 0; // Official Name: load_save_flags
+s32 gScreenStatus = OSMESG_SWAP_BUFFER;
+s32 sControllerStatus = 0;
+UNUSED s32 D_800DD388 = 0;
+s8 gSkipGfxTask = FALSE;
+s8 gDrumstickSceneLoadTimer = 0;
+s16 gLevelLoadTimer = 0;
+s8 gPauseLockTimer = 0; // If this is above zero, the player cannot pause the game.
+s8 gFutureFunLandLevelTarget = FALSE;
+s8 gDmemInvalid = FALSE;
+UNUSED s32 D_800DD3A4 = 0;
+UNUSED s32 D_800DD3A8 = 0;
+UNUSED s32 D_800DD3AC = 0;
+s32 gNumF3dCmdsPerPlayer[4] = { 4500, 7000, 11000, 11000 };
+s32 gNumHudVertsPerPlayer[4] = { 300, 600, 850, 900 };
+s32 gNumHudMatPerPlayer[4] = { 300, 400, 550, 600 };
+s32 gNumHudTrisPerPlayer[4] = { 20, 30, 40, 50 };
+s8 gDrawFrameTimer = 0;
+FadeTransition D_800DD3F4 = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_OUT, FADE_COLOR_BLACK, 20, 0);
+UNUSED FadeTransition D_800DD3FC = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FADE_COLOR_WHITE, 20, -1);
+s32 sLogicUpdateRate = LOGIC_5FPS;
+FadeTransition gDrumstickSceneTransition = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FADE_COLOR_WHITE, 30, -1);
+UNUSED char *D_800DD410[3] = { "CAR", "HOV", "PLN" };
+FadeTransition gLevelFadeOutTransition = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FADE_COLOR_BLACK, 30, -1);
+FadeTransition D_800DD424 = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FADE_COLOR_BLACK, 260, -1);
+
+/*******************************/
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/thread3_main.s")
 

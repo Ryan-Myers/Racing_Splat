@@ -130,21 +130,21 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011390.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001139C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_race_countdown.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/get_race_start_timer.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800113BC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800113CC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/play_footstep_sounds.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/ignore_bounds_check.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/move_object.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011960.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_misc_model.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011AD0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_3d_misc.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/render_3d_billboard.s")
 
@@ -158,7 +158,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80012CE8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80012D5C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_object.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/object_do_player_tumble.s")
 
@@ -166,13 +166,13 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80012F94.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_object.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_object_parts.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80013548.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/unset_temp_model_transforms.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800135B8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800138A8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_bubble_trap.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/render_racer_shield.s")
 
@@ -182,7 +182,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800142B8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800143A8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/render_mesh.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80014814.s")
 
@@ -190,9 +190,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80014B50.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80015348.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sort_objects_by_dist.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800155B8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/process_object_interactions.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800159C8.s")
 
@@ -202,9 +202,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80016BC4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80016C68.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_butterfly_node.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80016DE8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_dist_racer.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001709C.s")
 
@@ -234,41 +234,41 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80019808.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001A7D8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/set_course_finish_flags.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001A8D4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/race_finish_adventure.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001A8F4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/race_transition_adventure.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001AE44.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/race_finish_timer.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001AE54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_balloon_cutscene_timer.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001AE64.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/race_finish_time_trial.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B288.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/timetrial_valid_player_ghost.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B2E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/timetrial_player_ghost.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B2F0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/timetrial_load_staff_ghost.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B3AC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/timetrial_staff_ghost_check.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B3C4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/tt_ghost_beaten.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B4FC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/timetrial_init_staff_ghost.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B640.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/timetrial_ghost_staff.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B650.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/timetrial_staff_unbeaten.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B668.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/timetrial_init_player_ghost.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B738.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/timetrial_save_player_ghost.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/has_ghost_to_save.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B790.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/set_ghost_none.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001B7A8.s")
 
@@ -396,37 +396,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80021600.s")
 
-f32 catmull_rom_interpolation(f32 *arg0, s32 arg1, f32 arg2) {
-    f32 ret;
-    f32 temp3, temp2, temp;
-    
-    temp =  (-0.5 * arg0[arg1])    + ( 1.5 * arg0[arg1 + 1]) + (-1.5 * arg0[arg1 + 2]) + ( 0.5 * arg0[arg1 + 3]);
-    temp2 = ( 1.0 * arg0[arg1])    + (-2.5 * arg0[arg1 + 1]) + ( 2.0 * arg0[arg1 + 2]) + (-0.5 * arg0[arg1 + 3]);
-    temp3 = (arg0[arg1 + 2] * 0.5) + ( 0.0 * arg0[arg1 + 1]) + (-0.5 * arg0[arg1])     + ( 0.0 * arg0[arg1 + 3]);
-    
-    ret = (1.0 * arg0[arg1 + 1]);
-    ret = (((((temp * arg2) + temp2) * arg2) + temp3) * arg2) + ret;
-    
-    return ret;
-}
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/catmull_rom_interpolation.s")
 
-/**
- * Interpolates x along a spline and returns the resultant progress along the spline.
-*/
-f32 cubic_spline_interpolation(f32 *data, s32 index, f32 x, f32 *derivative) {
-    f32 ret;
-    f32 temp3, temp2, temp;
-    
-    temp =  (-0.5 * data[index])    + ( 1.5 * data[index + 1]) + (-1.5 * data[index + 2]) + ( 0.5 * data[index + 3]);
-    temp2 = ( 1.0 * data[index])    + (-2.5 * data[index + 1]) + ( 2.0 * data[index + 2]) + (-0.5 * data[index + 3]);
-    temp3 = (data[index + 2] * 0.5) + ( 0.0 * data[index + 1]) + (-0.5 * data[index])     + ( 0.0 * data[index + 3]);
-    
-    ret = (1.0 * data[index + 1]);
-    *derivative = (((temp * 3 * x) + (2 * temp2)) * x) + temp3;
-    ret = (((((temp * x) + temp2) * x) + temp3) * x) + ret;
-    
-    return ret;
-}
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/cubic_spline_interpolation.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8002277C.s")
 

@@ -6,7 +6,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_ui/func_800A003C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_ui/func_800A0190.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/game_ui/race_starting.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_ui/render_hud.s")
 

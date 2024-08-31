@@ -17,7 +17,7 @@ options:
   asset_path: assets
   section_order: [".text", ".data", ".rodata", ".bss"]
   # auto_all_sections: [".data", ".rodata", ".bss"]
-  migrate_rodata_to_functions: False
+  migrate_rodata_to_functions: True
 segments:
   - name: header
     type: header
@@ -44,7 +44,7 @@ segments:
       - [0x1050, c, audio] #Done
       - [0x3260, c, audiomgr] #Done
       - [0x3D60, c, audiosfx] #Done
-      - [0x5740, c, unknown_005740]
+      - [0x5740, c, audio_vehicle]
       - [0x8C40, c, unknown_008C40]
       - [0xB310, c, libultra/mips1_seqplayer]
       - [0xBC20, c, objects]
@@ -268,7 +268,7 @@ segments:
       - [0xDD230, .data, audio] # + 0xAC0
       - [0xDD280, .data, audiomgr]
       - [0xDD2B0, .data, audiosfx]
-      - [0xDD2D0, data, unknown_005740]
+      - [0xDD2D0, .data, audio_vehicle]
       - [0xDD2E0, data, unknown_008C40]
       - [0xDD2F0, data, objects]
       - [0xDD470, data, unknown_0255E0]
@@ -287,7 +287,7 @@ segments:
       - [0xDDC60, data, camera]
       - [0xDDF00, data, controller]
       - [0xDDF10, data, game]
-      - [0xDDF40, data, thread3_main]
+      - [0xDDF40, .data, thread3_main]
       - [0xDE030, data, math_util]
       - [0xDF040, data, save_data]
       - [0xDF090, data, unknown_078050]
@@ -295,12 +295,12 @@ segments:
       - [0xDF370, data, video]
       - [0xDF3C0, data, textures_sprites]
       - [0xE0040, data, screen_asset]
-      - [0xE0050, data, menu]
+      - [0xE0050, .data, menu]
       - [0xE2A60, data, game_ui]
       - [0xE3450, data, weather]
       - [0xE38A0, data, particles]
       - [0xE3AF0, data, printf]
-      - [0xE3C20, data, thread0_epc]
+      - [0xE3C20, .data, thread0_epc]
       - [0xE3C40, data, waves]
       - [0xE3DA0, data, fade_transition]
       - [0xE4270, data, game_text]
@@ -318,65 +318,65 @@ segments:
       - [0xE5410, data, libultra/osSpTaskYielded]
       - [0xE5480, data, libultra/__osViSwapContext]
       - [0xE54A0, data, libultra/exception] #alCopy in main DKR repo, but exceptasm in ultralib
-      - [0xE54C0, data, libultra/xprintf]
+      - [0xE54C0, .data, libultra/xprintf]
       - [0xE5510, data, libultra/osTimer]
       - [0xE5520, data, libultra/xlitob]
       - [0xE5550, .rodata, audio]
       - [0xE55F0, .rodata, audiomgr]
-      - [0xE57B0, rodata, audiosfx]
-      - [0xE57F0, rodata, unknown_005740]
-      - [0xE5900, rodata, unknown_008C40]
-      - [0xE5B30, rodata, libultra/mips1_seqplayer]
-      - [0xE5B60, rodata, objects]
-      - [0xE69F0, rodata, unknown_0255E0]
+      - [0xE57B0, .rodata, audiosfx]
+      - [0xE57F0, .rodata, audio_vehicle]
+      - [0xE5900, .rodata, unknown_008C40]
+      - [0xE5B30, .rodata, libultra/mips1_seqplayer]
+      - [0xE5B60, .rodata, objects]
+      - [0xE69F0, .rodata, unknown_0255E0]
       - [0xE6B60, rodata, collision] #Always rodata for hasm
-      - [0xE6B80, rodata, unknown_032760]
-      - [0xE6BA0, rodata, object_functions]
-      - [0xE6E80, rodata, racer]
-      - [0xE7610, rodata, vehicle_tricky]
-      - [0xE7630, rodata, vehicle_bluey]
-      - [0xE7650, rodata, vehicle_smokey]
-      - [0xE76A0, rodata, vehicle_bubbler]
-      - [0xE76B0, rodata, vehicle_wizpig]
-      - [0xE7700, rodata, vehicle_rocket]
-      - [0xE7720, rodata, object_models]
-      - [0xE7820, rodata, libultra/mips1_al_csplayer]
-      - [0xE7A70, rodata, libultra/mips1_al_reverb]
-      - [0xE7AA0, rodata, libultra/mips1_al_alFxNew]
-      - [0xE7AC0, rodata, libultra/mips1_al_synthesizer]
-      - [0xE7AD0, rodata, main]
-      - [0xE7B00, rodata, camera]
-      - [0xE7CB0, rodata, thread3_main]
-      - [0xE7E10, rodata, memory]
-      - [0xE8190, rodata, save_data]
+      - [0xE6B80, .rodata, unknown_032760]
+      - [0xE6BA0, .rodata, object_functions]
+      - [0xE6E80, .rodata, racer]
+      - [0xE7610, .rodata, vehicle_tricky]
+      - [0xE7630, .rodata, vehicle_bluey]
+      - [0xE7650, .rodata, vehicle_smokey]
+      - [0xE76A0, .rodata, vehicle_bubbler]
+      - [0xE76B0, .rodata, vehicle_wizpig]
+      - [0xE7700, .rodata, vehicle_rocket]
+      - [0xE7720, .rodata, object_models]
+      - [0xE7820, .rodata, libultra/mips1_al_csplayer]
+      - [0xE7A70, .rodata, libultra/mips1_al_reverb]
+      - [0xE7AA0, .rodata, libultra/mips1_al_alFxNew]
+      - [0xE7AC0, .rodata, libultra/mips1_al_synthesizer]
+      - [0xE7AD0, .rodata, main]
+      - [0xE7B00, .rodata, camera]
+      - [0xE7CB0, .rodata, thread3_main]
+      - [0xE7E10, .rodata, memory]
+      - [0xE8190, .rodata, save_data]
       - [0xE8400, .rodata, libultra/mips1_sched] #Fully migrated
-      - [0xE8590, rodata, video]
-      - [0xE8730, rodata, textures_sprites]
-      - [0xE8890, rodata, screen_asset]
-      - [0xE88B0, rodata, menu]
-      - [0xE9240, rodata, game_ui]
-      - [0xE93F0, rodata, weather]
-      - [0xE9440, rodata, particles]
-      - [0xE9800, rodata, printf]
-      - [0xE9A70, rodata, thread0_epc]
-      - [0xE9D60, rodata, waves]
-      - [0xE9ED0, rodata, fade_transition]
-      - [0xE9F30, rodata, game_text]
-      - [0xE9F60, rodata, font]
+      - [0xE8590, .rodata, video]
+      - [0xE8730, .rodata, textures_sprites]
+      - [0xE8890, .rodata, screen_asset]
+      - [0xE88B0, .rodata, menu]
+      - [0xE9240, .rodata, game_ui]
+      - [0xE93F0, .rodata, weather]
+      - [0xE9440, .rodata, particles]
+      - [0xE9800, .rodata, printf]
+      - [0xE9A70, .rodata, thread0_epc]
+      - [0xE9D60, .rodata, waves]
+      - [0xE9ED0, .rodata, fade_transition]
+      - [0xE9F30, .rodata, game_text]
+      - [0xE9F60, .rodata, font]
       - [0xE9FC0, rodata, gzip] #Always rodata for hasm
-      - [0xEA0B0, rodata, libultra/al_cseq]
-      - [0xEA0C0, rodata, libultra/al_cents2ratio]
+      - [0xEA0B0, .rodata, libultra/al_cseq]
+      - [0xEA0C0, .rodata, libultra/al_cents2ratio]
       - [0xEA0D0, rodata, libultra/osSetIntMask] #Always rodata for hasm
-      - [0xEA150, rodata, libultra/llcvt]
-      - [0xEA160, rodata, libultra/al_env]
-      - [0xEA200, rodata, libultra/al_resample]
-      - [0xEA240, rodata, libultra/guPerspectiveF]
-      - [0xEA250, rodata, libultra/devmgr]
+      - [0xEA150, .rodata, libultra/llcvt]
+      - [0xEA160, .rodata, libultra/al_env]
+      - [0xEA200, .rodata, libultra/al_resample]
+      - [0xEA240, .rodata, libultra/guPerspectiveF]
+      - [0xEA250, .rodata, libultra/devmgr]
       - [0xEA270, rodata, libultra/exception] #Always rodata for hasm
-      - [0xEA2C0, rodata, libultra/xprintf]
-      - [0xEA3C0, rodata, libultra/cosf] #Always rodata
-      - [0xEA410, rodata, libultra/sinf] #Always rodata
-      - [0xEA460, rodata, libultra/pows] #Always rodata
+      - [0xEA2C0, .rodata, libultra/xprintf]
+      - [0xEA3C0, rodata, libultra/cosf_rdata] #Always rodata
+      - [0xEA410, rodata, libultra/sinf_rdata] #Always rodata
+      - [0xEA460, rodata, libultra/pows_rdata] #Always rodata
       - [0xEA4C0, rodata, libultra/libm_vals] #Always rodata for hasm
       - [0xEA4D0, rodata, data_audio]
       - [0xEA7A0, rodata, data_f3ddkr_dram]
@@ -387,7 +387,7 @@ segments:
       - { start: 0xECB60, type: .bss, vram: 0x800EBF60, name: audio }
       - { start: 0xECB60, type: .bss, vram: 0x80115F90, name: audiomgr }
       - { start: 0xECB60, type: .bss, vram: 0x80119BD0, name: audiosfx }
-      - { start: 0xECB60, type: bss, vram: 0x80119C30, name: unknown_005740 }
+      - { start: 0xECB60, type: .bss, vram: 0x80119C30, name: audio_vehicle }
       - { start: 0xECB60, type: bss, vram: 0x8011AC20, name: objects }
       - { start: 0xECB60, type: bss, vram: 0x8011B0A0, name: unknown_0255E0 }
       - { start: 0xECB60, type: bss, vram: 0x8011D4C0, name: unknown_032760 }
@@ -413,12 +413,13 @@ segments:
       - { start: 0xECB60, type: .bss, vram: 0x80126110, name: libultra/mips1_sched }
       - { start: 0xECB60, type: bss, vram: 0x80126170, name: video }
       - { start: 0xECB60, type: bss, vram: 0x80126320, name: textures_sprites }
-      - { start: 0xECB60, type: bss, vram: 0x80126390, name: menu }
+      - { start: 0xECB60, type: .bss, vram: 0x80126390, name: menu }
       - { start: 0xECB60, type: bss, vram: 0x80126CD0, name: game_ui }
       - { start: 0xECB60, type: bss, vram: 0x80127BB0, name: weather }
       - { start: 0xECB60, type: bss, vram: 0x80127C80, name: particles }
       - { start: 0xECB60, type: bss, vram: 0x80127CA0, name: printf }
-      - { start: 0xECB60, type: bss, vram: 0x801285E0, name: thread0_epc }
+      - { start: 0xECB60, type: .bss, vram: 0x801285E0, name: thread0_epc }
+      - { start: 0xECB60, type: bss, vram: 0x80129800, name: unk_bss }      
       - { start: 0xECB60, type: bss, vram: 0x80129BB0, name: stacks } #Could be earlier as main repo has a 0x100 byte unused var in it. Could also leave it out, and keep it all in thread0_epc above.
       - { start: 0xECB60, type: bss, vram: 0x80129FC0, name: waves }
       - { start: 0xECB60, type: bss, vram: 0x8012A730, name: fade_transition }
