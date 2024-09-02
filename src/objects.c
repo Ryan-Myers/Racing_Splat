@@ -16,13 +16,13 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/decrypt_magic_codes.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000C460.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/clear_object_pointers.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000C604.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/free_all_objects.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000C718.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/load_object_header.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000C844.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/try_free_object_header.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/normalise_time.s")
 
@@ -36,7 +36,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000CC7C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E0B0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_contpak_error.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/instShowBearBar.s")
 
@@ -56,9 +56,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/check_if_silver_coin_race.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E1EC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/despawn_player_racer.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E2B4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/transform_player_vehicle.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/set_time_trial_enabled.s")
 
@@ -80,9 +80,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/objGetObjList.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/getObjectCount.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_object_count.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E9C0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_particle_count.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000E9D0.s")
 
@@ -90,29 +90,29 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/objFreeAssets.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/lightSetupLightSources.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/light_setup_light_sources.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000F7EC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/init_object_shading.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000F99C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FAC4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_init_emitter.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/init_object_shadow.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FC6C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/init_object_water_effect.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FD20.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/init_object_interaction_data.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FD34.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8000FD54.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/gParticlePtrList_addObject.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/free_object.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80010018.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_table_ids.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80010028.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_id_valid.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/gParticlePtrList_flush.s")
 
@@ -124,11 +124,11 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011264.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011364.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/do_nothing_func_80011364.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001136C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/path_update_check.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80011390.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/path_enable.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/get_race_countdown.s")
 
@@ -222,6 +222,28 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/get_taj_challenge_type.s")
 
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectOutofMemString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sDoorNumberErrorString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectScopeErrorString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectListDataOverflowString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectSetupError1String.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectSetupError2String.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectSetupError5String.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectSetupError6String.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectSetupError3String.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectListOverflowString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sObjectSetupError4String.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80017E98.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800185E4.s")
@@ -296,19 +318,19 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/debug_render_checkpoint_node.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BC54.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/spectate_update.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_camera_object.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/spectate_object.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BDD4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/spectate_nearest.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001BF20.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/ainode_update.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001C418.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_elevation.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001C48C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/ainode_register.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001C524.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/ainode_find_nearest.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001C6C4.s")
 
@@ -316,21 +338,21 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001CD28.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D1AC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/ainode_enable.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D1BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/ainode_tail_set.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D1E4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/ainode_tail.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D214.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/ainode_get.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D23C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D258.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/set_world_shading.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D2A0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/add_shading_properties.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001D4B4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/set_shading_properties.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/update_envmap_position.s")
 
@@ -340,7 +362,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/calc_env_mapping_for_object.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E13C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/set_racer_position_and_angle.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/get_misc_asset.s")
 
@@ -348,15 +370,15 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E344.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E36C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_bridge_pos.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E440.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/cutscene_id.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E450.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/cutscene_id_set.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E45C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E4B4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_object_list_index.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001E4C4.s")
 
@@ -368,7 +390,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001EE74.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001EFA4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_init_animcamera.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8001F23C.s")
 
@@ -410,29 +432,29 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/init_racer_for_challenge.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80022948.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/mode_init_taj_race.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80022CFC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_taj_create_balloon.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80022E18.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/mode_end_taj_race.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800230D0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/is_taj_challenge.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_8002342C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/find_furthest_telepoint.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80023568.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800235C0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_door_override.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800235D0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_door_open.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800235DC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/get_object_property_size.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/run_object_init_func.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80023E30.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/obj_init_property_flags.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/run_object_loop_func.s")
 
@@ -441,3 +463,9 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_80024594.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/objects/func_800245B4.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sErrorChannelString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sReadOutErrorString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/objects/sPureAnguishString.s")

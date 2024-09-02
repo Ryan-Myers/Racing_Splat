@@ -2,6 +2,13 @@ BASENAME  = dkr
 REGION  := us
 VERSION  := v1
 
+# Whether to hide commands or not
+VERBOSE ?= 0
+ifeq ($(VERBOSE),0)
+  V := @
+endif
+
+
 # Colors
 
 NO_COL  := \033[0m
@@ -20,17 +27,18 @@ ifeq ($(REGION)$(VERSION),usv1)
 BIN_DIRS  = assets
 BUILD_DIR = build
 SRC_DIR   = src
-ASM_DIRS  = asm asm/data asm/libultra asm/data/libultra #For libultra handwritten files
+ASM_DIRS  = asm asm/data asm/libultra asm/data/libultra asm/nonmatchings asm/data/lib/src/mips1 #For libultra handwritten files
 else
 BIN_DIRS  = assets_$(REGION)_$(VERSION)
 BUILD_DIR = build_$(REGION)_$(VERSION)
 SRC_DIR   = src_$(REGION)_$(VERSION)
-ASM_DIRS  = asm_$(REGION)_$(VERSION) asm_$(REGION)_$(VERSION)/data asm_$(REGION)_$(VERSION)/libultra asm_$(REGION)_$(VERSION)/data/libultra
+ASM_DIRS  = asm_$(REGION)_$(VERSION) asm_$(REGION)_$(VERSION)/data asm_$(REGION)_$(VERSION)/libultra asm_$(REGION)_$(VERSION)/data/libultra asm_$(REGION)_$(VERSION)/nonmatchings
 endif
 
 LIBULTRA_SRC_DIRS = $(SRC_DIR)/libultra
+LIB_DIRS = $(SRC_DIR)/lib
 
-DEFINE_SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core $(LIBULTRA_SRC_DIRS)
+DEFINE_SRC_DIRS  = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) src/lib/src/mips1 src/lib/src/mips1/al
 SRC_DIRS = $(DEFINE_SRC_DIRS)
 
 TOOLS_DIR = tools
@@ -55,6 +63,9 @@ BIN_FILES       = $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
 O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(BIN_FILES),$(BUILD_DIR)/$(file).o)
+
+GLOBAL_ASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(SRC_DIRS)
+GLOBAL_ASM_O_FILES = $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file:.c=.o))
 
 
 find-command = $(shell which $(1) 2>/dev/null)
@@ -82,53 +93,52 @@ GREP     = grep -rl
 
 #Options
 CC       = $(RECOMP_DIR)/cc
-SPLAT    ?= python3 -m splat split
-CRC      = @$(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64
+SPLAT    ?= $(PYTHON) -m splat split
+CRC      = $(V)$(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64
 
 OPT_FLAGS      = -O2
 LOOP_UNROLL    =
 
-MIPSISET       = -mips1 -32
+MIPSISET       = -mips1
+
+DEFINES := _FINALROM NDEBUG TARGET_N64 __sgi F3DDKR_GBI __GL_GL_H__
+DEFINES += VERSION_$(REGION)_$(VERSION)
+
+VERIFY = verify
+
+ifeq ($(NON_MATCHING),1)
+	DEFINES += NON_MATCHING
+	DEFINES += AVOID_UB
+	VERIFY = no_verify
+else
+	DEFINES += ANTI_TAMPER
+endif
+
+C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 
 INCLUDE_CFLAGS = -I . -I include/libc  -I include/PR -I include/sys -I include -I $(BIN_DIRS) -I $(SRC_DIR)/os -I src 
 
-ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
+ASFLAGS        = -mtune=vr4300 -march=vr4300 -mabi=32 $(foreach d,$(DEFINES),--defsym $(d)=1) $(INCLUDE_CFLAGS)
 OBJCOPYFLAGS   = -O binary
 
 # Files requiring pre/post-processing
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
-
-DEFINES := -D_LANGUAGE_C -D_FINALROM -DWIN32 -DNDEBUG -DTARGET_N64 -D__sgi
-
-
-DEFINES += -DVERSION_$(REGION)_$(VERSION)
-
-VERIFY = verify
-
-ifeq ($(NON_MATCHING),1)
-	DEFINES += -DNON_MATCHING
-	DEFINES += AVOID_UB=1
-	VERIFY = no_verify
-else
-	DEFINES += -DANTI_TAMPER
-endif
-
-CFLAGS := -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -fullwarn -nostdinc -G 0
-CFLAGS += $(DEFINES)
+CFLAGS := -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -Xfullwarn -G 0
+CFLAGS += $(C_DEFINES)
 # ignore compiler warnings about anonymous structs
-CFLAGS += -woff 649,838,624
+CFLAGS += -woff 838,649,624
 CFLAGS += $(INCLUDE_CFLAGS)
 
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wunused-function -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
-CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -funsigned-char -std=gnu90 -m32 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
+CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -funsigned-char -std=gnu90 -m32 -D_LANGUAGE_C $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(C_DEFINES)
 
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION)
 LD_SCRIPT  = $(BASENAME).$(REGION).$(VERSION).ld
 
 LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_funcs_auto.$(REGION).$(VERSION).txt  -T undefined_syms_auto.$(REGION).$(VERSION).txt
-LD_FLAGS  += -Map $(TARGET).map --no-check-sections
+LD_FLAGS  += -Map $(TARGET).map
 
 ifeq ($(REGION)$(VERSION),usv1)
 LD_FLAGS_EXTRA  =
@@ -142,6 +152,8 @@ ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py
 
 ### Optimisation Overrides
+$(BUILD_DIR)/$(SRC_DIR)/libultra/%.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(SRC_DIR)/libultra/%.c.o: MIPSISET := -mips2
 # $(BUILD_DIR)/$(SRC_DIR)/os/%.c.o: OPT_FLAGS := -O1
 # $(BUILD_DIR)/$(SRC_DIR)/os/audio/%.c.o: OPT_FLAGS := -O2
 # $(BUILD_DIR)/$(SRC_DIR)/os/libc/%.c.o: OPT_FLAGS := -O3
@@ -154,7 +166,7 @@ default: all
 all: $(VERIFY)
 
 ldflags:
-	@printf "[$(PINK) LDFLAGS $(NO_COL)]: $(LD_FLAGS)\n[$(PINK) EXTRA $(NO_COL)]: $(LD_FLAGS_EXTRA)\n"
+	$(V)printf "[$(PINK) LDFLAGS $(NO_COL)]: $(LD_FLAGS)\n[$(PINK) EXTRA $(NO_COL)]: $(LD_FLAGS_EXTRA)\n"
 
 dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
@@ -176,8 +188,8 @@ extractall: tools
 	$(SPLAT) splat_files/$(BASENAME).pal.v2.yaml
 
 dependencies: tools
-	@make -C $(TOOLS_DIR)
-	@$(PYTHON) -m pip install -r requirements.txt #Installing the splat dependencies
+	$(V)make -C $(TOOLS_DIR)
+	$(V)$(PYTHON) -m pip install -r requirements.txt #Installing the splat dependencies
 
 clean:
 	rm -rf $(BUILD_DIR)
@@ -235,16 +247,16 @@ expected: verify
 ### Recipes
 
 $(TARGET).elf: dirs $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES)
-	@$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
+	$(V)$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
 	@printf "[$(PINK) Linker $(NO_COL)]  $<\n"
 
 ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c  include/variables.h include/structs.h
-	@$(CC_CHECK) $<
+	$(V)$(CC_CHECK) $<
 	@printf "[$(YELLOW) check $(NO_COL)] $<\n"
-	@$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
-	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
-	@$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
+	$(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
+	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
+	$(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
 		--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.inc
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 endif
@@ -252,7 +264,7 @@ endif
 # non asm-processor recipe
 $(BUILD_DIR)/%.c.o: %.c
 #	@$(CC_CHECK) $<
-	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 
 
@@ -261,22 +273,25 @@ $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 	@mkdir -p $$(dirname $@)
 
 $(BUILD_DIR)/%.s.o: %.s
-	@$(AS) $(ASFLAGS) -o $@ $<
+	$(V)$(AS) $(ASFLAGS) -o $@ $<
 	@printf "[$(GREEN)  ASSEMBLER   $(NO_COL)]  $<\n"
 
 $(BUILD_DIR)/%.bin.o: %.bin
-	@$(LD) -r -b binary -o $@ $<
+	$(V)$(LD) -r -b binary -o $@ $<
 	@printf "[$(PINK) Linker $(NO_COL)]  $<\n"
 
 $(TARGET).bin: $(TARGET).elf
-	@$(OBJCOPY) $(OBJCOPYFLAGS) $< $@
+	$(V)$(OBJCOPY) $(OBJCOPYFLAGS) $< $@
 	@printf "[$(CYAN) Objcopy $(NO_COL)]  $<\n"
 
 $(TARGET).z64: $(TARGET).bin
 	@printf "[$(BLUE) CopyRom $(NO_COL)]  $<\n"
-	@$(TOOLS_DIR)/CopyRom.py $< $@ #Mask
+	$(V)$(TOOLS_DIR)/CopyRom.py $< $@
 	@printf "[$(GREEN) CRC $(NO_COL)]  $<\n"
 	@$(CRC)
+
+
+# $(GLOBAL_ASM_O_FILES): CC := $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py $(CC) -- $(AS) $(ASFLAGS) --
 
 ### Settings
 .SECONDARY:

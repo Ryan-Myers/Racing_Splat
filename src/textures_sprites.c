@@ -22,11 +22,11 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/reset_render_settings.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/func_8007B43C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/enable_primitive_colour.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/func_8007B454.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/disable_primitive_colour.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/func_8007B46C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/set_animated_texture_header.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/load_and_set_texture_no_offset.s")
 
@@ -34,7 +34,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/load_blinking_lights_texture.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/func_8007BF1C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/sprite_opaque.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/func_8007BF34.s")
 
@@ -73,3 +73,21 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/update_pulsating_light_data.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/func_8007F594.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/D_800E7B30.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/D_800E7B60.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/D_800E7B88.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/D_800E7BA8.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/D_800E7BC4.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/D_800E7BFC.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/D_800E7C10.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/D_800E7C30.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/textures_sprites/D_800E7C50.s")

@@ -39,6 +39,18 @@ FadeTransition D_800DD424 = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FAD
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/init_game.s")
 
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sLevelErrorString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sBossErrorString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sAITableErrorString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sDebugVersionInfoString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sDebugBuildDateString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sDebugUsernameString.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/main_game_loop.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006CAE4.s")
@@ -57,15 +69,15 @@ FadeTransition D_800DD424 = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FAD
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006D968.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/get_render_context.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/get_game_mode.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/set_render_context.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/set_game_mode.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/load_menu_with_level_background.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/set_level_default_vehicle.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006DB20.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/set_vehicle_id_for_menu.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/get_level_default_vehicle.s")
 
@@ -75,19 +87,19 @@ FadeTransition D_800DD424 = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FAD
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/update_menu_scene.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006DCF8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/menu_logic_loop.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/load_level_for_menu.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/calc_and_alloc_heap_for_settings.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006E5BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/init_racer_headers.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006E770.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/clear_lap_records.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006E994.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/clear_game_progress.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006EA58.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/reset_save_data.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/get_settings.s")
 
@@ -131,7 +143,7 @@ FadeTransition D_800DD424 = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FAD
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/default_alloc_displaylist_heap.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006F140.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/level_transition_begin.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006F20C.s")
 
@@ -141,9 +153,9 @@ FadeTransition D_800DD424 = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FAD
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/begin_level_teleport.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006F388.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/set_pause_lockout_timer.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/func_8006F398.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/swap_lead_player.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/set_frame_blackout_timer.s")
 
@@ -152,3 +164,11 @@ FadeTransition D_800DD424 = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FAD
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/is_controller_missing.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/check_imem_validity.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sDebugCarString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sDebugHovercraftString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sDebugPlaneString.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/thread3_main/sDebugVehicleSwapString.s")

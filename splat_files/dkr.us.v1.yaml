@@ -46,7 +46,7 @@ segments:
       - [0x3D60, c, audiosfx] #Done
       - [0x5740, c, audio_vehicle]
       - [0x8C40, c, unknown_008C40]
-      - [0xB310, c, libultra/mips1_seqplayer]
+      - [0xB310, c, lib/src/mips1/seqplayer]
       - [0xBC20, c, objects]
       - [0x251F0, hasm, unknown_0251F0]
       - [0x255E0, c, unknown_0255E0]
@@ -62,18 +62,18 @@ segments:
       - [0x5FF10, c, vehicle_rocket]
       - [0x60450, c, object_models]
       - [0x62930, hasm, unknown_062930]
-      - [0x62E90, c, libultra/mips1_al_csplayer]
-      - [0x64690, c, libultra/mips1_al_unknown_064690]
-      - [0x646F0, c, libultra/mips1_al_unknown_0646F0]
-      - [0x647A0, c, libultra/mips1_al_unknown_0647A0]
-      - [0x64800, c, libultra/mips1_al_unknown_064800]
-      - [0x64830, c, libultra/mips1_al_reverb]
-      - [0x65550, c, libultra/mips1_al_alFxNew]
-      - [0x65D30, c, libultra/mips1_al_synthesizer]
-      - [0x66460, c, libultra/mips1_al_alSynAllocFX]
-      - [0x66500, c, libultra/mips1_al_alAuxBusPull]
-      - [0x66720, c, libultra/mips1_al_alSynSetPan]
-      - [0x667D0, c, libultra/mips1_al_alSynStartVoiceParams]
+      - [0x62E90, c, lib/src/mips1/al_csplayer]
+      - [0x64690, c, lib/src/mips1/al_unknown_064690]
+      - [0x646F0, c, lib/src/mips1/al_unknown_0646F0]
+      - [0x647A0, c, lib/src/mips1/al_unknown_0647A0]
+      - [0x64800, c, lib/src/mips1/al_unknown_064800]
+      - [0x64830, c, lib/src/mips1/al_reverb]
+      - [0x65550, c, lib/src/mips1/al_alFxNew]
+      - [0x65D30, c, lib/src/mips1/al_synthesizer]
+      - [0x66460, c, lib/src/mips1/al_alSynAllocFX]
+      - [0x66500, c, lib/src/mips1/al_alAuxBusPull]
+      - [0x66720, c, lib/src/mips1/al_alSynSetPan]
+      - [0x667D0, c, lib/src/mips1/al_alSynStartVoiceParams]
       - [0x66940, c, main]
       - [0x66AA0, c, camera]
       - [0x6AD00, c, controller]
@@ -86,7 +86,7 @@ segments:
       - [0x777A0, c, asset_loading]
       - [0x77C50, c, borders]
       - [0x78050, c, unknown_078050]
-      - [0x79F50, c, libultra/mips1_sched]
+      - [0x79F50, c, lib/src/mips1/sched]
       - [0x7AED0, c, set_rsp_segment]
       - [0x7AF10, c, video]
       - [0x7B870, c, textures_sprites]
@@ -281,9 +281,9 @@ segments:
       - [0xDDA60, data, vehicle_wizpig]
       - [0xDDA80, data, vehicle_rocket]
       - [0xDDAA0, data, object_models]
-      - [0xDDAB0, data, libultra/mips1_al_reverb]
-      - [0xDDAC0, data, libultra/mips1_al_alFxNew]
-      - [0xDDC50, data, libultra/mips1_al_alSynStartVoiceParams]
+      - [0xDDAB0, data, lib/src/mips1/al_reverb]
+      - [0xDDAC0, data, lib/src/mips1/al_alFxNew]
+      - [0xDDC50, data, lib/src/mips1/al_alSynStartVoiceParams]
       - [0xDDC60, data, camera]
       - [0xDDF00, data, controller]
       - [0xDDF10, data, game]
@@ -291,16 +291,16 @@ segments:
       - [0xDE030, data, math_util]
       - [0xDF040, data, save_data]
       - [0xDF090, data, unknown_078050]
-      - [0xDF330, .data, libultra/mips1_sched]
+      - [0xDF330, .data, lib/src/mips1/sched]
       - [0xDF370, data, video]
       - [0xDF3C0, data, textures_sprites]
       - [0xE0040, data, screen_asset]
       - [0xE0050, .data, menu]
-      - [0xE2A60, data, game_ui]
+      - [0xE2A60, .data, game_ui]
       - [0xE3450, data, weather]
       - [0xE38A0, data, particles]
       - [0xE3AF0, data, printf]
-      - [0xE3C20, .data, thread0_epc]
+      - [0xE3C20, data, thread0_epc]
       - [0xE3C40, data, waves]
       - [0xE3DA0, data, fade_transition]
       - [0xE4270, data, game_text]
@@ -326,7 +326,7 @@ segments:
       - [0xE57B0, .rodata, audiosfx]
       - [0xE57F0, .rodata, audio_vehicle]
       - [0xE5900, .rodata, unknown_008C40]
-      - [0xE5B30, .rodata, libultra/mips1_seqplayer]
+      - [0xE5B30, .rodata, lib/src/mips1/seqplayer]
       - [0xE5B60, .rodata, objects]
       - [0xE69F0, .rodata, unknown_0255E0]
       - [0xE6B60, rodata, collision] #Always rodata for hasm
@@ -340,16 +340,16 @@ segments:
       - [0xE76B0, .rodata, vehicle_wizpig]
       - [0xE7700, .rodata, vehicle_rocket]
       - [0xE7720, .rodata, object_models]
-      - [0xE7820, .rodata, libultra/mips1_al_csplayer]
-      - [0xE7A70, .rodata, libultra/mips1_al_reverb]
-      - [0xE7AA0, .rodata, libultra/mips1_al_alFxNew]
-      - [0xE7AC0, .rodata, libultra/mips1_al_synthesizer]
+      - [0xE7820, .rodata, lib/src/mips1/al_csplayer]
+      - [0xE7A70, .rodata, lib/src/mips1/al_reverb]
+      - [0xE7AA0, .rodata, lib/src/mips1/al_alFxNew]
+      - [0xE7AC0, .rodata, lib/src/mips1/al_synthesizer]
       - [0xE7AD0, .rodata, main]
       - [0xE7B00, .rodata, camera]
       - [0xE7CB0, .rodata, thread3_main]
       - [0xE7E10, .rodata, memory]
       - [0xE8190, .rodata, save_data]
-      - [0xE8400, .rodata, libultra/mips1_sched] #Fully migrated
+      - [0xE8400, .rodata, lib/src/mips1/sched] #Fully migrated
       - [0xE8590, .rodata, video]
       - [0xE8730, .rodata, textures_sprites]
       - [0xE8890, .rodata, screen_asset]
@@ -374,9 +374,9 @@ segments:
       - [0xEA250, .rodata, libultra/devmgr]
       - [0xEA270, rodata, libultra/exception] #Always rodata for hasm
       - [0xEA2C0, .rodata, libultra/xprintf]
-      - [0xEA3C0, rodata, libultra/cosf_rdata] #Always rodata
-      - [0xEA410, rodata, libultra/sinf_rdata] #Always rodata
-      - [0xEA460, rodata, libultra/pows_rdata] #Always rodata
+      - [0xEA3C0, .rodata, libultra/cosf] #Always rodata
+      - [0xEA410, .rodata, libultra/sinf] #Always rodata
+      - [0xEA460, .rodata, libultra/xldtob]
       - [0xEA4C0, rodata, libultra/libm_vals] #Always rodata for hasm
       - [0xEA4D0, rodata, data_audio]
       - [0xEA7A0, rodata, data_f3ddkr_dram]
@@ -410,17 +410,17 @@ segments:
       - { start: 0xECB60, type: bss, vram: 0x80124010, name: save_data }
       - { start: 0xECB60, type: bss, vram: 0x80124200, name: asset_loading }
       - { start: 0xECB60, type: bss, vram: 0x801242A0, name: unknown_078050 }
-      - { start: 0xECB60, type: .bss, vram: 0x80126110, name: libultra/mips1_sched }
+      - { start: 0xECB60, type: .bss, vram: 0x80126110, name: lib/src/mips1/sched }
       - { start: 0xECB60, type: bss, vram: 0x80126170, name: video }
       - { start: 0xECB60, type: bss, vram: 0x80126320, name: textures_sprites }
       - { start: 0xECB60, type: .bss, vram: 0x80126390, name: menu }
-      - { start: 0xECB60, type: bss, vram: 0x80126CD0, name: game_ui }
+      - { start: 0xECB60, type: .bss, vram: 0x80126CD0, name: game_ui }
       - { start: 0xECB60, type: bss, vram: 0x80127BB0, name: weather }
       - { start: 0xECB60, type: bss, vram: 0x80127C80, name: particles }
       - { start: 0xECB60, type: bss, vram: 0x80127CA0, name: printf }
-      - { start: 0xECB60, type: .bss, vram: 0x801285E0, name: thread0_epc }
-      - { start: 0xECB60, type: bss, vram: 0x80129800, name: unk_bss }      
-      - { start: 0xECB60, type: bss, vram: 0x80129BB0, name: stacks } #Could be earlier as main repo has a 0x100 byte unused var in it. Could also leave it out, and keep it all in thread0_epc above.
+      - { start: 0xECB60, type: bss, vram: 0x801285E0, name: thread0_epc }
+      - { start: 0xECB60, type: bss, vram: 0x80129800, name: thread0_staticbss } #Not sure how else to include this yet.
+      - { start: 0xECB60, type: .bss, vram: 0x80129AB0, name: stacks }
       - { start: 0xECB60, type: bss, vram: 0x80129FC0, name: waves }
       - { start: 0xECB60, type: bss, vram: 0x8012A730, name: fade_transition }
       - { start: 0xECB60, type: bss, vram: 0x8012A780, name: game_text }

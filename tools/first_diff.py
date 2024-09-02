@@ -32,10 +32,10 @@ args = parser.parse_args()
 diff_count = args.count
 
 if args.make:
-    check_call(["make", "-j4", "COMPARE=0"])
+    check_call(["make", "baseroms/baserom.us.v1.z64"])
 
 baseimg = f"baseroms/baserom.us.v1.z64"
-basemap = f"expected/dkr.us.v1.map"
+basemap = f"expected/build/dkr.us.v1.map"
 
 myimg =   f"build/dkr.us.v1.z64"
 mymap = f"build/dkr.us.v1.map"
@@ -52,7 +52,7 @@ basebin = open(baseimg, "rb").read()
 
 if len(mybin) != len(basebin):
     print("Modified ROM has different size...")
-    # exit(1)
+    exit(1)
 
 if mybin == basebin:
     print("No differences!")
@@ -93,7 +93,7 @@ def search_rom_address(target_addr):
             rom = ram - ram_offset
             sym = line.split()[-1]
 
-            if sym.startswith("0x"):
+            if "0x" in sym:
                 ram_offset = None
                 continue
             if "/" in sym:
@@ -139,7 +139,7 @@ def parse_map(map_fname):
             rom = ram - ram_offset
             sym = line.split()[-1]
 
-            if sym.startswith("0x"):
+            if "0x" in sym:
                 ram_offset = None
                 continue
             elif "/" in sym:
