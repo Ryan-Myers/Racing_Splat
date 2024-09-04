@@ -33,9 +33,6 @@ OSMesgQueue D_80129790;
 OSMesg D_801297A8[8];
 OSMesg D_801297C8[8];
 OSMesgQueue D_801297E8;
-UNUSED u8 D_80129800[0x3B0];
-u16 D_80129BB0[512]; // epcStack?
-s32 gObjectStackTrace[3];
 
 /**
  * Start the exception program counter thread.

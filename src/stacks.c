@@ -9,8 +9,8 @@
 
 /************ .bss ************/
 
-// UNUSED u8 D_8012A9B0[0x100];
-// u16 D_80129BB0[512]; // epcStack?
-// s32 gObjectStackTrace[3];
+UNUSED u8 D_8012A9B0[0x100];
+u16 D_80129BB0[512]; // epcStack?
+s32 gObjectStackTrace[3];
 
 /******************************/
