@@ -85,7 +85,7 @@ segments:
       - [0x72E50, c, save_data]
       - [0x777A0, c, asset_loading]
       - [0x77C50, c, borders]
-      - [0x78050, c, rcp]
+      - [0x78050, c, rcp_dkr]
       - [0x79F50, c, lib/src/mips1/sched]
       - [0x7AED0, c, set_rsp_segment]
       - [0x7AF10, c, video]
@@ -290,7 +290,7 @@ segments:
       - [0xDDF40, .data, thread3_main]
       - [0xDE030, data, math_util]
       - [0xDF040, data, save_data]
-      - [0xDF090, data, rcp]
+      - [0xDF090, data, rcp_dkr]
       - [0xDF330, .data, lib/src/mips1/sched]
       - [0xDF370, data, video]
       - [0xDF3C0, data, textures_sprites]
@@ -409,7 +409,7 @@ segments:
       - { start: 0xECB60, type: bss, vram: 0x80123DD0, name: libultra/osMotor }
       - { start: 0xECB60, type: bss, vram: 0x80124010, name: save_data }
       - { start: 0xECB60, type: bss, vram: 0x80124200, name: asset_loading }
-      - { start: 0xECB60, type: bss, vram: 0x801242A0, name: rcp }
+      - { start: 0xECB60, type: bss, vram: 0x801242A0, name: rcp_dkr }
       - { start: 0xECB60, type: .bss, vram: 0x80126110, name: lib/src/mips1/sched }
       - { start: 0xECB60, type: bss, vram: 0x80126170, name: video }
       - { start: 0xECB60, type: bss, vram: 0x80126320, name: textures_sprites }

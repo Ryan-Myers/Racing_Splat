@@ -22,7 +22,7 @@
 #include "thread30_track_loading.h"
 #include "objects.h"
 #include "game.h"
-#include "rcp.h"
+#include "rcp_dkr.h"
 #include "save_data.h"
 #include "object_functions.h"
 #include "audiosfx.h"

@@ -15,3 +15,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/libultra/llcvt/__ull_to_d.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/libultra/llcvt/__ull_to_f.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/llcvt/D_800E9550.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/libultra/llcvt/D_800E9558.s")

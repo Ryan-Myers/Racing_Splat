@@ -18,4 +18,4 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/lib/src/mips1/al_reverb/alFxReverbSet.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/lib/src/mips1/al_reverb/func_8006493C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/lib/src/mips1/al_reverb/_alFxEnabled.s")

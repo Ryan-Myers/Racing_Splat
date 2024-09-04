@@ -16,7 +16,7 @@
 #include "game_text.h"
 #include "object_models.h"
 #include "tracks.h"
-#include "rcp.h"
+#include "rcp_dkr.h"
 #include "audiosfx.h"
 #include "printf.h"
 #include "audio_spatial.h"

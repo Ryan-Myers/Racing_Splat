@@ -116,7 +116,8 @@ endif
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 
-INCLUDE_CFLAGS = -I . -I include/libc  -I include/PR -I include/sys -I include -I $(BIN_DIRS) -I $(SRC_DIR)/os -I src 
+INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(SRC_DIR)/os -I $(SRC_DIR)/lib
+INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/src/gu -I $(SRC_DIR)/lib/src/libc -I $(SRC_DIR)/lib/src/mips1 -I $(SRC_DIR)/lib/src/mips1/al -I $(SRC_DIR)/lib/src/os
 
 ASFLAGS        = -mtune=vr4300 -march=vr4300 -mabi=32 $(foreach d,$(DEFINES),--defsym $(d)=1) $(INCLUDE_CFLAGS)
 OBJCOPYFLAGS   = -O binary

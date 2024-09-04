@@ -10,12 +10,12 @@
 
 typedef signed char            s8;
 typedef unsigned char          u8;
-typedef signed short           s16;
-typedef unsigned short         u16;
-typedef long                   s32;
-typedef unsigned long          u32;
-typedef signed long long       s64;
-typedef unsigned long long     u64;
+typedef signed short int       s16;
+typedef unsigned short int     u16;
+typedef signed int             s32;
+typedef unsigned int           u32;
+typedef signed long long int   s64;
+typedef unsigned long long int u64;
 
 typedef volatile u8   vu8;
 typedef volatile u16 vu16;
@@ -40,7 +40,14 @@ typedef s32 ptrdiff_t;
 //#endif
 
 typedef float Matrix[4][4];
+typedef s32 MatrixS[4][4];
 typedef s16 VertexList;
 typedef u8 TriangleList;
+
+#if defined(__sgi)
+#define stubbed_printf
+#else
+#define stubbed_printf(...)
+#endif
 
 #endif
