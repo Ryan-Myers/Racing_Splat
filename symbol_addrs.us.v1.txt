@@ -1685,7 +1685,7 @@ _itoa = 0x800B4940;
 func_800B4A08 = 0x800B4A08;
 sprintf = 0x800B4A14;
 vsprintf = 0x800B4A40;
-amGetSfxCount = 0x800B5E0C;
+// amGetSfxCount = 0x800B5E0C;
 debug_text_init = 0x800B5E88;
 render_printf = 0x800B5EDC;
 debug_text_print = 0x800B5F78;
@@ -1989,7 +1989,7 @@ __osContAddressCrc = 0x800CD770;
 __osContDataCrc = 0x800CD820;
 __osContRamWrite = 0x800CD8F0;
 __osContRamRead = 0x800CDCA0;
-_bcmp = 0x800CE050;
+bcmp = 0x800CE050;
 
 // libc/string.c .text
 memcpy = 0x800CE170;
@@ -2934,7 +2934,7 @@ gDescPowsOf10 = 0x800E36EC;
 sDialogueBoxDimensions = 0x800E3710;
 
 //TODO: MOVE THIS out of font.c
-__osPiDevMgr = 0x800E3740;
+__osPiDevMgr = 0x800E3740; // size:0x1C
 
 // gzip.c .data
 gHuftTable = 0x800E3760;
@@ -3583,8 +3583,8 @@ jpt_800E8D88 = 0x800E8D88;
 jpt_800E8E58 = 0x800E8E58;
 
 // thread0_epc.c .rodata size:0x2F0
-D_800E8E70 = 0x800E8E70; // type:asciz
-D_800E8EA0 = 0x800E8EA0; // type:asciz
+D_800E8E70 = 0x800E8E70; // type:asciz force_not_migration:true defined:true
+D_800E8EA0 = 0x800E8EA0; // type:asciz force_not_migration:true defined:true
 
 // waves.c .rodata size:0x170
 D_800E9160 = 0x800E9160;
@@ -3714,11 +3714,11 @@ gAudioLinesOff = 0x8011AC18;
 D_8011AC1C = 0x8011AC1C;
 
 // objects .bss
-D_8011AC20 = 0x8011AC20;
+D_8011AC20 = 0x8011AC20; // size:0x100
 D_8011AD20 = 0x8011AD20;
 D_8011AD21 = 0x8011AD21;
-D_8011AD22 = 0x8011AD22;
-D_8011AD24 = 0x8011AD24;
+D_8011AD22 = 0x8011AD22; // size:0x2
+D_8011AD24 = 0x8011AD24; // size:0x2
 D_8011AD26 = 0x8011AD26;
 D_8011AD28 = 0x8011AD28;
 D_8011AD2C = 0x8011AD2C;
@@ -4016,7 +4016,7 @@ gRacerDialogueCamera = 0x8011D583;
 gRacerInputBlocked = 0x8011D584;
 gStartBoostTime = 0x8011D585;
 gDialogueCameraAngle = 0x8011D586;
-gEggChallengeFlags = 0x8011D588;
+gEggChallengeFlags = 0x8011D588; // size:0x4
 D_8011D58C = 0x8011D58C;
 gGhostData = 0x8011D590;
 gCurrentGhostIndex = 0x8011D59C;
@@ -4638,7 +4638,7 @@ gObjectStackTrace = 0x80129FB0; // size:0x10
 // waves .bss
 D_80129FC0 = 0x80129FC0;
 D_80129FC4 = 0x80129FC4;
-D_80129FC8 = 0x80129FC8;
+D_80129FC8 = 0x80129FC8; // size:0x50
 D_8012A018 = 0x8012A018;
 D_8012A01C = 0x8012A01C;
 D_8012A020 = 0x8012A020;
