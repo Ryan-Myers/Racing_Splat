@@ -45,13 +45,13 @@ segments:
       - [0x3260, c, audiomgr] #Done
       - [0x3D60, c, audiosfx] #Done
       - [0x5740, c, audio_vehicle]
-      - [0x8C40, c, unknown_008C40]
+      - [0x8C40, c, audio_spatial]
       - [0xB310, c, lib/src/mips1/seqplayer]
       - [0xBC20, c, objects]
       - [0x251F0, hasm, unknown_0251F0]
-      - [0x255E0, c, unknown_0255E0]
+      - [0x255E0, c, tracks]
       - [0x31D30, hasm, collision]
-      - [0x32760, c, unknown_032760]
+      - [0x32760, c, lights]
       - [0x348C0, c, object_functions]
       - [0x43920, c, racer]
       - [0x5CEF0, c, vehicle_tricky]
@@ -85,7 +85,7 @@ segments:
       - [0x72E50, c, save_data]
       - [0x777A0, c, asset_loading]
       - [0x77C50, c, borders]
-      - [0x78050, c, unknown_078050]
+      - [0x78050, c, rcp]
       - [0x79F50, c, lib/src/mips1/sched]
       - [0x7AED0, c, set_rsp_segment]
       - [0x7AF10, c, video]
@@ -269,10 +269,10 @@ segments:
       - [0xDD280, .data, audiomgr]
       - [0xDD2B0, .data, audiosfx]
       - [0xDD2D0, .data, audio_vehicle]
-      - [0xDD2E0, data, unknown_008C40]
+      - [0xDD2E0, data, audio_spatial]
       - [0xDD2F0, data, objects]
-      - [0xDD470, data, unknown_0255E0]
-      - [0xDD550, data, unknown_032760]
+      - [0xDD470, data, tracks]
+      - [0xDD550, data, tracks]
       - [0xDD570, data, object_functions]
       - [0xDD750, data, racer]
       - [0xDD9E0, data, vehicle_tricky]
@@ -290,7 +290,7 @@ segments:
       - [0xDDF40, .data, thread3_main]
       - [0xDE030, data, math_util]
       - [0xDF040, data, save_data]
-      - [0xDF090, data, unknown_078050]
+      - [0xDF090, data, rcp]
       - [0xDF330, .data, lib/src/mips1/sched]
       - [0xDF370, data, video]
       - [0xDF3C0, data, textures_sprites]
@@ -325,12 +325,12 @@ segments:
       - [0xE55F0, .rodata, audiomgr]
       - [0xE57B0, .rodata, audiosfx]
       - [0xE57F0, .rodata, audio_vehicle]
-      - [0xE5900, .rodata, unknown_008C40]
+      - [0xE5900, .rodata, audio_spatial]
       - [0xE5B30, .rodata, lib/src/mips1/seqplayer]
       - [0xE5B60, .rodata, objects]
-      - [0xE69F0, .rodata, unknown_0255E0]
+      - [0xE69F0, .rodata, tracks]
       - [0xE6B60, rodata, collision] #Always rodata for hasm
-      - [0xE6B80, .rodata, unknown_032760]
+      - [0xE6B80, .rodata, tracks]
       - [0xE6BA0, .rodata, object_functions]
       - [0xE6E80, .rodata, racer]
       - [0xE7610, .rodata, vehicle_tricky]
@@ -389,8 +389,8 @@ segments:
       - { start: 0xECB60, type: .bss, vram: 0x80119BD0, name: audiosfx }
       - { start: 0xECB60, type: .bss, vram: 0x80119C30, name: audio_vehicle }
       - { start: 0xECB60, type: bss, vram: 0x8011AC20, name: objects }
-      - { start: 0xECB60, type: bss, vram: 0x8011B0A0, name: unknown_0255E0 }
-      - { start: 0xECB60, type: bss, vram: 0x8011D4C0, name: unknown_032760 }
+      - { start: 0xECB60, type: bss, vram: 0x8011B0A0, name: tracks }
+      - { start: 0xECB60, type: bss, vram: 0x8011D4C0, name: tracks }
       - { start: 0xECB60, type: bss, vram: 0x8011D4D0, name: object_functions }
       - { start: 0xECB60, type: bss, vram: 0x8011D4F0, name: racer }
       - { start: 0xECB60, type: bss, vram: 0x8011D5C0, name: vehicle_tricky }
@@ -409,7 +409,7 @@ segments:
       - { start: 0xECB60, type: bss, vram: 0x80123DD0, name: libultra/osMotor }
       - { start: 0xECB60, type: bss, vram: 0x80124010, name: save_data }
       - { start: 0xECB60, type: bss, vram: 0x80124200, name: asset_loading }
-      - { start: 0xECB60, type: bss, vram: 0x801242A0, name: unknown_078050 }
+      - { start: 0xECB60, type: bss, vram: 0x801242A0, name: rcp }
       - { start: 0xECB60, type: .bss, vram: 0x80126110, name: lib/src/mips1/sched }
       - { start: 0xECB60, type: bss, vram: 0x80126170, name: video }
       - { start: 0xECB60, type: bss, vram: 0x80126320, name: textures_sprites }

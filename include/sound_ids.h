@@ -5,7 +5,11 @@
 // Interestingly, there's two unused ID's for each set, implying two characters that were cut.
 #define SOUND_VOICE_CHARACTER_POSITIVE SOUND_VOICE_KRUNCH_POSITIVE1
 #define SOUND_VOICE_CHARACTER_NEGATIVE SOUND_VOICE_KRUNCH_NEGATIVE1
+#define SOUND_VOICE_CHARACTER_DESELECTED SOUND_VOICE_KRUNCH_EHH
+#define SOUND_VOICE_CHARACTER_SELECTED SOUND_VOICE_KRUNCH_POSITIVE6
+#define SOUND_VOICE_CHARACTER_SELECT SOUND_VOICE_KRUNCH_SELECT
 #define SOUND_HORN_CHARACTER SOUND_HORN_KRUNCH
+#define SOUND_NUMBER_OF_RACERS 8
 
 /// Cannot stress enough that these names are very temporary, preliminary, expendable and other words that imply that they are not final.
 // Also might be worth thinking of a better way of laying this out, because scrolling through hundreds of sound ID's isn't particularly pleasant.
@@ -25,7 +29,7 @@ enum SoundID {
 /* 0x000A */ SOUND_UNK_0A,
 /* 0x000B */ SOUND_UNK_0B,
 /* 0x000C */ SOUND_CRASH,
-/* 0x000D */ SOUND_CRASH2, // Not the same as the last, sounds like a cymbal or something.
+/* 0x000D */ SOUND_CRASH_CHARACTER,
 /* 0x000E */ SOUND_BALLOON_POP,
 /* 0x000F */ SOUND_PLOP, // Dropping a landmine
 /* 0x0010 */ SOUND_UNK_10,
@@ -329,7 +333,7 @@ enum SoundID {
 /* 0x013A */ SOUND_MAGNET_HUM,
 /* 0x013B */ SOUND_TYRE_SCREECH,
 /* 0x013C */ SOUND_TWANG,
-/* 0x013D */ SOUND_UNK_13D, // Unsure
+/* 0x013D */ SOUND_UNK_13D, // Unsure (Spinout?)
 /* 0x013E */ SOUND_VOICE_TT_POWERUP,
 /* 0x013F */ SOUND_SPLAT,
 /* 0x0140 */ SOUND_PLOP2,
@@ -600,7 +604,7 @@ enum SoundID {
 /* 0x0249 */ SOUND_DRAWBRIDGE_BELL,
 /* 0x024A */ SOUND_BUBBLE_RISE,
 /* 0x024B */ SOUND_VOICE_TT_BEAT_MY_TIME, // "Now try beat my time"
-/* 0x024C */ SOUND_VOICE_TT_WELL_THEN,
+/* 0x024C */ SOUND_VOICE_TT_WELL_DONE,
 /* 0x024D */ SOUND_VOICE_TT_TRY_ANOTHER_TRACK, // "Now try another track"
 /* 0x024E */ SOUND_VOICE_TT_BEAT_ALL_TIMES, // "You've beaten all my times"
 /* 0x024F */ SOUND_VOICE_TT_UNLOCKED, // "Now you can pick me"
@@ -652,7 +656,7 @@ enum SoundID {
 /* 0x027D */ SOUND_UNK_27D,
 /* 0x027E */ SOUND_UNK_27E,
              // Trying to play 27F onwards will incur a crash.
-/* 0x027F */  NUM_SOUND_IDS
+/* 0x027F */ NUM_SOUND_IDS
 };
 
 #endif

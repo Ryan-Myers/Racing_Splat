@@ -166,7 +166,6 @@ VehicleSoundData *func_80004B40(s8 characterId, s8 vehicleId) {
     return temp_v0_3;
 }
 #else
-// const float D_800E4BF0 = 10000.0;
 #pragma GLOBAL_ASM("asm/nonmatchings/audio_vehicle/func_80004B40.s")
 #endif
 
@@ -368,19 +367,6 @@ void func_80005254(Object *obj, u32 buttonsPressed, u32 buttonsHeld, s32 updateR
     }
 }
 #else
-// const double D_800E4BF8 = 0.4;
-// const float  D_800E4C00 = 10000.0;
-// //.word 0 # Padding
-// const double  D_800E4C08 = 0.05;
-// const double  D_800E4C10 = 0.95;
-// const double  D_800E4C18 = 0.13;
-// const double  D_800E4C20 = 0.3;
-// const double  D_800E4C28 = 0.02;
-// const double  D_800E4C30 = 0.01;
-// const float  D_800E4C38  = 0.4;
-// //.word 0 # Padding
-// const double  D_800E4C40 = 0.005;
-// const double  D_800E4C48 = -0.1;
 #pragma GLOBAL_ASM("asm/nonmatchings/audio_vehicle/func_80005254.s")
 #endif
 
@@ -955,16 +941,6 @@ void func_80006FC8(Object **objs, s32 numRacers, ObjectSegment *segment, u8 arg3
     }
 }
 #else
-// const float D_800E4CC4 = 2250000.0;
-// const double D_800E4CC8 = 0.05;
-// const float  D_800E4CD0 = 1500.0;
-// const float  D_800E4CD4 = 0.05;
-// const double  D_800E4CD8 = 0.05;
-// const float  D_800E4CE0 = 2250000.0;
-// // .word 0 # Padding
-// const double  D_800E4CE8 = 0.8;
-// const float  D_800E4CF0 = 1500.0;
-// const float  D_800E4CF4 = 0.05;
 #pragma GLOBAL_ASM("asm/nonmatchings/audio_vehicle/func_80006FC8.s")
 #endif
 
