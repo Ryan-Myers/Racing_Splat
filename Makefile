@@ -65,7 +65,7 @@ O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(BIN_FILES),$(BUILD_DIR)/$(file).o)
 
 GLOBAL_ASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(SRC_DIRS)
-GLOBAL_ASM_O_FILES = $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file:.c=.o))
+GLOBAL_ASM_O_FILES = $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(SRC_DIR)$(file:.c=.o))
 
 
 find-command = $(shell which $(1) 2>/dev/null)
@@ -116,7 +116,7 @@ endif
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 
-INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(SRC_DIR)/os -I $(SRC_DIR)/lib
+INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(SRC_DIR)/lib
 INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/src/gu -I $(SRC_DIR)/lib/src/libc -I $(SRC_DIR)/lib/src/mips1 -I $(SRC_DIR)/lib/src/mips1/al -I $(SRC_DIR)/lib/src/os
 
 ASFLAGS        = -mtune=vr4300 -march=vr4300 -mabi=32 $(foreach d,$(DEFINES),--defsym $(d)=1) $(INCLUDE_CFLAGS)
@@ -126,7 +126,7 @@ OBJCOPYFLAGS   = -O binary
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
-CFLAGS := -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -Xfullwarn -G 0
+CFLAGS := -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -G 0
 CFLAGS += $(C_DEFINES)
 # ignore compiler warnings about anonymous structs
 CFLAGS += -woff 838,649,624
@@ -153,12 +153,32 @@ ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py
 
 ### Optimisation Overrides
+####################### LIBULTRA #########################
+
 $(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/al/%.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/%.c.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osViMgr.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osCreatePiManager.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osMotor.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xprintf.c.o : OPT_FLAGS := -O3
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/al/env.c.o: OPT_FLAGS := -g
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/llcvt.c.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/llcvt.c.o: MIPSISET := -mips3 -32
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: MIPSISET := -mips3 -32
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ldiv.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ldiv.c.o: MIPSISET := -mips2
+
 $(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: MIPSISET := -mips2
-# $(BUILD_DIR)/$(SRC_DIR)/os/%.c.o: OPT_FLAGS := -O1
-# $(BUILD_DIR)/$(SRC_DIR)/os/audio/%.c.o: OPT_FLAGS := -O2
-# $(BUILD_DIR)/$(SRC_DIR)/os/libc/%.c.o: OPT_FLAGS := -O3
-# $(BUILD_DIR)/$(SRC_DIR)/os/gu/%.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/mips1/%.c.o: MIPSISET := -mips1
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osMotor.c.o: MIPSISET := -mips1
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/al/env.c.o: MIPSISET := -mips1
+
+####################### MATH UTIL #########################
+
+$(BUILD_DIR)/asm/math_util.s.o: MIPSISET := -mips2
+$(BUILD_DIR)/asm/collision.s.o: MIPSISET := -mips2
 
 ### Targets
 
@@ -268,6 +288,15 @@ $(BUILD_DIR)/%.c.o: %.c
 	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/llcvt.c.o: $(SRC_DIR)/lib/src/libc/llcvt.c
+	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
+	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
+
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: $(SRC_DIR)/lib/src/libc/ll.c
+	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
+	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
 
 
 $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
