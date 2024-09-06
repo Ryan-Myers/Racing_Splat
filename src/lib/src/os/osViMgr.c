@@ -116,5 +116,5 @@ void viMgrMain(void *arg) {
     }
 }
 #else
-#pragma GLOBAL_ASM("lib/asm/nonmatchings/osViMgr/viMgrMain.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/lib/src/os/osViMgr/viMgrMain.s")
 #endif

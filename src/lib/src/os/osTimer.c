@@ -30,7 +30,7 @@ void __osTimerServicesInit(void) {
     __osTimerList->msg = 0;
 }
 #else
-#pragma GLOBAL_ASM("lib/asm/nonmatchings/osTimer/__osTimerServicesInit.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/lib/src/os/osTimer/__osTimerServicesInit.s")
 #endif
 
 void __osSetTimerIntr(OSTime tim);

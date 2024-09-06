@@ -27,7 +27,7 @@ ifeq ($(REGION)$(VERSION),usv1)
 BIN_DIRS  = assets
 BUILD_DIR = build
 SRC_DIR   = src
-ASM_DIRS  = asm asm/data asm/libultra asm/data/libultra asm/nonmatchings asm/data/lib/src/mips1 #For libultra handwritten files
+ASM_DIRS  = asm asm/data asm/libultra asm/data/libultra asm/nonmatchings asm/data/lib/src/mips1 asm/lib/asm asm/data/lib/asm asm/data/lib/src/gu #For libultra handwritten files
 else
 BIN_DIRS  = assets_$(REGION)_$(VERSION)
 BUILD_DIR = build_$(REGION)_$(VERSION)
@@ -38,7 +38,7 @@ endif
 LIBULTRA_SRC_DIRS = $(SRC_DIR)/lib
 LIB_DIRS = $(SRC_DIR)/lib
 
-DEFINE_SRC_DIRS  = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) src/lib/src/mips1 src/lib/src/mips1/al
+DEFINE_SRC_DIRS  = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) src/lib/src/mips1 src/lib/src/mips1/al src/lib/src/os src/lib/src/mips1/sc src/lib/src/mips1/os src/lib/src/al src/lib/src/libc src/lib/src/gu src/lib/asm
 SRC_DIRS = $(DEFINE_SRC_DIRS)
 
 TOOLS_DIR = tools

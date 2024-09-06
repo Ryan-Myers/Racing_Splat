@@ -88,14 +88,14 @@ char udigs[] = "0123456789ABCDEF"; // uppercase hex digits
 // Powers for _Ldtob
 const double pows[] = {10e0L, 10e1L, 10e3L, 10e7L, 10e15L, 10e31L, 10e63L, 10e127L, 10e255L};
 
-const char Ldtob_NaN[] = "NaN";
-const char Ldtob_Inf[] = "Inf";
+// const char Ldtob_NaN[] = "NaN";
+// const char Ldtob_Inf[] = "Inf";
 
 //_Genld
-const char _Genld_0_string[] = "0";
+// const char _Genld_0_string[] = "0";
 
 //_Ldtob
-const double _Ldtob_1e8[] = {1.0e8};
+// const double _Ldtob_1e8[] = {1.0e8};
 
 //sinf and cosf - supposed to be defined by libm_vals.s
-const fu __libm_qnan_f = { 0x7f810000 };
+// const fu __libm_qnan_f = { 0x7f810000 };

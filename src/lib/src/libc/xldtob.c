@@ -4,5 +4,5 @@
 
 #include "macros.h"
 
-#pragma GLOBAL_ASM("lib/asm/nonmatchings/xldtob/_Genld.s")
-#pragma GLOBAL_ASM("lib/asm/nonmatchings/xldtob/_Ldtob.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/lib/src/libc/xldtob/_Genld.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/lib/src/libc/xldtob/_Ldtob.s")

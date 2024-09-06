@@ -317,7 +317,7 @@ segments:
       - [0xE4500, .data, lib/src/os/vitbl]
       - [0xE5410, .data, lib/src/os/osSpTaskYielded]
       - [0xE5480, .data, lib/src/os/__osViSwapContext]
-      - [0xE54A0, .data, lib/asm/exception] #alCopy in main DKR repo, but exceptasm in ultralib
+      - [0xE54A0, data, lib/asm/exception] #alCopy in main DKR repo, but exceptasm in ultralib
       - [0xE54C0, .data, lib/src/libc/xprintf]
       - [0xE5510, .data, lib/src/os/osTimer]
       - [0xE5520, .data, lib/src/libc/xlitob] #piacs in main DKR repo
