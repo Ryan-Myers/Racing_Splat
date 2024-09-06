@@ -35,7 +35,7 @@ SRC_DIR   = src_$(REGION)_$(VERSION)
 ASM_DIRS  = asm_$(REGION)_$(VERSION) asm_$(REGION)_$(VERSION)/data asm_$(REGION)_$(VERSION)/libultra asm_$(REGION)_$(VERSION)/data/libultra asm_$(REGION)_$(VERSION)/nonmatchings
 endif
 
-LIBULTRA_SRC_DIRS = $(SRC_DIR)/libultra
+LIBULTRA_SRC_DIRS = $(SRC_DIR)/lib
 LIB_DIRS = $(SRC_DIR)/lib
 
 DEFINE_SRC_DIRS  = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) src/lib/src/mips1 src/lib/src/mips1/al
@@ -153,8 +153,8 @@ ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py
 
 ### Optimisation Overrides
-$(BUILD_DIR)/$(SRC_DIR)/libultra/%.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/$(SRC_DIR)/libultra/%.c.o: MIPSISET := -mips2
+$(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: MIPSISET := -mips2
 # $(BUILD_DIR)/$(SRC_DIR)/os/%.c.o: OPT_FLAGS := -O1
 # $(BUILD_DIR)/$(SRC_DIR)/os/audio/%.c.o: OPT_FLAGS := -O2
 # $(BUILD_DIR)/$(SRC_DIR)/os/libc/%.c.o: OPT_FLAGS := -O3

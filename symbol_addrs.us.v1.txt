@@ -2111,10 +2111,14 @@ sinf = 0x800D4C20;
 
 // osSetTimer
 osSetTimer = 0x800D4DE0;
+
+// osTimer
 __osTimerServicesInit = 0x800D4EC0;
 __osTimerInterrupt = 0x800D4F4C;
 __osSetTimerIntr = 0x800D50C4;
 __osInsertTimer = 0x800D5138;
+
+// si
 __osSiDeviceBusy = 0x800D52C0;
 __osSumcalc = 0x800D52F0;
 __osIdCheckSum = 0x800D534C;
@@ -2124,6 +2128,8 @@ __osGetId = 0x800D5964;
 __osCheckId = 0x800D5BC0;
 __osPfsRWInode = 0x800D5CBC;
 __osPfsSelectBank = 0x800D5FDC;
+
+// dp
 __osDpDeviceBusy = 0x800D6050;
 __osViGetCurrentContext = 0x800D6080;
 __osViSwapContext = 0x800D6090;
