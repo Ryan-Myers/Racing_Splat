@@ -32,9 +32,9 @@ OSTime __osCurrentTime;
 s32 __osBaseCounter;
 s32 __osViIntrCount;
 u32 __osTimerCounter;
-u32 D_8012D234[2];
+u32 D_8012D238[2];
 OSThread gInterruptedThread;
-MemoryPoolSlot *gMainMemoryPool;
+// MemoryPoolSlot *gMainMemoryPool;
 
 void __osSiCreateAccessQueue(void) {
 	__osSiAccessQueueEnabled = 1;

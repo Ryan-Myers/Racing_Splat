@@ -11,7 +11,7 @@
 #include "objects.h"
 #include "game.h"
 #include "thread3_main.h"
-#include "controller.h"
+#include "controller_dkr.h"
 
 /************ .data ************/
 

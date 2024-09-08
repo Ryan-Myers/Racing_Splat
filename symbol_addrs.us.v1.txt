@@ -3015,7 +3015,7 @@ _zeroes = 0x800E48E4; // type:asciz
 // osTimer.c .data
 __osTimerList = 0x800E4910;
 
-// piacs .data
+// xlitob .data
 ldigs = 0x800E4920; // type:asciz
 udigs = 0x800E4934; // type:asciz
 
@@ -3634,9 +3634,9 @@ pihi_sinf = 0x800E9840; // type:Du size:0x8 defined:true
 pilo_sinf = 0x800E9848; // type:Du size:0x8 defined:true
 zero_sinf = 0x800E9850; // type:Fu size:0x8 defined:true
 pows = 0x800E9860; // type:f64 size:0x48 defined:true
-Ldtob_NaN = 0x800E98A8; // type:asciz
-Ldtob_Inf = 0x800E98AC; // type:asciz
-_Genld_0_string = 0x800E98B0; // type:asciz
+Ldtob_NaN = 0x800E98A8; // type:asciz force_not_migration:true defined:true
+Ldtob_Inf = 0x800E98AC; // type:asciz force_not_migration:true defined:true
+_Genld_0_string = 0x800E98B0; // type:asciz force_not_migration:true defined:true
 _Ldtob_1e8 = 0x800E98B8; // type:f64
 __libm_qnan_f = 0x800E98C0; // type:f64
 

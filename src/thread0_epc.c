@@ -8,7 +8,7 @@
 #include "save_data.h"
 #include "printf.h"
 #include "objects.h"
-#include "controller.h"
+#include "controller_dkr.h"
 #include "game.h"
 #include "stacks.h"
 

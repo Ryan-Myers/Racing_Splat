@@ -6,7 +6,7 @@
 #include "objects.h"
 #include "racer.h"
 #include "game.h"
-#include "controller.h"
+#include "controller_dkr.h"
 
 /************ .data ************/
 

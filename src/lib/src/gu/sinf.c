@@ -5,12 +5,27 @@
 #include "macros.h"
 #include "guint.h"
 
-extern du P_sinf[];
-extern du rpi_sinf;
-extern du pihi_sinf;
-extern du pilo_sinf;
-extern fu zero_sinf;
-extern fu __libm_qnan_f;
+/* coefficients for polynomial approximation of sin on +/- pi/2 */
+
+static const du	P[] =
+{
+{0x3ff00000,	0x00000000},
+{0xbfc55554,	0xbc83656d},
+{0x3f8110ed,	0x3804c2a0},
+{0xbf29f6ff,	0xeea56814},
+{0x3ec5dbdf,	0x0e314bfe},
+};
+
+static const du	rpi =
+{0x3fd45f30,	0x6dc9c883};
+
+static const du	pihi =
+{0x400921fb,	0x50000000};
+
+static const du	pilo =
+{0x3e6110b4,	0x611a6263};
+
+static const fu	zero = {0x00000000};
 
 f32 sinf(f32 x) {
 	f64 dx;  // double x
@@ -29,7 +44,7 @@ f32 sinf(f32 x) {
 		dx = x;
 		if (xpt >= 230) {
 			xsq = dx * dx;
-			poly = (((((P_sinf[4].d * xsq) + P_sinf[3].d) * xsq) + P_sinf[2].d) * xsq) + P_sinf[1].d;
+			poly = (((((P[4].d * xsq) + P[3].d) * xsq) + P[2].d) * xsq) + P[1].d;
 			result = ((dx * xsq) * poly) + dx;
 
 			return result;
@@ -40,7 +55,7 @@ f32 sinf(f32 x) {
 
 	if (xpt < 310) {
 		dx = x;
-		dn = dx * rpi_sinf.d;
+		dn = dx * rpi.d;
 
 		if (dn >= 0) {
 			n = dn + 0.5;
@@ -50,10 +65,10 @@ f32 sinf(f32 x) {
 		}
 
 		dn = n;
-		dx -= dn * pihi_sinf.d;
-		dx -= dn * pilo_sinf.d;
+		dx -= dn * pihi.d;
+		dx -= dn * pilo.d;
 		xsq = dx * dx;
-		poly = (((((P_sinf[4].d * xsq) + P_sinf[3].d) * xsq) + P_sinf[2].d) * xsq) + P_sinf[1].d;
+		poly = (((((P[4].d * xsq) + P[3].d) * xsq) + P[2].d) * xsq) + P[1].d;
 		result = ((dx * xsq) * poly) + dx;
 
 		if ((n & 1) == 0) {
@@ -65,8 +80,8 @@ f32 sinf(f32 x) {
 	}
 
 	if (x != x) {
-		return __libm_qnan_f.f;
+		return __libm_qnan_f;
 	}
 
-	return zero_sinf.f;
+	return zero.f;
 }

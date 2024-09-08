@@ -20,7 +20,7 @@
 #include "audiosfx.h"
 #include "printf.h"
 #include "audio_spatial.h"
-#include "controller.h"
+#include "controller_dkr.h"
 
 /************ .data ************/
 

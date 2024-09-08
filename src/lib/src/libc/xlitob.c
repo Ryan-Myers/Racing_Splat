@@ -9,8 +9,8 @@
 
 #define BUFF_LEN 0x18
 
-extern char ldigs[];
-extern char udigs[];
+static char ldigs[] = "0123456789abcdef"; // lowercase hex digits
+static char udigs[] = "0123456789ABCDEF"; // uppercase hex digits
 
 void _Litob(printf_struct *args, char type) {
     char buff[BUFF_LEN];

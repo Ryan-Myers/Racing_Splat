@@ -97,7 +97,6 @@ SPLAT    ?= $(PYTHON) -m splat split
 CRC      = $(V)$(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64
 
 OPT_FLAGS      = -O2
-LOOP_UNROLL    =
 
 MIPSISET       = -mips1
 
@@ -115,18 +114,19 @@ else
 endif
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
+ASM_DEFINES = # $(foreach d,$(DEFINES),--defsym $(d)=1)
 
 INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(SRC_DIR)/lib
 INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/src/gu -I $(SRC_DIR)/lib/src/libc -I $(SRC_DIR)/lib/src/mips1 -I $(SRC_DIR)/lib/src/mips1/al -I $(SRC_DIR)/lib/src/os
 
-ASFLAGS        = -mtune=vr4300 -march=vr4300 -mabi=32 $(foreach d,$(DEFINES),--defsym $(d)=1) $(INCLUDE_CFLAGS)
+ASFLAGS        = -march=vr4300 -32 -G0 $(ASM_DEFINES) $(INCLUDE_CFLAGS)
 OBJCOPYFLAGS   = -O binary
 
 # Files requiring pre/post-processing
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
-CFLAGS := -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -G 0
+CFLAGS := -G 0 -non_shared -fullwarn -verbose -Xcpluscomm -nostdinc -Wab,-r4300_mul
 CFLAGS += $(C_DEFINES)
 # ignore compiler warnings about anonymous structs
 CFLAGS += -woff 838,649,624
@@ -138,7 +138,7 @@ CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -funsigned-char -std=gnu90 -m32 -D
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION)
 LD_SCRIPT  = $(BASENAME).$(REGION).$(VERSION).ld
 
-LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_funcs_auto.$(REGION).$(VERSION).txt  -T undefined_syms_auto.$(REGION).$(VERSION).txt
+LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_funcs_auto.$(REGION).$(VERSION).txt  -T undefined_syms_auto.$(REGION).$(VERSION).txt -T undefined_syms.$(REGION).$(VERSION).txt
 LD_FLAGS  += -Map $(TARGET).map
 
 ifeq ($(REGION)$(VERSION),usv1)
@@ -150,7 +150,7 @@ LD_FLAGS_EXTRA += $(foreach sym,$(UNDEFINED_SYMS),-u $(sym))
 endif
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
-ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py
+ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py
 
 ### Optimisation Overrides
 ####################### LIBULTRA #########################
@@ -267,6 +267,9 @@ expected: verify
 
 ### Recipes
 
+# $(GLOBAL_ASM_O_FILES): CC := $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py $(CC) -- $(AS) $(ASFLAGS) --
+$(GLOBAL_ASM_O_FILES): CC := $(ASM_PROCESSOR) $(CC) -- $(AS) $(ASFLAGS) --
+
 $(TARGET).elf: dirs $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES)
 	$(V)$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
 	@printf "[$(PINK) Linker $(NO_COL)]  $<\n"
@@ -275,27 +278,27 @@ ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c  include/variables.h include/structs.h
 	$(V)$(CC_CHECK) $<
 	@printf "[$(YELLOW) check $(NO_COL)] $<\n"
-	$(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
-	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
-	$(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
-		--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.inc
+# $(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
+	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+# $(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
+# 	--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.inc
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 endif
 
 # non asm-processor recipe
 $(BUILD_DIR)/%.c.o: %.c
 #	@$(CC_CHECK) $<
-	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/llcvt.c.o: $(SRC_DIR)/lib/src/libc/llcvt.c
 	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
-	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
 
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: $(SRC_DIR)/lib/src/libc/ll.c
 	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
-	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
 
 
@@ -319,9 +322,6 @@ $(TARGET).z64: $(TARGET).bin
 	$(V)$(TOOLS_DIR)/CopyRom.py $< $@
 	@printf "[$(GREEN) CRC $(NO_COL)]  $<\n"
 	@$(CRC)
-
-
-# $(GLOBAL_ASM_O_FILES): CC := $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py $(CC) -- $(AS) $(ASFLAGS) --
 
 ### Settings
 .SECONDARY:

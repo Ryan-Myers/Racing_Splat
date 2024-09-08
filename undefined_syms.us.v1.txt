@@ -1,0 +1,3 @@
+gEpcInfo = 0x80129800;
+D_801299B0 = 0x801299B0;
+gMainMemoryPool = 0x8012D3F0;

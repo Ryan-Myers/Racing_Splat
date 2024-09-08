@@ -5,12 +5,25 @@
 #include "macros.h"
 #include "guint.h"
 
-extern du P_cosf[];
-extern du rpi_cosf;
-extern du pihi_cosf;
-extern du pilo_cosf;
-extern fu zero_cosf;
-extern fu __libm_qnan_f;
+static const du	P[] =
+{
+{0x3ff00000,	0x00000000},
+{0xbfc55554,	0xbc83656d},
+{0x3f8110ed,	0x3804c2a0},
+{0xbf29f6ff,	0xeea56814},
+{0x3ec5dbdf,	0x0e314bfe},
+};
+
+static const du	rpi =
+{0x3fd45f30,	0x6dc9c883};
+
+static const du	pihi =
+{0x400921fb,	0x50000000};
+
+static const du	pilo =
+{0x3e6110b4,	0x611a6263};
+
+static const fu	zero = {0x00000000};
 
 f32 cosf(f32 x) {
 	f64 dx;  // double x
@@ -34,7 +47,7 @@ f32 cosf(f32 x) {
 		}
 
 		dx = xabs;
-		dn = dx * rpi_cosf.d + 0.5;
+		dn = dx * rpi.d + 0.5;
 
 		if (0 <= dn) {
 			n = dn + 0.5;
@@ -43,11 +56,11 @@ f32 cosf(f32 x) {
 		}
 
 		dn = n;
-		dx -= (dn - 0.5) * pihi_cosf.d;
-		dx -= (dn - 0.5) * pilo_cosf.d;
+		dx -= (dn - 0.5) * pihi.d;
+		dx -= (dn - 0.5) * pilo.d;
 		xsq = dx * dx;
 
-		poly = (((((P_cosf[4].d * xsq) + P_cosf[3].d) * xsq) + P_cosf[2].d) * xsq) + P_cosf[1].d;
+		poly = (((((P[4].d * xsq) + P[3].d) * xsq) + P[2].d) * xsq) + P[1].d;
 
 		result = ((dx * xsq) * poly) + dx;
 
@@ -59,8 +72,8 @@ f32 cosf(f32 x) {
 	}
 
 	if (x != x) {
-		return __libm_qnan_f.f;
+		return __libm_qnan_f;
 	}
 
-	return zero_cosf.f;
+	return zero.f;
 }

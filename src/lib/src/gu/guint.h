@@ -39,4 +39,4 @@ typedef union
 #define ROUND(d)	(int)(((d) >= 0.0) ? ((d) + 0.5) : ((d) - 0.5))
 #define	ABS(d)		((d) > 0) ? (d) : -(d)
 
-//extern float	__libm_qnan_f;
+extern float	__libm_qnan_f;

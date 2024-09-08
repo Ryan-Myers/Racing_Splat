@@ -420,7 +420,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x80127C80, name: particles }
       - { start: auto, type: .bss, vram: 0x80127CA0, name: printf }
       - { start: auto, type: .bss, vram: 0x801285E0, name: thread0_epc }
-      - { start: auto, type: bss, vram: 0x80129800, name: thread0_staticbss } #Not sure how else to include this yet.
+#      - { start: auto, type: bss, vram: 0x80129800, name: thread0_staticbss } #Not sure how else to include this yet.
       - { start: auto, type: .bss, vram: 0x80129AB0, name: stacks }
       - { start: auto, type: .bss, vram: 0x80129FC0, name: waves }
       - { start: auto, type: .bss, vram: 0x8012A730, name: fade_transition }

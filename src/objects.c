@@ -25,7 +25,7 @@
 #include "lights.h"
 #include "game_ui.h"
 #include "audio_spatial.h"
-#include "controller.h"
+#include "controller_dkr.h"
 #include "game_text.h"
 #include "audiosfx.h"
 #include "audio_vehicle.h"
@@ -5429,7 +5429,7 @@ Object *ainode_get(s32 nodeID) {
     return NULL;
 }
 
-UNUSED void func_8001D23C(UNUSED s32 arg0, UNUSED s32 arg1, UNUSED s32 arg2) {
+UNUSED void func_8001D248(UNUSED s32 arg0, UNUSED s32 arg1, UNUSED s32 arg2) {
 }
 
 /**

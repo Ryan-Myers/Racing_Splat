@@ -2,7 +2,7 @@
 #define _CONTROLLER_H_
 
 #include "libultra_internal.h"
-//#include <rcp.h>
+#include <rcp.h>
 
 //should go somewhere else but
 #define ARRLEN(x) ((s32)(sizeof(x) / sizeof(x[0])))
