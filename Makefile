@@ -267,7 +267,6 @@ expected: verify
 
 ### Recipes
 
-# $(GLOBAL_ASM_O_FILES): CC := $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py $(CC) -- $(AS) $(ASFLAGS) --
 $(GLOBAL_ASM_O_FILES): CC := $(ASM_PROCESSOR) $(CC) -- $(AS) $(ASFLAGS) --
 
 $(TARGET).elf: dirs $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES)
@@ -278,11 +277,8 @@ ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c  include/variables.h include/structs.h
 	$(V)$(CC_CHECK) $<
 	@printf "[$(YELLOW) check $(NO_COL)] $<\n"
-# $(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
 	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
-# $(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
-# 	--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.inc
-	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
+	@printf "[$(GREEN) ido5.3 + asm $(NO_COL)]  $<\n"
 endif
 
 # non asm-processor recipe
