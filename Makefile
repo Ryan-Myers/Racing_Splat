@@ -32,13 +32,15 @@ else
 BIN_DIRS  = assets_$(REGION)_$(VERSION)
 BUILD_DIR = build_$(REGION)_$(VERSION)
 SRC_DIR   = src_$(REGION)_$(VERSION)
-ASM_DIRS  = asm_$(REGION)_$(VERSION) asm_$(REGION)_$(VERSION)/data asm_$(REGION)_$(VERSION)/libultra asm_$(REGION)_$(VERSION)/data/libultra asm_$(REGION)_$(VERSION)/nonmatchings
+ASM_DIRS   = asm_$(REGION)_$(VERSION) asm_$(REGION)_$(VERSION)/data asm_$(REGION)_$(VERSION)/libultra asm_$(REGION)_$(VERSION)/data/libultra asm_$(REGION)_$(VERSION)/nonmatchings
+ASM_DIRS  += asm_$(REGION)_$(VERSION)/data/lib/src/mips1 asm_$(REGION)_$(VERSION)/lib/asm asm_$(REGION)_$(VERSION)/data/lib/asm asm_$(REGION)_$(VERSION)/data/lib/src/gu
 endif
 
 LIBULTRA_SRC_DIRS = $(SRC_DIR)/lib
 LIB_DIRS = $(SRC_DIR)/lib
 
-DEFINE_SRC_DIRS  = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) src/lib/src/mips1 src/lib/src/mips1/al src/lib/src/os src/lib/src/mips1/sc src/lib/src/mips1/os src/lib/src/al src/lib/src/libc src/lib/src/gu src/lib/asm
+DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) $(SRC_DIR)/lib/src/mips1 $(SRC_DIR)/lib/src/mips1/al $(SRC_DIR)/lib/src/os 
+DEFINE_SRC_DIRS  += $(SRC_DIR)/lib/src/mips1/sc $(SRC_DIR)/lib/src/mips1/os $(SRC_DIR)/lib/src/al $(SRC_DIR)/lib/src/libc $(SRC_DIR)/lib/src/gu $(SRC_DIR)/lib/asm
 SRC_DIRS = $(DEFINE_SRC_DIRS)
 
 TOOLS_DIR = tools

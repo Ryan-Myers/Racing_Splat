@@ -58,7 +58,6 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/render_options_menu_ui.s")
 
-// First PAL function diff
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_options_loop.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800847C8.s")
@@ -337,9 +336,6 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8009BDF0.s")
 
-void func_8009BEE8(void) {
-}
-
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8009BEF0.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8009BFB4.s")
@@ -427,11 +423,7 @@ void func_8009CAEC(void) {
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8009E87C.s")
 
-void func_8009EA34(void) {
-}
-
-void func_8009EA3C(void) {
-}
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8009EA34.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8009EA44.s")
 
