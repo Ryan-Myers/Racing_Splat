@@ -1,8 +1,5 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C9780 */
-
 /*====================================================================
- * synsetpitch.c
+ * synsetvol.c
  *
  * Copyright 1995, Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -21,32 +18,33 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include "synthInternals.h"
+#include <os_internal.h>
+#include <ultraerror.h>
 
-void alSynSetPitch(ALSynth *synth, ALVoice *v, f32 pitch)
+void alSynSetVol(ALSynth *synth, ALVoice *v, s16 volume, ALMicroTime t)
 {
     ALParam  *update;
     ALFilter *f;
 
-    if (v->pvoice) {        
+    if (v->pvoice) {
         /*
          * get new update struct from the free list
          */
-        
         update = __allocParam();
         ALFailIf(update == 0, ERR_ALSYN_NO_UPDATE);
 
         /*
-         * set offset and pitch data
+         * set offset and volume data
          */
-        update->delta  = synth->paramSamples + v->pvoice->offset;
-        update->type   = AL_FILTER_SET_PITCH;
-        update->data.f = pitch;
-        update->next   = 0;
+        update->delta           = synth->paramSamples + v->pvoice->offset;
+        update->type            = AL_FILTER_SET_VOLUME;
+        update->data.i          = volume;
+        update->moredata.i      = _timeToSamples(synth, t);
+        update->next            = 0;
 
         f = v->pvoice->channelKnob;
         (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);        
     }
 }
+

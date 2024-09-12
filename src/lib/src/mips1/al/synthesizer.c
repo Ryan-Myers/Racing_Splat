@@ -185,7 +185,7 @@ s32 __timeToSamplesNoRound(ALSynth *synth, s32 micros)
     return (s32)tmp;
 }
 
-s32 __timeToSamples(ALSynth *synth, s32 micros)
+s32 _timeToSamples(ALSynth *synth, s32 micros)
 {
     return __timeToSamplesNoRound(synth, micros) & ~0xF;
 }

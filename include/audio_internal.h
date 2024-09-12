@@ -307,7 +307,7 @@ void            __freeParam(ALParam *param);
 void            __freePVoices(ALSynth *drvr, PVoice *pvoice);
 void            _collectPVoices(ALSynth *drvr);
 
-s32             __timeToSamples(ALSynth *ALSynth, s32 micros);
+s32             _timeToSamples(ALSynth *ALSynth, s32 micros);
 ALMicroTime     _samplesToTime(ALSynth *synth, s32 samples);
 
 void            _init_lpfilter(ALLowPass *lp);

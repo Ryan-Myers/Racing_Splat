@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C9AE0 */
-
 /*====================================================================
  * synsetpriority.c
  *
@@ -21,11 +18,10 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include <libaudio.h>
 
-void alSynSetPriority(UNUSED ALSynth *s, ALVoice *voice, s16 priority)
+void alSynSetPriority(ALSynth *s, ALVoice *voice, s16 priority)
 {
     voice->priority = priority;
 }
+

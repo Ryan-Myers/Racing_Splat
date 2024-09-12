@@ -42,7 +42,7 @@ void alSynStartVoiceParams(ALSynth *s, ALVoice *v, ALWaveTable *w, f32 pitch, s1
             update->volume = vol;
             update->fxMix = fxmix;
             update->pitch = pitch;
-            update->samples = __timeToSamples(s, t);
+            update->samples = _timeToSamples(s, t);
             update->wave = w;
             f = v->pvoice->channelKnob;
             (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);
