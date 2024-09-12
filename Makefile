@@ -2,6 +2,8 @@ BASENAME  = dkr
 REGION  := us
 VERSION  := v1
 
+LIBULTRA_VERSION_DEFINE := -DBUILD_VERSION=VERSION_G -DBUILD_VERSION_STRING=\"2.0G\"
+
 # Whether to hide commands or not
 VERBOSE ?= 0
 ifeq ($(VERBOSE),0)
@@ -116,7 +118,7 @@ else
 	DEFINES += ANTI_TAMPER
 endif
 
-C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
+C_DEFINES := $(foreach d,$(DEFINES),-D$(d)) $(LIBULTRA_VERSION_DEFINE)
 ASM_DEFINES = # $(foreach d,$(DEFINES),--defsym $(d)=1)
 
 INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(SRC_DIR)/lib

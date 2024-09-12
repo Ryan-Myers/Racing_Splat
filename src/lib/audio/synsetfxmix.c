@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C9810 */
-
 /*====================================================================
  * synsetfxmix.c
  *
@@ -21,11 +18,9 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
-
-ALParam *__allocParam();
+#include "synthInternals.h"
+#include <os_internal.h>
+#include <ultraerror.h>
 
 void alSynSetFXMix(ALSynth *synth, ALVoice *v, u8 fxmix)
 {
@@ -44,22 +39,22 @@ void alSynSetFXMix(ALSynth *synth, ALVoice *v, u8 fxmix)
          */
         update->delta  = synth->paramSamples + v->pvoice->offset;
         update->type   = AL_FILTER_SET_FXAMT;
-
-//Ignore GCC warnings for this line, as there's no other way to match this.
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wtype-limits"
-        //Differs from ultralib
-        if (fxmix < 0)
+#if BUILD_VERSION >= VERSION_J
+        if (fxmix > 127) {
+            fxmix = 127;
+        }
+	    update->data.i = fxmix;
+#else
+        if (fxmix < 0) { // Not possible
             update->data.i = -fxmix;
-        else
+        } else {
             update->data.i = fxmix;
-#pragma GCC diagnostic pop
-
+        }
+#endif
         update->next   = 0;
 
         f = v->pvoice->channelKnob;
-        (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);
+        (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);        
     }
 }
-
 

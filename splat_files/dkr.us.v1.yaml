@@ -144,7 +144,7 @@ segments:
       - [0xCA250, c, lib/src/al/alSynSetVol]
       - [0xCA2F0, c, lib/src/al/alSynStartVoice]
       - [0xCA380, c, lib/src/al/alSynSetPitch]
-      - [0xCA410, c, lib/src/al/alSynSetFXMix]
+      - [0xCA410, c, lib/audio/synsetfxmix]
       - [0xCA4B0, c, lib/src/al/alSynStopVoice]
       - [0xCA530, c, lib/src/al/synfreevoice]
       - [0xCA5E0, c, lib/src/al/cents2ratio]
