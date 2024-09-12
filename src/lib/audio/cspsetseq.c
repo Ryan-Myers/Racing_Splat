@@ -1,8 +1,7 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C7940 */
-
 /*====================================================================
- * cspsetchlvol.c
+ * cspsetseq.c
+ *
+ * Synopsis:
  *
  * Copyright 1995, Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -21,21 +20,15 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include <libaudio.h>
 
-void alCSPSetChlVol(ALCSPlayer *seqp, u8 chan, u8 vol)
+void alCSPSetSeq(ALCSPlayer *seqp, ALCSeq *seq)
 {
-    ALEvent       evt;
+    ALEvent evt;
 
-    evt.type            = AL_SEQP_MIDI_EVT;
-    evt.msg.midi.ticks  = 0;
-    evt.msg.midi.status = AL_MIDI_ControlChange | chan;
-    evt.msg.midi.byte1  = AL_MIDI_VOLUME_CTRL;
-    evt.msg.midi.byte2  = vol;
-                    
+    evt.type = AL_SEQP_SEQ_EVT;
+    evt.msg.spseq.seq = seq;
+
     alEvtqPostEvent(&seqp->evtq, &evt, 0);
 }
-
 
