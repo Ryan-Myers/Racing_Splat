@@ -41,6 +41,7 @@ LIB_DIRS = $(SRC_DIR)/lib
 
 DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) $(SRC_DIR)/lib/src/mips1 $(SRC_DIR)/lib/src/mips1/al $(SRC_DIR)/lib/src/os 
 DEFINE_SRC_DIRS  += $(SRC_DIR)/lib/src/mips1/sc $(SRC_DIR)/lib/src/mips1/os $(SRC_DIR)/lib/src/al $(SRC_DIR)/lib/src/libc $(SRC_DIR)/lib/src/gu $(SRC_DIR)/lib/asm
+DEFINE_SRC_DIRS  += $(SRC_DIR)/lib/audio
 SRC_DIRS = $(DEFINE_SRC_DIRS)
 
 TOOLS_DIR = tools
@@ -119,7 +120,8 @@ C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 ASM_DEFINES = # $(foreach d,$(DEFINES),--defsym $(d)=1)
 
 INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(SRC_DIR)/lib
-INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/src/gu -I $(SRC_DIR)/lib/src/libc -I $(SRC_DIR)/lib/src/mips1 -I $(SRC_DIR)/lib/src/mips1/al -I $(SRC_DIR)/lib/src/os
+INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/src/gu -I $(SRC_DIR)/lib/src/libc -I $(SRC_DIR)/lib/src/mips1 -I $(SRC_DIR)/lib/src/mips1/al 
+INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/audio -I $(SRC_DIR)/lib/src/os
 
 ASFLAGS        = -march=vr4300 -32 -G0 $(ASM_DEFINES) $(INCLUDE_CFLAGS)
 OBJCOPYFLAGS   = -O binary
@@ -158,6 +160,7 @@ ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py
 ####################### LIBULTRA #########################
 
 $(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(SRC_DIR)/lib/audio/%.c.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/al/%.c.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/%.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osViMgr.c.o: OPT_FLAGS := -O2

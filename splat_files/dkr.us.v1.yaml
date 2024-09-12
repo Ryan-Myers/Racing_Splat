@@ -110,7 +110,7 @@ segments:
       - [0xC7F40, c, lib/src/os/__osLeoInterrupt]
       - [0xC7F50, c, thread30_track_loading]
       - [0xC8160, c, lib/src/al/alHeapInit]
-      - [0xC81A0, c, lib/src/al/alBnkfNew]
+      - [0xC81A0, c, lib/audio/bnkf]
       - [0xC83F0, c, lib/src/al/alHeapDBAlloc]
       - [0xC8450, c, lib/src/al/alCSPSetVol]
       - [0xC8490, c, lib/src/al/alCSPGetTempo]

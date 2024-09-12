@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C75A0 */
-
 /*====================================================================
  * bnkf.c
  *
@@ -21,9 +18,9 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include <libaudio.h>
+#include <os_internal.h>
+#include <ultraerror.h>
 
 /*
  * ### when the file format settles down a little, I'll remove these
@@ -69,7 +66,7 @@ void alBnkfNew(ALBankFile *file, u8 *table)
     }
 }
 
-static void _bnkfPatchBank(ALBank *bank, s32 offset, s32 table) 
+void _bnkfPatchBank(ALBank *bank, s32 offset, s32 table) 
 {
     s32 i;
     
@@ -91,7 +88,7 @@ static void _bnkfPatchBank(ALBank *bank, s32 offset, s32 table)
     }
 }
 
-static void _bnkfPatchInst(ALInstrument *inst, s32 offset, s32 table)
+void _bnkfPatchInst(ALInstrument *inst, s32 offset, s32 table)
 {
     s32 i;
 
@@ -108,7 +105,7 @@ static void _bnkfPatchInst(ALInstrument *inst, s32 offset, s32 table)
     }
 }
 
-static void _bnkfPatchSound(ALSound *s, s32 offset, s32 table)
+void _bnkfPatchSound(ALSound *s, s32 offset, s32 table)
 {
     if (s->flags)
         return;
@@ -122,7 +119,7 @@ static void _bnkfPatchSound(ALSound *s, s32 offset, s32 table)
     _bnkfPatchWaveTable(s->wavetable, offset, table);
 }
 
-static void _bnkfPatchWaveTable(ALWaveTable *w, s32 offset, s32 table)
+void _bnkfPatchWaveTable(ALWaveTable *w, s32 offset, s32 table)
 {
     if (w->flags)
         return;
