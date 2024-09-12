@@ -225,7 +225,7 @@ segments:
       - [0xD4270, c, lib/src/os/__osAiDeviceBusy]
       - [0xD42A0, c, lib/src/os/osJamMesg]
       - [0xD43F0, c, lib/src/os/osPiGetCmdQueue]
-      - [0xD4420, c, lib/src/al/alCopy]
+      - [0xD4420, c, lib/src/audio/copy]
       - [0xD44A0, c, lib/src/libc/xprintf]
       - [0xD5160, hasm, lib/asm/__osSetSR]
       - [0xD5170, hasm, lib/asm/__osGetSR]
@@ -317,10 +317,10 @@ segments:
       - [0xE4500, .data, lib/src/os/vitbl]
       - [0xE5410, .data, lib/src/os/osSpTaskYielded]
       - [0xE5480, .data, lib/src/os/__osViSwapContext]
-      - [0xE54A0, data, lib/asm/exception] #alCopy in main DKR repo, but exceptasm in ultralib
+      - [0xE54A0, data, lib/asm/exception]
       - [0xE54C0, .data, lib/src/libc/xprintf]
       - [0xE5510, .data, lib/src/os/osTimer]
-      - [0xE5520, .data, lib/src/libc/xlitob] #piacs in main DKR repo
+      - [0xE5520, .data, lib/src/libc/xlitob]
       - [0xE5550, .rodata, audio]
       - [0xE55F0, .rodata, audiomgr]
       - [0xE57B0, .rodata, audiosfx]
