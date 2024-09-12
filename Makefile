@@ -171,6 +171,8 @@ $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: MIPSISET := -mips3 -32
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ldiv.c.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ldiv.c.o: MIPSISET := -mips2
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xldtob.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xldtob.c.o: MIPSISET := -mips2
 
 $(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: MIPSISET := -mips2
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/mips1/%.c.o: MIPSISET := -mips1
