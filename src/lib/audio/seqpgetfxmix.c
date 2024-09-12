@@ -1,8 +1,5 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800D2C60 */
-
 /*====================================================================
- * syndelete.c
+ * seqpgetfxmix.c
  *
  * Copyright 1995, Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -21,11 +18,10 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include <libaudio.h>
 
-void alSynDelete(ALSynth *drvr)
+u8 alSeqpGetChlFXMix(ALSeqPlayer *seqp, u8 chan)
 {
-    drvr->head = 0;
+    return seqp->chanState[chan].fxmix;
 }
+
