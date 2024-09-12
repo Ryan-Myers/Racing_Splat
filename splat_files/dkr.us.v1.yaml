@@ -120,7 +120,7 @@ segments:
       - [0xC85A0, c, lib/audio/cspgetchlvol]
       - [0xC85C0, c, lib/src/al/alSeqpGetChlFXMix]
       - [0xC85E0, c, lib/src/al/alCSPSetTempo]
-      - [0xC8650, c, lib/src/al/alCSPGetState]
+      - [0xC8650, c, lib/audio/cspgetstate]
       - [0xC8660, c, lib/src/al/alCSPSetBank]
       - [0xC86A0, c, lib/src/al/cseq]
       - [0xC9160, c, lib/src/al/alCSPSetSeq]
