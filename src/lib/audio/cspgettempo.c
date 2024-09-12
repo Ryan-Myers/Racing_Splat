@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C7890 */
-
 /*====================================================================
  * cspgettempo.c
  *
@@ -21,9 +18,7 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include <libaudio.h>
 
 s32 alCSPGetTempo(ALCSPlayer *seqp) 
 {
