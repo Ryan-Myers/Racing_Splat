@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C7A60 */
-
 /*====================================================================
  * cspsetbank.c
  *
@@ -21,10 +18,7 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include <libaudio.h>
 
 void alCSPSetBank(ALCSPlayer *seqp, ALBank *b)
 {
@@ -35,3 +29,4 @@ void alCSPSetBank(ALCSPlayer *seqp, ALBank *b)
 
     alEvtqPostEvent(&seqp->evtq, &evt, 0);
 }
+
