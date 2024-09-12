@@ -304,7 +304,7 @@ typedef struct PVoice_s {
  */
 ALParam         *__allocParam(void);
 void            __freeParam(ALParam *param);
-void            __freePVoices(ALSynth *drvr, PVoice *pvoice);
+void            _freePVoice(ALSynth *drvr, PVoice *pvoice);
 void            _collectPVoices(ALSynth *drvr);
 
 s32             _timeToSamples(ALSynth *ALSynth, s32 micros);

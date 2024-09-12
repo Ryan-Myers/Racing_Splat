@@ -10,7 +10,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/mips1/al/synthesizer/__collectPVoices.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/mips1/al/synthesizer/__freePVoices.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/mips1/al/synthesizer/_freePVoice.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/mips1/al/synthesizer/__timeToSamplesNoRound.s")
 

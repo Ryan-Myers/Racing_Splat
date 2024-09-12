@@ -47,7 +47,7 @@ void alSynFreeVoice(ALSynth *drvr, ALVoice *voice)
             f = voice->pvoice->channelKnob;
             (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);
         } else {
-            __freePVoices(drvr, voice->pvoice);
+            _freePVoice(drvr, voice->pvoice);
         }
 
         voice->pvoice = 0;

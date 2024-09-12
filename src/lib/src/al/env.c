@@ -276,7 +276,7 @@ Acmd *alEnvmixerPull(void *filter, UNUSED s16 *outp, s32 outCount, s32 sampleOff
                   ALSynth *drvr = &alGlobals->drvr;
                   ALFreeParam *param = (ALFreeParam *)e->ctrlList;
                   param->pvoice->offset = 0;
-                  __freePVoices(drvr, (PVoice *)param->pvoice);
+                  _freePVoice(drvr, (PVoice *)param->pvoice);
               }
               break;
               
