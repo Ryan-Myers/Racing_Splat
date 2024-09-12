@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C7AA0 */
-
 /*====================================================================
  * cseq.c
  *
@@ -21,9 +18,11 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include <libaudio.h>
+#include <os_internal.h>
+#include <ultraerror.h>
+#include "cseq.h"
+
 
 static u32 __readVarLen(ALCSeq *s,u32 track);
 static u8  __getTrackByte(ALCSeq *s,u32 track);
@@ -398,3 +397,13 @@ static u32 __readVarLen(ALCSeq *seq,u32 track)
     }
     return (value);
 }
+
+
+
+
+
+
+
+
+
+

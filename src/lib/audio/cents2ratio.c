@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C99E0 */
-
 /*
  * alCents2Ratio()
  *
@@ -11,10 +8,7 @@
  * two ocataves.
  */
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
-#include "libultra_internal.h"
+#include <libaudio.h>
 
 f32 alCents2Ratio(s32 cents) 
 {

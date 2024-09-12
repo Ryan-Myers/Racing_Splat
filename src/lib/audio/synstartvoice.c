@@ -1,8 +1,5 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C98B0 */
-
 /*====================================================================
- * synstopvoice.c
+ * synstartvoice.c
  *
  * Copyright 1995, Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -21,26 +18,31 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include "synthInternals.h"
+#include <os_internal.h>
+#include <ultraerror.h>
 
-
-void alSynStopVoice(ALSynth *synth, ALVoice *v)
+void alSynStartVoice(ALSynth *synth, ALVoice *v, ALWaveTable *table)
 {
-    ALParam  *update;
+    ALStartParam  *update;
     ALFilter *f;
     
     if (v->pvoice) {
         
-        update = __allocParam();
+        update = (ALStartParam *)__allocParam();
         ALFailIf(update == 0, ERR_ALSYN_NO_UPDATE);
 
+        /*
+         * send the start message to the motion control filter
+         */
         update->delta  = synth->paramSamples + v->pvoice->offset;
-        update->type   = AL_FILTER_STOP_VOICE;
+        update->type   = AL_FILTER_START_VOICE;
+        update->wave   = table;
         update->next   = 0;
+        update->unity  = v->unityPitch;
 
         f = v->pvoice->channelKnob;
-        (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);        
+        (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);
     }
 }
+

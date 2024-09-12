@@ -74,15 +74,24 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c)
     
     sources = alHeapAlloc(hp, c->maxPVoices, sizeof(ALFilter *));
     alAuxBusNew(drvr->auxBus + 1, sources, c->maxPVoices);
-    
+
+    /*
+     * allocate and initialize the main bus.
+     */    
     drvr->mainBus = alHeapAlloc(hp, 1, sizeof(ALMainBus));
     sources = alHeapAlloc(hp, c->maxPVoices, sizeof(ALFilter *));
     alMainBusNew(drvr->mainBus, sources, c->maxPVoices);
     
     for(i = 0; i < 2; i++) {
         if (c->fxType[i] != 0) {
+            /*
+            * Allocate an effect and set parameters
+            */
             alSynAllocFX(drvr, (s16)i, c, hp);
         } else {
+            /*
+            * Connect the aux bus to the main bus
+            */
             alMainBusParam(drvr->mainBus, 2, drvr->auxBus + i);
         }
     }
