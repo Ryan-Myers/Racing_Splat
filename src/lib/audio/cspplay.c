@@ -1,8 +1,5 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C85D0 */
-
 /*====================================================================
- * cspstop.c
+ * cspplay.c
  *
  * Synopsis:
  *
@@ -23,14 +20,15 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include <libaudio.h>
+#include "cseqp.h"
 
-void alCSPStop(ALCSPlayer *seqp)
+void alCSPPlay(ALCSPlayer *seqp)
 {
-    ALEvent     evt;
-
-    evt.type = AL_SEQP_STOPPING_EVT;                    
+    ALEvent evt;
+    
+    evt.type = AL_SEQP_PLAY_EVT;
+                    
     alEvtqPostEvent(&seqp->evtq, &evt, 0);
 }
+
