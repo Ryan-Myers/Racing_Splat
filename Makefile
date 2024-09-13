@@ -169,7 +169,7 @@ $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osViMgr.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osCreatePiManager.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osMotor.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xprintf.c.o : OPT_FLAGS := -O3
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/al/env.c.o: OPT_FLAGS := -g
+$(BUILD_DIR)/$(SRC_DIR)/lib/audio/env.c.o: OPT_FLAGS := -g
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/llcvt.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/llcvt.c.o: MIPSISET := -mips3 -32
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: OPT_FLAGS := -O1
@@ -182,7 +182,7 @@ $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xldtob.c.o: MIPSISET := -mips2
 $(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: MIPSISET := -mips2
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/mips1/%.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osMotor.c.o: MIPSISET := -mips1
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/al/env.c.o: MIPSISET := -mips1
+$(BUILD_DIR)/$(SRC_DIR)/lib/audio/env.c.o: MIPSISET := -mips1
 
 ####################### MATH UTIL #########################
 
