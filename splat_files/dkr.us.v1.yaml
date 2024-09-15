@@ -70,7 +70,7 @@ segments:
       - [0x64830, c, lib/audio/mips1/reverb]
       - [0x65550, c, lib/audio/mips1/drvrnew]
       - [0x65D30, c, lib/audio/mips1/synthesizer]
-      - [0x66460, c, lib/audio/mips1/alSynAllocFX]
+      - [0x66460, c, lib/audio/mips1/synallocfx]
       - [0x66500, c, lib/audio/mips1/auxbus]
       - [0x66720, c, lib/audio/mips1/alSynSetPan]
       - [0x667D0, c, lib/audio/mips1/alSynStartVoiceParams]
