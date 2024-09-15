@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C9930 */
-
 /*====================================================================
  * synfreevoice.c
  *
@@ -21,10 +18,11 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
-#include "libultra_internal.h"
+#include <ultraerror.h>
+#include <os_internal.h>
+#include "synthInternals.h"
+
+#include <os.h>
 
 void alSynFreeVoice(ALSynth *drvr, ALVoice *voice)
 {

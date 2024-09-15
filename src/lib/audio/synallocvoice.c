@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C9420 */
-
 /*====================================================================
  * synallocvoice.c
  *
@@ -21,43 +18,11 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
-#include "libultra_internal.h"
+#include <os_internal.h>
+#include <ultraerror.h>
+#include "synthInternals.h"
 
-s32 _allocatePVoice(ALSynth *drvr, PVoice **pvoice, s16 priority)
-{
-    ALLink      *dl;
-    PVoice      *pv;
-    s32         stolen = 0;
-    
-    if ((dl = drvr->pLameList.next) != 0) { /* check the lame list first */
-        *pvoice = (PVoice *) dl;
-        alUnlink(dl);
-        alLink(dl, &drvr->pAllocList);        
-    } else if ((dl = drvr->pFreeList.next) != 0) { /* from the free list */
-        *pvoice = (PVoice *) dl;
-        alUnlink(dl);
-        alLink(dl, &drvr->pAllocList);        
-    } else { /* steal one */
-        for (dl = drvr->pAllocList.next; dl != 0; dl = dl->next) {
-            pv = (PVoice *)dl;
-
-            /*
-             * if it is lower priority and not already stolen, keep it
-             * as a candidate for stealing
-             */
-            if ((pv->vvoice->priority <= priority) && (pv->offset == 0)) {
-                *pvoice = pv;
-                priority = pv->vvoice->priority;
-                stolen = 1;
-            }
-        }
-    }
-    
-    return stolen;
-}
+s32 _allocatePVoice(ALSynth *drvr, PVoice **pvoice, s16 priority);
 
 s32 alSynAllocVoice(ALSynth *drvr, ALVoice *voice, ALVoiceConfig *vc)
 {
@@ -131,3 +96,37 @@ s32 alSynAllocVoice(ALSynth *drvr, ALVoice *voice, ALVoiceConfig *vc)
     
     return (pvoice != 0);    
 }
+
+s32 _allocatePVoice(ALSynth *drvr, PVoice **pvoice, s16 priority)
+{
+    ALLink      *dl;
+    PVoice      *pv;
+    s32         stolen = 0;
+    
+    if ((dl = drvr->pLameList.next) != 0) { /* check the lame list first */
+        *pvoice = (PVoice *) dl;
+        alUnlink(dl);
+        alLink(dl, &drvr->pAllocList);        
+    } else if ((dl = drvr->pFreeList.next) != 0) { /* from the free list */
+        *pvoice = (PVoice *) dl;
+        alUnlink(dl);
+        alLink(dl, &drvr->pAllocList);        
+    } else { /* steal one */
+        for (dl = drvr->pAllocList.next; dl != 0; dl = dl->next) {
+            pv = (PVoice *)dl;
+
+            /*
+             * if it is lower priority and not already stolen, keep it
+             * as a candidate for stealing
+             */
+            if ((pv->vvoice->priority <= priority) && (pv->offset == 0)) {
+                *pvoice = pv;
+                priority = pv->vvoice->priority;
+                stolen = 1;
+            }
+        }
+    }
+    
+    return stolen;
+}
+

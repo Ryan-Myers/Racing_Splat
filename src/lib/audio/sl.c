@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C8760 */
-
 /*====================================================================
  * sl.c
  *
@@ -24,10 +21,7 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-
-#include "libultra_internal.h"
-#include "types.h"
-#include "macros.h"
+#include <libaudio.h>
 
 ALGlobals *alGlobals=0;
 
@@ -64,3 +58,8 @@ void alUnlink(ALLink *ln)
     if (ln->prev)                   
         ln->prev->next = ln->next;  
 }
+
+
+
+
+

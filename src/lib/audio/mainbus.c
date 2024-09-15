@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800CC390 */
-
 /*====================================================================
  * mainbus.c
  *
@@ -21,9 +18,8 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+#include <libaudio.h>
+#include "synthInternals.h"
 
 Acmd *alMainBusPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) 
 {
@@ -68,3 +64,4 @@ s32 alMainBusParam(void *filter, s32 paramID, void *param)
     return 0;
     
 }
+

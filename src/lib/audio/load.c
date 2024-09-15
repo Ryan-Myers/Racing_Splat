@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800CB540 */
-
 /*====================================================================
  * load.c
  *
@@ -21,10 +18,10 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
-#include "PR/R4300.h"
+#include <libaudio.h>
+#include "synthInternals.h"
+#include <os.h>
+#include <R4300.h>
 
 #ifndef MIN
 #   define MIN(a,b) (((a)<(b))?(a):(b))
@@ -40,7 +37,7 @@ extern u32 cnt_index, adpcm_num, adpcm_cnt, adpcm_max, adpcm_min, lastCnt[];
 static
 Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags);
 
-Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, UNUSED s32 sampleOffset, Acmd *p) 
+Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) 
 {
     Acmd        *ptr = p;
     s16         inp;
@@ -70,7 +67,7 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, UNUSED s32 sampleOffset
     aLoadADPCM(ptr++, f->bookSize,
                K0_TO_PHYS(f->table->waveInfo.adpcmWave.book->book));
 
-    looped = ((u32)(outCount + f->sample) > f->loop.end) && (f->loop.count != 0);
+    looped = (outCount + f->sample > f->loop.end) && (f->loop.count != 0);
     if (looped)
         nSam = f->loop.end - f->sample;
     else
@@ -127,13 +124,13 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, UNUSED s32 sampleOffset
              * -1 is loop forever - the loop count is not exact now
              * for small loops!
              */
-            if ((f->loop.count != -1U) && (f->loop.count != 0))
+            if ((f->loop.count != -1) && (f->loop.count != 0))
                 f->loop.count--;
             
             /*
              * What's left to compute.
              */
-            nSam = MIN((u32)outCount, f->loop.end - f->loop.start);
+            nSam = MIN(outCount, f->loop.end - f->loop.start);
             tsam = nSam - ADPCMFSIZE + f->lastsam;  
             if (tsam<0) tsam = 0;
             nframes = (tsam+ADPCMFSIZE-1)>>LFSAMPLES;
@@ -209,7 +206,7 @@ Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, UNUSED s32 sampleOffset
     return ptr;
 }
 
-Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, UNUSED s32 sampleOffset, Acmd *p) 
+Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) 
 {
     Acmd        *ptr = p;
     s32         nbytes;
@@ -222,11 +219,12 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, UNUSED s32 sampleOffset
     s32         op;
     
     ALLoadFilter *f = (ALLoadFilter *)filter;
+    ALFilter *a = (ALFilter *) filter;
 
     if (outCount == 0)
         return ptr;
     
-    if (((u32)(outCount + f->sample) > f->loop.end) && (f->loop.count != 0)){
+    if ((outCount + f->sample > f->loop.end) && (f->loop.count != 0)){
 
         nSam = f->loop.end - f->sample;
         nbytes = nSam<<1;
@@ -260,13 +258,13 @@ Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, UNUSED s32 sampleOffset
             /*
              * -1 is loop forever
              */
-            if ((f->loop.count != -1U) && (f->loop.count != 0))
+            if ((f->loop.count != -1) && (f->loop.count != 0))
                 f->loop.count--;
             
             /*
              * What to compute.
              */
-            nSam = MIN((u32)outCount, f->loop.end - f->loop.start);
+            nSam = MIN(outCount, f->loop.end - f->loop.start);
             nbytes = nSam<<1;
         
             /*
@@ -437,7 +435,6 @@ alLoadParam(void *filter, s32 paramID, void *param)
     }
 }
 
-static
 Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags)
 
 {
@@ -469,3 +466,6 @@ Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s
 
     return ptr;
 }
+
+
+

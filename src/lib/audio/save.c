@@ -1,11 +1,8 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800CC4E0  */
 /*====================================================================
  * save.c
  *
  * Copyright 1993, Silicon Graphics, Inc.
  * All Rights Reserved.
- *
  * This is UNPUBLISHED PROPRIETARY SOURCE CODE of Silicon Graphics,
  * Inc.; the contents of this file may not be disclosed to third
  * parties, copied or duplicated in any form, in whole or in part,
@@ -19,25 +16,24 @@
  * DOD or NASA FAR Supplement. Unpublished - rights reserved under the
  * Copyright Laws of the United States.
  *====================================================================*/
-
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
-
+#include <libaudio.h>
+#include "synthInternals.h"
+#include <os.h>
+#include <assert.h>
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 
 Acmd *alSavePull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
                  Acmd *p) 
-
 {
     Acmd        *ptr = p;
     ALSave *f = (ALSave *)filter;
     ALFilter    *source = f->filter.source;
-
-#ifdef _DEBUG
-    assert(f->filter.source);
+#if BUILD_VERSION < VERSION_J
+#line 33
 #endif
+    assert(f->filter.source);
+
     
     ptr = (*source->handler)(source, outp, outCount, sampleOffset, ptr);
     
@@ -69,3 +65,6 @@ s32 alSaveParam(void *filter, s32 paramID, void *param)
     return 0;
             
 }
+
+
+

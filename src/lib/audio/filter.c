@@ -1,9 +1,7 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C93D0 */
 /*====================================================================
- * synaddplayer.c
+ * filter.c
  *
- * Copyright 1995, Silicon Graphics, Inc.
+ * Copyright 1993, Silicon Graphics, Inc.
  * All Rights Reserved.
  *
  * This is UNPUBLISHED PROPRIETARY SOURCE CODE of Silicon Graphics,
@@ -20,18 +18,15 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
-#include "libultra_internal.h"
+#include <libaudio.h>
+#include "synthInternals.h"
 
-void alSynAddPlayer(ALSynth *drvr, ALPlayer *client)
+void alFilterNew(ALFilter *f, ALCmdHandler h, ALSetParam s, s32 type)
 {
-    OSIntMask mask = osSetIntMask(OS_IM_NONE);
-
-    client->samplesLeft = drvr->curSamples;
-    client->next = drvr->head;
-    drvr->head   = client;
-
-    osSetIntMask(mask);
+    f->source    = 0;
+    f->handler   = h;
+    f->setParam  = s;
+    f->inp       = 0;
+    f->outp      = 0;
+    f->type      = type;
 }

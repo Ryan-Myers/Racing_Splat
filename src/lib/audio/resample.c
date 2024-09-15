@@ -1,6 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800CC090 */
-
 /*====================================================================
  * resample.c
  *
@@ -21,11 +18,10 @@
  * Copyright Laws of the United States.
  *====================================================================*/
 
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
-#include "PR/os.h"
-#include "PR/abi.h"
+#include <libaudio.h>
+#include "synthInternals.h"
+#include <os.h>
+#include <stdio.h>
 
 // TODO: this comes from a header
 #ident "$Revision: 1.49 $"
