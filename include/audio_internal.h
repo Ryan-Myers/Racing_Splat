@@ -196,7 +196,11 @@ typedef struct {
     ALSetFXParam        paramHdl;
 } ALFx;
 
+#ifdef RAREDIFFS
 void    alFxNew(ALFx *r, ALSynConfig *c, s16 bus, ALHeap *hp);
+#else
+void    alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp);
+#endif
 Acmd    *alFxPull(void *f, s16 *outp, s32 out, s32 sampleOffset, Acmd *p);
 s32     alFxParam(void *filter, s32 paramID, void *param);
 s32     alFxParamHdl(void *filter, s32 paramID, void *param);

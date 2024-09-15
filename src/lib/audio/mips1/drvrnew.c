@@ -1,5 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x80064950 */
 /*====================================================================
  * drvrNew.c
  *
@@ -19,14 +17,16 @@
  * DOD or NASA FAR Supplement. Unpublished - rights reserved under the
  * Copyright Laws of the United States.
  *====================================================================*/
-
-#include "types.h"
-#include "macros.h"
-#include "libultra_internal.h"
-#include "audio_internal.h"
-#include "audio.h"
+#include <libaudio.h>
+#include "synthInternals.h"
+#include <os.h>
+#include <stdio.h>
+#include "initfx.h"
+#ifdef RAREDIFFS
 #include "src/memory.h"
-
+#endif
+// TODO: this comes from a header
+#ident "$Revision: 1.49 $"
 /*
  * WARNING: THE FOLLOWING CONSTANT MUST BE KEPT IN SYNC
  * WITH SCALING IN MICROCODE!!!
@@ -38,7 +38,7 @@
  * a few hopefully useful effects.
  */
 #define ms *(((s32)((f32)44.1))&~0x7)
-
+ 
 
 static s32 SMALLROOM_PARAMS[26] = {
     /* sections	   length */
@@ -91,7 +91,8 @@ static s32 NULL_PARAMS[10] = {
 };
 
 
-void init_lpfilter(ALLowPass *lp) {
+void _init_lpfilter(ALLowPass *lp)
+{
     s32		i, temp;
     s16		fc;
     f64		ffc, fcoef;
@@ -113,86 +114,125 @@ void init_lpfilter(ALLowPass *lp) {
     }
 }
 
-//This function differs from libreultra's, but still mostly the same
-void alFxNew(ALFx *r, ALSynConfig *c, s16 bus, UNUSED ALHeap *hp) {
+#ifdef RAREDIFFS
+void alFxNew(ALFx *r, ALSynConfig *c, s16 bus, UNUSED ALHeap *hp)
+#else
+void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp)
+#endif
+{
     u16		i, j, k;
     s32		*param = 0;
     ALFilter	*f = (ALFilter *) r;
     ALDelay	*d;
+
     alFilterNew(f, 0, alFxParam, AL_FX);
     f->handler = alFxPull;
     r->paramHdl = (ALSetFXParam)alFxParamHdl;
+
+#ifdef RAREDIFFS
     switch (c->fxType[bus]) {
+#else
+    switch (c->fxType) {
+#endif
       case AL_FX_SMALLROOM:	param = SMALLROOM_PARAMS;	break;
       case AL_FX_BIGROOM:	param = BIGROOM_PARAMS;		break;
       case AL_FX_ECHO:		param = ECHO_PARAMS;		break;
       case AL_FX_CHORUS:	param = CHORUS_PARAMS;		break;
-      case AL_FX_FLANGE:	param = FLANGE_PARAMS;  	break;
+      case AL_FX_FLANGE:	param = FLANGE_PARAMS;		break;
+#ifdef RAREDIFFS
       case AL_FX_CUSTOM:	param = (&c->params)[bus];	break;
+#else
+      case AL_FX_CUSTOM:	param = c->params;		break;
+#endif
       default:			param = NULL_PARAMS;		break;
     }
+
+
     j = 0;
+    
     r->section_count = param[j++];
     r->length 	     = param[j++];
+
+#ifdef RAREDIFFS
     r->delay = allocate_from_main_pool_safe(sizeof(ALDelay) * r->section_count, COLOUR_TAG_CYAN);
     r->base = allocate_from_main_pool_safe(sizeof(s16) * r->length, COLOUR_TAG_CYAN);
+#else
+    r->delay = alHeapAlloc(hp, r->section_count, sizeof(ALDelay));
+    r->base = alHeapAlloc(hp, r->length, sizeof(s16));
+#endif
     r->input = r->base;
+
     for ( k=0; k < r->length; k++)
 	r->base[k] = 0;
-    for ( i=0; i<r->section_count; i++ ) {
-        d = &r->delay[i];
-        d->input  = param[j++];
-        d->output = param[j++];
-        d->fbcoef = param[j++];
-        d->ffcoef = param[j++];
-        d->gain   = param[j++];
-        if (param[j]) {
-    #define RANGE 2.0
-            //d->rsinc     = ((f32) param[j++])/0xffffff;
-            d->rsinc = ((((f32)param[j++])/1000) * RANGE)/c->outputRate;
-            /*
-            * the following constant is derived from:
-            *
-            *		ratio = 2^(cents/1200)
-            *
-            * and therefore for hundredths of a cent
-            *			           x
-            *		ln(ratio) = ---------------
-            *			    (120,000)/ln(2)
-            * where
-            *		120,000/ln(2) = 173123.40...
-            */
-    #define CONVERT 173123.404906676
-    #define LENGTH	(d->output - d->input)
-            d->rsgain 	 = (((f32) param[j++])/CONVERT) * LENGTH;
-            d->rsval	 = 1.0;
-            d->rsdelta	 = 0.0;
-            d->rs 	 = allocate_from_main_pool_safe(sizeof(ALResampler), COLOUR_TAG_CYAN);
-            d->rs->state = allocate_from_main_pool_safe(sizeof(RESAMPLE_STATE), COLOUR_TAG_CYAN);
-            d->rs->delta = 0.0;
-            d->rs->first = 1;
-        } else {
-            d->rs = 0;
-            j++;
-            j++;
-        }
-        if (param[j]) {
-            d->lp = allocate_from_main_pool_safe(sizeof(ALLowPass), COLOUR_TAG_CYAN);
-            d->lp->fstate = allocate_from_main_pool_safe(sizeof(POLEF_STATE), COLOUR_TAG_CYAN);
-            d->lp->fc = param[j++];
-            init_lpfilter(d->lp);
-        } else {
-            d->lp = 0;
-            j++;
-        }
+
+    for ( i=0; i<r->section_count; i++ ){
+	d = &r->delay[i];
+	d->input  = param[j++];
+	d->output = param[j++];
+	d->fbcoef = param[j++];
+	d->ffcoef = param[j++];
+	d->gain   = param[j++];
+
+	if (param[j]) {
+#define RANGE 2.0
+/*	    d->rsinc     = ((f32) param[j++])/0xffffff; */
+	    d->rsinc = ((((f32)param[j++])/1000) * RANGE)/c->outputRate;
+
+	    /*
+	     * the following constant is derived from:
+	     *
+	     *		ratio = 2^(cents/1200)
+	     *
+	     * and therefore for hundredths of a cent
+	     *			           x
+	     *		ln(ratio) = ---------------
+	     *			    (120,000)/ln(2)
+	     * where
+	     *		120,000/ln(2) = 173123.40...
+	     */
+#define CONVERT 173123.404906676
+#define LENGTH	(d->output - d->input)
+	    d->rsgain 	 = (((f32) param[j++])/CONVERT) * LENGTH;
+	    d->rsval	 = 1.0;
+	    d->rsdelta	 = 0.0;
+#ifdef RAREDIFFS
+        d->rs 	 = allocate_from_main_pool_safe(sizeof(ALResampler), COLOUR_TAG_CYAN);
+        d->rs->state = allocate_from_main_pool_safe(sizeof(RESAMPLE_STATE), COLOUR_TAG_CYAN);
+#else
+	    d->rs 	 = alHeapAlloc(hp, 1, sizeof(ALResampler));
+	    d->rs->state = alHeapAlloc(hp, 1, sizeof(RESAMPLE_STATE));
+#endif
+	    d->rs->delta = 0.0;
+	    d->rs->first = 1;
+	} else {
+	    d->rs = 0;
+	    j++;
+	    j++;
+	}
+
+	if (param[j]) {
+#ifdef RAREDIFFS
+        d->lp = allocate_from_main_pool_safe(sizeof(ALLowPass), COLOUR_TAG_CYAN);
+        d->lp->fstate = allocate_from_main_pool_safe(sizeof(POLEF_STATE), COLOUR_TAG_CYAN);
+#else
+	    d->lp = alHeapAlloc(hp, 1, sizeof(ALLowPass));
+	    d->lp->fstate = alHeapAlloc(hp, 1, sizeof(POLEF_STATE));
+#endif
+	    d->lp->fc = param[j++];
+	    _init_lpfilter(d->lp);
+	} else {
+	    d->lp = 0;
+	    j++;
+	}
     }
 }
 
-void alEnvmixerNew(ALEnvMixer *e, ALHeap *hp) {
+void alEnvmixerNew(ALEnvMixer *e, ALHeap *hp)
+{
     alFilterNew((ALFilter *) e, alEnvmixerPull, alEnvmixerParam, AL_ENVMIX);
 
     e->state = alHeapAlloc(hp, 1, sizeof(ENVMIX_STATE));
-
+    
     e->first = 1;
     e->motion = AL_STOPPED;
     e->volume = 1;
@@ -214,9 +254,11 @@ void alEnvmixerNew(ALEnvMixer *e, ALHeap *hp) {
     e->sources = 0;
 }
 
-void alLoadNew(ALLoadFilter *f, ALDMANew dmaNew, ALHeap *hp) {
-    UNUSED s32 i;
-
+void alLoadNew(ALLoadFilter *f, ALDMANew dmaNew, ALHeap *hp) 
+{
+    s32
+        i;
+    
     /*
      * init filter superclass
      */
@@ -225,9 +267,9 @@ void alLoadNew(ALLoadFilter *f, ALDMANew dmaNew, ALHeap *hp) {
 
     f->state = alHeapAlloc(hp, 1, sizeof(ADPCM_STATE));
     f->lstate = alHeapAlloc(hp, 1, sizeof(ADPCM_STATE));
-
+    
     f->dma = dmaNew(&f->dmaState);
-
+    
     /*
      * init the adpcm state
      */
@@ -236,7 +278,8 @@ void alLoadNew(ALLoadFilter *f, ALDMANew dmaNew, ALHeap *hp) {
     f->memin = 0;
 }
 
-void alResampleNew(ALResampler *r, ALHeap *hp) {
+void alResampleNew(ALResampler *r, ALHeap *hp)
+{
     alFilterNew((ALFilter *) r, alResamplePull, alResampleParam, AL_RESAMPLE);
 
     /*
@@ -250,36 +293,40 @@ void alResampleNew(ALResampler *r, ALHeap *hp) {
     r->upitch = 0;
     r->ctrlList = 0;
     r->ctrlTail = 0;
-
+    
     /* state in the ucode is initialized by the A_INIT flag */
 }
 
-void alAuxBusNew(ALAuxBus *m, void *sources, s32 maxSources) {
+void alAuxBusNew(ALAuxBus *m, void *sources, s32 maxSources)
+{
     alFilterNew((ALFilter *) m, alAuxBusPull, alAuxBusParam, AL_AUXBUS);
     m->sourceCount = 0;
     m->maxSources = maxSources;
     m->sources = (ALFilter **)sources;
 }
 
-void alMainBusNew(ALMainBus *m, void *sources, s32 maxSources) {
+void alMainBusNew(ALMainBus *m, void *sources, s32 maxSources)
+{
     alFilterNew((ALFilter *) m, alMainBusPull, alMainBusParam, AL_MAINBUS);
     m->sourceCount = 0;
     m->maxSources = maxSources;
     m->sources = (ALFilter **)sources;
 }
 
-void alSaveNew(ALSave *f) {
+void alSaveNew(ALSave *f) 
+{
     /*
      * init filter superclass
      */
 
     alFilterNew((ALFilter *) f, alSavePull, alSaveParam, AL_SAVE);
-
+    
     /*
      * init the save state, which is a virtual dram address
      */
-
+    
     f->dramout = 0;
     f->first = 1;
-
+    
 }
+
