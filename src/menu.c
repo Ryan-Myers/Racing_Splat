@@ -28,7 +28,7 @@
 #include "audiosfx.h"
 #include "racer.h"
 #include "tracks.h"
-#include "lib/src/mips1/al/alSynStartVoiceParams.h"
+#include "lib/audio/alSynStartVoiceParams.h"
 #include "controller_dkr.h"
 #include "math_util.h"
 

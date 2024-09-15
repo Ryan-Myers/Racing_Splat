@@ -29,7 +29,7 @@ ifeq ($(REGION)$(VERSION),usv1)
 BIN_DIRS  = assets
 BUILD_DIR = build
 SRC_DIR   = src
-ASM_DIRS  = asm asm/data asm/libultra asm/data/libultra asm/nonmatchings asm/data/lib/src/mips1 asm/lib/asm asm/data/lib/asm asm/data/lib/src/gu #For libultra handwritten files
+ASM_DIRS  = asm asm/data asm/libultra asm/data/libultra asm/nonmatchings asm/data/lib/src/mips1 asm/lib/asm asm/data/lib/asm asm/data/lib/src/gu
 else
 BIN_DIRS  = assets_$(REGION)_$(VERSION)
 BUILD_DIR = build_$(REGION)_$(VERSION)
@@ -41,9 +41,9 @@ endif
 LIBULTRA_SRC_DIRS = $(SRC_DIR)/lib
 LIB_DIRS = $(SRC_DIR)/lib
 
-DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) $(SRC_DIR)/lib/src/mips1 $(SRC_DIR)/lib/src/mips1/al $(SRC_DIR)/lib/src/os 
+DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) $(SRC_DIR)/lib/src/mips1 $(SRC_DIR)/lib/src/os 
 DEFINE_SRC_DIRS  += $(SRC_DIR)/lib/src/mips1/sc $(SRC_DIR)/lib/src/mips1/os $(SRC_DIR)/lib/src/libc $(SRC_DIR)/lib/src/gu $(SRC_DIR)/lib/asm
-DEFINE_SRC_DIRS  += $(SRC_DIR)/lib/audio
+DEFINE_SRC_DIRS  += $(SRC_DIR)/lib/audio $(SRC_DIR)/lib/audio/mips1
 SRC_DIRS = $(DEFINE_SRC_DIRS)
 
 TOOLS_DIR = tools
@@ -122,7 +122,7 @@ C_DEFINES := $(foreach d,$(DEFINES),-D$(d)) $(LIBULTRA_VERSION_DEFINE)
 ASM_DEFINES = # $(foreach d,$(DEFINES),--defsym $(d)=1)
 
 INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(SRC_DIR)/lib
-INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/src/gu -I $(SRC_DIR)/lib/src/libc -I $(SRC_DIR)/lib/src/mips1 -I $(SRC_DIR)/lib/src/mips1/al 
+INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/src/gu -I $(SRC_DIR)/lib/src/libc -I $(SRC_DIR)/lib/src/mips1 -I $(SRC_DIR)/lib/audio/mips1
 INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/audio -I $(SRC_DIR)/lib/src/os
 
 ASFLAGS        = -march=vr4300 -32 -G0 $(ASM_DEFINES) $(INCLUDE_CFLAGS)
@@ -163,6 +163,7 @@ ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py
 
 $(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(SRC_DIR)/lib/audio/%.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/$(SRC_DIR)/lib/audio/mips1/%.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/%.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osViMgr.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osCreatePiManager.c.o: OPT_FLAGS := -O2
@@ -179,6 +180,7 @@ $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xldtob.c.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xldtob.c.o: MIPSISET := -mips2
 
 $(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: MIPSISET := -mips2
+$(BUILD_DIR)/$(SRC_DIR)/lib/audio/mips1/%.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/mips1/%.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(SRC_DIR)/lib/src/os/osMotor.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(SRC_DIR)/lib/audio/env.c.o: MIPSISET := -mips1
