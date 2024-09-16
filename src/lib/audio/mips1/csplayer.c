@@ -1,30 +1,65 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x80062290 */
+/*====================================================================
+ * csplayer.c
+ *
+ * Copyright 1995, Silicon Graphics, Inc.
+ * All Rights Reserved.
+ *
+ * This is UNPUBLISHED PROPRIETARY SOURCE CODE of Silicon Graphics,
+ * Inc.; the contents of this file may not be disclosed to third
+ * parties, copied or duplicated in any form, in whole or in part,
+ * without the prior written permission of Silicon Graphics, Inc.
+ *
+ * RESTRICTED RIGHTS LEGEND:
+ * Use, duplication or disclosure by the Government is subject to
+ * restrictions as set forth in subdivision (c)(1)(ii) of the Rights
+ * in Technical Data and Computer Software clause at DFARS
+ * 252.227-7013, and/or in similar or successor clauses in the FAR,
+ * DOD or NASA FAR Supplement. Unpublished - rights reserved under the
+ * Copyright Laws of the United States.
+ *====================================================================*/
 
-#include "PR/os_exception.h"
-#include "types.h"
-#include "macros.h"
-#include "audio_internal.h"
+/*
+ * Notes:
+ *
+ * Controller Numbers:
+ *      1       Modulation
+ *      7       Volume
+ *      10      Pan
+ *      11      Expression
+ *      64      Sustain
+ *      121     Reset All Controllers
+ *      123     All Notes Off
+ *
+ * Registered Parameters
+ *      0       Pitch Bend Sensitivity
+ *      1       Fine Tuning
+ *      2       Coarse Tuning
+ */
+
+#include <libaudio.h>
+#include <os_internal.h>
+#include <ultraerror.h>
+#include <assert.h>
 #include "seqp.h"
 #include "cseqp.h"
 #include "cseq.h"
 
+#ifdef RAREDIFFS
 /************ .rodata ************/
 
 const char D_800E6C20[] = "CSP: oh oh \n";
+#endif
 
-/*********************************/
+// TODO: this comes from a header
+#ident "$Revision: 1.17 $"
+static ALMicroTime      __CSPVoiceHandler(void *node);
+static void		__CSPHandleNextSeqEvent(ALCSPlayer *seqp);
+//static
+ void             __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event);
+static void             __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event);
+static void             __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
+static void		__setUsptFromTempo(ALCSPlayer *seqp, f32 tempo);		/* sct 1/8/96 */
 
-void __CSPPostNextSeqEvent(ALCSPlayer *seqp);
-void __CSPHandleNextSeqEvent(ALCSPlayer *seqp);
-void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event);
-void  __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
-void __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo);
-void alCSeqNextEvent(ALCSeq *seq, ALEvent *event); 
-void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event);
-ALMicroTime __CSPVoiceHandler(void *node);
-void		__CSPHandleNextSeqEvent(ALCSPlayer *seqp);
-void func_80065A80(ALSynth *arg0, PVoice *arg1, s16 arg2);
 
 /*
  * Sequence Player public functions
@@ -41,10 +76,14 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
     /*
      * initialize member variables
      */
-    seqp->bank          = NULL;
+    seqp->bank          = 0;
     seqp->target        = NULL;
     seqp->drvr          = &alGlobals->drvr;
+#ifdef RAREDIFFS
     seqp->chanMask      = 0xffff;
+#else
+    seqp->chanMask      = 0xff;
+#endif
     seqp->uspt          = 488;
     seqp->nextDelta     = 0;
     seqp->state         = AL_STOPPED;
@@ -54,17 +93,23 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
     seqp->initOsc       = c->initOsc;
     seqp->updateOsc     = c->updateOsc;
     seqp->stopOsc       = c->stopOsc;
+#ifdef RAREDIFFS
     seqp->unk71         = 0;
     seqp->unk70         = c->unknown_0x10;
-    
+#endif
+
     seqp->nextEvent.type = AL_SEQP_API_EVT;	/* this will start the voice handler "spinning" */
-    
+
     /*
      * init the channel state
      */
     seqp->maxChannels = c->maxChannels;
-    seqp->chanState = alHeapAlloc(hp, c->maxChannels, sizeof(ALChanState)+4); //TODO: ALChanState likely has some added values as well
-    __initChanState((void *) seqp);	/* sct 11/6/95 */
+#ifdef RAREDIFFS
+    seqp->chanState = alHeapAlloc(hp, c->maxChannels, sizeof(ALChanState) + 4);
+#else
+    seqp->chanState = alHeapAlloc(hp, c->maxChannels, sizeof(ALChanState) );
+#endif
+    __initChanState((ALSeqPlayer*)seqp);	/* sct 11/6/95 */
     
     /*
      * init the voice state array
@@ -79,14 +124,13 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
     
     seqp->vAllocHead = 0;
     seqp->vAllocTail = 0;    
-        
-    /*
-     * init the event queue
-     */
+#if BUILD_VERSION < VERSION_J
+#line 109
+#endif
+    // init the event queue
     items = alHeapAlloc(hp, c->maxEvents, sizeof(ALEventListItem));
     alEvtqNew(&seqp->evtq, items, c->maxEvents);
 
-    
     /*
      * add ourselves to the driver
      */
@@ -99,9 +143,13 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
 /*************************************************************
  * private routines or driver callback routines
  *************************************************************/
-ALMicroTime __CSPVoiceHandler(void *node)
+static ALMicroTime __CSPVoiceHandler(void *node)
 {
+#ifdef RAREDIFFS
     ALCSPlayer_Custom *seqp = (ALCSPlayer_Custom *) node;
+#else
+    ALCSPlayer      *seqp = (ALCSPlayer *) node;
+#endif
     ALEvent         evt;
     ALVoice         *voice;
     ALMicroTime     delta;
@@ -114,12 +162,12 @@ ALMicroTime __CSPVoiceHandler(void *node)
         switch (seqp->nextEvent.type)
         {
 	case (AL_SEQ_REF_EVT):
-	    __CSPHandleNextSeqEvent((void *) seqp);
+	    __CSPHandleNextSeqEvent(seqp);
 	    break;
 
 	case (AL_SEQP_API_EVT):
 	    evt.type = AL_SEQP_API_EVT;
-	    alEvtqPostEvent(&seqp->evtq, (ALEvent *) &evt, seqp->frameTime);
+	    alEvtqPostEvent(&seqp->evtq, (ALEvent *)&evt, seqp->frameTime);
 	    break;
 
 	case (AL_NOTE_END_EVT):
@@ -127,15 +175,15 @@ ALMicroTime __CSPVoiceHandler(void *node)
 
 	    alSynStopVoice(seqp->drvr, voice);
 	    alSynFreeVoice(seqp->drvr, voice);
-	    vs = (ALVoiceState *) voice->clientPrivate;
+	    vs = (ALVoiceState *)voice->clientPrivate;
 	    if(vs->flags)
-		__seqpStopOsc((ALSeqPlayer *) seqp,vs);
-	    __unmapVoice((ALSeqPlayer *) seqp, voice); 
+		__seqpStopOsc((ALSeqPlayer*)seqp,vs);
+	    __unmapVoice((ALSeqPlayer*)seqp, voice); 
 	    break;
 
 	case (AL_SEQP_ENV_EVT):
 	    voice = seqp->nextEvent.msg.vol.voice;
-	    vs = (ALVoiceState *) voice->clientPrivate;
+	    vs = (ALVoiceState *)voice->clientPrivate;
 
 	    if(vs->envPhase == AL_PHASE_ATTACK)
 		vs->envPhase = AL_PHASE_DECAY;
@@ -143,15 +191,15 @@ ALMicroTime __CSPVoiceHandler(void *node)
 	    delta = seqp->nextEvent.msg.vol.delta;
 	    vs->envEndTime = seqp->curTime + delta;
 	    vs->envGain = seqp->nextEvent.msg.vol.vol;
-	    alSynSetVol(seqp->drvr, voice, __vsVol(vs, (ALSeqPlayer *) seqp), delta);
+	    alSynSetVol(seqp->drvr, voice, __vsVol(vs, (ALSeqPlayer*)seqp), delta);
 	    break;
                 
 	case (AL_TREM_OSC_EVT):
 	    vs = seqp->nextEvent.msg.osc.vs;
 	    oscState = seqp->nextEvent.msg.osc.oscState;
 	    delta = (*seqp->updateOsc)(oscState,&oscValue);
-	    vs->tremelo = (u8) oscValue;
-	    alSynSetVol(seqp->drvr, &vs->voice, __vsVol(vs,(ALSeqPlayer *) seqp),
+	    vs->tremelo = (u8)oscValue;
+	    alSynSetVol(seqp->drvr, &vs->voice, __vsVol(vs,(ALSeqPlayer*)seqp),
 			__vsDelta(vs,seqp->curTime));
 	    evt.type = AL_TREM_OSC_EVT;
 	    evt.msg.osc.vs = vs;
@@ -176,11 +224,11 @@ ALMicroTime __CSPVoiceHandler(void *node)
 
 	case (AL_SEQP_MIDI_EVT):
 	case (AL_CSP_NOTEOFF_EVT):			/* nextEvent is a note off midi message */
-	    __CSPHandleMIDIMsg((void *) seqp, &seqp->nextEvent);
+	    __CSPHandleMIDIMsg(seqp, &seqp->nextEvent);
 	    break;
 
 	case (AL_SEQP_META_EVT):
-	    __CSPHandleMetaMsg((void *) seqp, &seqp->nextEvent);
+	    __CSPHandleMetaMsg(seqp, &seqp->nextEvent);
 	    break;
 
 	case (AL_SEQP_VOL_EVT):
@@ -188,7 +236,7 @@ ALMicroTime __CSPVoiceHandler(void *node)
 	    for (vs = seqp->vAllocHead; vs != 0; vs = vs->next)
 	    {
 		alSynSetVol(seqp->drvr, &vs->voice,
-                            __vsVol(vs, (ALSeqPlayer *) seqp),
+                            __vsVol(vs, (ALSeqPlayer*)seqp),
                             __vsDelta(vs, seqp->curTime));
 	    }
 	    break;
@@ -197,19 +245,21 @@ ALMicroTime __CSPVoiceHandler(void *node)
 	    if (seqp->state != AL_PLAYING)
 	    {
 		seqp->state = AL_PLAYING;
-		__CSPPostNextSeqEvent((void *) seqp);	/* seqp must be AL_PLAYING before we call this routine. */
+		__CSPPostNextSeqEvent(seqp);	/* seqp must be AL_PLAYING before we call this routine. */
 	    }
 	    break;
 
 	case (AL_SEQP_STOP_EVT):
 	    if ( seqp->state == AL_STOPPING )
 	    {
+#ifdef RAREDIFFS
         seqp->chanMask = 0xFFFF;
         for (chan = 0; chan < seqp->maxChannels; chan++)
         {
             seqp->chanState[chan].fade = 0x7F;
             seqp->chanState[chan].vol = seqp->chanState[chan].unk11;
         }
+#endif
 
 		for (vs = seqp->vAllocHead; vs != 0; vs = seqp->vAllocHead)
 		{
@@ -219,8 +269,8 @@ ALMicroTime __CSPVoiceHandler(void *node)
 		    alSynStopVoice(seqp->drvr, &vs->voice);
 		    alSynFreeVoice(seqp->drvr, &vs->voice);
 		    if(vs->flags)
-			__seqpStopOsc((ALSeqPlayer *) seqp,vs);
-		    __unmapVoice((ALSeqPlayer *) seqp, &vs->voice); 
+			__seqpStopOsc((ALSeqPlayer*)seqp,vs);
+		    __unmapVoice((ALSeqPlayer*)seqp, &vs->voice); 
 		}
 		seqp->state = AL_STOPPED;
 
@@ -258,8 +308,8 @@ ALMicroTime __CSPVoiceHandler(void *node)
                    occurring prior to KILL_TIME. */
 		for (vs = seqp->vAllocHead; vs != 0; vs = vs->next)
 		{
-		    if (__voiceNeedsNoteKill ((ALSeqPlayer *) seqp, &vs->voice, KILL_TIME))
-			__seqpReleaseVoice((ALSeqPlayer *) seqp, &vs->voice, KILL_TIME);
+		    if (__voiceNeedsNoteKill ((ALSeqPlayer*)seqp, &vs->voice, KILL_TIME))
+			__seqpReleaseVoice((ALSeqPlayer*)seqp, &vs->voice, KILL_TIME);
 		}
 
 		seqp->state = AL_STOPPING;
@@ -274,35 +324,37 @@ ALMicroTime __CSPVoiceHandler(void *node)
 	    break;
 
 	case (AL_SEQP_SEQ_EVT):
-
-#ifdef _DEBUG
-	    assert(seqp->state != AL_PLAYING);	/* Must be done playing to change sequences. */
+#if BUILD_VERSION < VERSION_J
+#line 294
 #endif
+	    assert(seqp->state != AL_PLAYING);	/* Must be done playing to change sequences. */
 
 	    seqp->target = seqp->nextEvent.msg.spseq.seq;
-	    //__setUsptFromTempo (seqp, 500000.0);
+#ifndef RAREDIFFS
+	    __setUsptFromTempo (seqp, 500000.0);
+#endif
 	    if (seqp->bank)
-		__initFromBank((ALSeqPlayer *) seqp, seqp->bank);
+		__initFromBank((ALSeqPlayer *)seqp, seqp->bank);
 	    break;
 
 	case (AL_SEQP_BANK_EVT):
-
-#ifdef _DEBUG
-	    assert(seqp->state == AL_STOPPED);	/* Must be fully stopped to change banks. */
+#if BUILD_VERSION < VERSION_J
+#line 303
 #endif
+	    assert(seqp->state == AL_STOPPED);	/* Must be fully stopped to change banks. */
 
 	    seqp->bank = seqp->nextEvent.msg.spbank.bank;
-	    __initFromBank((ALSeqPlayer *) seqp, seqp->bank);
+	    __initFromBank((ALSeqPlayer *)seqp, seqp->bank);
 	    break;
 
 	    /* sct 11/6/95 - these events should now be handled by __CSPHandleNextSeqEvent */
 	case (AL_SEQ_END_EVT):
 	case (AL_TEMPO_EVT):
 	case (AL_SEQ_MIDI_EVT):
-
-#ifdef _DEBUG
-	    assert(FALSE);		
+#if BUILD_VERSION < VERSION_J
+#line 313
 #endif
+	    assert(FALSE);		
 
 	    break;
         }
@@ -318,6 +370,16 @@ ALMicroTime __CSPVoiceHandler(void *node)
     return seqp->nextDelta;
 }
 
+/*
+ Calculates the delta time in ticks until the next sequence
+ event and posts a sequence reference event with the time in usecs.
+ Loops are handled automatically by the compact sequence.
+
+ Does nothing if the sequence player is not playing or if there
+ is no target sequence.
+
+ sct 11/7/95
+*/
 void __CSPPostNextSeqEvent(ALCSPlayer *seqp) 
 {
     ALEvent     evt;
@@ -335,10 +397,20 @@ void __CSPPostNextSeqEvent(ALCSPlayer *seqp)
     alEvtqPostEvent(&seqp->evtq, &evt, deltaTicks * seqp->uspt);                
 }
 
-void __CSPHandleNextSeqEvent(ALCSPlayer *seqp)
+
+/*
+  Call this routine to handle the next event in the sequence.
+  Assumes that the next sequence event is scheduled to be processed
+  immediately since it does not check the event's tick time.
+
+  sct 11/7/95
+*/
+static void
+__CSPHandleNextSeqEvent(ALCSPlayer *seqp)
 {
     ALEvent	evt;
 
+    /* sct 1/5/96 - Do nothing if we don't have a target sequence. */
     if (seqp->target == NULL)
 	return;
 
@@ -347,12 +419,12 @@ void __CSPHandleNextSeqEvent(ALCSPlayer *seqp)
     switch (evt.type)
     {
       case AL_SEQ_MIDI_EVT:
-          __CSPHandleMIDIMsg((void *) seqp, &evt);
+          __CSPHandleMIDIMsg(seqp, &evt);
 	  __CSPPostNextSeqEvent(seqp);
 	  break;
 
       case AL_TEMPO_EVT:
-          __CSPHandleMetaMsg((void *) seqp, &evt);
+          __CSPHandleMetaMsg(seqp, &evt);
 	  __CSPPostNextSeqEvent(seqp);
 	  break;
 
@@ -367,12 +439,21 @@ void __CSPHandleNextSeqEvent(ALCSPlayer *seqp)
       case AL_CSP_LOOPEND:
 	  __CSPPostNextSeqEvent(seqp);
 	  break;
+	  
+      default:
+#if BUILD_VERSION < VERSION_J
+#line 399
+#endif
+	  assert(FALSE);	/* Sequence event type not supported. */
+#if BUILD_VERSION >= VERSION_J
+	  break;
+#endif
     }
 }
 
 #ifdef NON_EQUIVALENT
 //Significantly different from the standard version
-void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
+static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event)
 {
     ALVoice             *voice;
     ALVoiceState        *vs;
@@ -395,7 +476,8 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
     chan = midi->status & AL_MIDI_ChannelMask;
     byte1 = key  = midi->byte1;
     byte2 = vel  = midi->byte2;
-    
+
+#ifdef RAREDIFFS
     if (status == AL_MIDI_ChannelModeSelect)
     {
         if (byte1 == 0x6A)
@@ -420,6 +502,7 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
             status != AL_MIDI_ControlChange &&
             status != AL_MIDI_PitchBendChange), ERR_STATUS)
     }
+#endif
 
     switch (status)
     {
@@ -452,9 +535,13 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
 			 ERR_ALSEQP_NO_VOICE );
 
                 voice = &vstate->voice;
-                
+
+#ifdef RAREDIFFS
                 if (alSynAllocVoice(seqp->drvr, voice, &config))
                     func_80065A80(seqp->drvr, voice->pvoice, 0);
+#else           
+                alSynAllocVoice(seqp->drvr, voice, &config);
+#endif
                 
                 /*
                  * set up the voice state structure
@@ -628,6 +715,7 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
                         }
                     }
                     break;
+#ifdef RAREDIFFS
                 case (AL_MIDI_VOLUME_CTRL):
                     {
                         f32 temp;
@@ -654,6 +742,11 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
                 case (8):
                     seqp->chanState[chan].fade = byte2;                        
                     seqp->chanState[chan].vol = (seqp->chanState[chan].unk11 * seqp->chanState[chan].fade) / 127.0f;
+#else
+                case (AL_MIDI_VOLUME_CTRL):
+                
+                    seqp->chanState[chan].vol = byte2;
+#endif
                     for (vs = seqp->vAllocHead; vs != 0; vs = vs->next)
                     {
                         if ((vs->channel == chan) && (vs->envPhase != AL_PHASE_RELEASE))
@@ -709,6 +802,7 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
                             alSynSetFXMix(seqp->drvr, &vs->voice, byte2);
                     }
                     break;
+#ifdef RAREDIFFS
                 case (0x5F):
                     seqp->unk36 = byte2;
                     for (chan = 0; chan < seqp->maxChannels; chan++)
@@ -724,6 +818,7 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
                         }
                     }
                     break;
+#endif
 /*                case (AL_MIDI_FX_CTRL_0):
                 case (AL_MIDI_FX_CTRL_1):
                 case (AL_MIDI_FX_CTRL_2):
@@ -743,6 +838,10 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
             break;
         case (AL_MIDI_ProgramChange):
 	    /* sct 1/16/96 - We must have a valid bank in order to process the program change. */
+#if BUILD_VERSION < VERSION_J
+#line 710
+#endif
+	    assert(seqp->bank != NULL);
 
             if (key < seqp->bank->instCount)
             {
@@ -750,10 +849,10 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
                 __setInstChanState((ALSeqPlayer*)seqp, inst, chan);	/* sct 11/6/95 */               
             }
             else
-            {     
+            {
 #ifdef _DEBUG
                 __osError(ERR_ALSEQPINVALIDPROG, 2, key, seqp->bank->instCount);
-#endif             
+#endif                
             }
             break;            
         case (AL_MIDI_PitchBendChange):
@@ -781,17 +880,22 @@ void __CSPHandleMIDIMsg(ALCSPlayer_Custom *seqp, ALEvent *event)
             break;
             
         default:
+#ifdef _DEBUG
+            __osError(ERR_ALSEQPUNKNOWNMIDI, 1, status);
+#endif
             break;
     }
 
 }
 #else
+void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event);
 #pragma GLOBAL_ASM("asm/nonmatchings/lib/audio/mips1/csplayer/__CSPHandleMIDIMsg.s")
 #endif
 
-void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
+static void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
 {
     ALTempoEvent    *tevt = &event->msg.tempo;
+    ALEvent         evt;
     s32             tempo;
     s32             oldUspt;
     u32             ticks;
@@ -805,19 +909,19 @@ void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
         {
 	    oldUspt = seqp->uspt;
 	    tempo = (tevt->byte1 << 16) | (tevt->byte2 <<  8) | (tevt->byte3 <<  0);
-	    __setUsptFromTempo (seqp, (f32) tempo);	/* sct 1/8/96 */
+	    __setUsptFromTempo (seqp, (f32)tempo);	/* sct 1/8/96 */
 
-	    thisNode = (ALEventListItem *) seqp->evtq.allocList.next;
+	    thisNode = (ALEventListItem*)seqp->evtq.allocList.next;
 	    while(thisNode)
 	    {
 		curDelta += thisNode->delta;
-		nextNode = (ALEventListItem *) thisNode->node.next;
+		nextNode = (ALEventListItem*)thisNode->node.next;
 		if(thisNode->evt.type == AL_CSP_NOTEOFF_EVT)
 		{
-		    alUnlink((ALLink *) thisNode);
+		    alUnlink((ALLink*)thisNode);
 
 		    if(firstTemp)
-			alLink((ALLink *) thisNode,(ALLink *) firstTemp);
+			alLink((ALLink*)thisNode,(ALLink*)firstTemp);
 		    else
 		    {
 			thisNode->node.next = 0;
@@ -838,7 +942,7 @@ void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
 	    thisNode = firstTemp;
 	    while(thisNode)
 	    {
-		nextNode = (ALEventListItem *) thisNode->node.next;
+		nextNode = (ALEventListItem*)thisNode->node.next;
 		ticks = thisNode->delta/oldUspt;
 		thisNode->delta = ticks * seqp->uspt;
 		__CSPRepostEvent(&seqp->evtq,thisNode);
@@ -848,7 +952,7 @@ void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
     }
 }
 
-void  __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
+static void  __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
 {
     OSIntMask           mask;
     ALLink              *node;
@@ -865,11 +969,11 @@ void  __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
         }
         else
         {
-            nextItem = (ALEventListItem *) node->next;
+            nextItem = (ALEventListItem *)node->next;
             if (item->delta < nextItem->delta)
             {
                 nextItem->delta -= item->delta;
-                alLink((ALLink *) item, node);
+                alLink((ALLink *)item, node);
                 break;
             }
             item->delta -= nextItem->delta;
@@ -878,10 +982,21 @@ void  __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
     osSetIntMask(mask);
 }
 
-void __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo)
+
+/*
+  This routine safely calculates the sequence player's
+  uspt value based on the given tempo.  It does this safely
+  by making sure that the player has a target sequence and
+  therefore a qnpt value which is needed for the calculation.
+
+  Compact sequence player needs its own version of this routine
+  since the ALCSeq's qnpt field is at a different offset.
+*/
+static void __setUsptFromTempo (ALCSPlayer *seqp, f32 tempo)
 {
     if (seqp->target)
-	seqp->uspt = (s32) ((f32) tempo * seqp->target->qnpt);
+	seqp->uspt = (s32)((f32)tempo * seqp->target->qnpt);
     else
 	seqp->uspt = 488;		/* This is the initial value set by alSeqpNew. */
 }
+
