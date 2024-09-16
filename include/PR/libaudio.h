@@ -469,6 +469,11 @@ enum AL_MIDIctrl {
     AL_MIDI_SUSTAIN_CTRL        = 0x40,
     AL_MIDI_FX1_CTRL            = 0x5B,
     AL_MIDI_FX3_CTRL            = 0x5D
+#ifdef RAREDIFFS
+    ,
+    AL_MIDI_UNK_6A              = 0x6A, /* channel off? */
+    AL_MIDI_UNK_6C              = 0x6C  /* channel on? */
+#endif
 };
 
 enum AL_MIDImeta {
