@@ -28,7 +28,7 @@
 #endif
 
 #ifdef RAREDIFFS
-#include "alSynStartVoiceParams.h"
+#include "synstartvoiceparam.h"
 #include "macros.h"
 
 s16 gStereoPanMode = STEREO;

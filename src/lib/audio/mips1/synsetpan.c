@@ -22,7 +22,7 @@
 #include <os_internal.h>
 #include <ultraerror.h>
 #ifdef RAREDIFFS
-#include "alSynStartVoiceParams.h"
+#include "synstartvoiceparam.h"
 #endif
 
 void alSynSetPan(ALSynth *synth, ALVoice *v, u8 pan)
