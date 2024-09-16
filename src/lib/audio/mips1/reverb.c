@@ -1,16 +1,32 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x80063C30 */
-
-#include "types.h"
-#include "macros.h"
-#include "libultra_internal.h"
-#include "audio_internal.h"
+/*====================================================================
+ * reverb.c
+ *
+ * Copyright 1993, Silicon Graphics, Inc.
+ * All Rights Reserved.
+ *
+ * This is UNPUBLISHED PROPRIETARY SOURCE CODE of Silicon Graphics,
+ * Inc.; the contents of this file may not be disclosed to third
+ * parties, copied or duplicated in any form, in whole or in part,
+ * without the prior written permission of Silicon Graphics, Inc.
+ * RESTRICTED RIGHTS LEGEND:
+ * Use, duplication or disclosure by the Government is subject to
+ * restrictions as set forth in subdivision (c)(1)(ii) of the Rights
+ * in Technical Data and Computer Software clause at DFARS
+ * 252.227-7013, and/or in similar or successor clauses in the FAR,
+ * DOD or NASA FAR Supplement. Unpublished - rights reserved under the
+ * Copyright Laws of the United States.
+ *====================================================================*/
+#include <libaudio.h>
+#include <ultraerror.h>
+#include "synthInternals.h"
+#include <os.h>
+#include <os_internal.h>
+#include <stdio.h>
+#include <assert.h>
 #include "initfx.h"
-
 // TODO: these come from headers
 #ident "$Revision: 1.49 $"
 #ident "$Revision: 1.17 $"
-
 #define RANGE 2.0
 extern ALGlobals *alGlobals;
 
@@ -30,15 +46,16 @@ extern u32 load_num, load_cnt, load_max, load_min, save_num, save_cnt, save_max,
 }
 
 
-
 Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p);
 Acmd *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
 Acmd *_saveBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
 Acmd *_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
 f32  _doModFunc(ALDelay *d, s32 count);
-void init_lpfilter(ALLowPass *lp);
 
+#ifdef RAREDIFFS
 u8 alFXEnabled = TRUE;
+#endif
+
 static s32 L_INC[] = { L0_INC, L1_INC, L2_INC };
 
 /***********************************************************************
@@ -51,26 +68,32 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
     ALFx	*r = (ALFx *)filter;
     ALFilter    *source = r->filter.source;
     s16		i, buff1, buff2, input, output;
+#ifdef RAREDIFFS
     s16		*in_ptr, *out_ptr, *prev_out_ptr = 0;
     ALDelay	*d;
+#else
+    s16		*in_ptr, *out_ptr, gain, *prev_out_ptr = 0;
+    ALDelay	*d, *pd;
+#endif
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
 #endif
-    
-#ifdef _DEBUG
-    assert(source);
+#if BUILD_VERSION < VERSION_J
+#line 74
 #endif
+    assert(source);
 
     /*
      * pull channels going into this effect first
      */
     ptr = (*source->handler)(source, outp, outCount, sampleOffset, p);
 
-    //Added by Rare Devs
+#ifdef RAREDIFFS
     if (alFXEnabled == FALSE) {
         return ptr;
     }
+#endif
 
     input  = AL_AUX_L_OUT;
     output = AL_AUX_R_OUT;
@@ -141,9 +164,12 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
     return ptr;
 }
 
-s32 alFxParam(void *filter, s32 paramID, void *param) {
-    if (paramID == 1) {
-        ((ALFilter *)filter)->source = param;
+s32 alFxParam(void *filter, s32 paramID, void *param)
+{
+    if(paramID == AL_FILTER_SET_SOURCE)
+    {
+	ALFilter    *f = (ALFilter *) filter;
+	f->source = (ALFilter*) param;
     }
     return 0;
 }
@@ -214,7 +240,7 @@ s32 alFxParamHdl(void *filter, s32 paramID, void *param)
             if(f->delay[s].lp)
             {
                 f->delay[s].lp->fc = (s16)val;
-                init_lpfilter(f->delay[s].lp);
+                _init_lpfilter(f->delay[s].lp);
             }
             break;
     }
@@ -228,6 +254,11 @@ Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p)
     s16         *out_ptr;
     f32         fincount, fratio, delta;
     s32         ramalign = 0, length;
+#ifndef RAREDIFFS
+    static f32  val=0.0, lastval=-10.0;
+    static f32  blob=0;
+#endif
+
 /*
  * The following section implements the chorus resampling. Modulate where you pull
  * the samples from, since you need varying amounts of samples.
@@ -294,7 +325,6 @@ Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p)
 
     return ptr;
 }
-
 /* 
  * This routine is for loading data from the delay line buff. If the
  * address of curr_ptr < r->base, it will force it to be within r->base
@@ -399,6 +429,8 @@ Acmd *_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p)
     return ptr;
 }
 
+
+
 /*
  * Generate a triangle wave from -1 to 1, and find the current position
  * in the wave. (Rate of the wave is controlled by d->rsinc, which is chorus
@@ -434,6 +466,7 @@ f32 _doModFunc(ALDelay *d, s32 count)
   return(d->rsgain * val);
 }
 
+#ifdef RAREDIFFS
 void alFxReverbSet(u8 setting) {
     alFXEnabled = setting;
 }
@@ -441,3 +474,4 @@ void alFxReverbSet(u8 setting) {
 u8 _alFxEnabled() {
     return alFXEnabled;
 }
+#endif
