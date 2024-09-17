@@ -9,10 +9,10 @@
  *  in part, without the prior written consent of Silicon Graphics, Inc.  *
  *									  *
  **************************************************************************/
-/*
+
 #include "mbi.h"
 #include "gu.h"
-*/
+
 typedef union
 {
 	struct
@@ -32,7 +32,7 @@ typedef union
 
 #ifndef __GL_GL_H__
 
-//typedef	float	Matrix[4][4];
+typedef	float	Matrix[4][4];
 
 #endif
 

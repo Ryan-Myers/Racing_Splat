@@ -237,7 +237,7 @@ segments:
       - [0xD5330, hasm, lib/asm/osMapTLBRdb]
       - [0xD5390, c, lib/src/os/osPiRawReadIo]
       - [0xD53F0, c, lib/src/os/__osSetHWIntrRoutine]
-      - [0xD5440, c, lib/src/gu/guMtxUtil]
+      - [0xD5440, c, lib/src/gu/mtxutil]
       - [0xD56B0, c, lib/src/gu/cosf]
       - [0xD5820, c, lib/src/gu/sinf]
       - [0xD59E0, c, lib/src/os/osSetTimer]

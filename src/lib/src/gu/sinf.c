@@ -1,9 +1,38 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800D4C20 */
+/**************************************************************************
+ *									  *
+ *		 Copyright (C) 1994, Silicon Graphics, Inc.		  *
+ *									  *
+ *  These coded instructions, statements, and computer programs  contain  *
+ *  unpublished  proprietary  information of Silicon Graphics, Inc., and  *
+ *  are protected by Federal copyright law.  They  may  not be disclosed  *
+ *  to  third  parties  or copied or duplicated in any form, in whole or  *
+ *  in part, without the prior written consent of Silicon Graphics, Inc.  *
+ *									  *
+ **************************************************************************/
 
-#include "types.h"
-#include "macros.h"
 #include "guint.h"
+
+/* ====================================================================
+ * ====================================================================
+ *
+ * Module: fsin.c
+ * $Revision: 1.3 $
+ * $Date: 1998/10/09 06:14:51 $
+ * $Author: has $
+ * $Source: /exdisk2/cvs/N64OS/Master/cvsmdev2/PR/libultra/monegi/gu/sinf.c,v $
+ *
+ * Revision history:
+ *  09-Jun-93 - Original Version
+ *
+ * Description:	source code for fsin function
+ *
+ * ====================================================================
+ * ====================================================================
+ */
+
+#pragma weak fsin = __sinf
+#pragma weak sinf = __sinf
+#define	fsin __sinf
 
 /* coefficients for polynomial approximation of sin on +/- pi/2 */
 
@@ -27,61 +56,102 @@ static const du	pilo =
 
 static const fu	zero = {0x00000000};
 
-f32 sinf(f32 x) {
-	f64 dx;  // double x
-	f64 xsq; // x squared
-	f64 poly;
-	f64 dn;
-	s32 n;
-	f64 result;
-	s32 ix; // int x
-	s32 xpt;
+
+/* ====================================================================
+ *
+ * FunctionName		fsin
+ *
+ * Description		computes sine of arg
+ *
+ * ====================================================================
+ */
 
-	ix = *(s32 *) &x;
-	xpt = (ix >> 22) & 0x1FF;
+float
+fsin( float x )
+{
+double	dx, xsq, poly;
+double	dn;
+int	n;
+double	result;
+int	ix, xpt;
 
-	if (xpt < 255) {
+
+	ix = *(int *)&x;
+	xpt = (ix >> 22);
+	xpt &= 0x1ff;
+
+	/* xpt is exponent(x) + 1 bit of mantissa */
+
+	if ( xpt < 0xff )	
+	{
+		/* |x| < 1.5 */
+
 		dx = x;
-		if (xpt >= 230) {
-			xsq = dx * dx;
-			poly = (((((P[4].d * xsq) + P[3].d) * xsq) + P[2].d) * xsq) + P[1].d;
-			result = ((dx * xsq) * poly) + dx;
 
-			return result;
-		} else {
-			return x;
+		if ( xpt >= 0xe6 )
+		{
+			/* |x| >= 2^(-12) */
+
+			/* compute sin(x) with a standard polynomial approximation */
+
+			xsq = dx*dx;
+
+			poly = ((P[4].d*xsq + P[3].d)*xsq + P[2].d)*xsq + P[1].d;
+
+			result = dx + (dx*xsq)*poly;
+
+			return ( (float)result );
 		}
+
+		return ( x );
 	}
 
-	if (xpt < 310) {
+	if ( xpt < 0x136 )
+	{
+		/* |x| < 2^28 */
+
 		dx = x;
-		dn = dx * rpi.d;
 
-		if (dn >= 0) {
-			n = dn + 0.5;
-		}
-		else {
-			n = dn - 0.5;
-		}
+		/*  reduce argument to +/- pi/2  */
 
+		dn = dx*rpi.d;
+
+		n = ROUND(dn);
 		dn = n;
-		dx -= dn * pihi.d;
-		dx -= dn * pilo.d;
-		xsq = dx * dx;
-		poly = (((((P[4].d * xsq) + P[3].d) * xsq) + P[2].d) * xsq) + P[1].d;
-		result = ((dx * xsq) * poly) + dx;
 
-		if ((n & 1) == 0) {
-			return result;
-		}
-		else {
-			return -(f32) result;
-		}
+		dx = dx - dn*pihi.d;
+		dx = dx - dn*pilo.d;	/* dx = x - n*pi */
+
+		/* compute sin(dx) as before, negating result if n is odd
+		*/
+
+		xsq = dx*dx;
+
+		poly = ((P[4].d*xsq + P[3].d)*xsq + P[2].d)*xsq + P[1].d;
+
+		result = dx + (dx*xsq)*poly;
+
+
+		if ( (n & 1) == 0 )
+			return ( (float)result );
+
+		return ( -(float)result );
 	}
 
-	if (x != x) {
-		return __libm_qnan_f;
+	if ( x != x )
+	{
+		/* x is a NaN; return a quiet NaN */
+
+#ifdef _IP_NAN_SETS_ERRNO
+
+		*__errnoaddr = EDOM;
+#endif
+		
+		return ( __libm_qnan_f );
 	}
 
-	return zero.f;
+	/* just give up and return 0.0 */
+
+	return ( zero.f );
 }
+
