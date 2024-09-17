@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800CC5A0 */
 
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 #include "piint.h"
 
 typedef struct

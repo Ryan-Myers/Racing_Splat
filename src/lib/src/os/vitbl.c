@@ -4,7 +4,7 @@
 // The RAM_POS above is just a hack to put it after osViMgr.c
 
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 
 /*
  * Video Interface (VI) mode type

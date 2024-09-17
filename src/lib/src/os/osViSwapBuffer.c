@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D2420 */
 
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 
 void osViSwapBuffer(void *frameBufPtr) {
     u32 saveMask = __osDisableInt();

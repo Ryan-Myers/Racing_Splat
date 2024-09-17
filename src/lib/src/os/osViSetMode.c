@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D1CA0 */
 
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 
 void osViSetMode(OSViMode *modep) {
     register u32 saveMask;

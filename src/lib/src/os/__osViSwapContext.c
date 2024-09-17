@@ -3,7 +3,7 @@
 
 #include "macros.h"
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 
 //TODO: These variable declarations should really be elsewhere.
 struct __osThreadTail

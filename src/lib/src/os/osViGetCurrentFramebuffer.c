@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D1E70 */
 
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 
 void *osViGetCurrentFramebuffer(void) {
     register u32 saveMask;

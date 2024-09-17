@@ -245,7 +245,7 @@ segments:
       - [0xD5EC0, c, lib/src/os/si]
       - [0xD5EF0, c, lib/src/os/contpfs]
       - [0xD6C50, c, lib/src/os/dp]
-      - [0xD6C80, c, lib/src/os/__osViGetCurrentContext]
+      - [0xD6C80, c, lib/src/os/vigetcurrcontext]
       - [0xD6C90, c, lib/src/os/__osViSwapContext]
       - [0xD6FF0, c, lib/src/os/spgetstat]
       - [0xD7000, c, lib/src/os/spsetpc]

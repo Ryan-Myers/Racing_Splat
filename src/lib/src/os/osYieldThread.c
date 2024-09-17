@@ -3,7 +3,7 @@
 
 #include "macros.h"
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 
 extern OSThread *__osRunningThread;
 extern OSThread *__osRunQueue;

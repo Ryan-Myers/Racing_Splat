@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D1D80 */
 
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 
 void osViSetEvent(OSMesgQueue *mq, OSMesg m, u32 retraceCount) {
     register u32 saveMask;

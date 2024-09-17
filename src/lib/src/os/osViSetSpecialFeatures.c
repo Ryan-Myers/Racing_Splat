@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D2260 */
 
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 
 void osViSetSpecialFeatures(u32 func) {    
     register u32 saveMask;

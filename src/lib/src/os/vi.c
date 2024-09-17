@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D2B10 */
 
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 #include "video.h"
 
 extern OSViMode	osViModeNtscLan1;

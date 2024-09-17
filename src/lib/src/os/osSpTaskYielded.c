@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D1DF0 */
 
 #include "libultra_internal.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 #include "PR/sptask.h"
 
 __OSViContext vi[2] = {0};
