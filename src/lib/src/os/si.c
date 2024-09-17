@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D52C0 */
 
 #include "libultra_internal.h"
-#include "siint.h"
+#include "PRinternal/siint.h"
 
 int __osSiDeviceBusy() {
     register u32 stat = IO_READ(SI_STATUS_REG);

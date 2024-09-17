@@ -3,7 +3,7 @@
 
 #include "macros.h"
 #include "libultra_internal.h"
-#include "osint.h"
+#include "PRinternal/osint.h"
 
 void osDestroyThread(OSThread *t) {
     register u32 saveMask;

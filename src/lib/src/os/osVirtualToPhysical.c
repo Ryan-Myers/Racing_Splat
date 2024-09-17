@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800C8CF0 */
 
 #include "libultra_internal.h"
-#include "osint.h"
+#include "PRinternal/osint.h"
 
 u32 osVirtualToPhysical(void *addr) {
     if (IS_KSEG0(addr)) {

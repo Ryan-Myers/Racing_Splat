@@ -4,7 +4,7 @@
 #include "macros.h"
 #include "libultra_internal.h"
 #include "controller.h"
-#include "siint.h"
+#include "PRinternal/siint.h"
 
 s32 osPfsInit(OSMesgQueue *queue, OSPfs *pfs, int channel) {
     s32 ret;

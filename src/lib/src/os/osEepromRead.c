@@ -4,7 +4,7 @@
 #include "libultra_internal.h"
 #include "PR/rcp.h"
 #include "controller.h"
-#include "siint.h"
+#include "PRinternal/siint.h"
 
 extern u8 __osContLastCmd;
 extern OSPifRam __osEepPifRam;

@@ -3,7 +3,7 @@
 
 #include "types.h"
 #include "libultra_internal.h"
-#include "osint.h"
+#include "PRinternal/osint.h"
 
 u8 hdwrBugFlag = 0;
 

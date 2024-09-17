@@ -1,12 +1,14 @@
 #ifndef _OSINT_H
 #define _OSINT_H
-#include <PR/os_internal.h>
-
-typedef struct __OSEventState {
+#include "PR/os_internal.h"
+#include <ultra64.h>
+typedef struct __OSEventState
+{
     OSMesgQueue *messageQueue;
     OSMesg message;
 } __OSEventState;
-extern struct __osThreadTail {
+extern struct __osThreadTail
+{
     OSThread *next;
     OSPri priority;
 } __osThreadTail;
@@ -17,6 +19,7 @@ extern void __osDequeueThread(OSThread **, OSThread *);
 extern void __osEnqueueThread(OSThread **, OSThread *);
 extern OSThread *__osPopThread(OSThread **);
 extern void __osDispatchThread(void);
+extern void __osCleanupThread(void);
 
 extern void __osSetTimerIntr(OSTime);
 extern OSTime __osInsertTimer(OSTimer *);
@@ -35,12 +38,22 @@ extern OSTime __osCurrentTime;
 extern u32 __osBaseCounter;
 extern u32 __osViIntrCount;
 extern u32 __osTimerCounter;
+extern u32 __osShutdown;
 
-extern __OSEventState __osEventStateTab[OS_NUM_EVENTS];
+extern OSMesgQueue __osProfTimerQ;
+// extern OSProf *__osProfileList;
+// extern OSProf *__osProfileListEnd;
+extern u32 __osProfileOverflowBin;
 
-//not sure if this should be here
-extern s32 osViClock;
+extern __OSEventState __osEventStateTab[];
+
+
 extern void __osTimerServicesInit(void);
 extern s32 __osAiDeviceBusy(void);
 extern int __osDpDeviceBusy(void);
+
+#ifndef _FINALROM
+extern void* __printfunc;
+#endif
+
 #endif

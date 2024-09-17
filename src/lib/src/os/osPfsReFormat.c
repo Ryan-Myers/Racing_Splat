@@ -3,7 +3,7 @@
 
 #include "libultra_internal.h"
 #include "controller.h"
-#include "siint.h"
+#include "PRinternal/siint.h"
 
 s32 osPfsReFormat(OSPfs *pfs, OSMesgQueue *queue, int channel) {
     int j;

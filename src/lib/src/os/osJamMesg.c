@@ -3,7 +3,7 @@
 /* RAM_POS: 0x800D36A0 */
 
 #include "libultra_internal.h"
-#include "osint.h"
+#include "PRinternal/osint.h"
 
 extern OSThread *__osRunningThread;
 

@@ -3,7 +3,7 @@
 
 #include "libultra_internal.h"
 #include "controller.h"
-#include "siint.h"
+#include "PRinternal/siint.h"
 
 static void __osPackRamWriteData(int channel, u16 address, u8 *buffer);
 

@@ -5,7 +5,7 @@
 #include "macros.h"
 #include "libultra_internal.h"
 #include "viint.h"
-#include "osint.h"
+#include "PRinternal/osint.h"
 
 extern OSTime __osCurrentTime;
 extern u32 __osBaseCounter;

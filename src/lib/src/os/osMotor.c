@@ -3,7 +3,7 @@
 
 #include "libultra_internal.h"
 #include "controller.h"
-#include "siint.h"
+#include "PRinternal/siint.h"
 
 #define MOTOR_RAM_ADDRESS 0x400
 #define MOTOR_DATA_ADDRESS 0x600

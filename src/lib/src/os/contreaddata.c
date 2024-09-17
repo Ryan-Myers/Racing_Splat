@@ -5,7 +5,7 @@
 #include "macros.h"
 #include "libultra_internal.h"
 #include "controller.h"
-#include "siint.h"
+#include "PRinternal/siint.h"
 
 static void __osPackReadData(void);
 s32 osContStartReadData(OSMesgQueue *mq) {

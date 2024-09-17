@@ -4,7 +4,7 @@
 #include "libultra_internal.h"
 #include "PR/rcp.h"
 #include "controller.h"
-#include "siint.h"
+#include "PRinternal/siint.h"
 
 void __osPackEepWriteData(u8 address, u8 *buffer);
 s32 osEepromWrite(OSMesgQueue *mq, u8 address, u8 *buffer) {

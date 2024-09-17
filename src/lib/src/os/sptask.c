@@ -4,7 +4,7 @@
 #include "libultra_internal.h"
 #include "viint.h"
 #include "PR/sptask.h"
-#include "osint.h"
+#include "PRinternal/osint.h"
 #include "macros.h"
 
 #define _osVirtualToPhysical(ptr)               \

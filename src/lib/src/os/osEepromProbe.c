@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800CE210 */
 
 #include "libultra_internal.h"
-#include "siint.h"
+#include "PRinternal/siint.h"
 
 s32 __osEepStatus(OSMesgQueue *mq, OSContStatus *data);
 
