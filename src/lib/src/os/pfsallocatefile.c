@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D1040 */
 
 #include "types.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 
 static s32 __osClearPage(OSPfs *pfs, int page_no, u8 *data, u8 bank);
 s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, int file_size_in_bytes, s32 *file_no)
@@ -35,7 +35,7 @@ s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name
     if ((pfs->status & PFS_INITIALIZED) == FALSE)
         return PFS_ERR_INVALID;
 
-    PFS_CHECK_ID;
+    PFS_CHECK_ID();
 
     ret = osPfsFindFile(pfs, company_code, game_code, game_name, ext_name, file_no);
     if (ret != 0 && ret != PFS_ERR_INVALID)

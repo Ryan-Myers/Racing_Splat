@@ -4,7 +4,7 @@
 #include "types.h"
 #include "macros.h"
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 
 s32 osPfsFileState(OSPfs *pfs, s32 file_no, OSPfsState *state)
 {
@@ -18,9 +18,9 @@ s32 osPfsFileState(OSPfs *pfs, s32 file_no, OSPfsState *state)
     u8 start_page;
     if (file_no >= pfs->dir_size || file_no < 0)
         return PFS_ERR_INVALID;
-    PFS_CHECK_STATUS;
-    PFS_CHECK_ID;
-    SET_ACTIVEBANK_TO_ZERO;
+    PFS_CHECK_STATUS();
+    PFS_CHECK_ID();
+    SET_ACTIVEBANK_TO_ZERO();
 
     ERRCK(__osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8*)&dir));
     if (dir.company_code == 0 || dir.game_code == 0)

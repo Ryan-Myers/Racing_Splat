@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800CD8F0 */
 
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
 static void __osPackRamWriteData(int channel, u16 address, u8 *buffer);
@@ -20,7 +20,7 @@ s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int 
     if (force != 1 && address < 7 && address != 0)
         return 0;
     __osSiGetAccess();
-    __osContLastCmd = CONT_CMD_WRITE_MEMPACK;
+    __osContLastCmd = CONT_CMD_WRITE_PAK;
     __osPackRamWriteData(channel, address, buffer);
     ret = __osSiRawStartDma(OS_WRITE, &__osPfsPifRam);
     osRecvMesg(mq, NULL, OS_MESG_BLOCK);
@@ -70,9 +70,9 @@ static void __osPackRamWriteData(int channel, u16 address, u8 *buffer) {
 
     __osPfsPifRam.pifstatus = CONT_CMD_EXE;
     ramreadformat.dummy = CONT_CMD_NOP;
-    ramreadformat.txsize = CONT_CMD_WRITE_MEMPACK_TX;
-    ramreadformat.rxsize = CONT_CMD_WRITE_MEMPACK_RX;
-    ramreadformat.cmd = CONT_CMD_WRITE_MEMPACK;
+    ramreadformat.txsize = CONT_CMD_WRITE_PAK_TX;
+    ramreadformat.rxsize = CONT_CMD_WRITE_PAK_RX;
+    ramreadformat.cmd = CONT_CMD_WRITE_PAK;
     ramreadformat.address = (address << 0x5) | __osContAddressCrc(address);
     ramreadformat.datacrc = CONT_CMD_NOP;
 

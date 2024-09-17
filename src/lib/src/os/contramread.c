@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800CDCA0 */
 
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
 static void __osPackRamReadData(int channel, u16 address);
@@ -16,7 +16,7 @@ s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer) {
     ptr = (u8 *)&__osPfsPifRam;
     retry = 2;
     __osSiGetAccess();
-    __osContLastCmd = CONT_CMD_READ_MEMPACK;
+    __osContLastCmd = CONT_CMD_READ_PAK;
     __osPackRamReadData(channel, address);
     ret = __osSiRawStartDma(OS_WRITE, &__osPfsPifRam);
     osRecvMesg(mq, NULL, OS_MESG_BLOCK);
@@ -71,9 +71,9 @@ static void __osPackRamReadData(int channel, u16 address) {
     
     __osPfsPifRam.pifstatus = CONT_CMD_EXE;
     ramreadformat.dummy = CONT_CMD_NOP;
-    ramreadformat.txsize = CONT_CMD_READ_MEMPACK_TX;
-    ramreadformat.rxsize = CONT_CMD_READ_MEMPACK_RX;
-    ramreadformat.cmd = CONT_CMD_READ_MEMPACK;
+    ramreadformat.txsize = CONT_CMD_READ_PAK_TX;
+    ramreadformat.rxsize = CONT_CMD_READ_PAK_RX;
+    ramreadformat.cmd = CONT_CMD_READ_PAK;
     ramreadformat.address = (address << 0x5) | __osContAddressCrc(address);
     ramreadformat.datacrc = CONT_CMD_NOP;
     for (i = 0; i < ARRLEN(ramreadformat.data); i++) {

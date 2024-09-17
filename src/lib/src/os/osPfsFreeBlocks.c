@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800CF3E0 */
 
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 
 s32 osPfsFreeBlocks(OSPfs *pfs, s32 *bytes_not_used) {
     int j;
@@ -13,8 +13,8 @@ s32 osPfsFreeBlocks(OSPfs *pfs, s32 *bytes_not_used) {
     int offset;
     pages = 0;
     ret = 0;
-    PFS_CHECK_STATUS;
-    PFS_CHECK_ID;
+    PFS_CHECK_STATUS();
+    PFS_CHECK_ID();
     for (bank = 0; bank < pfs->banks; bank++) {
         ERRCK(__osPfsRWInode(pfs, &inode, OS_READ, bank));
         if (bank > 0)

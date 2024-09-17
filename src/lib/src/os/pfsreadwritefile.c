@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800CEEE0 */
 
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 
 static s32 __osPfsGetNextPage(OSPfs *pfs, u8 *bank, __OSInode *inode, __OSInodeUnit *page) {
     s32 ret;
@@ -43,9 +43,9 @@ s32 osPfsReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, int offset, int size_in
     if (offset < 0 || ((offset & (BLOCKSIZE - 1)) != 0))
         return PFS_ERR_INVALID;
 
-    PFS_CHECK_STATUS;
-    PFS_CHECK_ID;
-    SET_ACTIVEBANK_TO_ZERO;
+    PFS_CHECK_STATUS();
+    PFS_CHECK_ID();
+    SET_ACTIVEBANK_TO_ZERO();
     ERRCK(__osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8*)&dir));
 
 	/*

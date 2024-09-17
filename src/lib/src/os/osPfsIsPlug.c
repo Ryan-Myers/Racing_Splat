@@ -4,7 +4,7 @@
 #include "types.h"
 #include "macros.h"
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
 void __osPfsGetInitData(u8 *pattern, OSContStatus *data);

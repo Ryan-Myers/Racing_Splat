@@ -93,48 +93,6 @@ typedef struct {
   	char 	game_name[16];
 } OSPfsState;
 
-typedef union {
-	struct {
-		u8	bank;
-		u8	page;
-	} inode_t;
-	u16	ipage;
-} __OSInodeUnit;
-
-typedef struct {
-	__OSInodeUnit	inode_page[128];
-} __OSInode;
-
-typedef struct {
-	u32 			game_code;
-	u16     		company_code;
-	__OSInodeUnit   start_page;
-	u8      		status;
-	s8				reserved;
-	u16     		data_sum;
-	u8	    		ext_name[PFS_FILE_EXT_LEN];
-	u8	    		game_name[PFS_FILE_NAME_LEN];
-} __OSDir;
-
-typedef struct
-{
-    /* 0x0 */ u32 repaired;
-    /* 0x4 */ u32 random;
-    /* 0x8 */ u64 serial_mid;
-    /* 0x10 */ u64 serial_low;
-    /* 0x18 */ u16 deviceid;
-    /* 0x1A */ u8 banks;
-    /* 0x1B */ u8 version;
-    /* 0x1C */ u16 checksum;
-    /* 0x1E */ u16 inverted_checksum;
-} __OSPackId;
-
-typedef	struct {
-  __OSInode	inode;
-  u8		bank;
-  u8		map[PFS_INODE_DIST_MAP];
-} __OSInodeCache;
-
 /* file system interface */
 
 extern s32 osPfsInitPak(OSMesgQueue *, OSPfs *, int);

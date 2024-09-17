@@ -1,6 +1,8 @@
 #ifndef _MACROS_H_
 #define _MACROS_H_
 
+#include <PRinternal/macros.h>
+
 #ifndef __sgi
 #define GLOBAL_ASM(...)
 #endif
@@ -15,13 +17,6 @@
 
 #define GLUE(a, b) a ## b
 #define GLUE2(a, b) GLUE(a, b)
-
-// Avoid compiler warnings for unused variables
-#ifdef __GNUC__
-#define UNUSED __attribute__((unused))
-#else
-#define UNUSED
-#endif
 
 // Avoid undefined behaviour for non-returning functions
 #ifdef __GNUC__

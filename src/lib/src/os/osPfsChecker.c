@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800CF530 */
 
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 
 s32 corrupted_init(OSPfs *pfs, __OSInodeCache *cache);
 s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache);
@@ -60,7 +60,7 @@ s32 osPfsChecker(OSPfs *pfs) {
             tmp_dir.start_page.ipage = 0;
             tmp_dir.status = DIR_STATUS_EMPTY;
             tmp_dir.data_sum = 0;
-            SET_ACTIVEBANK_TO_ZERO;
+            SET_ACTIVEBANK_TO_ZERO();
             ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + j, (u8*)&tmp_dir, FALSE));
             fixed++;
         } else {
@@ -72,7 +72,7 @@ s32 osPfsChecker(OSPfs *pfs) {
             tmp_dir.status = DIR_STATUS_EMPTY;
             tmp_dir.data_sum = 0;
 
-            SET_ACTIVEBANK_TO_ZERO;
+            SET_ACTIVEBANK_TO_ZERO();
             ERRCK(__osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + j, (u8*)&tmp_dir, FALSE));
             fixed++;
         }

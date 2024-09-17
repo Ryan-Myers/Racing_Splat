@@ -3,7 +3,7 @@
 
 #include "libultra_internal.h"
 #include "PR/rcp.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
 void __osPackEepWriteData(u8 address, u8 *buffer);

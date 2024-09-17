@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800CD600 */
 
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 #include "src/memory.h"
 
 u32 __osSiAccessQueueEnabled = 0;

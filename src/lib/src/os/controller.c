@@ -4,7 +4,7 @@
 #include "types.h"
 #include "macros.h"
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
 #define HALF_MIL_CYLCES 500000U

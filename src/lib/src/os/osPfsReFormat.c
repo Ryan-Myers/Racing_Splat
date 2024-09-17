@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800CFF90 */
 
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
 s32 osPfsReFormat(OSPfs *pfs, OSMesgQueue *queue, int channel) {
@@ -28,7 +28,7 @@ s32 osPfsReFormat(OSPfs *pfs, OSMesgQueue *queue, int channel) {
     __osSiRelAccess();
     ERRCK(__osGetId(pfs));
 
-    SET_ACTIVEBANK_TO_ZERO;
+    SET_ACTIVEBANK_TO_ZERO();
     for (j = 0; j < ARRLEN(tmp_data); j++)
         tmp_data[j] = 0;
 

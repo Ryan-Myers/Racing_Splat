@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D0E80 */
 
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 
 s32 osPfsFindFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, s32 *file_no) {
     s32 j;
@@ -11,7 +11,7 @@ s32 osPfsFindFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8
     s32 ret;
     int fail;
     ret = 0;
-    PFS_CHECK_ID;
+    PFS_CHECK_ID();
     
     for (j = 0; j < pfs->dir_size; j++) {
         ERRCK(__osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + j, (u8*)&dir));

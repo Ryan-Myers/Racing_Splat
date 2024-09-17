@@ -2,7 +2,7 @@
 /* RAM_POS: 0x80071D30 */
 
 #include "libultra_internal.h"
-#include "controller.h"
+#include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
 #define MOTOR_RAM_ADDRESS 0x400
@@ -23,7 +23,7 @@ s32 osMotorStop(OSPfs *pfs) {
 
     __osSiGetAccess();
 
-    __osContLastCmd = CONT_CMD_WRITE_MEMPACK;
+    __osContLastCmd = CONT_CMD_WRITE_PAK;
     __osSiRawStartDma(OS_WRITE, &_MotorStopData[pfs->channel]);
     osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
     __osSiRawStartDma(OS_READ, &__osPfsPifRam);
@@ -50,7 +50,7 @@ s32 osMotorStart(OSPfs *pfs) {
 
     __osSiGetAccess();
 
-    __osContLastCmd = CONT_CMD_WRITE_MEMPACK;
+    __osContLastCmd = CONT_CMD_WRITE_PAK;
     __osSiRawStartDma(OS_WRITE, &_MotorStartData[pfs->channel]);
     osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
     __osSiRawStartDma(OS_READ, &__osPfsPifRam);
@@ -79,9 +79,9 @@ static void _MakeMotorData(int channel, u16 address, u8 *buffer, OSPifRam *mdata
         mdata->ramarray[i] = 0;
     mdata->pifstatus = CONT_CMD_EXE;
     ramreadformat.dummy = CONT_CMD_NOP;
-    ramreadformat.txsize = CONT_CMD_WRITE_MEMPACK_TX;
-    ramreadformat.rxsize = CONT_CMD_WRITE_MEMPACK_RX;
-    ramreadformat.cmd = CONT_CMD_WRITE_MEMPACK;
+    ramreadformat.txsize = CONT_CMD_WRITE_PAK_TX;
+    ramreadformat.rxsize = CONT_CMD_WRITE_PAK_RX;
+    ramreadformat.cmd = CONT_CMD_WRITE_PAK;
 
     ramreadformat.address = (address << 0x5) | __osContAddressCrc(address);
     ramreadformat.datacrc = CONT_CMD_NOP;
