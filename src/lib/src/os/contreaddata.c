@@ -58,7 +58,7 @@ static void __osPackReadData(void) {
     __OSContReadFormat readformat;
     int i;
 
-    for (i = 0; i < ARRLEN(__osContPifRam.ramarray); i++) {
+    for (i = 0; i <= ARRLEN(__osContPifRam.ramarray); i++) {
         __osContPifRam.ramarray[i] = 0;
     }
 
