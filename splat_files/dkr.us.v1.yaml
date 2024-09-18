@@ -436,6 +436,8 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012CE20, name: lib/src/os/siacs }
       - { start: auto, type: .bss, vram: 0x8012CE40, name: lib/src/os/conteepread }
       - { start: auto, type: .bss, vram: 0x8012CE80, name: lib/src/os/osViMgr }
+      - { start: auto, type: .bss, vram: 0x8012D1A0, name: lib/src/os/sptask }
+      - { start: auto, type: .bss, vram: 0x8012D1E0, name: lib/src/os/piacs }
 
   - type: bin
     start: 0xECB60

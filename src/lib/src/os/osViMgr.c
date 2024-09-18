@@ -22,17 +22,6 @@ OSIoMesg viCounterMsg;
 u16 retrace; //Used in viMgrMain, but it's supposed to be static in that function
 u16 D_8012D192;
 s32 D_8012D198[2];
-OSTask tmp_task; //Supposed to be statically declared in sptask.c
-#define PI_Q_BUF_LEN 1
-OSMesg piAccessBuf[PI_Q_BUF_LEN]; //Should be static, but this works for now
-s32 __osPiAccessQueue[6];
-OSTimer __osBaseTimer;
-OSTime __osCurrentTime;
-u32 __osBaseCounter;
-u32 __osViIntrCount;
-u32 __osTimerCounter;
-u32 D_8012D238[2];
-OSThread gInterruptedThread;
 // MemoryPoolSlot *gMainMemoryPool;
 
 extern OSThread viThread;
