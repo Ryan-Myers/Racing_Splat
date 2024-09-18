@@ -5,13 +5,15 @@
 #include "PRinternal/viint.h"
 #include "video.h"
 
+
+__OSViContext vi[2] = {0};
+__OSViContext *__osViCurr = &vi[0];
+__OSViContext *__osViNext = &vi[1];
+s32 osViClock = VI_NTSC_CLOCK;
+
 extern OSViMode	osViModeNtscLan1;
 extern OSViMode	osViModePalLan1;
 extern OSViMode	osViModeMpalLan1;
-extern __OSViContext vi[2];
-extern __OSViContext *__osViCurr;
-extern __OSViContext *__osViNext;
-extern s32 osViClock;
 
 void __osViInit(void) {
 	bzero(vi, sizeof(vi));
