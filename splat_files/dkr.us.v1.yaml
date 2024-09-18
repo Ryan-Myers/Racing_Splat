@@ -136,7 +136,7 @@ segments:
       - [0xC98F0, c, lib/src/os/osVirtualToPhysical]
       - [0xC9970, c, lib/src/os/aisetnextbuf]
       - [0xC9A20, c, lib/src/os/aigetlen]
-      - [0xC9A30, c, lib/src/os/osSendMesg]
+      - [0xC9A30, c, lib/src/os/sendmesg]
       - [0xC9B80, c, lib/src/os/pidma]
       - [0xC9C90, c, lib/audio/event]
       - [0xC9FD0, c, lib/audio/synaddplayer]
@@ -162,14 +162,14 @@ segments:
       - [0xCCF90, c, lib/audio/mainbus]
       - [0xCD0E0, c, lib/audio/save]
       - [0xCD1A0, c, lib/src/os/initialize]
-      - [0xCD440, c, lib/src/os/osSetThreadPri]
+      - [0xCD440, c, lib/src/os/setthreadpri]
       - [0xCD520, c, lib/src/gu/guPerspectiveF]
-      - [0xCD7B0, c, lib/src/os/osSetEventMesg]
+      - [0xCD7B0, c, lib/src/os/seteventmesg]
       - [0xCD820, c, lib/src/os/controller]
       - [0xCDBE0, c, lib/src/os/contreaddata]
       - [0xCDE40, c, lib/src/os/spsetstat]
       - [0xCDE50, c, lib/src/os/dpsetstat]
-      - [0xCDE60, c, lib/src/os/osSetTime]
+      - [0xCDE60, c, lib/src/os/settime]
       - [0xCDE90, c, lib/src/os/pfsisplug]
       - [0xCE200, c, lib/src/os/siacs]
       - [0xCE2C0, c, lib/src/os/sirawdma]
@@ -240,7 +240,7 @@ segments:
       - [0xD5440, c, lib/src/gu/mtxutil]
       - [0xD56B0, c, lib/src/gu/cosf]
       - [0xD5820, c, lib/src/gu/sinf]
-      - [0xD59E0, c, lib/src/os/osSetTimer]
+      - [0xD59E0, c, lib/src/os/settimer]
       - [0xD5AC0, c, lib/src/os/osTimer]
       - [0xD5EC0, c, lib/src/os/si]
       - [0xD5EF0, c, lib/src/os/contpfs]
@@ -432,7 +432,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012AAE0, name: thread30_track_loading }
       - { start: auto, type:  bss, vram: 0x8012ACC0, name: thread30_stack }
       - { start: auto, type: .bss, vram: 0x8012CCC0, name: lib/src/os/initialize }
-      - { start: auto, type: .bss, vram: 0x8012CCD0, name: lib/src/os/osSetEventMesg }
+      - { start: auto, type: .bss, vram: 0x8012CCD0, name: lib/src/os/seteventmesg }
       - { start: auto, type: .bss, vram: 0x8012CD50, name: lib/src/os/controller }
       - { start: auto, type: .bss, vram: 0x8012CDE0, name: lib/src/os/pfsisplug }
       - { start: auto, type: .bss, vram: 0x8012CE20, name: lib/src/os/siacs }
