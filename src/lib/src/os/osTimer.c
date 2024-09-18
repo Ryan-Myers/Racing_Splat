@@ -27,8 +27,8 @@ void __osTimerServicesInit(void) {
     __osViIntrCount = 0;
     __osTimerList->prev = __osTimerList;
     __osTimerList->next = __osTimerList->prev;
-    __osTimerList->remaining = 0;
-    __osTimerList->interval = __osTimerList->remaining;
+    __osTimerList->value = 0;
+    __osTimerList->interval = __osTimerList->value;
     __osTimerList->mq = NULL;
     __osTimerList->msg = 0;
 }
@@ -53,9 +53,9 @@ void __osTimerInterrupt(void) {
         count = osGetCount();
         elapsed_cycles = count - __osTimerCounter;
         __osTimerCounter = count;
-        if (elapsed_cycles < t->remaining){
-            t->remaining -= elapsed_cycles;
-            __osSetTimerIntr(t->remaining);
+        if (elapsed_cycles < t->value){
+            t->value -= elapsed_cycles;
+            __osSetTimerIntr(t->value);
             return;
         } else {
             t->prev->next = t->next;
@@ -66,7 +66,7 @@ void __osTimerInterrupt(void) {
                 osSendMesg(t->mq, t->msg, OS_MESG_NOBLOCK);
             }
             if (t->interval != 0){
-                t->remaining = t->interval;
+                t->value = t->interval;
                 __osInsertTimer(t);
             }
         }
@@ -88,14 +88,14 @@ OSTime __osInsertTimer(OSTimer *t) {
     OSTime tim;
     u32 savedMask;
     savedMask = __osDisableInt();
-    for (timep = __osTimerList->next, tim = t->remaining;
-         timep != __osTimerList && tim > timep->remaining;
-         tim -= timep->remaining, timep = timep->next) {
+    for (timep = __osTimerList->next, tim = t->value;
+         timep != __osTimerList && tim > timep->value;
+         tim -= timep->value, timep = timep->next) {
         ;
     }
-    t->remaining = tim;
+    t->value = tim;
     if (timep != __osTimerList)
-        timep->remaining -= tim;
+        timep->value -= tim;
     t->next = timep;
     t->prev = timep->prev;
     timep->prev->next = t;
