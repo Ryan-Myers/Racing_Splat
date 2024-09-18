@@ -1,18 +1,14 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800D6600 */
-
-#include "macros.h"
-#include "libultra_internal.h"
+#include "PR/os_internal.h"
 #include "PRinternal/osint.h"
 
-void osDestroyThread(OSThread *t) {
+void osDestroyThread(OSThread* t) {
     register u32 saveMask;
-    register OSThread *pred;
-    register OSThread *succ;
+    register OSThread* pred;
+    register OSThread* succ;
 
-	saveMask = __osDisableInt();
+    saveMask = __osDisableInt();
 
-	if (t == NULL) {
+    if (t == NULL) {
         t = __osRunningThread;
     } else if (t->state != OS_STATE_STOPPED) {
         __osDequeueThread(t->queue, t);
@@ -21,17 +17,28 @@ void osDestroyThread(OSThread *t) {
     if (__osActiveQueue == t) {
         __osActiveQueue = __osActiveQueue->tlnext;
     } else {
+#if (BUILD_VERSION >= VERSION_J || !defined(__GNUC__)) && !defined(RAREDIFFS)
         pred = __osActiveQueue;
-		succ = pred->tlnext;
+        while (pred->priority != -1) {
+            succ = pred->tlnext;
+            if (succ == t) {
+                pred->tlnext = t->tlnext;
+                break;
+            }
+            pred = succ;
+        }
+#else
+        pred = __osActiveQueue;
+        succ = pred->tlnext;
         while (succ != NULL) {
             if (succ == t) {
                 pred->tlnext = t->tlnext;
                 break;
             }
-
             pred = succ;
             succ = pred->tlnext;
         }
+#endif
     }
 
     if (t == __osRunningThread) {
