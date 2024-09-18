@@ -7,7 +7,7 @@
 #include "PRinternal/siint.h"
 
 extern u8 __osContLastCmd;
-extern OSPifRam __osEepPifRam;
+OSPifRam __osEepPifRam;
 s32 __osPackEepReadData(u8 address);
 s32 __osEepStatus(OSMesgQueue *mq, OSContStatus *data);
 s32 __osSiRawStartDma(s32, void *);

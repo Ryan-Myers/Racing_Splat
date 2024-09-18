@@ -429,10 +429,13 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012A800, name: lib/src/mips1/os/osCreatePiManager }
       - { start: auto, type: .bss, vram: 0x8012AAD0, name: gzip }
       - { start: auto, type: .bss, vram: 0x8012AAE0, name: thread30_track_loading }
-      - { start: auto, type: .bss, vram: 0x8012ACC0, name: lib/src/os/osViMgr } #This has gThread30Stack and __osFinalrom, but they really should be defined in other places.
+      - { start: auto, type:  bss, vram: 0x8012ACC0, name: thread30_stack }
+      - { start: auto, type: .bss, vram: 0x8012CCC0, name: lib/src/os/osInitialize }
       - { start: auto, type: .bss, vram: 0x8012CCD0, name: lib/src/os/osSetEventMesg }
       - { start: auto, type: .bss, vram: 0x8012CD50, name: lib/src/os/controller }
       - { start: auto, type: .bss, vram: 0x8012CE20, name: lib/src/os/siacs }
+      - { start: auto, type: .bss, vram: 0x8012CE40, name: lib/src/os/conteepread }
+      - { start: auto, type: .bss, vram: 0x8012CE80, name: lib/src/os/osViMgr }
 
   - type: bin
     start: 0xECB60

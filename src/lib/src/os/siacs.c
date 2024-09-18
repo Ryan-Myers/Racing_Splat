@@ -13,28 +13,6 @@ u32 __osSiAccessQueueEnabled = 0;
 #define SI_Q_BUF_LEN 1
 static OSMesg siAccessBuf[SI_Q_BUF_LEN];
 OSMesgQueue __osSiAccessQueue;
-OSPifRam __osEepPifRam;
-OSThread viThread;
-u64 gViMgrStack[0x20];
-s32 viEventQueue[6];
-s32 viEventBuf[6];
-s32 viRetraceMsg[6];
-s32 viCounterMsg[6];
-u16 retrace; //Used in viMgrMain, but it's supposed to be static in that function
-u16 D_8012D192;
-s32 D_8012D198[2];
-OSTask tmp_task; //Supposed to be statically declared in sptask.c
-#define PI_Q_BUF_LEN 1
-OSMesg piAccessBuf[PI_Q_BUF_LEN]; //Should be static, but this works for now
-s32 __osPiAccessQueue[6];
-OSTimer __osBaseTimer;
-OSTime __osCurrentTime;
-s32 __osBaseCounter;
-s32 __osViIntrCount;
-u32 __osTimerCounter;
-u32 D_8012D238[2];
-OSThread gInterruptedThread;
-// MemoryPoolSlot *gMainMemoryPool;
 
 void __osSiCreateAccessQueue(void) {
 	__osSiAccessQueueEnabled = 1;

@@ -19,6 +19,7 @@ u32 __osShutdown = 0;
 u32 __OSGlobalIntMask = OS_IM_ALL;
 s32 gLeoFound = FALSE;
 s32 __osLeoInterrupt(void);
+u32 __osFinalrom;
 
 extern s32 osViClock; //This is defined in another file somehow
 extern u32 __osFinalrom; //This is defined in another file somehow
