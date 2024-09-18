@@ -186,8 +186,8 @@ segments:
       - [0xCFAE0, c, lib/src/os/pfsreadwritefile]
       - [0xCFFE0, c, lib/src/os/pfsfreeblocks]
       - [0xD0130, c, lib/src/os/pfschecker]
-      - [0xD0B90, c, lib/src/os/osPfsReFormat]
-      - [0xD0F90, c, lib/src/os/osPfsNumFiles]
+      - [0xD0B90, c, lib/src/os/pfsreformat]
+      - [0xD0F90, c, lib/src/os/pfsnumfiles]
       - [0xD10E0, hasm, lib/asm/_blkclr] #bzero?
       - [0xD1180, c, lib/src/os/pfsfilestate]
       - [0xD1470, c, lib/src/os/pfsdeletefile]
