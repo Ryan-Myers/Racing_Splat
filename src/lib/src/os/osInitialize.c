@@ -3,7 +3,7 @@
 
 #include "libultra_internal.h"
 #include "PRinternal/viint.h"
-#include "piint.h"
+#include "PRinternal/piint.h"
 
 typedef struct
 {

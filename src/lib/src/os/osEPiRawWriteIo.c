@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D6560 */
 
 #include "libultra_internal.h"
-#include "piint.h"
+#include "PRinternal/piint.h"
 
 s32 osEPiRawWriteIo(OSPiHandle *pihandle, u32 devAddr, u32 data) {
     register u32 stat = IO_READ(PI_STATUS_REG);

@@ -2,7 +2,7 @@
 /* RAM_POS: 0x800D2760 */
 
 #include "libultra_internal.h"
-#include "piint.h"
+#include "PRinternal/piint.h"
 #include "PRinternal/osint.h"
 
 void __osDevMgrMain(void *args) {

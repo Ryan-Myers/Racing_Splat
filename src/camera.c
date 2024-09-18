@@ -10,7 +10,7 @@
 #include "lib/src/libc/rmonPrintf.h"
 #include "math_util.h"
 #include "weather.h"
-#include "lib/src/os/piint.h"
+#include "PRinternal/piint.h"
 
 /************ .rodata ************/
 
