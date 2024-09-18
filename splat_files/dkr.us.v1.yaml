@@ -135,7 +135,7 @@ segments:
       - [0xC97B0, c, lib/src/os/osRecvMesg]
       - [0xC98F0, c, lib/src/os/osVirtualToPhysical]
       - [0xC9970, c, lib/src/os/osAiSetNextBuffer]
-      - [0xC9A20, c, lib/src/os/osAiGetLength]
+      - [0xC9A20, c, lib/src/os/aigetlen]
       - [0xC9A30, c, lib/src/os/osSendMesg]
       - [0xC9B80, c, lib/src/os/osPiStartDma]
       - [0xC9C90, c, lib/audio/event]
