@@ -1,73 +1,73 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800CD290 */
-
-#include "types.h"
-#include "macros.h"
-#include "libultra_internal.h"
+#include "PRinternal/macros.h"
+#include "PR/os_internal.h"
 #include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
-void __osPfsGetInitData(u8 *pattern, OSContStatus *data);
-void __osPfsRequestData(u8 cmd);
-
 OSPifRam __osPfsPifRam;
-s32 osPfsIsPlug(OSMesgQueue *queue, u8 *pattern) {
-    s32 ret;
-    OSMesg dummy;
+
+s32 osPfsIsPlug(OSMesgQueue* mq, u8* pattern) {
+    s32 ret = 0;
+    OSMesg msg;
     u8 bitpattern;
-    OSContStatus data[MAXCONTROLLERS];
-    int channel;
-    u8 bits;
-    int crc_error_cnt;
-    ret = 0;
-    bits = 0;
-    crc_error_cnt = 3;
+    OSContStatus contData[MAXCONTROLLERS];
+    s32 channel;
+    u8 bits = 0;
+    s32 crcErrorCount = 3;
+
     __osSiGetAccess();
 
-    while (TRUE) {
+    do {
         __osPfsRequestData(CONT_CMD_REQUEST_STATUS);
+
         ret = __osSiRawStartDma(OS_WRITE, &__osPfsPifRam);
-        osRecvMesg(queue, &dummy, OS_MESG_BLOCK);
+        osRecvMesg(mq, &msg, OS_MESG_BLOCK);
+
         ret = __osSiRawStartDma(OS_READ, &__osPfsPifRam);
-        osRecvMesg(queue, &dummy, OS_MESG_BLOCK);
-        __osPfsGetInitData(&bitpattern, data);
+        osRecvMesg(mq, &msg, OS_MESG_BLOCK);
+
+        __osPfsGetInitData(&bitpattern, &contData[0]);
 
         for (channel = 0; channel < __osMaxControllers; channel++) {
-            if ((data[channel].status & CONT_ADDR_CRC_ER) == 0) {
-                crc_error_cnt--;
+            if ((contData[channel].status & CONT_ADDR_CRC_ER) == 0) {
+                crcErrorCount--;
                 break;
             }
         }
 
-        if (__osMaxControllers == channel)
-            crc_error_cnt = 0;
+        if (channel == __osMaxControllers) {
+            crcErrorCount = 0;
+        }
+    } while (crcErrorCount > 0);
 
-        if (crc_error_cnt < 1) {
-            for (channel = 0; channel < __osMaxControllers; channel++) {
-                if (data[channel].errno == 0 && (data[channel].status & CONT_CARD_ON) != 0)
-                    bits |= 1 << channel;
-            }
-            __osSiRelAccess();
-            *pattern = bits;
-
-            return ret;
+    for (channel = 0; channel < __osMaxControllers; channel++) {
+        if ((contData[channel].errno == 0) && ((contData[channel].status & CONT_CARD_ON) != 0)) {
+            bits |= (1 << channel);
         }
     }
+    __osSiRelAccess();
+    *pattern = bits;
+    return ret;
 }
 
 void __osPfsRequestData(u8 cmd) {
+#ifdef RAREDIFFS
     u8 *ptr;
+#else
+    u8* ptr = (u8*)&__osPfsPifRam;
+#endif
     __OSContRequesFormat requestformat;
     int i;
 
     __osContLastCmd = cmd;
-    //Also clear pifstatus
+#ifdef RAREDIFFS
     for (i = 0; i < ARRLEN(__osPfsPifRam.ramarray) + 1; i++) {
         __osPfsPifRam.ramarray[i] = 0;
     }
-
+#endif
     __osPfsPifRam.pifstatus = CONT_CMD_EXE;
+#ifdef RAREDIFFS
     ptr = (u8 *)&__osPfsPifRam;
+#endif
     requestformat.dummy = CONT_CMD_NOP;
     requestformat.txsize = CONT_CMD_REQUEST_STATUS_TX;
     requestformat.rxsize = CONT_CMD_REQUEST_STATUS_RX;
@@ -78,32 +78,32 @@ void __osPfsRequestData(u8 cmd) {
     requestformat.dummy1 = CONT_CMD_NOP;
 
     for (i = 0; i < __osMaxControllers; i++) {
-        *(__OSContRequesFormat *)ptr = requestformat;
+        *((__OSContRequesFormat*)ptr) = requestformat;
         ptr += sizeof(__OSContRequesFormat);
     }
 
     *ptr = CONT_CMD_END;
 }
 
-void __osPfsGetInitData(u8 *pattern, OSContStatus *data) {
-    u8 *ptr;
+void __osPfsGetInitData(u8* pattern, OSContStatus* data) {
+    u8* ptr;
     __OSContRequesFormat requestformat;
     int i;
-    u8 bits;
+    u8 bits = 0;
 
-    bits = 0;
-    ptr = (u8 *)&__osPfsPifRam;
+    ptr = (u8*)&__osPfsPifRam;
 
-    for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContRequesFormat)) {
-        requestformat = *(__OSContRequesFormat *)ptr;
+    for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(requestformat), data++) {
+        requestformat = *((__OSContRequesFormat*)ptr);
         data->errno = CHNL_ERR(requestformat);
-        if (data->errno == 0) {
-            data->type = (requestformat.typel << 8) | (requestformat.typeh);
-            data->status = requestformat.status;
-            bits |= 1 << i;
-        }
-        data++;
-    }
 
+        if (data->errno != 0) {
+            continue;
+        }
+
+        data->type = ((requestformat.typel << 8) | requestformat.typeh);
+        data->status = requestformat.status;
+        bits |= (1 << i);
+    }
     *pattern = bits;
 }
