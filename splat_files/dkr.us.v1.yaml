@@ -305,6 +305,7 @@ segments:
       - [0xE3DA0, .data, fade_transition]
       - [0xE4270, .data, game_text]
       - [0xE4290, .data, font]
+      - [0xE4340, .data, lib/src/mips1/os/osCreatePiManager]
       - [0xE4360, .data, gzip]
       - [0xE4370, .data, thread30_track_loading]
       - [0xE4380, .data, lib/audio/sl]

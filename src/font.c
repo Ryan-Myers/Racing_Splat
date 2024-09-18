@@ -59,10 +59,6 @@ s8 sDialogueBoxDimensions[48] = {
 #undef INWARDS
 #undef OUTWARDS
 
-OSDevMgr __osPiDevMgr = {
-    0, NULL, NULL, NULL, NULL, NULL, NULL,
-};
-
 /*******************************/
 
 /************ .bss ************/

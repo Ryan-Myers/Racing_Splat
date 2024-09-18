@@ -11,10 +11,11 @@
  *	SIM (SI Manager)
  *
  */
-#define OS_PIM_STACKSIZE	4096
 #ifdef RAREDIFFS
+#define OS_PIM_STACKSIZE	256
 #define OS_VIM_STACKSIZE	256
 #else
+#define OS_PIM_STACKSIZE	4096
 #define OS_VIM_STACKSIZE	4096
 #endif
 #define OS_SIM_STACKSIZE	4096
