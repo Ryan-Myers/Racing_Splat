@@ -1,20 +1,12 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C8AF0 */
-
-#include "libultra_internal.h"
+#include "PR/os_internal.h"
 #include "PRinternal/osint.h"
 
-extern OSThread *__osRunningThread;
-
-void osStopThread(OSThread *t) {
+void osStopThread(OSThread* t) {
     register u32 saveMask = __osDisableInt();
     register u16 state;
-    if (t == NULL) {
-        state = OS_STATE_RUNNING;
-    }
-    else {
-        state = t->state;
-    }
+
+    state = (t == NULL) ? OS_STATE_RUNNING: t->state;
+
     switch (state) {
         case OS_STATE_RUNNING:
             __osRunningThread->state = OS_STATE_STOPPED;
@@ -26,5 +18,6 @@ void osStopThread(OSThread *t) {
             __osDequeueThread(t->queue, t);
             break;
     }
+
     __osRestoreInt(saveMask);
 }
