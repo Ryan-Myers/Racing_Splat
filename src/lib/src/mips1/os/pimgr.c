@@ -1,11 +1,8 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800C6000 */
-
-#include "types.h"
-#include "libultra_internal.h"
-#include "stacks.h"
-#include "PRinternal/piint.h"
 #include "PRinternal/macros.h"
+#include "PR/os_internal.h"
+#include "PR/ultraerror.h"
+#include "PRinternal/piint.h"
+#include "PR/rdb.h"
 
 static OSThread piThread ALIGNED(0x8);
 static STACK(piThreadStack, OS_PIM_STACKSIZE) ALIGNED(0x10);
