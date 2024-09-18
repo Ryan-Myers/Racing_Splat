@@ -1743,6 +1743,3 @@ OSViMode osViModeMpalLan1 = {
          BURST(4, 2, 14, 0),  // vBurst
          VINTR(2),            // vIntr
      }}};
-
-// This needs to be moved.
-u32 __osPiAccessQueueEnabled = 0;

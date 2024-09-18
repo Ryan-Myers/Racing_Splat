@@ -315,6 +315,7 @@ segments:
       - [0xE44D0, .data, lib/src/os/siacs]
       - [0xE44E0, .data, lib/src/os/osViMgr]
       - [0xE4500, .data, lib/src/os/vitbl]
+      - [0xE5400, .data, lib/src/os/piacs]
       - [0xE5410, .data, lib/src/os/osSpTaskYielded]
       - [0xE5480, .data, lib/src/os/thread]
       - [0xE54A0, data, lib/asm/exception]
@@ -438,6 +439,8 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012CE80, name: lib/src/os/osViMgr }
       - { start: auto, type: .bss, vram: 0x8012D1A0, name: lib/src/os/sptask }
       - { start: auto, type: .bss, vram: 0x8012D1E0, name: lib/src/os/piacs }
+      - { start: auto, type: .bss, vram: 0x8012D200, name: lib/src/os/osTimer }
+      - { start: auto, type: bss, vram: 0x8012D240, name: lib/asm/exception }
 
   - type: bin
     start: 0xECB60

@@ -5,16 +5,10 @@
 #include "macros.h"
 #include "libultra_internal.h"
 
+u32 __osPiAccessQueueEnabled = 0;
 #define PI_Q_BUF_LEN 1
 OSMesg piAccessBuf[PI_Q_BUF_LEN]; //Should be static, but this works for now
 OSMesgQueue __osPiAccessQueue;
-OSTimer __osBaseTimer;
-OSTime __osCurrentTime;
-u32 __osBaseCounter;
-u32 __osViIntrCount;
-u32 __osTimerCounter;
-u32 D_8012D238[2];
-OSThread gInterruptedThread;
 
 #define PI_Q_BUF_LEN 1
 extern u32 __osPiAccessQueueEnabled;

@@ -4,6 +4,12 @@
 #include "macros.h"
 #include "libultra_internal.h"
 
+OSTimer __osBaseTimer;
+OSTime __osCurrentTime;
+u32 __osBaseCounter;
+u32 __osViIntrCount;
+u32 __osTimerCounter;
+
 extern OSTimer __osBaseTimer;
 OSTimer *__osTimerList = &__osBaseTimer;
 
@@ -15,9 +21,6 @@ extern u32 __osTimerCounter;
 
 OSTime __osInsertTimer(OSTimer *t);
 
-#ifdef NON_EQUIVALENT
-//Seems to be a mismatch based on where __osCurrentTime is defined.
-//Scratch proving that: https://decomp.me/scratch/OB3iP
 void __osTimerServicesInit(void) {
     __osCurrentTime = 0;
     __osBaseCounter = 0;
@@ -29,9 +32,6 @@ void __osTimerServicesInit(void) {
     __osTimerList->mq = NULL;
     __osTimerList->msg = 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/lib/src/os/osTimer/__osTimerServicesInit.s")
-#endif
 
 void __osSetTimerIntr(OSTime tim);
 void __osSetCompare(u32);
