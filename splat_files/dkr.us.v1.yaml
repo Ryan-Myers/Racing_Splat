@@ -161,7 +161,7 @@ segments:
       - [0xCCC90, c, lib/audio/resample]
       - [0xCCF90, c, lib/audio/mainbus]
       - [0xCD0E0, c, lib/audio/save]
-      - [0xCD1A0, c, lib/src/os/osInitialize]
+      - [0xCD1A0, c, lib/src/os/initialize]
       - [0xCD440, c, lib/src/os/osSetThreadPri]
       - [0xCD520, c, lib/src/gu/guPerspectiveF]
       - [0xCD7B0, c, lib/src/os/osSetEventMesg]
@@ -223,7 +223,7 @@ segments:
       - [0xD38B0, hasm, lib/asm/exception]
       - [0xD41B0, hasm, lib/asm/__osProbeTLB]
       - [0xD4270, c, lib/src/os/ai]
-      - [0xD42A0, c, lib/src/os/osJamMesg]
+      - [0xD42A0, c, lib/src/os/jammesg]
       - [0xD43F0, c, lib/src/os/osPiGetCmdQueue]
       - [0xD4420, c, lib/audio/copy]
       - [0xD44A0, c, lib/src/libc/xprintf]
@@ -310,7 +310,7 @@ segments:
       - [0xE4380, .data, lib/audio/sl]
       - [0xE4390, .data, lib/src/os/aisetnextbuf]
       - [0xE43A0, .data, lib/audio/env]
-      - [0xE44A0, .data, lib/src/os/osInitialize]
+      - [0xE44A0, .data, lib/src/os/initialize]
       - [0xE44C0, .data, lib/src/os/controller]
       - [0xE44D0, .data, lib/src/os/siacs]
       - [0xE44E0, .data, lib/src/os/osViMgr]
@@ -431,7 +431,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012AAD0, name: gzip }
       - { start: auto, type: .bss, vram: 0x8012AAE0, name: thread30_track_loading }
       - { start: auto, type:  bss, vram: 0x8012ACC0, name: thread30_stack }
-      - { start: auto, type: .bss, vram: 0x8012CCC0, name: lib/src/os/osInitialize }
+      - { start: auto, type: .bss, vram: 0x8012CCC0, name: lib/src/os/initialize }
       - { start: auto, type: .bss, vram: 0x8012CCD0, name: lib/src/os/osSetEventMesg }
       - { start: auto, type: .bss, vram: 0x8012CD50, name: lib/src/os/controller }
       - { start: auto, type: .bss, vram: 0x8012CE20, name: lib/src/os/siacs }
