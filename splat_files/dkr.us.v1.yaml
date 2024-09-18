@@ -197,7 +197,7 @@ segments:
       - [0xD24A0, hasm, lib/asm/osWritebackDCacheAll]
       - [0xD24D0, c, lib/src/os/dpgetstat]
       - [0xD24E0, c, lib/src/os/dpsetnextbuf]
-      - [0xD2590, c, lib/src/os/osViMgr]
+      - [0xD2590, c, lib/src/os/vimgr]
       - [0xD28A0, c, lib/src/os/osViSetMode]
       - [0xD2910, c, lib/src/os/viblack]
       - [0xD2980, c, lib/src/os/osViSetEvent]
@@ -313,7 +313,7 @@ segments:
       - [0xE44A0, .data, lib/src/os/initialize]
       - [0xE44C0, .data, lib/src/os/controller]
       - [0xE44D0, .data, lib/src/os/siacs]
-      - [0xE44E0, .data, lib/src/os/osViMgr]
+      - [0xE44E0, .data, lib/src/os/vimgr]
       - [0xE4500, .data, lib/src/os/vitbl]
       - [0xE5400, .data, lib/src/os/piacs]
       - [0xE5410, .data, lib/src/os/vi]
@@ -437,7 +437,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012CDE0, name: lib/src/os/pfsisplug }
       - { start: auto, type: .bss, vram: 0x8012CE20, name: lib/src/os/siacs }
       - { start: auto, type: .bss, vram: 0x8012CE40, name: lib/src/os/conteepread }
-      - { start: auto, type: .bss, vram: 0x8012CE80, name: lib/src/os/osViMgr }
+      - { start: auto, type: .bss, vram: 0x8012CE80, name: lib/src/os/vimgr }
       - { start: auto, type: .bss, vram: 0x8012D1A0, name: lib/src/os/sptask }
       - { start: auto, type: .bss, vram: 0x8012D1E0, name: lib/src/os/piacs }
       - { start: auto, type: .bss, vram: 0x8012D200, name: lib/src/os/timerintr }

@@ -7,6 +7,21 @@
 #include "os_thread.h"
 
 /*
+ * Stack size for I/O device managers: PIM (PI Manager), VIM (VI Manager),
+ *	SIM (SI Manager)
+ *
+ */
+#define OS_PIM_STACKSIZE	4096
+#ifdef RAREDIFFS
+#define OS_VIM_STACKSIZE	256
+#else
+#define OS_VIM_STACKSIZE	4096
+#endif
+#define OS_SIM_STACKSIZE	4096
+
+#define	OS_MIN_STACKSIZE	72
+
+/*
  * Leo Disk
  */
 
