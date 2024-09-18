@@ -10,6 +10,7 @@
 void __osPfsGetInitData(u8 *pattern, OSContStatus *data);
 void __osPfsRequestData(u8 cmd);
 
+OSPifRam __osPfsPifRam;
 s32 osPfsIsPlug(OSMesgQueue *queue, u8 *pattern) {
     s32 ret;
     OSMesg dummy;

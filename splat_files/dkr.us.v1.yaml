@@ -170,7 +170,7 @@ segments:
       - [0xCDE40, c, lib/src/os/spsetstat]
       - [0xCDE50, c, lib/src/os/dpsetstat]
       - [0xCDE60, c, lib/src/os/osSetTime]
-      - [0xCDE90, c, lib/src/os/osPfsIsPlug]
+      - [0xCDE90, c, lib/src/os/pfsisplug]
       - [0xCE200, c, lib/src/os/siacs]
       - [0xCE2C0, c, lib/src/os/sirawdma]
       - [0xCE370, c, lib/src/os/crc]
@@ -182,9 +182,9 @@ segments:
       - [0xCEE80, c, lib/src/os/conteepread]
       - [0xCF180, c, lib/src/os/conteepwrite]
       - [0xCF660, c, lib/src/libc/ll]
-      - [0xCF920, c, lib/src/os/osPfsInit]
+      - [0xCF920, c, lib/src/os/pfsinit]
       - [0xCFAE0, c, lib/src/os/pfsreadwritefile]
-      - [0xCFFE0, c, lib/src/os/osPfsFreeBlocks]
+      - [0xCFFE0, c, lib/src/os/pfsfreeblocks]
       - [0xD0130, c, lib/src/os/pfschecker]
       - [0xD0B90, c, lib/src/os/osPfsReFormat]
       - [0xD0F90, c, lib/src/os/osPfsNumFiles]
@@ -434,6 +434,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012CCC0, name: lib/src/os/initialize }
       - { start: auto, type: .bss, vram: 0x8012CCD0, name: lib/src/os/osSetEventMesg }
       - { start: auto, type: .bss, vram: 0x8012CD50, name: lib/src/os/controller }
+      - { start: auto, type: .bss, vram: 0x8012CDE0, name: lib/src/os/pfsisplug }
       - { start: auto, type: .bss, vram: 0x8012CE20, name: lib/src/os/siacs }
       - { start: auto, type: .bss, vram: 0x8012CE40, name: lib/src/os/conteepread }
       - { start: auto, type: .bss, vram: 0x8012CE80, name: lib/src/os/osViMgr }

@@ -1,24 +1,24 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800CED20 */
-
-#include "macros.h"
-#include "libultra_internal.h"
+#include "PR/os_internal.h"
 #include "PRinternal/controller.h"
 #include "PRinternal/siint.h"
 
-s32 osPfsInit(OSMesgQueue *queue, OSPfs *pfs, int channel) {
-    s32 ret;
-    ret = 0;
+s32 osPfsInit(OSMesgQueue* queue, OSPfs* pfs, int channel) {
+    s32 ret = 0;
+
     __osSiGetAccess();
     ret = __osPfsGetStatus(queue, channel);
     __osSiRelAccess();
-    if (ret != 0)
+
+    if (ret != 0) {
         return ret;
+    }
 
     pfs->queue = queue;
     pfs->channel = channel;
     pfs->status = 0;
-    //pfs->activebank = -1; //Single difference between this an libreultra
+#ifndef RAREDIFFS
+    pfs->activebank = -1;
+#endif
     ERRCK(__osGetId(pfs));
 
     ret = osPfsChecker(pfs);
@@ -26,7 +26,7 @@ s32 osPfsInit(OSMesgQueue *queue, OSPfs *pfs, int channel) {
     return ret;
 }
 
-//I would think this should be in it's own file, but it only works here
+#ifdef RAREDIFFS
 s32 __osPfsGetStatus(OSMesgQueue *queue, int channel) {
     s32 ret;
     OSMesg dummy;
@@ -44,17 +44,14 @@ s32 __osPfsGetStatus(OSMesgQueue *queue, int channel) {
     
 	__osPfsGetInitData(&pattern, data);
 
-    if (data[channel].status & CONT_CARD_ON && data[channel].status & CONT_CARD_PULL) {
+    if (((data[channel].status & CONT_CARD_ON) != 0) && ((data[channel].status & CONT_CARD_PULL) != 0)) {
         return PFS_ERR_NEW_PACK;
-    }
-    
-	if (data[channel].errno || !(data[channel].status & CONT_CARD_ON)) {
+    } else if ((data[channel].errno != 0) || ((data[channel].status & CONT_CARD_ON) == 0)) {
         return PFS_ERR_NOPACK;
-    }
-    
-	if (data[channel].status & CONT_ADDR_CRC_ER) {
+    } else if ((data[channel].status & CONT_ADDR_CRC_ER) != 0) {
         return PFS_ERR_CONTRFAIL;
     }
 
     return ret;
 }
+#endif
