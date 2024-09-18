@@ -82,6 +82,9 @@ typedef struct {
 #define OS_MESG_PRI_NORMAL 0
 #define OS_MESG_PRI_HIGH 1
 
+#define PI_DOMAIN1  0
+#define PI_DOMAIN2  1
+
 /* Functions */
 
 s32 osPiStartDma(OSIoMesg *mb, s32 priority, s32 direction, uintptr_t devAddr, void *vAddr,
