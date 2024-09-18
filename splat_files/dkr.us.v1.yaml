@@ -81,7 +81,7 @@ segments:
       - [0x6CF30, c, thread3_main]
       - [0x70110, hasm, math_util]
       - [0x71730, c, memory]
-      - [0x72930, c, lib/src/os/osMotor]
+      - [0x72930, c, lib/src/os/motor]
       - [0x72E50, c, save_data]
       - [0x777A0, c, asset_loading]
       - [0x77C50, c, borders]
@@ -408,7 +408,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x80121160, name: game }
       - { start: auto, type: .bss, vram: 0x801211F0, name: thread3_main }
       - { start: auto, type: .bss, vram: 0x80123580, name: memory }
-      - { start: auto, type: .bss, vram: 0x80123DD0, name: lib/src/os/osMotor }
+      - { start: auto, type: .bss, vram: 0x80123DD0, name: lib/src/os/motor }
       - { start: auto, type: .bss, vram: 0x80124010, name: save_data }
       - { start: auto, type: .bss, vram: 0x80124200, name: asset_loading }
       - { start: auto, type: .bss, vram: 0x801242A0, name: rcp_dkr }
