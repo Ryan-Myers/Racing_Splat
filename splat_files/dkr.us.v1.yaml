@@ -440,7 +440,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012D1A0, name: lib/src/os/sptask }
       - { start: auto, type: .bss, vram: 0x8012D1E0, name: lib/src/os/piacs }
       - { start: auto, type: .bss, vram: 0x8012D200, name: lib/src/os/osTimer }
-      - { start: auto, type: bss, vram: 0x8012D240, name: lib/asm/exception }
+      - { start: auto, type:  bss, vram: 0x8012D240, name: lib/asm/exception }
 
   - type: bin
     start: 0xECB60
