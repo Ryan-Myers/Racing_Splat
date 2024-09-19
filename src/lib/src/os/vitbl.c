@@ -1,8 +1,3 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800D1991 */
-
-// The RAM_POS above is just a hack to put it after osViMgr.c
-
 #include "libultra_internal.h"
 #include "PRinternal/viint.h"
 

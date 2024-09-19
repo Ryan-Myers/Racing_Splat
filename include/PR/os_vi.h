@@ -135,6 +135,74 @@ void osYieldThread(void);
 #define OS_VI_MPAL_HPN2		40
 #define OS_VI_MPAL_HPF2		41
 
+/**************************************************************************
+ *
+ * Extern variables
+ *
+ */
+
+extern OSViMode	osViModeTable[];	/* Global VI mode table */
+
+extern OSViMode	osViModeNtscLpn1;	/* Individual VI NTSC modes */
+extern OSViMode	osViModeNtscLpf1;
+extern OSViMode	osViModeNtscLan1;
+extern OSViMode	osViModeNtscLaf1;
+extern OSViMode	osViModeNtscLpn2;
+extern OSViMode	osViModeNtscLpf2;
+extern OSViMode	osViModeNtscLan2;
+extern OSViMode	osViModeNtscLaf2;
+extern OSViMode	osViModeNtscHpn1;
+extern OSViMode	osViModeNtscHpf1;
+extern OSViMode	osViModeNtscHan1;
+extern OSViMode	osViModeNtscHaf1;
+extern OSViMode	osViModeNtscHpn2;
+extern OSViMode	osViModeNtscHpf2;
+
+extern OSViMode	osViModePalLpn1;	/* Individual VI PAL modes */
+extern OSViMode	osViModePalLpf1;
+extern OSViMode	osViModePalLan1;
+extern OSViMode	osViModePalLaf1;
+extern OSViMode	osViModePalLpn2;
+extern OSViMode	osViModePalLpf2;
+extern OSViMode	osViModePalLan2;
+extern OSViMode	osViModePalLaf2;
+extern OSViMode	osViModePalHpn1;
+extern OSViMode	osViModePalHpf1;
+extern OSViMode	osViModePalHan1;
+extern OSViMode	osViModePalHaf1;
+extern OSViMode	osViModePalHpn2;
+extern OSViMode	osViModePalHpf2;
+
+extern OSViMode	osViModeMpalLpn1;	/* Individual VI MPAL modes */
+extern OSViMode	osViModeMpalLpf1;
+extern OSViMode	osViModeMpalLan1;
+extern OSViMode	osViModeMpalLaf1;
+extern OSViMode	osViModeMpalLpn2;
+extern OSViMode	osViModeMpalLpf2;
+extern OSViMode	osViModeMpalLan2;
+extern OSViMode	osViModeMpalLaf2;
+extern OSViMode	osViModeMpalHpn1;
+extern OSViMode	osViModeMpalHpf1;
+extern OSViMode	osViModeMpalHan1;
+extern OSViMode	osViModeMpalHaf1;
+extern OSViMode	osViModeMpalHpn2;
+extern OSViMode	osViModeMpalHpf2;
+
+extern OSViMode osViModeFpalLpn1;       /* Individual VI FPAL modes */
+extern OSViMode osViModeFpalLpf1;
+extern OSViMode osViModeFpalLan1;
+extern OSViMode osViModeFpalLaf1;
+extern OSViMode osViModeFpalLpn2;
+extern OSViMode osViModeFpalLpf2;
+extern OSViMode osViModeFpalLan2;
+extern OSViMode osViModeFpalLaf2;
+extern OSViMode osViModeFpalHpn1;
+extern OSViMode osViModeFpalHpf1;
+extern OSViMode osViModeFpalHan1;
+extern OSViMode osViModeFpalHaf1;
+extern OSViMode osViModeFpalHpn2;
+extern OSViMode osViModeFpalHpf2;
+
 extern OSViMode	osViModeTable[];	/* Global VI mode table */
 
 
