@@ -41,9 +41,9 @@ endif
 LIBULTRA_SRC_DIRS = $(SRC_DIR)/lib
 LIB_DIRS = $(SRC_DIR)/lib
 
-DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) $(SRC_DIR)/lib/src/mips1 $(SRC_DIR)/lib/src/os 
-DEFINE_SRC_DIRS  += $(SRC_DIR)/lib/src/mips1/sc $(SRC_DIR)/lib/src/mips1/os $(SRC_DIR)/lib/src/libc $(SRC_DIR)/lib/src/gu $(SRC_DIR)/lib/asm
-DEFINE_SRC_DIRS  += $(SRC_DIR)/lib/audio $(SRC_DIR)/lib/audio/mips1
+DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) $(LIBULTRA_SRC_DIRS)/src/mips1 $(LIBULTRA_SRC_DIRS)/src/os 
+DEFINE_SRC_DIRS  += $(LIBULTRA_SRC_DIRS)/src/mips1/sc $(LIBULTRA_SRC_DIRS)/src/mips1/os $(LIBULTRA_SRC_DIRS)/src/libc $(LIBULTRA_SRC_DIRS)/src/gu $(LIBULTRA_SRC_DIRS)/src/debug
+DEFINE_SRC_DIRS  += $(LIBULTRA_SRC_DIRS)/audio $(LIBULTRA_SRC_DIRS)/audio/mips1
 SRC_DIRS = $(DEFINE_SRC_DIRS)
 
 TOOLS_DIR = tools
@@ -121,9 +121,9 @@ endif
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d)) $(LIBULTRA_VERSION_DEFINE)
 ASM_DEFINES = # $(foreach d,$(DEFINES),--defsym $(d)=1)
 
-INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(SRC_DIR)/lib
-INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/src/gu -I $(SRC_DIR)/lib/src/libc -I $(SRC_DIR)/lib/src/mips1 -I $(SRC_DIR)/lib/audio/mips1
-INCLUDE_CFLAGS += -I $(SRC_DIR)/lib/audio -I $(SRC_DIR)/lib/src/os
+INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(LIBULTRA_SRC_DIRS)
+INCLUDE_CFLAGS += -I $(LIBULTRA_SRC_DIRS)/src/gu -I $(LIBULTRA_SRC_DIRS)/src/libc -I $(LIBULTRA_SRC_DIRS)/src/mips1 -I $(LIBULTRA_SRC_DIRS)/audio/mips1
+INCLUDE_CFLAGS += -I $(LIBULTRA_SRC_DIRS)/audio -I $(LIBULTRA_SRC_DIRS)/src/os
 
 ASFLAGS        = -march=vr4300 -32 -G0 $(ASM_DEFINES) $(INCLUDE_CFLAGS)
 OBJCOPYFLAGS   = -O binary
@@ -161,29 +161,29 @@ ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py
 ### Optimisation Overrides
 ####################### LIBULTRA #########################
 
-$(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/$(SRC_DIR)/lib/audio/%.c.o: OPT_FLAGS := -O3
-$(BUILD_DIR)/$(SRC_DIR)/lib/audio/mips1/%.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/%.c.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/vimgr.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/pimgr.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/motor.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xprintf.c.o : OPT_FLAGS := -O3
-$(BUILD_DIR)/$(SRC_DIR)/lib/audio/env.c.o: OPT_FLAGS := -g
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/llcvt.c.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/llcvt.c.o: MIPSISET := -mips3 -32
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: MIPSISET := -mips3 -32
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ldiv.c.o: OPT_FLAGS := -O3
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ldiv.c.o: MIPSISET := -mips2
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xldtob.c.o: OPT_FLAGS := -O3
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/xldtob.c.o: MIPSISET := -mips2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/%.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/mips1/%.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/%.c.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/vimgr.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/pimgr.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/motor.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/xprintf.c.o : OPT_FLAGS := -O3
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/env.c.o: OPT_FLAGS := -g
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/llcvt.c.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/llcvt.c.o: MIPSISET := -mips3 -32
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/ll.c.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/ll.c.o: MIPSISET := -mips3 -32
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/ldiv.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/ldiv.c.o: MIPSISET := -mips2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/xldtob.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/xldtob.c.o: MIPSISET := -mips2
 
-$(BUILD_DIR)/$(SRC_DIR)/lib/%.c.o: MIPSISET := -mips2
-$(BUILD_DIR)/$(SRC_DIR)/lib/audio/mips1/%.c.o: MIPSISET := -mips1
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/mips1/%.c.o: MIPSISET := -mips1
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/os/motor.c.o: MIPSISET := -mips1
-$(BUILD_DIR)/$(SRC_DIR)/lib/audio/env.c.o: MIPSISET := -mips1
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: MIPSISET := -mips2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/mips1/%.c.o: MIPSISET := -mips1
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/mips1/%.c.o: MIPSISET := -mips1
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/motor.c.o: MIPSISET := -mips1
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/env.c.o: MIPSISET := -mips1
 
 ####################### MATH UTIL #########################
 
@@ -297,12 +297,12 @@ $(BUILD_DIR)/%.c.o: %.c
 	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/llcvt.c.o: $(SRC_DIR)/lib/src/libc/llcvt.c
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/llcvt.c.o: $(LIBULTRA_SRC_DIRS)/src/libc/llcvt.c
 	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
 	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
 
-$(BUILD_DIR)/$(SRC_DIR)/lib/src/libc/ll.c.o: $(SRC_DIR)/lib/src/libc/ll.c
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/ll.c.o: $(LIBULTRA_SRC_DIRS)/src/libc/ll.c
 	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
 	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@

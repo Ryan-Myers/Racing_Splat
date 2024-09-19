@@ -22,8 +22,7 @@
 #include <os.h>
 #include <stdio.h>
 #include <math.h>
-#include <assert.h>
-#include "audio_assert.h"
+#include "lib/src/debug/assert.h"
 // TODO: these come from headers
 #ident "$Revision: 1.49 $"
 #ident "$Revision: 1.17 $"
@@ -103,12 +102,12 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
 #if BUILD_VERSION < VERSION_J
 #line 103
 #endif
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
         // Something must have gone wrong when compiling this file, and the asserts got left in.
         if (samples >= 0) {} 
-        else { assert_stub("samples >= 0", "env.c", 104); }
+        else { __assert("samples >= 0", "env.c", 104); }
         if (samples <= AL_MAX_RSP_SAMPLES) {} 
-        else { assert_stub("samples <= AL_MAX_RSP_SAMPLES", "env.c", 105); }
+        else { __assert("samples <= AL_MAX_RSP_SAMPLES", "env.c", 105); }
 #else
         assert(samples >= 0);
         assert(samples <= AL_MAX_RSP_SAMPLES);
@@ -135,7 +134,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
                   e->delta  = 0;
                   e->segEnd = param->samples;
 
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
                   tmp = ((s32)param->volume + (s32)param->volume) / 2;
 #else
                   tmp = ((s32)param->volume * (s32)param->volume) >> 15;
@@ -176,7 +175,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
           case (AL_FILTER_SET_PAN):
           case (AL_FILTER_SET_VOLUME):
 	      ptr = _pullSubFrame(e, &inp, &loutp, samples, sampleOffset, ptr);
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
           e->delta += samples;
 #endif
               if (e->delta >= e->segEnd){
@@ -225,7 +224,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
                    * loudness
                    */
                   fVol = (e->ctrlList->data.i);
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
                   fVol = (fVol+fVol)/2;
 #else
                   fVol = (fVol*fVol)>>15;
@@ -292,7 +291,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
                * on down the chain
                */
 	      ptr = _pullSubFrame(e, &inp, &loutp, samples, sampleOffset, ptr);
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
           e->delta += samples;
 #endif
               (*e->filter.setParam)(&e->filter, e->ctrlList->type,
@@ -314,7 +313,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
         
     }
 
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
     if (e->motion == 1) {
         ptr = _pullSubFrame(e, &inp, &loutp, outCount, sampleOffset, ptr);
         e->delta += outCount; 
@@ -387,7 +386,7 @@ static Acmd* _pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount,
     ALFilter      *source= e->filter.source;
 
     /* filter must be playing and request non-zero output samples to pull. */
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
     if (!outCount)
         return ptr;
 #else
@@ -400,10 +399,10 @@ static Acmd* _pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount,
      * lists.
      */
 
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
     // Something must have gone wrong when compiling this file, and the asserts got left in.
     if (source) {}
-    else { assert_stub("source", "env.c", 373); }
+    else { __assert("source", "env.c", 373); }
 #else
     assert(source);
 #endif
@@ -446,7 +445,7 @@ static Acmd* _pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount,
      */
 
     *inp += (outCount<<1);
-#if BUILD_VERSION != VERSION_G
+#ifndef RAREDIFFS
     e->delta += outCount;
 #endif
 
@@ -500,7 +499,7 @@ static
 s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel)
 {
     s16         s;
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
     f64         a;
 #else
     f64         invn = 1.0/count, eps, a, fs, mant;
@@ -519,7 +518,7 @@ s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel)
         else{
             *ratel = 0;
 
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
             return -0x8000;
 #else
             return 0;
@@ -528,7 +527,7 @@ s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel)
     }
 
 
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
     a = (tgt - vol) / (f32)count;
     a *= 8;
     if (a < 0.0) {
@@ -605,7 +604,7 @@ s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel)
 
 }
 
-#if BUILD_VERSION == VERSION_G
+#ifdef RAREDIFFS
 static
 f32 _getVol(f32 ivol, s32 samples, s16 ratem, u16 ratel) {
     f32 r;

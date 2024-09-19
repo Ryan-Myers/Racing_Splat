@@ -96,7 +96,7 @@ segments:
       - [0xAEE70, c, particles]
       - [0xB5310, c, unused_string]
       - [0xB5540, c, printf]
-      - [0xB7B30, c, audio_assert]
+      - [0xB7B40, c, lib/src/debug/assert]
       - [0xB7B50, c, thread0_epc]
       - [0xB8910, hasm, get_stack_pointer]
       - [0xB8920, c, waves]
