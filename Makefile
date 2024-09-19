@@ -29,7 +29,8 @@ ifeq ($(REGION)$(VERSION),usv1)
 BIN_DIRS  = assets
 BUILD_DIR = build
 SRC_DIR   = src
-ASM_DIRS  = asm asm/data asm/libultra asm/data/libultra asm/nonmatchings asm/data/lib/src asm/lib/asm asm/data/lib/asm asm/data/lib/src/gu
+ASM_DIRS  = asm asm/data asm/data/asm asm/libultra asm/data/libultra asm/nonmatchings asm/data/lib/src asm/lib/asm asm/data/lib/asm asm/data/lib/src/gu asm/data/lib/src/os
+HASM_DIRS = src/asm src/lib/src/os src/lib/src/gu src/lib/src/libc 
 else
 BIN_DIRS  = assets_$(REGION)_$(VERSION)
 BUILD_DIR = build_$(REGION)_$(VERSION)
@@ -60,7 +61,7 @@ RECOMP_DIR := $(TOOLS_DIR)/ido-recomp/$(DETECTED_OS)
 
 # Files
 
-S_FILES         = $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
+S_FILES         = $(foreach dir,$(ASM_DIRS) $(HASM_DIRS),$(wildcard $(dir)/*.s))
 C_FILES         = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 BIN_FILES       = $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
 
@@ -208,7 +209,7 @@ ldflags:
 	$(V)printf "[$(PINK) LDFLAGS $(NO_COL)]: $(LD_FLAGS)\n[$(PINK) EXTRA $(NO_COL)]: $(LD_FLAGS_EXTRA)\n"
 
 dirs:
-	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
+	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(HASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
 
 verify: $(TARGET).z64
 	@sha1sum -c $(BASENAME).$(REGION).$(VERSION).sha1
