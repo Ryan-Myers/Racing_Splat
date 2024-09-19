@@ -41,8 +41,8 @@ endif
 LIBULTRA_SRC_DIRS = $(SRC_DIR)/lib
 LIB_DIRS = $(SRC_DIR)/lib
 
-DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) $(LIBULTRA_SRC_DIRS)/src/mips1 $(LIBULTRA_SRC_DIRS)/src/os 
-DEFINE_SRC_DIRS  += $(LIBULTRA_SRC_DIRS)/src/mips1/sc $(LIBULTRA_SRC_DIRS)/src/mips1/os $(LIBULTRA_SRC_DIRS)/src/libc $(LIBULTRA_SRC_DIRS)/src/gu $(LIBULTRA_SRC_DIRS)/src/debug
+DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) $(LIBULTRA_SRC_DIRS)/src/mips1 $(LIBULTRA_SRC_DIRS)/src/os $(LIBULTRA_SRC_DIRS)/src/io 
+DEFINE_SRC_DIRS  += $(LIBULTRA_SRC_DIRS)/src/mips1/sc $(LIBULTRA_SRC_DIRS)/src/mips1/io $(LIBULTRA_SRC_DIRS)/src/libc $(LIBULTRA_SRC_DIRS)/src/gu $(LIBULTRA_SRC_DIRS)/src/debug
 DEFINE_SRC_DIRS  += $(LIBULTRA_SRC_DIRS)/audio $(LIBULTRA_SRC_DIRS)/audio/mips1
 SRC_DIRS = $(DEFINE_SRC_DIRS)
 
@@ -165,9 +165,10 @@ $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/%.c.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/mips1/%.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/%.c.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/vimgr.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/pimgr.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/motor.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/io/%.c.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/io/vimgr.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/io/pimgr.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/io/motor.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/xprintf.c.o : OPT_FLAGS := -O3
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/env.c.o: OPT_FLAGS := -g
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/llcvt.c.o: OPT_FLAGS := -O1
@@ -182,7 +183,7 @@ $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/xldtob.c.o: MIPSISET := -mips2
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: MIPSISET := -mips2
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/mips1/%.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/mips1/%.c.o: MIPSISET := -mips1
-$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/os/motor.c.o: MIPSISET := -mips1
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/io/motor.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/audio/env.c.o: MIPSISET := -mips1
 
 ####################### MATH UTIL #########################
