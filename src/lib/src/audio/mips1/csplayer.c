@@ -889,7 +889,7 @@ static void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event)
 }
 #else
 void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event);
-#pragma GLOBAL_ASM("asm/nonmatchings/lib/audio/mips1/csplayer/__CSPHandleMIDIMsg.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/lib/src/audio/mips1/csplayer/__CSPHandleMIDIMsg.s")
 #endif
 
 static void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
