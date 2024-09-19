@@ -39,9 +39,8 @@ ASM_DIRS  += asm_$(REGION)_$(VERSION)/data/lib/src asm_$(REGION)_$(VERSION)/lib/
 endif
 
 LIBULTRA_SRC_DIRS = $(SRC_DIR)/lib
-LIB_DIRS = $(SRC_DIR)/lib
 
-DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIB_DIRS) $(LIBULTRA_SRC_DIRS)/src/os $(LIBULTRA_SRC_DIRS)/src/io 
+DEFINE_SRC_DIRS   = $(SRC_DIR) $(LIBULTRA_SRC_DIRS) $(LIBULTRA_SRC_DIRS)/src/os $(LIBULTRA_SRC_DIRS)/src/io 
 DEFINE_SRC_DIRS  += $(LIBULTRA_SRC_DIRS)/src/sc $(LIBULTRA_SRC_DIRS)/src/io $(LIBULTRA_SRC_DIRS)/src/libc $(LIBULTRA_SRC_DIRS)/src/gu $(LIBULTRA_SRC_DIRS)/src/debug
 DEFINE_SRC_DIRS  += $(LIBULTRA_SRC_DIRS)/src/audio $(LIBULTRA_SRC_DIRS)/src/audio/mips1
 SRC_DIRS = $(DEFINE_SRC_DIRS)
@@ -132,13 +131,16 @@ OBJCOPYFLAGS   = -O binary
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
-CFLAGS := -G 0 -non_shared -fullwarn -verbose -Xcpluscomm -nostdinc -Wab,-r4300_mul
+#IDO Warnings to Ignore. These are coding style warnings we don't follow
+CC_WARNINGS := -fullwarn -Xfullwarn -woff 838,649,624
+
+CFLAGS := -G 0 -non_shared -verbose -Xcpluscomm -nostdinc -Wab,-r4300_mul
 CFLAGS += $(C_DEFINES)
-# ignore compiler warnings about anonymous structs
-CFLAGS += -woff 838,649,624
 CFLAGS += $(INCLUDE_CFLAGS)
 
-CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wunused-function -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
+CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wunused-function -Wno-unused-parameter -Werror-implicit-function-declaration
+CHECK_WARNINGS += -Werror-implicit-function-declaration -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion -Wno-main
+CHECK_WARNINGS += -Wno-builtin-declaration-mismatch -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast -Wno-switch
 CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -funsigned-char -std=gnu90 -m32 -D_LANGUAGE_C $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(C_DEFINES)
 
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION)
@@ -186,6 +188,10 @@ $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/io/pimgr.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/sc/sched.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/io/motor.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/audio/env.c.o: MIPSISET := -mips1
+
+#Ignore warnings for libultra files
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: CC_WARNINGS := -w
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: CC_CHECK := :
 
 ####################### MATH UTIL #########################
 
@@ -289,24 +295,24 @@ ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c  include/variables.h include/structs.h
 	$(V)$(CC_CHECK) $<
 	@printf "[$(YELLOW) check $(NO_COL)] $<\n"
-	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	@printf "[$(GREEN) ido5.3 + asm $(NO_COL)]  $<\n"
 endif
 
 # non asm-processor recipe
 $(BUILD_DIR)/%.c.o: %.c
 #	@$(CC_CHECK) $<
-	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/llcvt.c.o: $(LIBULTRA_SRC_DIRS)/src/libc/llcvt.c
 	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
-	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+	$(V)$(CC)  -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
 
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/ll.c.o: $(LIBULTRA_SRC_DIRS)/src/libc/ll.c
 	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
-	$(V)$(CC)  -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+	$(V)$(CC)  -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
 
 

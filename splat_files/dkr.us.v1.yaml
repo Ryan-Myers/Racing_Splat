@@ -153,7 +153,7 @@ segments:
       - [0xCA6F0, pad] #0x40 bytes of zeroes
       - [0xCA730, c, lib/src/libc/llcvt]
       - [0xCA940, c, lib/src/libc/rmonPrintf]
-      - [0xCA9A0, hasm, lib/asm/_bcopy]
+      - [0xCA9A0, hasm, lib/asm/bcopy]
       - [0xCACB0, c, lib/src/audio/filter]
       - [0xCACD0, c, lib/src/audio/env]
       - [0xCC140, c, lib/src/audio/load]
