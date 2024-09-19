@@ -190,10 +190,8 @@ extern int guRandom(void);
  */
 extern float sinf(float angle);
 extern float cosf(float angle);
-#ifndef RAREDIFFS
 extern signed short sins (unsigned short angle);
 extern signed short coss (unsigned short angle);
-#endif
 extern float sqrtf(float value);
 #if defined(__sgi) && BUILD_VERSION >= VERSION_K
 #pragma intrinsic(sqrtf);

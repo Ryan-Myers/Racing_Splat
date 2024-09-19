@@ -1602,7 +1602,7 @@ void obj_loop_fish(Object *fishObj, s32 updateRate) {
     }
     fish->unkFC = 1 - fish->unkFC;
     verts = &fish->vertices[fish->unkFC * 6];
-    randNumber = sins(fish->unk106) >> 3;
+    randNumber = sins_1(fish->unk106) >> 3;
     temp_s0_2 = (s32) (coss_f(randNumber) * 32);
     temp_t1 = (s32) (sins_f(randNumber) * 32);
     verts[4].x = (verts[2].x + temp_t1);
