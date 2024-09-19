@@ -1,4 +1,5 @@
-#include "libultra_internal.h"
+#include "PR/os.h"
+#include "PR/rcp.h"
 #include "PRinternal/viint.h"
 
 /*
@@ -77,7 +78,7 @@
 #define OS_VI_BIT_NTSC			    0x0400
 #define OS_VI_BIT_PAL			    0x0800
 
-OSViMode osViModeTable[42] = {
+OSViMode osViModeTable[] = {
     {OS_VI_NTSC_LPN1, //type
      {
          //comRegs
