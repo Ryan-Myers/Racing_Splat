@@ -1,16 +1,11 @@
-/* The comment below is needed for this file to be picked up by generate_ld */
-/* RAM_POS: 0x800D6500 */
+#include "PR/os_internal.h"
 
-#include "libultra_internal.h"
+extern OSIntMask __OSGlobalIntMask;	/* global interrupt mask */
 
-extern u32 __OSGlobalIntMask;
-
-void __osResetGlobalIntMask(OSHWIntr interrupt) {
+void __osResetGlobalIntMask(OSHWIntr mask) {
     register u32 saveMask = __osDisableInt();
 
-    //not sure about these constants, SR_IBIT3 is external level 3 INT0, which I think corresponds to the rcp
-    //os.h has several masks defined that end in 401 but non that are just 401
-    __OSGlobalIntMask &= ~(interrupt & ~(SR_IBIT3 | SR_IE));
+    __OSGlobalIntMask &= ~(mask & ~OS_IM_RCP);
 
     __osRestoreInt(saveMask);
 }
