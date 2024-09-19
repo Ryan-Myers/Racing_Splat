@@ -2,7 +2,7 @@ BASENAME  = dkr
 REGION  := us
 VERSION  := v1
 
-LIBULTRA_VERSION_DEFINE := -DBUILD_VERSION=VERSION_G -DBUILD_VERSION_STRING=\"2.0G\" -DRAREDIFFS
+LIBULTRA_VERSION_DEFINE := -DBUILD_VERSION=4 -DBUILD_VERSION_STRING=\"2.0G\" -DRAREDIFFS
 
 # Whether to hide commands or not
 VERBOSE ?= 0
@@ -119,7 +119,7 @@ else
 endif
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d)) $(LIBULTRA_VERSION_DEFINE)
-ASM_DEFINES = # $(foreach d,$(DEFINES),--defsym $(d)=1)
+ASM_DEFINES = --defsym _MIPS_SIM=1 --defsym mips=1
 
 INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(LIBULTRA_SRC_DIRS)
 INCLUDE_CFLAGS += -I $(LIBULTRA_SRC_DIRS)/src/gu -I $(LIBULTRA_SRC_DIRS)/src/libc -I $(LIBULTRA_SRC_DIRS)/src/io  -I $(LIBULTRA_SRC_DIRS)/src/sc 
@@ -293,7 +293,7 @@ $(TARGET).elf: dirs $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_
 	@printf "[$(PINK) Linker $(NO_COL)]  $<\n"
 
 ifndef PERMUTER
-$(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c  include/variables.h include/structs.h
+$(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c
 	$(V)$(CC_CHECK) $<
 	@printf "[$(YELLOW) check $(NO_COL)] $<\n"
 	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
@@ -319,6 +319,11 @@ $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/ll.c.o: $(LIBULTRA_SRC_DIRS)/src/libc
 
 $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 	@mkdir -p $$(dirname $@)
+
+# libultra asm files need to be pre-processed with the C compiler first
+# $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.s.o: $(LIBULTRA_SRC_DIRS)/%.s
+# 	$(V)$(ASM_PROCESSOR) $(CC) -- $(AS) $(ASFLAGS) -- -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+# 	@printf "[$(GREEN)  ASSEMBLER CC  $(NO_COL)]  $<\n"
 
 $(BUILD_DIR)/%.s.o: %.s
 	$(V)$(AS) $(ASFLAGS) -o $@ $<
