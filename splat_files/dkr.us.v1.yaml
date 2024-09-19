@@ -16,7 +16,6 @@ options:
   build_path: build
   asset_path: assets
   section_order: [".text", ".data", ".rodata", ".bss"]
-  # auto_all_sections: [".data", ".rodata", ".bss"]
   migrate_rodata_to_functions: True
 segments:
   - name: header
@@ -107,14 +106,14 @@ segments:
       - [0xC6C00, c, lib/src/mips1/os/pimgr]
       - [0xC6D70, c, gzip]
       - [0xC74C0, hasm, gzip_asm]
-      - [0xC7F40, c, lib/src/os/__osLeoInterrupt]
+      - [0xC7F40, c, lib/src/os/leointerrupt]
       - [0xC7F50, c, thread30_track_loading]
       - [0xC8160, c, lib/audio/heapinit]
       - [0xC81A0, c, lib/audio/bnkf]
       - [0xC83F0, c, lib/audio/heapalloc]
       - [0xC8450, c, lib/audio/cspsetvol]
       - [0xC8490, c, lib/audio/cspgettempo]
-      - [0xC84D0, hasm, lib/asm/osGetCount]
+      - [0xC84D0, hasm, lib/asm/getcount]
       - [0xC84E0, c, lib/audio/cspsetpan]
       - [0xC8540, c, lib/audio/cspsetchlvol]
       - [0xC85A0, c, lib/audio/cspgetchlvol]
@@ -148,7 +147,7 @@ segments:
       - [0xCA4B0, c, lib/audio/synstopvoice]
       - [0xCA530, c, lib/audio/synfreevoice]
       - [0xCA5E0, c, lib/audio/cents2ratio]
-      - [0xCA630, hasm, lib/asm/osSetIntMask]
+      - [0xCA630, hasm, lib/asm/setintmask]
       - [0xCA6D0, hasm, lib/asm/sqrtf]
       - [0xCA6E0, c, lib/audio/synsetpriority]
       - [0xCA6F0, pad] #0x40 bytes of zeroes
@@ -163,7 +162,7 @@ segments:
       - [0xCD0E0, c, lib/audio/save]
       - [0xCD1A0, c, lib/src/os/initialize]
       - [0xCD440, c, lib/src/os/setthreadpri]
-      - [0xCD520, c, lib/src/gu/guPerspectiveF]
+      - [0xCD520, c, lib/src/gu/perspective]
       - [0xCD7B0, c, lib/src/os/seteventmesg]
       - [0xCD820, c, lib/src/os/controller]
       - [0xCDBE0, c, lib/src/os/contreaddata]
@@ -176,7 +175,7 @@ segments:
       - [0xCE370, c, lib/src/os/crc]
       - [0xCE4F0, c, lib/src/os/contramwrite]
       - [0xCE8A0, c, lib/src/os/contramread]
-      - [0xCEC50, c, lib/asm/bcmp]
+      - [0xCEC50, hasm, lib/asm/bcmp]
       - [0xCED70, c, lib/src/libc/string]
       - [0xCEE10, c, lib/src/os/conteepprobe]
       - [0xCEE80, c, lib/src/os/conteepread]
@@ -188,13 +187,13 @@ segments:
       - [0xD0130, c, lib/src/os/pfschecker]
       - [0xD0B90, c, lib/src/os/pfsreformat]
       - [0xD0F90, c, lib/src/os/pfsnumfiles]
-      - [0xD10E0, hasm, lib/asm/_blkclr] #bzero?
+      - [0xD10E0, hasm, lib/asm/bzero]
       - [0xD1180, c, lib/src/os/pfsfilestate]
       - [0xD1470, c, lib/src/os/pfsdeletefile]
       - [0xD1A80, c, lib/src/os/pfssearchfile]
       - [0xD1C40, c, lib/src/os/pfsallocatefile]
-      - [0xD23F0, hasm, lib/asm/osInvalDCache]
-      - [0xD24A0, hasm, lib/asm/osWritebackDCacheAll]
+      - [0xD23F0, hasm, lib/asm/invaldcache]
+      - [0xD24A0, hasm, lib/asm/writebackdcacheall]
       - [0xD24D0, c, lib/src/os/dpgetstat]
       - [0xD24E0, c, lib/src/os/dpsetnextbuf]
       - [0xD2590, c, lib/src/os/vimgr]
@@ -212,29 +211,28 @@ segments:
       - [0xD3070, c, lib/src/os/getactivequeue]
       - [0xD3080, c, lib/src/os/piacs]
       - [0xD3140, c, lib/src/os/getthreadpri]
-      - [0xD3160, hasm, lib/asm/__osDisableInt]
-      - [0xD3180, hasm, lib/asm/__osRestoreInt]
+      - [0xD3160, hasm, lib/asm/interrupt]
       - [0xD31A0, c, lib/src/os/pirawdma]
       - [0xD3280, c, lib/src/os/epirawdma]
       - [0xD3360, c, lib/src/os/devmgr]
       - [0xD3710, c, lib/src/os/vi]
       - [0xD3860, c, lib/audio/syndelete]
       - [0xD3870, c, lib/src/os/thread]
-      - [0xD38B0, hasm, lib/asm/exception]
-      - [0xD41B0, hasm, lib/asm/__osProbeTLB]
+      - [0xD38B0, hasm, lib/asm/exceptasm]
+      - [0xD41B0, hasm, lib/asm/probetlb]
       - [0xD4270, c, lib/src/os/ai]
       - [0xD42A0, c, lib/src/os/jammesg]
       - [0xD43F0, c, lib/src/os/pigetcmdq]
       - [0xD4420, c, lib/audio/copy]
       - [0xD44A0, c, lib/src/libc/xprintf]
-      - [0xD5160, hasm, lib/asm/__osSetSR]
-      - [0xD5170, hasm, lib/asm/__osGetSR]
-      - [0xD5180, hasm, lib/asm/__osSetFpcCsr]
+      - [0xD5160, hasm, lib/asm/setsr]
+      - [0xD5170, hasm, lib/asm/getsr]
+      - [0xD5180, hasm, lib/asm/setfpccsr]
       - [0xD5190, c, lib/src/os/sirawread]
       - [0xD51E0, c, lib/src/os/sirawwrite]
-      - [0xD5230, hasm, lib/asm/osWritebackDCache]
-      - [0xD52B0, hasm, lib/asm/osInvalICache]
-      - [0xD5330, hasm, lib/asm/osMapTLBRdb]
+      - [0xD5230, hasm, lib/asm/writebackdcache]
+      - [0xD52B0, hasm, lib/asm/invalicache]
+      - [0xD5330, hasm, lib/asm/maptlbrdb]
       - [0xD5390, c, lib/src/os/pirawread]
       - [0xD53F0, c, lib/src/os/sethwinterrupt]
       - [0xD5440, c, lib/src/gu/mtxutil]
@@ -257,15 +255,15 @@ segments:
       - [0xD7200, c, lib/src/os/destroythread]
       - [0xD7300, c, lib/src/libc/xlitob]
       - [0xD75A0, c, lib/src/libc/xldtob]
-      - [0xD8060, hasm, lib/asm/__osSetCompare]
+      - [0xD8060, hasm, lib/asm/setcompare]
       - [0xD8070, c, lib/src/libc/ldiv]
       - [0xD8200, textbin, ucode_audio]
-      - [0xD90C0, textbin, ucode_boot] # + 0xEC0
-      - [0xD9190, textbin, ucode_f3ddkr_dram] # + 0xD0
-      - [0xDA390, textbin, ucode_f3ddkr_fifo] # + 0x1200
-      - [0xDB570, textbin, ucode_f3ddkr_xbus] # + 0x11E0
-      - [0xDC770, textbin, ucode_unknown_2] # + 0x1200
-      - [0xDD230, .data, audio] # + 0xAC0
+      - [0xD90C0, textbin, ucode_boot]
+      - [0xD9190, textbin, ucode_f3ddkr_dram]
+      - [0xDA390, textbin, ucode_f3ddkr_fifo]
+      - [0xDB570, textbin, ucode_f3ddkr_xbus]
+      - [0xDC770, textbin, ucode_unknown_2]
+      - [0xDD230, .data, audio]
       - [0xDD280, .data, audiomgr]
       - [0xDD2B0, .data, audiosfx]
       - [0xDD2D0, .data, audio_vehicle]
@@ -288,7 +286,7 @@ segments:
       - [0xDDF00, .data, controller_dkr]
       - [0xDDF10, .data, game]
       - [0xDDF40, .data, thread3_main]
-      - [0xDE030, data, math_util] #asm?
+      - [0xDE030, data, math_util]
       - [0xDF040, .data, save_data]
       - [0xDF090, .data, rcp_dkr]
       - [0xDF330, .data, lib/src/mips1/sc/sched]
@@ -319,7 +317,7 @@ segments:
       - [0xE5400, .data, lib/src/os/piacs]
       - [0xE5410, .data, lib/src/os/vi]
       - [0xE5480, .data, lib/src/os/thread]
-      - [0xE54A0, data, lib/asm/exception]
+      - [0xE54A0, data, lib/asm/exceptasm]
       - [0xE54C0, .data, lib/src/libc/xprintf]
       - [0xE5510, .data, lib/src/os/timerintr]
       - [0xE5520, .data, lib/src/libc/xlitob]
@@ -331,7 +329,7 @@ segments:
       - [0xE5B30, .rodata, lib/audio/mips1/seqplayer]
       - [0xE5B60, .rodata, objects]
       - [0xE69F0, .rodata, tracks]
-      - [0xE6B60, rodata, collision] #Always rodata for hasm
+      - [0xE6B60, rodata, collision]
       - [0xE6B80, .rodata, lights]
       - [0xE6BA0, .rodata, object_functions]
       - [0xE6E80, .rodata, racer]
@@ -351,7 +349,7 @@ segments:
       - [0xE7CB0, .rodata, thread3_main]
       - [0xE7E10, .rodata, memory]
       - [0xE8190, .rodata, save_data]
-      - [0xE8400, .rodata, lib/src/mips1/sc/sched] #Fully migrated
+      - [0xE8400, .rodata, lib/src/mips1/sc/sched]
       - [0xE8590, .rodata, video]
       - [0xE8730, .rodata, textures_sprites]
       - [0xE8890, .rodata, screen_asset]
@@ -361,26 +359,25 @@ segments:
       - [0xE9440, .rodata, particles]
       - [0xE9800, .rodata, printf]
       - [0xE9A70, .rodata, thread0_epc]
-      # - [0xE9B00, rodata, thread0_epc_b00]
       - [0xE9D60, .rodata, waves]
       - [0xE9ED0, .rodata, fade_transition]
       - [0xE9F30, .rodata, game_text]
       - [0xE9F60, .rodata, font]
-      - [0xE9FC0, rodata, gzip_asm] #Always rodata for hasm
+      - [0xE9FC0, rodata, gzip_asm]
       - [0xEA0B0, .rodata, lib/audio/cseq]
       - [0xEA0C0, .rodata, lib/audio/cents2ratio]
-      - [0xEA0D0, rodata, lib/asm/osSetIntMask] #Always rodata for hasm
+      - [0xEA0D0, rodata, lib/asm/setintmask]
       - [0xEA150, .rodata, lib/src/libc/llcvt]
       - [0xEA160, .rodata, lib/audio/env]
       - [0xEA200, .rodata, lib/audio/resample]
-      - [0xEA240, .rodata, lib/src/gu/guPerspectiveF]
+      - [0xEA240, .rodata, lib/src/gu/perspective]
       - [0xEA250, .rodata, lib/src/os/devmgr]
-      - [0xEA270, rodata, lib/asm/exception] #Always rodata for hasm
+      - [0xEA270, rodata, lib/asm/exceptasm]
       - [0xEA2C0, .rodata, lib/src/libc/xprintf]
-      - [0xEA3C0, .rodata, lib/src/gu/cosf] #Always rodata
-      - [0xEA410, .rodata, lib/src/gu/sinf] #Always rodata
+      - [0xEA3C0, .rodata, lib/src/gu/cosf]
+      - [0xEA410, .rodata, lib/src/gu/sinf]
       - [0xEA460, .rodata, lib/src/libc/xldtob]
-      - [0xEA4C0, rodata, lib/src/gu/libm_vals] #Always rodata for hasm
+      - [0xEA4C0, rodata, lib/src/gu/libm_vals]
       - [0xEA4D0, rodata, data_audio]
       - [0xEA7A0, rodata, data_f3ddkr_dram]
       - [0xEAFA0, rodata, data_f3ddkr_fifo]
@@ -422,7 +419,6 @@ segments:
       - { start: auto, type: .bss, vram: 0x80127C80, name: particles }
       - { start: auto, type: .bss, vram: 0x80127CA0, name: printf }
       - { start: auto, type: .bss, vram: 0x801285E0, name: thread0_epc }
-#      - { start: auto, type: bss, vram: 0x80129800, name: thread0_staticbss } #Not sure how else to include this yet.
       - { start: auto, type: .bss, vram: 0x80129AB0, name: stacks }
       - { start: auto, type: .bss, vram: 0x80129FC0, name: waves }
       - { start: auto, type: .bss, vram: 0x8012A730, name: fade_transition }
@@ -442,7 +438,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012D1A0, name: lib/src/os/sptask }
       - { start: auto, type: .bss, vram: 0x8012D1E0, name: lib/src/os/piacs }
       - { start: auto, type: .bss, vram: 0x8012D200, name: lib/src/os/timerintr }
-      - { start: auto, type:  bss, vram: 0x8012D240, name: lib/asm/exception }
+      - { start: auto, type:  bss, vram: 0x8012D240, name: lib/asm/exceptasm }
 
   - type: bin
     start: 0xECB60
