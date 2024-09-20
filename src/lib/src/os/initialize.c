@@ -29,6 +29,7 @@ extern OSPiHandle __Dom2SpeedParam;
 OSTime osClockRate = OS_CLOCK_RATE;
 #ifdef RAREDIFFS
 extern s32 osViClock;
+extern s32		__osLeoInterrupt(void);
 #else
 s32 osViClock = VI_NTSC_CLOCK;
 #endif
