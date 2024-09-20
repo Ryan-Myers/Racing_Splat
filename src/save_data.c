@@ -13,6 +13,7 @@
 #include "thread3_main.h"
 #include "controller_dkr.h"
 #include "PRinternal/viint.h"
+#include "PR/os_motor.h"
 
 /************ .data ************/
 

@@ -105,7 +105,7 @@ OPT_FLAGS      = -O2
 
 MIPSISET       = -mips1
 
-DEFINES := _FINALROM NDEBUG TARGET_N64 __sgi F3DDKR_GBI
+DEFINES := _FINALROM NDEBUG TARGET_N64 F3DDKR_GBI
 DEFINES += VERSION_$(REGION)_$(VERSION)
 
 VERIFY = verify
@@ -302,7 +302,7 @@ endif
 
 # non asm-processor recipe
 $(BUILD_DIR)/%.c.o: %.c
-#	@$(CC_CHECK) $<
+	$(V)$(CC_CHECK) $<
 	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 

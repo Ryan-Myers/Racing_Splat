@@ -33,6 +33,7 @@
 
 #include <ultra64.h>
 #include "macros.h"
+#include "os_internal_rsp.h"
 
 #define OS_SC_STACKSIZE      0x2000
 

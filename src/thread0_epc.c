@@ -11,6 +11,7 @@
 #include "controller_dkr.h"
 #include "game.h"
 #include "stacks.h"
+#include "PR/os_internal_thread.h"
 
 /************ .rodata ************/
 

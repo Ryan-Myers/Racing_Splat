@@ -1,6 +1,7 @@
 #include "PR/os_internal.h"
 #include "PR/rcp.h"
 #include "PRinternal/piint.h"
+#include "PR/os_internal_exception.h"
 
 void __osDevMgrMain(void* args) {
     OSIoMesg* mb;
