@@ -1,6 +1,6 @@
 
 /*====================================================================
- * os_cache.h
+ * os_debug.h
  *
  * Copyright 1995, Silicon Graphics, Inc.
  * All Rights Reserved.
@@ -22,13 +22,13 @@
 /*---------------------------------------------------------------------*
         Copyright (C) 1998 Nintendo. (Originated by SGI)
         
-        $RCSfile: os_cache.h,v $
-        $Revision: 1.1 $
-        $Date: 1998/10/09 08:01:04 $
+        $RCSfile: os_debug.h,v $
+        $Revision: 1.4 $
+        $Date: 1999/06/30 03:04:08 $
  *---------------------------------------------------------------------*/
 
-#ifndef _OS_CACHE_H_
-#define	_OS_CACHE_H_
+#ifndef _OS_DEBUG_H_
+#define	_OS_DEBUG_H_
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
 extern "C" {
@@ -44,6 +44,16 @@ extern "C" {
  *
  */
 
+/*
+ * Structure for Profiler 
+ */
+typedef struct {
+	u16	*histo_base;		/* histogram base */
+	u32	histo_size;		/* histogram size */
+	u32	*text_start;		/* start of text segment */
+	u32	*text_end;		/* end of text segment */
+} OSProf;
+
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 
@@ -53,6 +63,11 @@ extern "C" {
  *
  */
 
+/*
+ * Profiler constants
+ */
+#define PROF_MIN_INTERVAL	50	/* microseconds */
+
 
 #if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 
@@ -61,9 +76,6 @@ extern "C" {
  * Macro definitions
  *
  */
-
-#define	OS_DCACHE_ROUNDUP_ADDR(x)	(void *)(((((u32)(x)+0xf)/0x10)*0x10))
-#define	OS_DCACHE_ROUNDUP_SIZE(x)	(u32)(((((u32)(x)+0xf)/0x10)*0x10))
 
 
 /**************************************************************************
@@ -79,13 +91,22 @@ extern "C" {
  *
  */
 
-/* Cache operations and macros */
+/* Profiler Interface */
 
-extern void		osInvalDCache(void *, s32);
-extern void		osInvalICache(void *, s32);
-extern void		osWritebackDCache(void *, s32);
-extern void		osWritebackDCacheAll(void);
+extern void		osProfileInit(OSProf *, u32 profcnt);
+extern void		osProfileStart(u32);
+extern void		osProfileFlush(void);
+extern void		osProfileStop(void);
 
+/* Thread Profiler Interface */
+extern void             osThreadProfileClear(OSId);
+extern void             osThreadProfileInit(void);
+extern void             osThreadProfileStart(void);
+extern void             osThreadProfileStop(void);
+extern u32              osThreadProfileReadCount(OSId);
+extern u32              osThreadProfileReadCountTh(OSThread*);
+extern OSTime           osThreadProfileReadTime(OSId);
+extern OSTime           osThreadProfileReadTimeTh(OSThread*);
 
 #endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 
@@ -93,4 +114,4 @@ extern void		osWritebackDCacheAll(void);
 }
 #endif
 
-#endif /* !_OS_CACHE_H_ */
+#endif /* !_OS_DEBUG_H_ */

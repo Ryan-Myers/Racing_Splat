@@ -1,6 +1,8 @@
 #ifndef _LIBULTRA_H
 #define _LIBULTRA_H
 
+//TODO: REMOVE THIS FILE
+
 #define TV_TYPE_NTSC 1
 #define TV_TYPE_PAL 0
 #define TV_TYPE_MPAL 2
