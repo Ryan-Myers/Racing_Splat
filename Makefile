@@ -118,7 +118,7 @@ else
 	DEFINES += ANTI_TAMPER
 endif
 
-C_DEFINES := $(foreach d,$(DEFINES),-D$(d)) $(LIBULTRA_VERSION_DEFINE) -D_MIPS_SZLONG=32 -D_LANGUAGE_C
+C_DEFINES := $(foreach d,$(DEFINES),-D$(d)) $(LIBULTRA_VERSION_DEFINE) -D_MIPS_SZLONG=32
 ASM_DEFINES = --defsym _MIPS_SIM=1 --defsym mips=1
 
 INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(LIBULTRA_SRC_DIRS)

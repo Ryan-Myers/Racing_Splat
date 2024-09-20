@@ -674,7 +674,7 @@ typedef struct {
 } ALChanState;
 
 #ifdef RAREDIFFS
-// Can't just replace the original with this, because alCSPGetChlVol won't match.
+/* Can't just replace the original with this, because alCSPGetChlVol won't match. */
 typedef struct {
     ALInstrument        *instrument;    /* instrument assigned to this chan */
     s16                 bendRange;      /* pitch bend range in cents        */

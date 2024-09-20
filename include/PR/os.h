@@ -51,15 +51,15 @@
 #include <PR/os_system.h>
 #include <PR/os_eeprom.h>
 #include <PR/os_flash.h>
-//#include <PR/os_host.h>
+/* #include <PR/os_host.h> */
 #include <PR/os_convert.h>
 #include <PR/os_rdp.h>
 #include <PR/os_rsp.h>
-// #include <PR/os_motor.h>
+/* #include <PR/os_motor.h> */
 #include <PR/os_libc.h>
-// #include <PR/os_version.h>
+/* #include <PR/os_version.h> */
 
-// TODO: Why the 3 includes above fail?
+/* TODO: Why the 3 includes above fail? */
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
 extern "C" {

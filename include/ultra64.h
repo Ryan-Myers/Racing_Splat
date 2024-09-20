@@ -33,7 +33,7 @@
 #include <PR/gu.h>
 #include <PR/ramrom.h>
 #ifndef RAREDIFFS
-// This file fails in DKR because of the same named sprite structs.
+/* This file fails in DKR because of the same named sprite structs. */
 #include <PR/sp.h>
 #endif
 #include <PR/ucode.h>
