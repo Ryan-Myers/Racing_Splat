@@ -3,7 +3,7 @@
 
 #include "save_data.h"
 #include "memory.h"
-#include "PR/pfs.h"
+#include "PR/os_pfs.h"
 #include "PR/os_cont.h"
 #include "macros.h"
 #include "structs.h"

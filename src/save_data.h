@@ -3,7 +3,7 @@
 
 #include "types.h"
 #include "structs.h"
-#include "PR/pfs.h"
+#include "PR/os_pfs.h"
 #include "PR/os_cont.h"
 
 #define GAMD 0x47414D44 // 'GAMD' ASCII - Game Data?
