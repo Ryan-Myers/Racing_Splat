@@ -41,8 +41,8 @@ extern u32 __osTimerCounter;
 extern u32 __osShutdown;
 
 extern OSMesgQueue __osProfTimerQ;
-// extern OSProf *__osProfileList;
-// extern OSProf *__osProfileListEnd;
+extern OSProf *__osProfileList;
+extern OSProf *__osProfileListEnd;
 extern u32 __osProfileOverflowBin;
 
 extern __OSEventState __osEventStateTab[];
