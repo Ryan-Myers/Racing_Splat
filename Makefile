@@ -288,7 +288,7 @@ expected: verify
 
 $(GLOBAL_ASM_O_FILES): CC := $(ASM_PROCESSOR) $(CC) -- $(AS) $(ASFLAGS) --
 
-$(TARGET).elf: dirs $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES)
+$(TARGET).elf: dirs $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES)
 	$(V)$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
 	@printf "[$(PINK) Linker $(NO_COL)]  $<\n"
 

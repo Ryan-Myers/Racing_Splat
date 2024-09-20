@@ -258,6 +258,7 @@ segments:
       - [0xD75A0, c, lib/src/libc/xldtob]
       - [0xD8060, hasm, lib/src/os/setcompare]
       - [0xD8070, c, lib/src/libc/ldiv]
+      - [auto, c, memory_pool] #bss only file
       - [0xD8200, textbin, ucode_audio]
       - [0xD90C0, textbin, ucode_boot]
       - [0xD9190, textbin, ucode_f3ddkr_dram]
@@ -378,7 +379,7 @@ segments:
       - [0xEA3C0, .rodata, lib/src/gu/cosf]
       - [0xEA410, .rodata, lib/src/gu/sinf]
       - [0xEA460, .rodata, lib/src/libc/xldtob]
-      - [0xEA4C0, rodata, lib/src/gu/libm_vals]
+      - [0xEA4C0, hasm, lib/src/gu/libm_vals]
       - [0xEA4D0, rodata, data_audio]
       - [0xEA7A0, rodata, data_f3ddkr_dram]
       - [0xEAFA0, rodata, data_f3ddkr_fifo]
@@ -440,6 +441,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012D1E0, name: lib/src/io/piacs }
       - { start: auto, type: .bss, vram: 0x8012D200, name: lib/src/os/timerintr }
       - { start: auto, type:  bss, vram: 0x8012D240, name: lib/src/os/exceptasm }
+      - { start: auto, type: .bss, vram: 0x8012D3F0, name: memory_pool }
 
   - type: bin
     start: 0xECB60

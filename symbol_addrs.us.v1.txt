@@ -4809,7 +4809,7 @@ __osBaseCounter = 0x8012D228;
 __osViIntrCount = 0x8012D22C;
 __osTimerCounter = 0x8012D230;
 D_8012D238 = 0x8012D238;
-gInterruptedThread = 0x8012D240; // type:OSThread size:0x1B0
+__osThreadSave = 0x8012D240; // type:OSThread size:0x1B0
 // TODO MOVE THIS!
 gMainMemoryPool = 0x8012D3F0; // type:MemoryPoolSlot size:0x14
 
