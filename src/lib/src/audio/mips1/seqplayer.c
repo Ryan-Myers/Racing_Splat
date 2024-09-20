@@ -40,6 +40,12 @@
 #include "seqp.h"
 #include "seq.h"
 
+#if defined(__sgi)
+#define stubbed_printf
+#else
+#define stubbed_printf(...)
+#endif
+
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
 

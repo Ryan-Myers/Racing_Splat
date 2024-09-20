@@ -105,7 +105,7 @@ OPT_FLAGS      = -O2
 
 MIPSISET       = -mips1
 
-DEFINES := _FINALROM NDEBUG TARGET_N64 __sgi F3DDKR_GBI __GL_GL_H__
+DEFINES := _FINALROM NDEBUG TARGET_N64 __sgi F3DDKR_GBI
 DEFINES += VERSION_$(REGION)_$(VERSION)
 
 VERIFY = verify
@@ -118,7 +118,7 @@ else
 	DEFINES += ANTI_TAMPER
 endif
 
-C_DEFINES := $(foreach d,$(DEFINES),-D$(d)) $(LIBULTRA_VERSION_DEFINE)
+C_DEFINES := $(foreach d,$(DEFINES),-D$(d)) $(LIBULTRA_VERSION_DEFINE) -D_MIPS_SZLONG=32 -D_LANGUAGE_C
 ASM_DEFINES = --defsym _MIPS_SIM=1 --defsym mips=1
 
 INCLUDE_CFLAGS  = -I . -I include -I include/libc  -I include/PR -I include/sys -I $(BIN_DIRS) -I $(SRC_DIR) -I $(LIBULTRA_SRC_DIRS)
