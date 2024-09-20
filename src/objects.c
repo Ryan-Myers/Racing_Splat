@@ -30,6 +30,7 @@
 #include "audiosfx.h"
 #include "audio_vehicle.h"
 #include "vehicle_misc.h"
+#include "PRinternal/viint.h"
 
 #define MAX_CHECKPOINTS 60
 #define OBJECT_POOL_SIZE 0x15800
@@ -462,7 +463,7 @@ void func_8000BADC(s32 updateRate) {
     }
     for (i = 0; i < gNumRacers; i++) {
         updateRateF = (f32) updateRate;
-        if (osTvType == TV_TYPE_PAL) {
+        if (osTvType == OS_TV_TYPE_PAL) {
             updateRateF *= 1.2f;
         }
         racer = &(*gRacers)[i]->unk64->racer;
@@ -772,7 +773,7 @@ void try_free_object_header(s32 index) {
  * it consistent with non PAL timers, running 60Hz.
  */
 s32 normalise_time(s32 timer) {
-    if (osTvType != TV_TYPE_PAL || timer < 0) {
+    if (osTvType != OS_TV_TYPE_PAL || timer < 0) {
         return timer;
     } else {
         return (timer * 5) / 6;
@@ -4408,7 +4409,7 @@ void race_transition_adventure(s32 updateRate) {
         set_anti_aliasing(TRUE);
         disable_racer_input();
         if (!(get_current_level_race_type() & RACETYPE_CHALLENGE_BATTLE)) {
-            if (osTvType == TV_TYPE_PAL) {
+            if (osTvType == OS_TV_TYPE_PAL) {
                 cutsceneTimerLimit = 415;
             } else {
                 cutsceneTimerLimit = 540;
@@ -4536,7 +4537,7 @@ void race_finish_time_trial(void) {
                 timetrial_swap_player_ghost(get_current_map_id());
                 gHasGhostToSave = TRUE;
             }
-            if (osTvType == TV_TYPE_PAL) {
+            if (osTvType == OS_TV_TYPE_PAL) {
                 bestCourseTime = (bestCourseTime * 6) / 5;
             }
             if (bestCourseTime < gTTGhostTimeToBeat) {

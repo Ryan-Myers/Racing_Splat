@@ -7,6 +7,7 @@
 #include "racer.h"
 #include "game.h"
 #include "controller_dkr.h"
+#include "PRinternal/viint.h"
 
 /************ .data ************/
 
@@ -66,7 +67,7 @@ void init_dialogue_text(void) {
     gCurrentTextID = 0;
     gDialogueXPos1 = 32;
     gDialogueXPos2 = 288;
-    if (osTvType == TV_TYPE_PAL) {
+    if (osTvType == OS_TV_TYPE_PAL) {
         gDialogueYPos1 = 224;
         gDialogueYPos2 = 248;
     } else {
@@ -259,7 +260,7 @@ void reset_delayed_text(void) {
  * Set the delayed text ID and delay (in seconds)
  */
 void set_delayed_text(s32 textID, f32 delay) {
-    if (osTvType == TV_TYPE_PAL) {
+    if (osTvType == OS_TV_TYPE_PAL) {
         gTextboxDelay = delay * 50.0;
     } else {
         gTextboxDelay = delay * 60.0;
@@ -469,7 +470,7 @@ s32 func_800C38B4(s32 arg0, TextBox *textbox) {
             case 1:
                 textbox->left = var_s0[1] & 0xFF;
                 textbox->top = D_8012A7A0[arg0 + 2] & 0xFF;
-                if (osTvType == TV_TYPE_PAL) {
+                if (osTvType == OS_TV_TYPE_PAL) {
                     temp = textbox->top;
                     textbox->top = (textbox->top * 264) / 240;
                     temp = textbox->top - temp;

@@ -12,6 +12,7 @@
 #include "game.h"
 #include "thread3_main.h"
 #include "controller_dkr.h"
+#include "PRinternal/viint.h"
 
 /************ .data ************/
 
@@ -1694,7 +1695,7 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
 
     if (get_language() == LANGUAGE_JAPANESE) {
         gameCode = JPN_GAME_CODE;
-    } else if (osTvType == TV_TYPE_PAL) {
+    } else if (osTvType == OS_TV_TYPE_PAL) {
         gameCode = PAL_GAME_CODE;
     } else {
         gameCode = NTSC_GAME_CODE;
@@ -1890,7 +1891,7 @@ SIDeviceStatus get_file_number(s32 controllerIndex, char *fileName, char *fileEx
 
     if (get_language() == LANGUAGE_JAPANESE) {
         gameCode = JPN_GAME_CODE;
-    } else if (osTvType == TV_TYPE_PAL) {
+    } else if (osTvType == OS_TV_TYPE_PAL) {
         gameCode = PAL_GAME_CODE;
     } else {
         gameCode = NTSC_GAME_CODE;
@@ -1970,7 +1971,7 @@ SIDeviceStatus write_controller_pak_file(s32 controllerIndex, s32 fileNumber, ch
 
     if (get_language() == LANGUAGE_JAPANESE) {
         game_code = JPN_GAME_CODE;
-    } else if (osTvType == TV_TYPE_PAL) {
+    } else if (osTvType == OS_TV_TYPE_PAL) {
         game_code = PAL_GAME_CODE;
     } else {
         game_code = NTSC_GAME_CODE;

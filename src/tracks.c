@@ -23,6 +23,7 @@
 #include "math_util.h"
 #include "printf.h"
 #include "collision.h"
+#include "PRinternal/viint.h"
 
 // Maximum size for a level model is 522.5 KiB
 #define LEVEL_MODEL_MAX_SIZE 0x82A00
@@ -418,7 +419,7 @@ void render_scene(Gfx **dList, MatrixS **mtx, Vertex **vtx, TriangleList **tris,
             lensflare_render(&gSceneCurrDisplayList, &gSceneCurrMatrix, &gSceneCurrVertexList,
                              get_active_camera_segment());
             set_text_font(FONT_COLOURFUL);
-            if (osTvType == TV_TYPE_PAL) {
+            if (osTvType == OS_TV_TYPE_PAL) {
                 posX = SCREEN_WIDTH_HALF + 6;
                 posY = SCREEN_HEIGHT_HALF_PAL + 6;
             } else {
@@ -773,7 +774,7 @@ void draw_gradient_background(void) {
     gSPVertexDKR(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(verts), 4, 0);
     gSPPolygon(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(tris), 2, 0);
     set_twenty = 20;
-    if (osTvType == TV_TYPE_PAL) {
+    if (osTvType == OS_TV_TYPE_PAL) {
         y0 = -180;
         y1 = 180;
     } else {

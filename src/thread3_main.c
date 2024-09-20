@@ -44,6 +44,7 @@
 #include "particles.h"
 #include "math_util.h"
 #include "controller_dkr.h"
+#include "PRinternal/viint.h"
 
 /************ .rodata ************/
 
@@ -182,11 +183,11 @@ void init_game(void) {
     gIsLoading = FALSE;
     gLevelDefaultVehicleID = VEHICLE_CAR;
 
-    if (osTvType == TV_TYPE_PAL) {
+    if (osTvType == OS_TV_TYPE_PAL) {
         viMode = OS_VI_PAL_LPN1;
-    } else if (osTvType == TV_TYPE_NTSC) {
+    } else if (osTvType == OS_TV_TYPE_NTSC) {
         viMode = OS_VI_NTSC_LPN1;
-    } else if (osTvType == TV_TYPE_MPAL) {
+    } else if (osTvType == OS_TV_TYPE_MPAL) {
         viMode = OS_VI_MPAL_LPN1;
     }
 
@@ -334,7 +335,7 @@ void main_game_loop(void) {
     }
     if (gDrawFrameTimer == 2) {
         framebufferSize = SCREEN_WIDTH * SCREEN_HEIGHT * 2;
-        if (osTvType == TV_TYPE_PAL) {
+        if (osTvType == OS_TV_TYPE_PAL) {
             framebufferSize = (s32) ((SCREEN_WIDTH * SCREEN_HEIGHT * 2) * 1.1f);
         }
         dmacopy_doubleword(gVideoLastFramebuffer, gVideoCurrFramebuffer, (s32) gVideoCurrFramebuffer + framebufferSize);

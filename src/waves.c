@@ -10,6 +10,7 @@
 #include "objects.h"
 #include "tracks.h"
 #include "math_util.h"
+#include "PRinternal/viint.h"
 
 /************ .data ************/
 
@@ -756,7 +757,7 @@ unk800E3190 *func_800BF634(Object *obj, f32 xPos, f32 zPos, f32 arg3, s32 arg4, 
             result->unk18 = i;
             result->unk14 = arg3 * arg3;
             result->unk1A = arg4;
-            if (osTvType == TV_TYPE_PAL) {
+            if (osTvType == OS_TV_TYPE_PAL) {
                 result->unk1C = arg5 * 20971.52; //(f64) (0x80000 / 25.0);
             } else {
                 result->unk1C = arg5 * 17476.27; //(f64) ((0x80000 / 1.2) / 25.0);
@@ -853,7 +854,7 @@ UNUSED void func_800BFC54(unk800BFC54_arg0 *arg0, f32 arg1, f32 arg2, f32 arg3, 
         arg0->unk0 = (arg0->unkC - arg0->unk10);
         arg0->unk4 = (arg0->unkC + arg0->unk10);
         arg0->unk28 += arg2;
-        if (osTvType == TV_TYPE_PAL) {
+        if (osTvType == OS_TV_TYPE_PAL) {
             arg0->unk1C = arg0->unk28 * 20971.52; //(f64) (0x80000 / 25.0);
         } else {
             arg0->unk1C = arg0->unk28 * 17476.27; //(f64) ((0x80000 / 1.2) / 25.0);

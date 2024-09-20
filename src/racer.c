@@ -28,6 +28,7 @@
 #include "collision.h"
 #include "controller_dkr.h"
 #include "particles.h"
+#include "PRinternal/viint.h"
 
 #define MAX_NUMBER_OF_GHOST_NODES 360
 
@@ -2240,7 +2241,7 @@ void update_player_racer(Object *obj, s32 updateRate) {
         tempRacer->unk1F1 = 0;
     }
     // PAL moves 20% faster.
-    if (osTvType == TV_TYPE_PAL) {
+    if (osTvType == OS_TV_TYPE_PAL) {
         updateRateF *= 1.2;
     }
     tempRacer->unk1F6 -= updateRate;
@@ -5826,7 +5827,7 @@ s32 set_ghost_position_and_rotation(Object *obj) {
     }
 
     commonUnk0f32 = (f32) obj->properties.common.unk0 / 30.0f;
-    if (osTvType == TV_TYPE_PAL && ghostDataIndex == 2) {
+    if (osTvType == OS_TV_TYPE_PAL && ghostDataIndex == 2) {
         commonUnk0f32 = ((f32) obj->properties.common.unk0 * 1.2) / 30.0f;
     }
     commonUnk0s32 = commonUnk0f32; // Truncate the float to an integer?
