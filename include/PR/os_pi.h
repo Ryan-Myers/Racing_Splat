@@ -15,7 +15,17 @@ typedef struct {
     u32 C1ErrNum;
     u32 C1ErrSector[4];
 } __OSBlockInfo;
-
+/*
+ * I/O message types
+ */
+#define OS_MESG_TYPE_BASE       (10)
+#define OS_MESG_TYPE_LOOPBACK   (OS_MESG_TYPE_BASE + 0)
+#define OS_MESG_TYPE_DMAREAD    (OS_MESG_TYPE_BASE + 1)
+#define OS_MESG_TYPE_DMAWRITE   (OS_MESG_TYPE_BASE + 2)
+#define OS_MESG_TYPE_VRETRACE   (OS_MESG_TYPE_BASE + 3)
+#define OS_MESG_TYPE_COUNTER    (OS_MESG_TYPE_BASE + 4)
+#define OS_MESG_TYPE_EDMAREAD   (OS_MESG_TYPE_BASE + 5)
+#define OS_MESG_TYPE_EDMAWRITE  (OS_MESG_TYPE_BASE + 6)
 typedef struct {
     u32 cmdType;       // 0
     u16 transferMode;  // 4
