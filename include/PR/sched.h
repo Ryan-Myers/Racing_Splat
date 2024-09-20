@@ -1,13 +1,46 @@
-#ifndef _SCHED_H_
-#define _SCHED_H_
+/*====================================================================
+ * sched.h
+ *
+ * Synopsis:
+ *
+ * Copyright 1993, Silicon Graphics, Inc.
+ * All Rights Reserved.
+ *
+ * This is UNPUBLISHED PROPRIETARY SOURCE CODE of Silicon Graphics,
+ * Inc.; the contents of this file may not be disclosed to third
+ * parties, copied or duplicated in any form, in whole or in part,
+ * without the prior written permission of Silicon Graphics, Inc.
+ *
+ * RESTRICTED RIGHTS LEGEND:
+ * Use, duplication or disclosure by the Government is subject to
+ * restrictions as set forth in subdivision (c)(1)(ii) of the Rights
+ * in Technical Data and Computer Software clause at DFARS
+ * 252.227-7013, and/or in similar or successor clauses in the FAR,
+ * DOD or NASA FAR Supplement. Unpublished - rights reserved under the
+ * Copyright Laws of the United States.
+ *====================================================================*/
 
-#include "types.h"
+/**************************************************************************
+ *
+ *  $Revision: 1.7 $
+ *  $Date: 1997/02/11 08:32:02 $
+ *  $Source: /exdisk2/cvs/N64OS/Master/cvsmdev2/PR/include/sched.h,v $
+ *
+ **************************************************************************/
+
+#ifndef __sched__
+#define __sched__
+
+#include <ultra64.h>
 #include "macros.h"
-#include "libultra_internal.h"
+
+#define OS_SC_STACKSIZE      0x2000
 
 #define OS_SC_RETRACE_MSG       1
+#define OS_SC_DONE_MSG          2
+#define OS_SC_RDP_DONE_MSG      3
 #define OS_SC_PRE_NMI_MSG       4
-#define OS_SC_AUDIO_MSG         5
+#define OS_SC_LAST_MSG          4	/* this should have highest number */
 #define OS_SC_MAX_MESGS         8
 
 #define OS_SC_ID_NONE   0
@@ -18,36 +51,6 @@
 #define OSMESG_SWAP_BUFFER 0
 #define MESG_SKIP_BUFFER_SWAP 8
 
-/*
- * OSScTask state
- */
-#define OS_SC_DP                0x0001  /* set if still needs dp        */
-#define OS_SC_SP                0x0002  /* set if still needs sp        */
-#define OS_SC_YIELD             0x0010  /* set if yield requested       */
-#define OS_SC_YIELDED           0x0020  /* set if yield completed       */
-
-/*
- * OSScTask->flags type identifier
- */
-#define OS_SC_XBUS      (OS_SC_SP | OS_SC_DP)
-#define OS_SC_DRAM      (OS_SC_SP | OS_SC_DP | OS_SC_DRAM_DLIST)
-#define OS_SC_DP_XBUS   (OS_SC_SP)
-#define OS_SC_DP_DRAM   (OS_SC_SP | OS_SC_DRAM_DLIST)
-#define OS_SC_SP_XBUS   (OS_SC_DP)
-#define OS_SC_SP_DRAM   (OS_SC_DP | OS_SC_DRAM_DLIST)
-/*
- * OSScTask flags:
- */
-#define OS_SC_NEEDS_RDP         0x0001  /* uses the RDP */
-#define OS_SC_NEEDS_RSP         0x0002  /* uses the RSP */
-#define OS_SC_DRAM_DLIST        0x0004  /* SP & DP communicate through DRAM */
-#define OS_SC_PARALLEL_TASK     0x0010  /* must be first gfx task on list */
-#define OS_SC_LAST_TASK         0x0020  /* last task in queue for frame */
-#define OS_SC_SWAPBUFFER        0x0040  /* swapbuffers when gfx task done */
-
-#define OS_SC_RCP_MASK          0x0003  /* mask for needs bits */
-#define OS_SC_TYPE_MASK         0x0007  /* complete type mask */
-
 typedef struct {
     short type;
     char  misc[30];
@@ -56,70 +59,86 @@ typedef struct {
 typedef struct OSScTask_s {
     struct OSScTask_s   *next;          /* note: this must be first */
     u32                 state;
-    u32                 flags;
-    void                *framebuffer;   /* used by graphics tasks */
+    u32			flags;
+    void		*framebuffer;	/* used by graphics tasks */
 
     OSTask              list;
     OSMesgQueue         *msgQ;
     OSMesg              msg;
+#ifndef _FINALROM                      /* all #ifdef items should    */
+    OSTime              startTime;      /* remain at the end!!, or    */
+    OSTime              totalTime;      /* possible conflict if       */
+#endif                                  /* FINALROM library used with */
+#ifdef RAREDIFFS
     s32                 unk58;
     s32                 unk5C;
     s32                 unk60;
     s32                 unk64;
     s32                 unk68;          /* Added by Rare?             */
     s32                 unk6C;          /* Task ID, used in debug functions in JFG */
-} OSScTask;
+#endif
+} OSScTask;                             /* non FINALROM code          */
 
+/*
+ * OSScTask flags:
+ */
+#define OS_SC_NEEDS_RDP	        0x0001	/* uses the RDP */
+#define OS_SC_NEEDS_RSP	        0x0002  /* uses the RSP */
+#define OS_SC_DRAM_DLIST        0x0004  /* SP & DP communicate through DRAM */
+#define OS_SC_PARALLEL_TASK     0x0010	/* must be first gfx task on list */
+#define OS_SC_LAST_TASK	        0x0020	/* last task in queue for frame */
+#define OS_SC_SWAPBUFFER        0x0040	/* swapbuffers when gfx task done */
+
+#define OS_SC_RCP_MASK		0x0003	/* mask for needs bits */
+#define OS_SC_TYPE_MASK		0x0007	/* complete type mask */
+/*
+ * OSScClient:
+ *
+ * Data structure used by threads that wish to communicate to the
+ * scheduling thread
+ *
+ */
 typedef struct SCClient_s {
-    u8                  id;   /* Client ID, added by Rareware to single out individual scheduler clients*/
+#ifdef RAREDIFFS
+    u8                  id;   /* Client ID, added by Rareware to single out individual scheduler clients */
+#endif
     struct SCClient_s   *next;  /* next client in the list      */
     OSMesgQueue         *msgQ;  /* where to send the frame msg  */
 } OSScClient;
 
-/* 0x288 bytes */
 typedef struct {
-  /* 0x00 */  OSScMsg     retraceMsg;
-  /* 0x20 */  OSScMsg     prenmiMsg;
-  /* 0x40 */  OSMesgQueue interruptQ;
-  /* 0x58 */  OSMesg      intBuf[OS_SC_MAX_MESGS]; //0x8 per OSMesg
-  /* 0x78 */  OSMesgQueue cmdQ;
-  /* 0x90 */  OSMesg      cmdMsgBuf[OS_SC_MAX_MESGS]; //0x8 per OSMesg
-  /* 0xB0 */  OSThread    thread;
-  /* 0x260 */ OSScClient  *clientList;
-  /* 0x264 */ OSScTask    *audioListHead;
-  /* 0x268 */ OSScTask    *gfxListHead;
-  /* 0x26C */ OSScTask    *audioListTail;
-  /* 0x270 */ OSScTask    *gfxListTail;
-  /* 0x274 */ OSScTask    *curRSPTask;
-  /* 0x278 */ OSScTask    *curRDPTask;
-  /* 0x27C */ OSScTask    *unkTask; //Rare added?
-  /* 0x280 */ u32         frameCount;
-  /* 0x284 */ s32         doAudio;
+    OSScMsg     retraceMsg;
+    OSScMsg     prenmiMsg;
+    OSMesgQueue interruptQ;
+    OSMesg      intBuf[OS_SC_MAX_MESGS];
+    OSMesgQueue cmdQ;
+    OSMesg      cmdMsgBuf[OS_SC_MAX_MESGS];
+    OSThread    thread;
+    OSScClient  *clientList;
+    OSScTask    *audioListHead;
+    OSScTask    *gfxListHead;
+    OSScTask    *audioListTail;
+    OSScTask    *gfxListTail;
+    OSScTask    *curRSPTask;
+    OSScTask    *curRDPTask;
+#ifdef RAREDIFFS
+   OSScTask    *unkTask;
+#endif
+    u32         frameCount;
+    s32         doAudio;
 } OSSched;
 
-typedef struct{
-    u8 pad00[0x50];
-} unk800E3900;
-
-extern OSViMode osViModeTable[];
-
-/*******************************/
-
-void __scYield(OSSched *sc);
-void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
-void osCreateScheduler(OSSched *sc, void *stack, OSPri priority, u8 mode, u8 numFields);
-void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, u8 id);
-void osScRemoveClient(OSSched *sc, OSScClient *c);
-OSMesgQueue *osScGetCmdQ(OSSched *sc);
-OSMesgQueue *osScGetInterruptQ(OSSched *sc);
-void func_80079584(f32 *arg0, f32 *arg1, f32 *arg2);
-void func_80079760(OSSched *sc);
-void __scHandleRDP(OSSched *sc);
-void __scHandleRSP(OSSched *sc);
-OSScTask *__scTaskReady(OSScTask *t);
-s32 __scTaskComplete(OSSched *sc, OSScTask *t);
-void __scAppendList(OSSched *sc, OSScTask *t);
-void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
-void __scHandleRetrace(OSSched *sc);
+void            osCreateScheduler(OSSched *s, void *stack, OSPri priority,
+                                  u8 mode, u8 numFields);
+#ifdef RAREDIFFS
+void            osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ, u8 id);
+OSMesgQueue    *osScGetInterruptQ(OSSched *s);
+void            func_80079760(OSSched *s);
+#else
+void            osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ);
+#endif
+void            osScRemoveClient(OSSched *s, OSScClient *c);
+OSMesgQueue     *osScGetCmdQ(OSSched *s);
 
 #endif
+

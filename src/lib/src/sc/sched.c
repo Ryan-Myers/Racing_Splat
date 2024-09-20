@@ -64,6 +64,7 @@ static void     __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
 static void	__scYield(OSSched *s);
 
 #ifdef RAREDIFFS
+#undef SCHED_THREAD_ID
 #define SCHED_THREAD_ID 5
 
 /************ .data ************/
