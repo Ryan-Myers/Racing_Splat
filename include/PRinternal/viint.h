@@ -1,6 +1,6 @@
 #ifndef _VIINT_H
 #define _VIINT_H
-#include "libultra_internal.h"
+#include <ultra64.h>
 
 #define OS_TV_TYPE_PAL 0
 #define OS_TV_TYPE_NTSC 1

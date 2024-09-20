@@ -7,7 +7,7 @@
 #include "structs.h"
 #include "macros.h"
 #include "memory.h"
-#include "libultra_internal.h"
+#include <ultra64.h>
 
 /**
  * First two entries are combine mode.

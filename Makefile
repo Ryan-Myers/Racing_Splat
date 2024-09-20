@@ -191,8 +191,8 @@ $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/io/motor.c.o: MIPSISET := -mips1
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/audio/env.c.o: MIPSISET := -mips1
 
 #Ignore warnings for libultra files
-# $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: CC_WARNINGS := -w
-# $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: CC_CHECK := :
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: CC_WARNINGS := -w
+$(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/%.c.o: CC_CHECK := :
 
 ####################### MATH UTIL #########################
 

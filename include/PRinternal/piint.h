@@ -1,7 +1,7 @@
 #ifndef _PIINT_H_
 #define _PIINT_H_
 
-#include "libultra_internal.h"
+#include <ultra64.h>
 #include "PR/os_internal.h"
 #include "PR/rcp.h"
 

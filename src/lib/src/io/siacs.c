@@ -1,6 +1,6 @@
 #include "PRinternal/macros.h"
 #include "PR/os_internal.h"
-#include "libultra_internal.h"
+#include <ultra64.h>
 
 #define SI_Q_BUF_LEN 1
 static OSMesg siAccessBuf[SI_Q_BUF_LEN] ALIGNED(0x8);

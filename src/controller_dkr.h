@@ -4,7 +4,7 @@
 #include "types.h"
 #include "macros.h"
 #include "structs.h"
-#include "libultra_internal.h"
+#include <ultra64.h>
 
 #define CONTROLLER_MISSING -1
 #define CONTROLLER_EXISTS   0

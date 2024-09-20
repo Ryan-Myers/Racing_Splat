@@ -3,7 +3,7 @@
 
 #include "thread30_track_loading.h"
 #include "macros.h"
-#include "libultra_internal.h"
+#include <ultra64.h>
 #include "game.h"
 #include "stacks.h"
 

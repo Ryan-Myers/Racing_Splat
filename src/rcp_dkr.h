@@ -5,7 +5,7 @@
 #include "structs.h"
 #include "f3ddkr.h"
 #include "sched.h"
-#include "libultra_internal.h"
+#include <ultra64.h>
 
 #include "game_ui.h"
 #include "video.h"

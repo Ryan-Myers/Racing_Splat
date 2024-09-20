@@ -1,6 +1,6 @@
 #include "PRinternal/macros.h"
 #include "PR/os_internal.h"
-#include "libultra_internal.h"
+#include <ultra64.h>
 
 #define PI_Q_BUF_LEN 1
 u32 __osPiAccessQueueEnabled = 0;
