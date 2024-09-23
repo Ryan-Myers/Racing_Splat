@@ -1,6 +1,7 @@
 BASENAME  = dkr
 REGION  := us
 VERSION  := v1
+NON_MATCHING ?= 0
 
 LIBULTRA_VERSION_DEFINE := -DBUILD_VERSION=4 -DBUILD_VERSION_STRING=\"2.0G\" -DRAREDIFFS
 
@@ -10,17 +11,28 @@ ifeq ($(VERBOSE),0)
   V := @
 endif
 
+PRINT = printf
 
 # Colors
 
+# Whether to colorize build messages
+COLOR ?= 1
+
+ifeq ($(COLOR),1)
 NO_COL  := \033[0m
 RED     := \033[0;31m
-RED2    := \033[1;31m
 GREEN   := \033[0;32m
 YELLOW  := \033[0;33m
 BLUE    := \033[0;34m
 PINK    := \033[0;35m
 CYAN    := \033[0;36m
+COLORIZE := -c
+endif
+
+# Common build print status function
+define print
+  @$(PRINT) "$(GREEN)$(1) $(YELLOW)$(2)$(GREEN) -> $(BLUE)$(3)$(NO_COL)\n"
+endef
 
 # Directories
 
@@ -99,7 +111,7 @@ GREP     = grep -rl
 #Options
 CC       = $(RECOMP_DIR)/cc
 SPLAT    ?= $(PYTHON) -m splat split
-CRC      = $(V)$(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64
+CRC      = $(V)$(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64 $(COLORIZE)
 
 OPT_FLAGS      = -O2
 
@@ -212,10 +224,18 @@ dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(HASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
 
 verify: $(TARGET).z64
-	@sha1sum -c $(BASENAME).$(REGION).$(VERSION).sha1
+	@$(CRC)
+ifeq ($(NON_MATCHING),0)
+	@(sha1sum -c --quiet $(BASENAME).$(REGION).$(VERSION).sha1 \
+	&& $(PRINT) "$(GREEN)Verify:$(NO_COL)\
+	 $(YELLOW)OK$(NO_COL)\n")
+	$(V)$(PRINT) "$(YELLOW)    __\n .\`_  _\`.\n| | \`| | |\n| |_|._| |\n \`. __ .\'$(NO_COL)\n\n"
+else
+	$(V)$(PRINT) "$(GREEN)Build Complete!$(NO_COL)\n"
+endif
 
 no_verify: $(TARGET).z64
-	@echo "Skipping SHA1SUM check!"
+	$(V)$(PRINT) "$(GREEN)Build Complete!$(NO_COL)\n"
 
 extract: tools
 	$(SPLAT) splat_files/$(BASENAME).$(REGION).$(VERSION).yaml
@@ -290,30 +310,29 @@ $(GLOBAL_ASM_O_FILES): CC := $(ASM_PROCESSOR) $(CC) -- $(AS) $(ASFLAGS) --
 
 $(TARGET).elf: dirs $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES)
 	$(V)$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
-	@printf "[$(PINK) Linker $(NO_COL)]  $<\n"
+	$(V)$(PRINT) "$(GREEN)Linking: $(BLUE)$@\n"
 
 ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c
 	$(V)$(CC_CHECK) $<
-	@printf "[$(YELLOW) check $(NO_COL)] $<\n"
 	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
-	@printf "[$(GREEN) ido5.3 + asm $(NO_COL)]  $<\n"
+	$(call print,Compiling:,$<,$@)
 endif
 
 # non asm-processor recipe
 $(BUILD_DIR)/%.c.o: %.c
 	$(V)$(CC_CHECK) $<
 	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
-	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
+	$(call print,Compiling:,$<,$@)
 
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/llcvt.c.o: $(LIBULTRA_SRC_DIRS)/src/libc/llcvt.c
-	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
-	$(V)$(CC)  -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+	$(call print,Compiling mips3:,$<,$@)
+	@$(CC)  -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
 
 $(BUILD_DIR)/$(LIBULTRA_SRC_DIRS)/src/libc/ll.c.o: $(LIBULTRA_SRC_DIRS)/src/libc/ll.c
-	@printf "[$(PINK) mips3 $(NO_COL)]  $<\n"
-	$(V)$(CC)  -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+	$(call print,Compiling mips3:,$<,$@)
+	@$(CC)  -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
 
 
@@ -327,21 +346,19 @@ $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 
 $(BUILD_DIR)/%.s.o: %.s
 	$(V)$(AS) $(ASFLAGS) -o $@ $<
-	@printf "[$(GREEN)  ASSEMBLER   $(NO_COL)]  $<\n"
+	$(call print,Assembling:,$<,$@)
 
 $(BUILD_DIR)/%.bin.o: %.bin
 	$(V)$(LD) -r -b binary -o $@ $<
-	@printf "[$(PINK) Linker $(NO_COL)]  $<\n"
+	$(call print,Linking Binary:,$<,$@)
 
 $(TARGET).bin: $(TARGET).elf
 	$(V)$(OBJCOPY) $(OBJCOPYFLAGS) $< $@
-	@printf "[$(CYAN) Objcopy $(NO_COL)]  $<\n"
+	$(call print,Objcopy:,$<,$@)
 
 $(TARGET).z64: $(TARGET).bin
-	@printf "[$(BLUE) CopyRom $(NO_COL)]  $<\n"
+	$(call print,CopyRom:,$<,$@)
 	$(V)$(TOOLS_DIR)/CopyRom.py $< $@
-	@printf "[$(GREEN) CRC $(NO_COL)]  $<\n"
-	@$(CRC)
 
 ### Settings
 .SECONDARY:
