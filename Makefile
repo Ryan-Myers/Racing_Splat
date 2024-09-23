@@ -17,6 +17,7 @@ PRINT = printf
 
 # Whether to colorize build messages
 COLOR ?= 1
+GCC_COLOR := -fno-diagnostics-color
 
 ifeq ($(COLOR),1)
 NO_COL  := \033[0m
@@ -27,6 +28,7 @@ BLUE    := \033[0;34m
 PINK    := \033[0;35m
 CYAN    := \033[0;36m
 COLORIZE := -c
+GCC_COLOR :=
 endif
 
 # Common build print status function
@@ -154,7 +156,7 @@ CFLAGS += $(INCLUDE_CFLAGS)
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wunused-function -Wno-unused-parameter -Werror-implicit-function-declaration
 CHECK_WARNINGS += -Werror-implicit-function-declaration -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion -Wno-main
 CHECK_WARNINGS += -Wno-builtin-declaration-mismatch -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast -Wno-switch
-CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -funsigned-char -std=gnu90 -m32 -D_LANGUAGE_C $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(C_DEFINES)
+CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -funsigned-char -std=gnu90 -m32 -D_LANGUAGE_C $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(C_DEFINES) $(GCC_COLOR)
 
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION)
 LD_SCRIPT  = $(BASENAME).$(REGION).$(VERSION).ld
