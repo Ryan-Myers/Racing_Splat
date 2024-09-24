@@ -24,10 +24,7 @@ u8 leoDiskStack[16]; // technically should have a OS_LEO_STACKSIZE or something.
 OSThread gThread30;
 OSMesgQueue gThread30MesgQueue;
 OSMesg gThread30Message[2];
-
-// Currently defined in osViMgr.c
-// There are a few stacks defined next to each other. Maybe they are in their own separate file?
-extern u64 gThread30Stack[0x400];
+u64 gThread30Stack[0x400];
 
 /*****************************/
 

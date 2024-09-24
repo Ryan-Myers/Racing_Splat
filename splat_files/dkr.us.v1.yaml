@@ -380,11 +380,11 @@ segments:
       - [0xEA410, .rodata, lib/src/gu/sinf]
       - [0xEA460, .rodata, lib/src/libc/xldtob]
       - [0xEA4C0, hasm, lib/src/gu/libm_vals]
-      - [0xEA4D0, rodata, data_audio]
-      - [0xEA7A0, rodata, data_f3ddkr_dram]
-      - [0xEAFA0, rodata, data_f3ddkr_fifo]
-      - [0xEB7A0, rodata, data_f3ddkr_xbus]
-      - [0xEBFA0, rodata, data_unknown_2]
+      - { start: 0xEA4D0, type: databin, name: data_audio,       linker_section_order: .rodata }
+      - { start: 0xEA7A0, type: databin, name: data_f3ddkr_dram, linker_section_order: .rodata }
+      - { start: 0xEAFA0, type: databin, name: data_f3ddkr_fifo, linker_section_order: .rodata }
+      - { start: 0xEB7A0, type: databin, name: data_f3ddkr_xbus, linker_section_order: .rodata }
+      - { start: 0xEBFA0, type: databin, name: data_unknown_2,   linker_section_order: .rodata }
       - [0xECB60, bin, assets]
       - { start: auto, type: .bss, vram: 0x800EBF60, name: audio }
       - { start: auto, type: .bss, vram: 0x80115F90, name: audiomgr }
@@ -429,7 +429,6 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012A800, name: lib/src/io/pimgr }
       - { start: auto, type: .bss, vram: 0x8012AAD0, name: gzip }
       - { start: auto, type: .bss, vram: 0x8012AAE0, name: thread30_track_loading }
-      - { start: auto, type:  bss, vram: 0x8012ACC0, name: thread30_stack }
       - { start: auto, type: .bss, vram: 0x8012CCC0, name: lib/src/os/initialize }
       - { start: auto, type: .bss, vram: 0x8012CCD0, name: lib/src/os/seteventmesg }
       - { start: auto, type: .bss, vram: 0x8012CD50, name: lib/src/io/controller }
