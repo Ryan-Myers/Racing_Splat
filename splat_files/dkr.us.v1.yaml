@@ -319,7 +319,7 @@ segments:
       - [0xE5400, .data, lib/src/io/piacs]
       - [0xE5410, .data, lib/src/io/vi]
       - [0xE5480, .data, lib/src/os/thread]
-      - [0xE54A0, data, lib/src/os/exceptasm]
+      - [0xE54A0, .data, lib/src/os/exceptasm]
       - [0xE54C0, .data, lib/src/libc/xprintf]
       - [0xE5510, .data, lib/src/os/timerintr]
       - [0xE5520, .data, lib/src/libc/xlitob]
@@ -365,16 +365,16 @@ segments:
       - [0xE9ED0, .rodata, fade_transition]
       - [0xE9F30, .rodata, game_text]
       - [0xE9F60, .rodata, font]
-      - [0xE9FC0, rodata, asm/gzip_asm]
+      - [0xE9FC0, .rodata, hasm/gzip_asm]
       - [0xEA0B0, .rodata, lib/src/audio/cseq]
       - [0xEA0C0, .rodata, lib/src/audio/cents2ratio]
-      - [0xEA0D0, rodata, lib/src/os/setintmask]
+      - [0xEA0D0, .rodata, lib/src/os/setintmask]
       - [0xEA150, .rodata, lib/src/libc/llcvt]
       - [0xEA160, .rodata, lib/src/audio/env]
       - [0xEA200, .rodata, lib/src/audio/resample]
       - [0xEA240, .rodata, lib/src/gu/perspective]
       - [0xEA250, .rodata, lib/src/io/devmgr]
-      - [0xEA270, rodata, lib/src/os/exceptasm]
+      - [0xEA270, .rodata, lib/src/os/exceptasm]
       - [0xEA2C0, .rodata, lib/src/libc/xprintf]
       - [0xEA3C0, .rodata, lib/src/gu/cosf]
       - [0xEA410, .rodata, lib/src/gu/sinf]
@@ -440,7 +440,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012D1A0, name: lib/src/io/sptask }
       - { start: auto, type: .bss, vram: 0x8012D1E0, name: lib/src/io/piacs }
       - { start: auto, type: .bss, vram: 0x8012D200, name: lib/src/os/timerintr }
-      - { start: auto, type:  bss, vram: 0x8012D240, name: lib/src/os/exceptasm }
+      - { start: auto, type: .bss, vram: 0x8012D240, name: lib/src/os/exceptasm }
       - { start: auto, type: .bss, vram: 0x8012D3F0, name: memory_pool }
 
   - type: bin
