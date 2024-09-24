@@ -28,7 +28,7 @@
 #include "audiosfx.h"
 #include "racer.h"
 #include "tracks.h"
-#include "lib/src/audio/synstartvoiceparam.h"
+#include "libultra/src/audio/synstartvoiceparam.h"
 #include "controller_dkr.h"
 #include "math_util.h"
 #include "PRinternal/viint.h"

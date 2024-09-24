@@ -18,7 +18,7 @@
 #include "game_ui.h"
 #include "weather.h"
 #include "particles.h"
-#include "lib/src/libc/rmonPrintf.h"
+#include "libultra/src/libc/rmonPrintf.h"
 #include "objects.h"
 #include "math_util.h"
 #include "printf.h"

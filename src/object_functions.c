@@ -28,7 +28,7 @@
 #include "fade_transition.h"
 #include "audio_vehicle.h"
 #include "object_models.h"
-#include "lib/src/libc/rmonPrintf.h"
+#include "libultra/src/libc/rmonPrintf.h"
 #include "collision.h"
 #include "controller_dkr.h"
 #include "printf.h"

@@ -22,7 +22,7 @@
 #include <os.h>
 #include <stdio.h>
 #include <math.h>
-#include "lib/src/debug/assert.h"
+#include "libultra/src/debug/assert.h"
 // TODO: these come from headers
 #ident "$Revision: 1.49 $"
 #ident "$Revision: 1.17 $"
