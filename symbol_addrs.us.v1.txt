@@ -3186,7 +3186,6 @@ D_800E5F64 = 0x800E5F64; // type:f32
 D_800E5F68 = 0x800E5F68; // type:f32
 D_800E5F6C = 0x800E5F6C; // type:f32
 D_800E5F70 = 0x800E5F70; // type:f32
-D_800E5F74 = 0x800E5F74; // type:s32 size:0xC padding
 
 // lights .rodata
 // D_800E5F80 = 0x800E5F80; // size:0x20
