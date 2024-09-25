@@ -211,6 +211,12 @@ segments:
       - [0xDD310, data]
       - [0xE55E0, .rodata, audio]
       - [0xE5680, rodata]
+      - [0xEA550, rodata, lib/src/gu/libm_vals]
+      - { start: 0xEA560, type: databin, name: data_audio,       linker_section_order: .rodata }
+      - { start: 0xEA830, type: databin, name: data_f3ddkr_dram, linker_section_order: .rodata }
+      - { start: 0xEB030, type: databin, name: data_f3ddkr_fifo, linker_section_order: .rodata }
+      - { start: 0xEB830, type: databin, name: data_f3ddkr_xbus, linker_section_order: .rodata }
+      - { start: 0xEC030, type: databin, name: data_unknown_2,   linker_section_order: .rodata }
       - [0xECBF0, bin, assets]
       - { start: auto, type: .bss, vram: 0x800EBFF0, name: audio }
       - { start: auto, type:  bss, vram: 0x80116020 }
