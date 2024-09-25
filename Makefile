@@ -63,7 +63,8 @@ ASM_DIR = asm_$(REGION)_$(VERSION)
 ASM_DIRS   = $(ASM_DIR) $(ASM_DIR)/data $(ASM_DIR)/nonmatchings $(ASM_DIR)/data/lib $(ASM_DIR)/data/hasm
 ASM_DIRS  += $(ASM_DIR)/data/lib/src $(ASM_DIR)/data/lib/src/audio $(ASM_DIR)/data/lib/src/audio/mips1 
 ASM_DIRS  += $(ASM_DIR)/data/lib/src/gu $(ASM_DIR)/data/lib/src/sc $(ASM_DIR)/data/lib/src/io $(ASM_DIR)/data/lib/src/os
-ASM_DIRS  += $(ASM_DIR)/data/lib/src/libc
+ASM_DIRS  += $(ASM_DIR)/data/lib/src/libc $(ASM_DIR)/hasm $(ASM_DIR)/lib/src/os
+ASM_DIRS  += $(ASM_DIR)/lib/src/gu $(ASM_DIR)/lib/src/libc
 HASM_DIRS = $(SRC_DIR)/hasm $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/libc
 LIBULTRA_SRC_DIRS  = $(LIBULTRA_DIR) $(LIBULTRA_DIR)/src $(LIBULTRA_DIR)/src/audio $(LIBULTRA_DIR)/src/audio/mips1
 LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/debug $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/io
@@ -320,7 +321,7 @@ ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c
 	$(call print,Compiling:,$<,$@)
 	$(V)$(CC_CHECK) $<
-	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) -O2 $(MIPSISET) -o $@ $<
 endif
 
 # non asm-processor recipe
