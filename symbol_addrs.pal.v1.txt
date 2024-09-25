@@ -1370,6 +1370,7 @@ alSeqFileNew = 0x800C7838;
 // alHeapDBAlloc.c .text
 alHeapDBAlloc = 0x800C7880;
 
+alFXEnabled = 0x800DCF40;
 alCSeqNew = 0x800C808C;
 alCSPSetSeq = 0x800C85F0;
 alCSPPlay = 0x800C8630;
@@ -1386,6 +1387,8 @@ alCSPSetBank = 0x800C7AF0;
 alCSPStop = 0x800C8660;
 
 __libm_qnan_f = 0x800E9950; // type:f64
+ldigs = 0x800E49B0; // type:asciz
+udigs = 0x800E49C4; // type:asciz
 
 SP_MEM_ADDR_REG = 0xA4040000;
 SP_DRAM_ADDR_REG = 0xA4040004;

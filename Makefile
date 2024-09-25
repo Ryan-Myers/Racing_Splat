@@ -59,10 +59,13 @@ BIN_DIRS  = assets_$(REGION)_$(VERSION)
 BUILD_DIR = build_$(REGION)_$(VERSION)
 SRC_DIR   = src_$(REGION)_$(VERSION)
 LIBULTRA_DIR = $(SRC_DIR)/lib
-ASM_DIRS   = asm_$(REGION)_$(VERSION) asm_$(REGION)_$(VERSION)/data asm_$(REGION)_$(VERSION)/libultra asm_$(REGION)_$(VERSION)/data/libultra asm_$(REGION)_$(VERSION)/nonmatchings
-ASM_DIRS  += asm_$(REGION)_$(VERSION)/data/lib/src asm_$(REGION)_$(VERSION)/lib/asm asm_$(REGION)_$(VERSION)/data/lib/asm asm_$(REGION)_$(VERSION)/data/lib/src/gu
+ASM_DIR = asm_$(REGION)_$(VERSION)
+ASM_DIRS   = $(ASM_DIR) $(ASM_DIR)/data $(ASM_DIR)/nonmatchings $(ASM_DIR)/data/lib $(ASM_DIR)/data/hasm
+ASM_DIRS  += $(ASM_DIR)/data/lib/src $(ASM_DIR)/data/lib/src/audio $(ASM_DIR)/data/lib/src/audio/mips1 
+ASM_DIRS  += $(ASM_DIR)/data/lib/src/gu $(ASM_DIR)/data/lib/src/sc $(ASM_DIR)/data/lib/src/io $(ASM_DIR)/data/lib/src/os
+ASM_DIRS  += $(ASM_DIR)/data/lib/src/libc
 HASM_DIRS = $(SRC_DIR)/hasm $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/libc
-LIBULTRA_SRC_DIRS  = $(LIBULTRA_DIR) $(LIBULTRA_DIR)/src $(LIBULTRA_DIR)/src/audio $(LIBULTRA_DIR)/src/audio/mips1 $(LIBULTRA_DIR)/src/audio/mips1/al
+LIBULTRA_SRC_DIRS  = $(LIBULTRA_DIR) $(LIBULTRA_DIR)/src $(LIBULTRA_DIR)/src/audio $(LIBULTRA_DIR)/src/audio/mips1
 LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/debug $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/io
 LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/libc $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/sc
 
