@@ -1,6 +1,6 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/load_menu_text.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8007F900.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8007FF88.s")
 
@@ -18,13 +18,13 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80081218.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/reset_title_logo_scale.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800813C0.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_init.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800813D0.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_loop.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800815A4.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/show_timestamp.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80081800.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80081C04.s")
 
@@ -32,33 +32,33 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80081F4C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/draw_menu_elements.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800821EC.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800828B8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/print_missing_controller_text.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800829F8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_logos_screen_init.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80082AAC.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_logo_screen_loop.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80082B84.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/init_title_screen_variables.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80082FAC.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80083098.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_title_screen_init.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8008353C.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8008377C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_title_screen_loop.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800839E4.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/title_screen_exit.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80084118.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_options_init.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8008415C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/render_options_menu_ui.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800841B8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_options_loop.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8008435C.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_800847C8.s")
 

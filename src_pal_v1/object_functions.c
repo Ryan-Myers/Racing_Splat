@@ -48,15 +48,15 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_loop_groundzipper.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_init_unknown58.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_init_timetrialghost.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_loop_unknown58.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_loop_timetrialghost.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_init_characterflag.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_loop_characterflag.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/func_80036040.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/try_to_collect_egg.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_init_stopwatchman.s")
 
@@ -258,21 +258,21 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_loop_weapon.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/handle_rocket_projectile.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/weapon_projectile.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/rocket_prevent_overshoot.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/homing_rocket_prevent_overshoot.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/func_8003F0D0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/reset_rocket_sound_timer.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/func_8003F0DC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/decrease_rocket_sound_timer.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/play_rocket_trailing_sound.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/func_8003F2E8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/weapon_trap.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/func_8003FC44.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_spawn_effect.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_init_audio.s")
 

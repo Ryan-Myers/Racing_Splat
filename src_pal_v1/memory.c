@@ -26,17 +26,17 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/func_80071314.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/func_80071440.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/add_to_free_queue.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/func_80071478.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/func_80071538.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/memory_slot_exists.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/get_memory_pool_index_containing_address.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/free_memory_pool_slot.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/mmGetSlotPtr.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/get_memory_pool_address.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/allocate_memory_pool_slot.s")
 
@@ -46,7 +46,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/align4.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/func_800718A4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/find_active_pool_slot_colours.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/memory/get_memory_colour_tag_count.s")
 

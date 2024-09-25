@@ -1,22 +1,22 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80072250.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/input_get_id.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80072298.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/rumble_init.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_800722E8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/rumble_exists.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80072348.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/rumble_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80072424.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/rumble_set_fade.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80072578.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/rumble_start.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_8007267C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/rumble_stop.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80072708.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/rumble_kill.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/rumble_controllers.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/rumble_update.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80072C54.s")
 
@@ -64,7 +64,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80074AA8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80074B1C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/get_ghost_data_file_size.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/save_data/func_80074B34.s")
 

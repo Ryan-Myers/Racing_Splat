@@ -8,7 +8,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/search_level_properties_backwards.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/func_8006B018.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/get_race_type_count.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/get_world_level_count.s")
 
@@ -28,9 +28,9 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/load_level.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/func_8006BD10.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/start_level_music.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/func_8006BD88.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/get_current_map_id.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/get_current_level_race_type.s")
 
@@ -42,13 +42,13 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/clear_audio_and_track.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/func_8006BFC8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/set_ai_level.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/frontCleanupMultiSelect.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/free_ai_behaviour_table.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/func_8006C18C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/get_ai_behaviour_table.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/func_8006C19C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/is_two_player_adventure_race.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game/push_level_property_stack.s")
 

@@ -2,9 +2,9 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_80008040.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_80008140.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/audioline_off.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_80008168.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/audioline_on.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_80008174.s")
 
@@ -12,7 +12,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_800090C0.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_800092A8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/audioline_distance.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/play_sound_at_position.s")
 
@@ -24,7 +24,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_8000974C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_800098A4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/audioline_ambient_create.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_80009968.s")
 
@@ -40,4 +40,4 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_8000A2E8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/func_8000A414.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_spatial/debug_render_line.s")

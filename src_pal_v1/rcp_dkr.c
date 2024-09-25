@@ -24,7 +24,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/rcp_dkr/setup_gfx_mesg_queues.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/rcp_dkr/func_80078170.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/rcp_dkr/mosaic_init.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/rcp_dkr/func_80078190.s")
 

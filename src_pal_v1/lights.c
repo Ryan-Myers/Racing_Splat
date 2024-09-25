@@ -1,18 +1,18 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80031B60.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/free_lights.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80031BB8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/setup_lights.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80031CAC.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80031F88.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/add_object_light.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80032210.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/disable_object_light.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80032218.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/enable_object_light.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80032224.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/toggle_object_light.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80032248.s")
 
@@ -24,12 +24,12 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80032BAC.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80032C6C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/get_light_count.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80032C7C.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_800337E4.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80033A14.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/light_distance_calc.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80033C08.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/light_direction_calc.s")

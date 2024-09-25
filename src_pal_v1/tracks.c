@@ -2,7 +2,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/set_scene_viewport_num.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_800249F0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/init_track.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/render_scene.s")
 
@@ -26,7 +26,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_800278E8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80027E24.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/animate_level_textures.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/spawn_skydome.s")
 
@@ -100,9 +100,9 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/render_object_shadow.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002D670.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/render_object_water_effects.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002D8DC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/update_shadows.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002DE30.s")
 
@@ -124,7 +124,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_800304C8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80030664.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/set_fog.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/get_fog_settings.s")
 
@@ -136,7 +136,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/obj_loop_fogchanger.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80030DE0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/slowly_change_fog.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/update_perspective_and_envmap.s")
 

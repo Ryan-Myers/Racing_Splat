@@ -207,13 +207,13 @@ segments:
       - [0xD8100, asm]
       - [0xD8290, bin]
       - [0xD8400, data]
-      - [0xDD2C0, data, audio]
+      - [0xDD2C0, .data, audio]
       - [0xDD310, data]
-      - [0xE55E0, rodata, audio]
+      - [0xE55E0, .rodata, audio]
       - [0xE5680, rodata]
       - [0xECBF0, bin, assets]
-      - { start: auto, type: bss, vram: 0x800EBFF0, name: audio }
-      - { start: auto, type: bss, vram: 0x80116020 }
+      - { start: auto, type: .bss, vram: 0x800EBFF0, name: audio }
+      - { start: auto, type:  bss, vram: 0x80116020 }
 
   - type: bin
     start: 0xECBF0

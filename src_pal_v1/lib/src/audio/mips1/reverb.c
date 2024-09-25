@@ -16,6 +16,6 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/mips1/reverb/_doModFunc.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/mips1/reverb/func_8006492C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/mips1/reverb/alFxReverbSet.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/mips1/reverb/func_8006493C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/mips1/reverb/_alFxEnabled.s")

@@ -8,7 +8,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/controller_dkr/initialise_player_ids.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/controller_dkr/assign_player_ids.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/controller_dkr/charselect_assign_players.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/controller_dkr/get_player_id.s")
 

@@ -14,6 +14,6 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/mips1/synthesizer/__timeToSamplesNoRound.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/mips1/synthesizer/__timeToSamples.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/mips1/synthesizer/_timeToSamples.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/mips1/synthesizer/__nextSampleTime.s")

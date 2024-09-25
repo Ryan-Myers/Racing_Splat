@@ -16,7 +16,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/func_8000418C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/func_800041FC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/_removeEvents.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/func_800042CC.s")
 
@@ -32,7 +32,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/func_80004668.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/func_8000488C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/sound_stop.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/func_800048D8.s")
 
@@ -40,9 +40,9 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/func_800049B8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/func_800049D8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/sound_stop_all.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/func_800049F8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/sound_event_update.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audiosfx/get_sound_channel_volume.s")
 

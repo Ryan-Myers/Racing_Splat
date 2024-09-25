@@ -1,6 +1,6 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80065EA0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/camera_init.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80066060.s")
 
@@ -16,17 +16,17 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/calculate_camera_perspective.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80066204.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/matrix_get_model_s16.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_viewport_count.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_current_viewport.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80066230.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/camera_init_tracks_menu.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_distance_to_active_camera.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_800663DC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/camera_reset.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/write_to_object_render_stack.s")
 
@@ -46,7 +46,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/check_viewport_background_flag.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/resize_viewport.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/viewport_menu_set.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/set_viewport_properties.s")
 
@@ -58,7 +58,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80066CDC.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/set_viewport_scissor.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/viewport_scissor.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80067D3C.s")
 
@@ -68,33 +68,33 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_8006807C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80068158.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/viewport_rsp_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_800682AC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/viewport_reset.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80068408.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/matrix_world_origin.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80068508.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/sprite_anim_off.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/render_sprite_billboard.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/render_ortho_triangle_image.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80068FA8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/apply_object_shear_matrix.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/camera_push_model_mtx.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80069790.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/apply_head_turning_matrix.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_800699E4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_modelmatrix_vector.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80069A40.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/apply_matrix_from_stack.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80069ACC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/translate_camera_segment.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80069B70.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/transform_camera_segment.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80069CB4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/rotate_camera_segment.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_active_camera_segment_no_cutscenes.s")
 
@@ -102,13 +102,13 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_cutscene_camera_segment.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80069DA4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_projection_matrix_f32.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80069DB0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_projection_matrix_s16.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80069DBC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_camera_matrix.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80069DC8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/get_distance_to_camera.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/set_camera_shake_by_distance.s")
 

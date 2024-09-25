@@ -2,7 +2,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80042D20.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80043ECC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/increment_ai_behaviour_chances.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/racer_AI_pathing_inputs.s")
 
@@ -52,9 +52,9 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80050A28.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80052188.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/should_taj_teleport.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_800521B8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/set_taj_status.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/handle_racer_head_turning.s")
 
@@ -86,7 +86,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80054FD0.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80055A84.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/onscreen_ai_racer_physics.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/handle_racer_items.s")
 
@@ -130,23 +130,23 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/allocate_ghost_data.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80059944.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/timetrial_reset_player_ghost.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80059984.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/timetrial_swap_player_ghost.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_800599A8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/timetrial_map_id.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_800599B8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/timetrial_load_player_ghost.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/load_tt_ghost.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/free_tt_ghost_data.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/timetrial_free_staff_ghost.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80059B7C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/timetrial_write_player_ghost.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80059BF0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/timetrial_ghost_write.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80059E20.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/timetrial_ghost_full.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/set_ghost_position_and_rotation.s")
 

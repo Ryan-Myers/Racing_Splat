@@ -6,7 +6,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/main_game_loop.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006CAE4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/load_next_ingame_level.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/load_level_game.s")
 
@@ -14,23 +14,23 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/ingame_logic_loop.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006D8A4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/set_drumstick_unlock_transition.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006D8E0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/race_postrace_type.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006D8F0.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006D968.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/get_render_context.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/get_game_mode.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/set_render_context.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/set_game_mode.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/load_menu_with_level_background.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/set_level_default_vehicle.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006DB20.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/set_vehicle_id_for_menu.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/get_level_default_vehicle.s")
 
@@ -40,19 +40,19 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/update_menu_scene.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006DCF8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/menu_logic_loop.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/load_level_for_menu.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/calc_and_alloc_heap_for_settings.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006E5BC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/init_racer_headers.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006E770.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/clear_lap_records.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006E994.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/clear_game_progress.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006EA58.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/reset_save_data.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/get_settings.s")
 
@@ -96,7 +96,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/default_alloc_displaylist_heap.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006F140.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/level_transition_begin.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006F20C.s")
 
@@ -106,9 +106,9 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/begin_level_teleport.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006F388.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/set_pause_lockout_timer.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/func_8006F398.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/swap_lead_player.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread3_main/set_frame_blackout_timer.s")
 
