@@ -2,142 +2,142 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/audio_init.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/reset_sound_volume.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_volume_reset.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/adjust_audio_volume.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_volume_change.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80000B18.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_change_off.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80000B28.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_change_on.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/play_music.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_play.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/set_music_player_voice_limit.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_voicelimit_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80000C1C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_voicelimit_change_off.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80000C2C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_voicelimit_change_on.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/set_sndfx_player_voice_limit.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_jingle_voicelimit_set.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80000C68.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/set_music_fade_timer.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_fade.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80000CBC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_volume_reset.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/handle_music_fade.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_update_queue.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80000FDC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_play_delayed.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001050.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_clear_delayed.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/musicGetChanMask.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_get_mask.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001074.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_dynamic_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001114.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_off.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/musicGetChnlActive.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_active.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001170.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_on.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/musicSetChlPan.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_pan_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/musicSetChlVol.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_volume_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/musicGetChlVol.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_volume.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001268.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_fade_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_800012A8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_fade.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_800012E8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_channel_reset_all.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001358.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001440.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/multiply_music_tempo.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_tempo_set_relative.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/musicSetTempo.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_tempo_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/musicGetTempo.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_tempo.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_is_playing.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/audio_get_chr_select_anim_frac.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_animation_fraction.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001728.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_get_properties.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001784.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_jingle_play_safe.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sfxSetTempo.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_jingle_tempo_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001844.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_stop.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001878.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_enabled_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_800018D0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_can_play.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_800018E0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_jingle_stop.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001918.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_current_sequence.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001954.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_next.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001980.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_jingle_current.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/set_relative_volume_for_music.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_volume_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/set_music_volume_slider.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_volume_config_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/musicGetRelativeVolume.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_volume.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/musicGetVolSliderPercentage.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_volume_config.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sfxSetRelativeVolume.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_jingle_volume_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sfxSetPan.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_jingle_pan_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/play_sequence.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_jingle_play.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001C08.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_jingle_playing.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/set_all_channel_volume.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_channel_volume_all.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001CB8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_distance.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/play_sound_global.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_play.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/play_sound_spatial.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_play_spatial.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001F14.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80001FB8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_volume_set_relative.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_8000208C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_volume_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/amSndSetPitchDirect.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_pitch_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/ALBankFile_80115D14_GetSoundCount.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_count.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/ALSeqFile_80115CF8_GetSeqCount.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_sequence_count.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80002128.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_table_properties.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_8000216C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_table_properties.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/ALBankFile_80115D14_GetSoundDecayTime.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/gSoundBank_GetSoundDecayTime.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80002224.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_seqplayer_init.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_800022BC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_sequence_start.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_8000232C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_sequence_init.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80002570.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/music_sequence_stop.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80002608.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_reverb_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/func_80002630.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio/sound_reverb_enabled.s")
