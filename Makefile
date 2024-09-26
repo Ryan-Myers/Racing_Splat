@@ -66,7 +66,7 @@ ASM_DIRS  += $(ASM_DIR)/data/lib/src/gu $(ASM_DIR)/data/lib/src/sc $(ASM_DIR)/da
 ASM_DIRS  += $(ASM_DIR)/data/lib/src/libc $(ASM_DIR)/hasm $(ASM_DIR)/lib/src/os
 ASM_DIRS  += $(ASM_DIR)/lib/src/gu $(ASM_DIR)/lib/src/libc
 HASM_DIRS = $(SRC_DIR)/hasm $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/libc
-LIBULTRA_SRC_DIRS  = $(LIBULTRA_DIR) $(LIBULTRA_DIR)/src $(LIBULTRA_DIR)/src/audio $(LIBULTRA_DIR)/src/audio/mips1
+LIBULTRA_SRC_DIRS  = $(LIBULTRA_DIR) $(LIBULTRA_DIR)/src $(LIBULTRA_DIR)/src/audio $(LIBULTRA_DIR)/src/audio/mips1 $(SRC_DIR)/lib/src/audio/mips1
 LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/debug $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/io
 LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/libc $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/sc
 
@@ -191,6 +191,8 @@ ifeq ($(REGION)$(VERSION),usv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
 else ifeq ($(REGION)$(VERSION),palv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: MIPSISET := -mips1
 endif
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/os/%.c.o: OPT_FLAGS := -O1
