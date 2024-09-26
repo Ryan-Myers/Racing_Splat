@@ -849,7 +849,7 @@ alSynNew = 0x80065130;
 alAudioFrame = 0x80065494;
 __allocParam = 0x80065668;
 __freeParam = 0x8006569C;
-__collectPVoices = 0x800656BC;
+_collectPVoices = 0x800656BC;
 _freePVoice = 0x8006571C;
 __timeToSamplesNoRound = 0x80065754;
 _timeToSamples = 0x800657C4;
@@ -1703,7 +1703,7 @@ debug_text_newline = 0x800B6F04;
 
 // audio_assert.c .text
 func_800B6F30 = 0x800B6F30;
-assert_stub = 0x800B6F40;
+__assert = 0x800B6F40;
 
 // thread0_epc.c .text
 thread0_create = 0x800B6F50;
