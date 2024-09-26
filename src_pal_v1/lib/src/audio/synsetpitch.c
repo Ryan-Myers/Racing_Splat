@@ -1,3 +1,3 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/synsetpitch/func_800C9810.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/synsetpitch/alSynSetPitch.s")

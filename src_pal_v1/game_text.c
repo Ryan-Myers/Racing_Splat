@@ -1,33 +1,33 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C2A80.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/init_dialogue_text.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C2B44.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/free_message_box.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C2B84.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/set_subtitles.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C2B90.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/render_subtitles.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C2DFC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/find_next_subtitle.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C2FAC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/process_subtitles.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C30D8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/load_game_text_table.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C315C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/free_game_text_table.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C31D0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/set_textbox_display_value.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C31DC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/reset_delayed_text.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C31E8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/set_delayed_text.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C327C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/set_current_text.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C3490.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/textbox_visible.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C34D0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/process_onscreen_textbox.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C35F4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/dialogue_challenge_loop.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C3944.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_text/func_800C38B4.s")

@@ -1,3 +1,3 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/synfreevoice/func_800C99C0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/synfreevoice/alSynFreeVoice.s")

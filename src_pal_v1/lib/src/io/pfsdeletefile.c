@@ -1,7 +1,7 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/io/pfsdeletefile/func_800D0900.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/io/pfsdeletefile/osPfsDeleteFile.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/io/pfsdeletefile/func_800D0BE0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/io/pfsdeletefile/__osPfsReleasePages.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/io/pfsdeletefile/func_800D0E18.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/io/pfsdeletefile/__osBlockSum.s")

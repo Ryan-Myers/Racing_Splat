@@ -1,21 +1,21 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B6FE0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/thread0_create.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B7054.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/thread0_Main.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B7160.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/enable_interupts_on_main.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B71D4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/stop_all_threads_except_main.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B7240.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/write_epc_data_to_cpak.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B74F0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/dump_memory_to_cpak.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B7748.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/update_object_stack_trace.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B776C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/get_lockup_status.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B7864.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/lockup_screen_loop.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/func_800B78A0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/thread0_epc/render_epc_lock_up_display.s")

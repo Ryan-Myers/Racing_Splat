@@ -12,7 +12,7 @@
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/sc/sched/scGetAudioTaskTimers.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/sc/sched/func_800795AC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/sc/sched/func_800795AC_7A1AC.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/sc/sched/func_80079760.s")
 
@@ -38,4 +38,4 @@ void dummy_80079810(void) {
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/sc/sched/__scYield.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/sc/sched/func_8007A0D4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/sc/sched/func_8007A0D4_7ACD4.s")

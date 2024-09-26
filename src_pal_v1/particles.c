@@ -1,103 +1,103 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE300.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE270.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE330.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE2A0.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE368.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE2D8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE404.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE374.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE4C8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE438.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE520.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE490.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE5C0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/init_particle_assets.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE7B8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE728.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AEEA4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/generate_particle_shape_triangle.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AEF48.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/generate_particle_shape_quad.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF018.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AEF88.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF0B4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF024.s")
+
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF0A4.s")
+
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF0F0.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF134.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF180.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/partInitTrigger.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF1C4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF29C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF270.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF404.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF32C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF52C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF494.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF6E4.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF5BC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF714.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF774.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/obj_spawn_particle.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AF7A4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AFE5C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AFCCC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B0010.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AFEEC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B03C0.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B00A0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B0698.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B0450.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B0BAC.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B0728.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B1130.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B0C3C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B1CB8.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B11C0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B2040.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B1D48.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B2260.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B20D0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/handle_particle_movement.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B22F0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B263C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B238C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B26E0.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B26CC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/set_particle_texture_frame.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B2770.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/move_particle_basic_parent.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B304C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/move_particle_velocity_parent.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B31D0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/move_particle_with_velocities.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B32D0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/move_particle_basic.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B33E8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/move_particle_with_velocity.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B3540.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/render_active_particles.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B35F4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/render_particle.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B3708.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B3E64.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B37D0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/get_particle_asset_table.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B3EF4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/get_next_particle_table.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B4518.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/get_previous_particle_table.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B4564.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/get_particle_behaviour.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B45BC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B45C4.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B4608.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B461C.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B4654.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B4668.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B46AC.s")
-
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B46F8.s")
-
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B474C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800B46BC.s")

@@ -1,57 +1,57 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AB280.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/weather_init.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AB398.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/weather_clip_planes.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AB3EC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/weather_free.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AB538.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/weather_reset.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800ABBC4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/snow_init.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800ABCEC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/weather_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800ABEF8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/weather_update.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AC158.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/snow_update.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AC2AC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/snow_vertices.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AC634.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/snow_render.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AC8E0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/lensflare_off.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AC8F0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/lensflare_on.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AC910.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/lensflare_remove.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AC938.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/lensflare_init.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800ACAB0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/lensflare_render.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800ACFF0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/lensflare_override_add.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AD028.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/lensflare_override_remove.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AD0C0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/lensflare_override.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AD1D4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/rain_init.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AD2B0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/free_rain_memory.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AD354.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/rain_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AD49C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/rain_fog.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AD53C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/rain_opacity_set.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AD548.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/rain_update.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800AD6E8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/rain_render_splashes.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800ADB48.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/rain_lightning.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800ADC58.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/rain_sound.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/func_800ADD4C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/render_rain_overlay.s")

@@ -1,9 +1,9 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/load/func_800CB5D0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/load/alLoadParam.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/load/func_800CB7A4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/load/alRaw16Pull.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/load/func_800CBB50.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/load/func_800CBB50_CC750.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/load/func_800CBC7C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/load/alAdpcmPull.s")

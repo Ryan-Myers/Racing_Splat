@@ -1,3 +1,3 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/copy/func_800D38B0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/copy/alCopy.s")

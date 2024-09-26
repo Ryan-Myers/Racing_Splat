@@ -1,11 +1,11 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/func_800C9120.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/alEvtqFlushType.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/func_800C91CC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/alEvtqFlush.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/func_800C923C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/alEvtqPostEvent.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/func_800C9360.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/alEvtqNextEvent.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/func_800C93EC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/audio/event/alEvtqNew.s")

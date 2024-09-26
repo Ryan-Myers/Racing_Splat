@@ -1,17 +1,17 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/func_800C9BC0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/__d_to_ll.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/func_800C9BDC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/__f_to_ll.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/func_800C9BF8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/__d_to_ull.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/func_800C9C98.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/__f_to_ull.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/func_800C9D34.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/__ll_to_d.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/func_800C9D4C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/__ll_to_f.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/func_800C9D64.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/__ull_to_d.s")
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/func_800C9D98.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lib/src/libc/llcvt/__ull_to_f.s")

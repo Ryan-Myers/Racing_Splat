@@ -22,10 +22,10 @@ glabel entrypoint
 /* 101C 8000041C 1520FFFC */  bnez       $t1, .L80000410
 /* 1020 80000420 21080008 */   addi      $t0, $t0, 0x8 /* handwritten instruction */
 /* 1024 80000424 3C0A8006 */  lui        $t2, %hi(main)
-/* 1028 80000428 3C1D8012 */  lui        $sp, %hi(D_80120B50)
+/* 1028 80000428 3C1D8012 */  lui        $sp, %hi(gCameraSegment)
 /* 102C 8000042C 254A5D40 */  addiu      $t2, $t2, %lo(main)
 /* 1030 80000430 01400008 */  jr         $t2
-/* 1034 80000434 27BD0B50 */   addiu     $sp, $sp, %lo(D_80120B50)
+/* 1034 80000434 27BD0B50 */   addiu     $sp, $sp, %lo(gCameraSegment)
 /* 1038 80000438 00000000 */  nop
 /* 103C 8000043C 00000000 */  nop
 /* 1040 80000440 00000000 */  nop
