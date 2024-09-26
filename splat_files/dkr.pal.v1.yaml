@@ -258,7 +258,7 @@ segments:
       - [0xD7630, c, lib/src/libc/xldtob]
       - [0xD80F0, hasm, lib/src/os/setcompare]
       - [0xD8100, c, lib/src/libc/ldiv]
-      # - [auto, c, memory_pool] #bss only file
+      - [auto, c, memory_pool] #bss only file
       - [0xD8290, textbin, ucode_audio]
       - [0xD9150, textbin, ucode_boot]
       - [0xD9220, textbin, ucode_f3ddkr_dram]
@@ -387,7 +387,60 @@ segments:
       - { start: 0xEC030, type: databin, name: data_unknown_2,   linker_section_order: .rodata }
       - [0xECBF0, bin, assets]
       - { start: auto, type: .bss, vram: 0x800EBFF0, name: audio }
-      - { start: auto, type:  bss, vram: 0x80116020 }
+      - { start: auto, type:  bss, vram: 0x80116020, name: audiomgr }
+      - { start: auto, type:  bss, vram: 0x80119C60, name: audiosfx }
+      - { start: auto, type:  bss, vram: 0x80119CC0, name: audio_vehicle }
+      - { start: auto, type:  bss, vram: 0x8011ACB0, name: objects }
+      - { start: auto, type:  bss, vram: 0x8011B130, name: tracks }
+      - { start: auto, type:  bss, vram: 0x8011D550, name: lights }
+      - { start: auto, type:  bss, vram: 0x8011D560, name: object_functions }
+      - { start: auto, type:  bss, vram: 0x8011D580, name: racer }
+      - { start: auto, type:  bss, vram: 0x8011D650, name: vehicle_tricky }
+      - { start: auto, type:  bss, vram: 0x8011D660, name: vehicle_bluey }
+      - { start: auto, type:  bss, vram: 0x8011D670, name: vehicle_smokey }
+      - { start: auto, type:  bss, vram: 0x8011D680, name: vehicle_bubbler }
+      - { start: auto, type:  bss, vram: 0x8011D690, name: vehicle_wizpig }
+      - { start: auto, type:  bss, vram: 0x8011D6A0, name: vehicle_rocket }
+      - { start: auto, type:  bss, vram: 0x8011D6B0, name: object_models }
+      - { start: auto, type:  bss, vram: 0x8011D7E0, name: main }
+      - { start: auto, type:  bss, vram: 0x80120B50, name: camera }
+      - { start: auto, type:  bss, vram: 0x80121170, name: controller_dkr }
+      - { start: auto, type:  bss, vram: 0x801211F0, name: game }
+      - { start: auto, type:  bss, vram: 0x80121280, name: thread3_main }
+      - { start: auto, type:  bss, vram: 0x80123610, name: memory }
+      - { start: auto, type:  bss, vram: 0x80123E60, name: lib/src/io/motor }
+      - { start: auto, type:  bss, vram: 0x801240A0, name: save_data }
+      - { start: auto, type:  bss, vram: 0x80124290, name: asset_loading }
+      - { start: auto, type:  bss, vram: 0x80124330, name: rcp_dkr }
+      - { start: auto, type:  bss, vram: 0x801261A0, name: lib/src/sc/sched }
+      - { start: auto, type:  bss, vram: 0x80126200, name: video }
+      - { start: auto, type:  bss, vram: 0x801263B0, name: textures_sprites }
+      - { start: auto, type:  bss, vram: 0x80126420, name: menu }
+      - { start: auto, type:  bss, vram: 0x80126D60, name: game_ui }
+      - { start: auto, type:  bss, vram: 0x80127C40, name: weather }
+      - { start: auto, type:  bss, vram: 0x80127D10, name: particles }
+      - { start: auto, type:  bss, vram: 0x80127D30, name: printf }
+      - { start: auto, type:  bss, vram: 0x80128670, name: thread0_epc }
+      - { start: auto, type:  bss, vram: 0x80129B40, name: stacks }
+      - { start: auto, type:  bss, vram: 0x8012A050, name: waves }
+      - { start: auto, type:  bss, vram: 0x8012A7C0, name: fade_transition }
+      - { start: auto, type:  bss, vram: 0x8012A810, name: game_text }
+      - { start: auto, type:  bss, vram: 0x8012A870, name: font }
+      - { start: auto, type:  bss, vram: 0x8012A890, name: lib/src/io/pimgr }
+      - { start: auto, type:  bss, vram: 0x8012AB60, name: gzip }
+      - { start: auto, type:  bss, vram: 0x8012AB70, name: thread30_track_loading }
+      - { start: auto, type:  bss, vram: 0x8012CD50, name: lib/src/os/initialize }
+      - { start: auto, type:  bss, vram: 0x8012CD60, name: lib/src/os/seteventmesg }
+      - { start: auto, type:  bss, vram: 0x8012CDE0, name: lib/src/io/controller }
+      - { start: auto, type:  bss, vram: 0x8012CE70, name: lib/src/io/pfsisplug }
+      - { start: auto, type:  bss, vram: 0x8012CEB0, name: lib/src/io/siacs }
+      - { start: auto, type:  bss, vram: 0x8012CED0, name: lib/src/io/conteepread }
+      - { start: auto, type:  bss, vram: 0x8012CF10, name: lib/src/io/vimgr }
+      - { start: auto, type:  bss, vram: 0x8012D230, name: lib/src/io/sptask }
+      - { start: auto, type:  bss, vram: 0x8012D270, name: lib/src/io/piacs }
+      - { start: auto, type:  bss, vram: 0x8012D290, name: lib/src/os/timerintr }
+      - { start: auto, type:  bss, vram: 0x8012D2D0, name: lib/src/os/exceptasm }
+      - { start: auto, type: .bss, vram: 0x8012D480, name: memory_pool }
 
   - type: bin
     start: 0xECBF0

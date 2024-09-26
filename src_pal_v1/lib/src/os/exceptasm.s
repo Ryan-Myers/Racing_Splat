@@ -11,13 +11,15 @@
 
 /* Handwritten function */
 glabel func_800D2D40
-/* D3940 800D2D40 3C1A800D */  lui        $k0, %hi(D_800D2D50) /* handwritten instruction */
-/* D3944 800D2D44 275A2D50 */  addiu      $k0, $k0, %lo(D_800D2D50) /* handwritten instruction */
+/* D3940 800D2D40 3C1A800D */  lui        $k0, %hi(__osException) /* handwritten instruction */
+/* D3944 800D2D44 275A2D50 */  addiu      $k0, $k0, %lo(__osException) /* handwritten instruction */
 /* D3948 800D2D48 03400008 */  jr         $k0
 /* D394C 800D2D4C 00000000 */   nop
-glabel D_800D2D50
-/* D3950 800D2D50 3C1A8013 */  lui        $k0, %hi(D_8012D2D0) /* handwritten instruction */
-/* D3954 800D2D54 275AD2D0 */  addiu      $k0, $k0, %lo(D_8012D2D0) /* handwritten instruction */
+
+/* Handwritten function */
+glabel __osException
+/* D3950 800D2D50 3C1A8013 */  lui        $k0, %hi(__osThreadSave) /* handwritten instruction */
+/* D3954 800D2D54 275AD2D0 */  addiu      $k0, $k0, %lo(__osThreadSave) /* handwritten instruction */
 /* D3958 800D2D58 FF410020 */  sd         $at, 0x20($k0) /* handwritten instruction */
 /* D395C 800D2D5C 401B6000 */  mfc0       $k1, $12 /* handwritten instruction */
 /* D3960 800D2D60 AF5B0118 */  sw         $k1, 0x118($k0) /* handwritten instruction */
