@@ -1,7 +1,5 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE200.s")
-
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE300.s")
 
 #pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/particles/func_800AE330.s")

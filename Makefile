@@ -321,7 +321,7 @@ ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c
 	$(call print,Compiling:,$<,$@)
 	$(V)$(CC_CHECK) $<
-	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) -O2 $(MIPSISET) -o $@ $<
+	$(V)$(CC) -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 endif
 
 # non asm-processor recipe
