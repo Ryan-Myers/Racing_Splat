@@ -29,6 +29,7 @@
 #include "controller_dkr.h"
 #include "particles.h"
 #include "PRinternal/viint.h"
+#include "common.h"
 
 #define MAX_NUMBER_OF_GHOST_NODES 360
 
@@ -105,7 +106,7 @@ s8 D_800DCDB0[16][2] = {
 };
 
 // Checksum count for obj_loop_goldenballoon
-s32 gObjLoopGoldenBalloonChecksum = 0xA597;
+s32 gObjLoopGoldenBalloonChecksum = ObjLoopGoldenBalloonChecksum;
 
 FadeTransition gDoorFadeTransition = FADE_TRANSITION(FADE_FULLSCREEN, FADE_FLAG_NONE, FADE_COLOR_BLACK, 50, -1);
 

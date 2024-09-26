@@ -9,6 +9,7 @@
 #include "asset_loading.h"
 #include "objects.h"
 #include "PR/abi.h"
+#include "common.h"
 
 /****  type define's for structures unique to audiomgr ****/
 typedef union {
@@ -80,7 +81,7 @@ s32 gAudioCmdLen; // Set but not used
 /**** Anti Piracy - Sets random audio frequency ****/
 s16 gAntiPiracyCRCStart;
 s8 gAntiPiracyAudioFreq = FALSE;
-s32 gFunc80019808Checksum = 0x35281;
+s32 gFunc80019808Checksum = Func80019808Checksum;
 s32 gFunc80019808Length = 0xFD0;
 
 /** Queues and storage for use with audio DMA's ****/

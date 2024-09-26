@@ -10,10 +10,11 @@
 #include "textures_sprites.h"
 #include "racer.h"
 #include "save_data.h"
+#include "common.h"
 
 /************ .data ************/
 
-s32 gTractionTableChecksum = 116315;
+s32 gTractionTableChecksum = TractionTableChecksum;
 s32 gTrackRenderFuncLength = 1980;
 
 /*******************************/
