@@ -507,7 +507,7 @@ void func_80042D20(Object *obj, Object_Racer *racer, s32 updateRate) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_80042D20.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80042D20.s")
 #endif
 
 /**
@@ -660,7 +660,7 @@ s32 roll_percent_chance(s32 chance) {
     return get_random_number_from_range(0, 99) < chance;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_8004447C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_8004447C.s")
 
 void func_80045128(Object **racerObjs) {
     Object_Racer *obj;
@@ -678,8 +678,8 @@ void func_80045128(Object **racerObjs) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_800452A0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_80045C48.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_800452A0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80045C48.s")
 
 #ifdef NON_EQUIVALENT
 void func_80046524(s32 updateRate, f32 updateRateF, Object *obj, Object_Racer *racer) {
@@ -1404,7 +1404,7 @@ void func_80046524(s32 updateRate, f32 updateRateF, Object *obj, Object_Racer *r
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_80046524.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80046524.s")
 #endif
 
 /**
@@ -1655,7 +1655,7 @@ f32 rotate_racer_in_water(Object *obj, Object_Racer *racer, Vec3f *pos, s8 arg3,
     return velocity;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_80049794.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80049794.s")
 
 /**
  * When turning left and right in a plane, apply the tilting animation to the character.
@@ -1954,10 +1954,10 @@ void update_camera_plane(f32 updateRate, Object *obj, Object_Racer *racer) {
     racer->cameraYaw = gCameraObject->trans.y_rotation;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/update_camera_plane.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/update_camera_plane.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_8004CC20.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_8004CC20.s")
 
 /**
  * Handles the camera movement when the player is on a loop-the-loop.
@@ -2754,7 +2754,7 @@ void set_racer_tail_lights(Object_Racer *racer) {
     racer->lightFlags = (racer->lightFlags & 0xFFF0) | lightTimer;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_8004F7F4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_8004F7F4.s")
 
 /**
  * At this point, control is taken away from the player.
@@ -3325,7 +3325,7 @@ void func_80050A28(Object *obj, Object_Racer *racer, s32 updateRate, f32 updateR
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_80050A28.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80050A28.s")
 #endif
 
 /**
@@ -3863,7 +3863,7 @@ void handle_car_velocity_control(Object_Racer *racer) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_80053750.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80053750.s")
 
 /**
  * Initialise some states when a racer is attacked or runs into something.
@@ -4254,7 +4254,7 @@ void update_car_velocity_ground(Object *obj, Object_Racer *racer, s32 updateRate
     obj->segment.y_velocity -= weight * updateRateF;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_80054FD0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80054FD0.s")
 
 /**
  * Update the collision of the racer.
@@ -4687,7 +4687,7 @@ void play_char_horn_sound(Object *obj, Object_Racer *racer) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_8005698C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_8005698C.s")
 
 /**
  * When active, takes the magnet target, calculates the distance then sets the player's velocity
@@ -5357,7 +5357,7 @@ void update_camera_car(f32 updateRate, Object *obj, Object_Racer *racer) {
     racer->cameraYaw = gCameraObject->trans.y_rotation;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/update_camera_car.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/update_camera_car.s")
 #endif
 
 /**
@@ -5628,7 +5628,7 @@ void func_80059208(Object *obj, Object_Racer *racer, s32 updateRate) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_80059208.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_80059208.s")
 #endif
 
 /**
@@ -5919,7 +5919,7 @@ s32 set_ghost_position_and_rotation(Object *obj) {
     return TRUE;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/set_ghost_position_and_rotation.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/set_ghost_position_and_rotation.s")
 #endif
 
 /**
@@ -6572,7 +6572,7 @@ void func_8005B818(Object *obj, Object_Racer *racer, s32 updateRate, f32 updateR
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/racer/func_8005B818.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/racer/func_8005B818.s")
 #endif
 
 #ifdef ANTI_TAMPER

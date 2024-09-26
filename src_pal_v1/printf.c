@@ -207,7 +207,7 @@ UNUSED int sprintf(char *s, const char *format, ...) {
 }
 
 // Official Name: vsprintf
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/vsprintf.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/printf/vsprintf.s")
 
 /**
  * Load the font textures for the debug text, then set the buffer to the beginning.
@@ -352,7 +352,7 @@ UNUSED s32 debug_text_width(const char *format, ...) {
     return stringLength;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/printf/func_800B653C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/printf/func_800B653C.s")
 
 /**
  * Render the background for the debug text.

@@ -667,7 +667,7 @@ void func_800C15D4(FadeTransition *transition) {
     sTransitionStatus = TRANSITION_ACTIVE;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/fade_transition/func_800C15D4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/fade_transition/func_800C15D4.s")
 #endif
 
 void func_800C1EE8(s32 updateRate) {

@@ -1706,7 +1706,7 @@ void load_menu_text(s32 language) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/load_menu_text.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/load_menu_text.s")
 #endif
 
 /**
@@ -1725,7 +1725,7 @@ void menu_button_free(void) {
     gWoodPanelAllocCount = 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_8007FFEC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8007FFEC.s")
 
 /**
  * Resize the UV's of the menu panels.
@@ -1833,7 +1833,7 @@ void func_80080580(Gfx **dList, s32 startX, s32 startY, s32 width, s32 height, s
     gWoodPanelCount++;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80080580.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80080580.s")
 #endif
 
 // https://decomp.me/scratch/lS3f5
@@ -1876,7 +1876,7 @@ void func_80080BC8(Gfx **dList) {
     reset_render_settings(dList);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80080BC8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80080BC8.s")
 #endif
 
 /**
@@ -1888,7 +1888,7 @@ void menu_geometry_end(void) {
 }
 
 // https://decomp.me/scratch/IZ1Gq
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80080E90.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80080E90.s")
 
 void init_save_data(void) {
     s32 numLevels;
@@ -2708,7 +2708,7 @@ void func_80083098(f32 arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80083098.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80083098.s")
 #endif
 
 /**
@@ -3193,7 +3193,7 @@ void menu_audio_options_init(void) {
 }
 
 // Probably soundoption_render
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80084854.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80084854.s")
 
 /**
  * Handles the input for the audio options menu.
@@ -4588,7 +4588,7 @@ SIDeviceStatus func_80087F14(s32 *controllerIndex, s32 arg1) {
     return ret;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80087F14.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80087F14.s")
 #endif
 
 /**
@@ -7429,7 +7429,7 @@ void menu_track_select_init(void) {
     gMultiplayerSelectedNumberOfRacersCopy = gMultiplayerSelectedNumberOfRacers;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/menu_track_select_init.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_track_select_init.s")
 #endif
 
 /**
@@ -7712,7 +7712,7 @@ s32 func_8008F618(Gfx **dList, MatrixS **mtx) {
     return 0;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_8008F618.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8008F618.s")
 #endif
 
 /**
@@ -7942,7 +7942,7 @@ void func_8008FF1C(UNUSED s32 updateRate) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_8008FF1C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_8008FF1C.s")
 #endif
 
 /**
@@ -8439,7 +8439,7 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80092188.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80092188.s")
 
 /**
  * Return whether the staff time has been beaten for this level.
@@ -9429,7 +9429,7 @@ void func_80094D28(UNUSED s32 updateRate) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80094D28.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/func_80094D28.s")
 #endif
 
 /**
@@ -11166,7 +11166,7 @@ void menu_ghost_data_init(void) {
     gMenuDelay = 30;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/menu_ghost_data_init.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_ghost_data_init.s")
 #endif
 
 /**
@@ -11894,7 +11894,7 @@ s32 menu_credits_loop(s32 updateRate) {
     return 0;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/menu_credits_loop.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_credits_loop.s")
 #endif
 
 /**

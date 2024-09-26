@@ -11,6 +11,7 @@ options:
   undefined_funcs_auto_path: undefined_funcs_auto.pal.v1.txt
   undefined_syms_auto_path: undefined_syms_auto.pal.v1.txt
   symbol_addrs_path: symbol_addrs.pal.v1.txt
+  symbol_name_format: $VRAM_$ROM
   asm_path: asm_pal_v1
   src_path: src_pal_v1
   build_path: build_pal_v1

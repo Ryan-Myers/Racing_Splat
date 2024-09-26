@@ -339,9 +339,9 @@ void free_model_data(ObjectModel *mdl) {
     free_from_memory_pool(mdl);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_models/func_8006017C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/object_models/func_80060910.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/object_models/func_80060AC8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_models/func_8006017C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_models/func_80060910.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_models/func_80060AC8.s")
 
 s32 func_80060C58(Vertex *vertices, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     Vertex *a;
@@ -386,7 +386,7 @@ end:
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_models/func_80060EA8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_models/func_80060EA8.s")
 
 void func_800619F4(s32 arg0) {
     D_8011D640 = arg0;

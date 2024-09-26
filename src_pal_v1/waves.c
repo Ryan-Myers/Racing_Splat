@@ -399,7 +399,7 @@ void func_800B82B4(LevelModel *arg0, LevelHeader *arg1, s32 arg2) {
     D_8012A018 = 0;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800B82B4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800B82B4.s")
 #endif
 
 void func_800B8B8C(void) {
@@ -417,7 +417,7 @@ void func_800B8B8C(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800B8C04.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800B8C04.s")
 
 s32 func_800B9228(LevelModelSegment *arg0) {
     s32 v0 = 0;
@@ -432,9 +432,9 @@ s32 func_800B9228(LevelModelSegment *arg0) {
     return result;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800B92F4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800B97A8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800B9C18.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800B92F4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800B97A8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800B9C18.s")
 
 void func_800BA288(s32 arg0, s32 arg1) {
     s32 i;
@@ -480,9 +480,9 @@ void func_800BA288(s32 arg0, s32 arg1) {
 }
 
 // https://decomp.me/scratch/h4uac
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BA4B8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BA8E4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BB2F4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800BA4B8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800BA8E4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800BB2F4.s")
 
 void func_800BBDDC(LevelModel *level, LevelHeader *header) {
     func_800BBE08(level, (unk800BBE08_arg1 *) header);
@@ -532,11 +532,11 @@ void func_800BBE08(LevelModel *level, unk800BBE08_arg1 *arg1) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BBF78.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BC6C8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BCC70.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BDC80.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BE654.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800BBF78.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800BC6C8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800BCC70.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800BDC80.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800BE654.s")
 
 /**
  * Finds the wave height and returns it for the spinning log object.
@@ -642,7 +642,7 @@ f32 func_800BEFC4(s32 arg0, s32 arg1, s32 arg2) {
     return var_f28;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/waves/func_800BEFC4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/waves/func_800BEFC4.s")
 #endif
 
 void func_800BF3E4(Object *obj) {

@@ -312,7 +312,7 @@ void init_hud(UNUSED s32 viewportCount) {
 }
 
 // hud_init_element
-#pragma GLOBAL_ASM("asm/nonmatchings/game_ui/func_8009F034.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_ui/func_8009F034.s")
 
 /**
  * Frees all elements in the hud, and the player hud, and flushes particles
@@ -1039,7 +1039,7 @@ void func_800A1E48(Object *racerObj, s32 updateRate) {
     sprite_anim_off(FALSE);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/game_ui/func_800A1E48.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_ui/func_800A1E48.s")
 #endif
 
 /**
@@ -1403,7 +1403,7 @@ void func_800A277C(s32 arg0, Object *playerRacerObj, s32 updateRate) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/game_ui/func_800A277C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_ui/func_800A277C.s")
 #endif
 
 void set_stopwatch_face(u8 arg0, u8 arg1, u8 faceID, u8 arg3, u8 arg4) {
@@ -2441,7 +2441,7 @@ void func_800A6254(Object_Racer *racer, s32 updateRate) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/game_ui/func_800A6254.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_ui/func_800A6254.s")
 #endif
 
 /**
@@ -3384,7 +3384,7 @@ void minimap_marker_pos(f32 x, f32 z, f32 angleSin, f32 angleCos, f32 modelAspec
 }
 
 // hud_draw_element
-#pragma GLOBAL_ASM("asm/nonmatchings/game_ui/func_800AA600.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/game_ui/func_800AA600.s")
 
 /**
  * Renders a 3D model onscreen.

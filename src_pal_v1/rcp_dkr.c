@@ -618,7 +618,7 @@ void func_80078190(Gfx **dlist) {
     gDPPipeSync((*dlist)++);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/rcp_dkr/func_80078190.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/rcp_dkr/func_80078190.s")
 #endif
 
 /**

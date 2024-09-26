@@ -446,7 +446,7 @@ void render_scene(Gfx **dList, MatrixS **mtx, Vertex **vtx, TriangleList **tris,
 UNUSED const char gTrackClippingErrorString[] = "Solid Clipping x0=x1 Error!!!\n";
 UNUSED const char gTrackHeightOverflowString[] = "TrackGetHeight() - Overflow!!!\n";
 
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80025510.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80025510.s")
 
 void func_800257D0(void) {
     if (D_800DC924 != 0) {
@@ -622,11 +622,11 @@ void func_8002581C(u8 *segmentIds, s32 numberOfSegments, s32 viewportIndex) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002581C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002581C.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80026070.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80026430.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80026070.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80026430.s")
 
 void func_80026C14(s16 arg0, s16 arg1, s32 arg2) {
     s16 i;
@@ -661,10 +661,10 @@ void func_80026C14(s16 arg0, s16 arg1, s32 arg2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80026E54.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80027184.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80027568.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_800278E8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80026E54.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80027184.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80027568.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_800278E8.s")
 
 /**
  * Handle the flipbook effect for level geometry textures.
@@ -738,7 +738,7 @@ void set_skydome_visbility(s32 renderSky) {
 
 // init_skydome
 // https://decomp.me/scratch/jmbc1
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80028050.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_80028050.s")
 
 /**
  * Instead of drawing the skydome with textures, draw a solid coloured background.
@@ -1682,7 +1682,7 @@ s32 get_wave_properties(f32 yPos, f32 *waterHeight, Vec3f *rotation) {
     return gTrackWaves[index]->type;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002B0F4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002B0F4.s")
 
 s32 func_8002B9BC(Object *obj, f32 *arg1, f32 *arg2, s32 arg3) {
     LevelModelSegment *seg;
@@ -1841,7 +1841,7 @@ s32 func_8002BAB0(s32 levelSegmentIndex, f32 xIn, f32 zIn, f32 *yOut) {
     return yOutCount;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002BAB0.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002BAB0.s")
 #endif
 
 #ifdef NON_MATCHING
@@ -1947,7 +1947,7 @@ void func_8002C0C4(s32 modelId) {
     set_texture_colour_tag(COLOUR_TAG_MAGENTA);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002C0C4.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002C0C4.s")
 #endif
 
 void func_8002C71C(LevelModelSegment *segment) {
@@ -2090,7 +2090,7 @@ void func_8002C954(LevelModelSegment *segment, LevelModelSegmentBoundingBox *bbo
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002CC30.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002CC30.s")
 
 typedef struct unk8002D30C_a0 {
     u8 pad00[0x04];
@@ -2518,11 +2518,11 @@ void func_8002E234(Object *obj, s32 bool) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002E234.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002E234.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002E904.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002EEEC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002E904.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002EEEC.s")
 
 #ifdef NON_EQUIVALENT
 void func_8002F2AC(void) {
@@ -2554,10 +2554,10 @@ void func_8002F2AC(void) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002F2AC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002F2AC.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002F440.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002F440.s")
 
 // Transition points between different lighting levels, used by certain objects
 f32 func_8002FA64(void) {
@@ -2646,7 +2646,7 @@ s32 func_8002FD74(f32 x0, f32 z0, f32 x1, f32 x2, s32 count, Vec4f *arg5) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002FF6C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_8002FF6C.s")
 
 #ifdef NON_EQUIUVALENT
 void func_800304C8(Vec4f *arg0) {
@@ -2693,7 +2693,7 @@ void func_800304C8(Vec4f *arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_800304C8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/tracks/func_800304C8.s")
 #endif
 
 /**

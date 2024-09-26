@@ -144,7 +144,7 @@ ObjectLight *func_80031CAC(Object *light, LevelObjectEntry_RgbaLight *lightEntry
     return newLight;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/lights/func_80031CAC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80031CAC.s")
 #endif
 
 /**
@@ -272,7 +272,7 @@ void lightUpdateLights(s32 updateRate) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/lights/func_80032424.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80032424.s")
 
 /**
  * Official Name: killLight?
@@ -458,7 +458,7 @@ void func_80032C7C(Object *object) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/lights/func_80032C7C.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/lights/func_80032C7C.s")
 #endif
 
 void func_800337E4(void) {

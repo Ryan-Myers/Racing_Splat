@@ -1518,7 +1518,7 @@ void obj_init_fish(Object *fishObj, LevelObjectEntry_Fish *fishEntry, s32 param)
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_fish.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_init_fish.s")
 #endif
 
 void obj_loop_fish(Object *fishObj, s32 updateRate) {
@@ -1779,7 +1779,7 @@ void obj_loop_animator(Object *obj, s32 updateRate) {
 }
 
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_animator.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_loop_animator.s")
 #endif
 
 void obj_init_animation(Object *obj, LevelObjectEntry_Animation *entry, s32 arg2) {
@@ -5460,7 +5460,7 @@ void obj_init_texscroll(Object *obj, LevelObjectEntry_TexScroll *entry, s32 arg2
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_texscroll.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_loop_texscroll.s")
 
 /* Official name: rgbalightInit */
 void obj_init_rgbalight(Object *obj, LevelObjectEntry_RgbaLight *entry, UNUSED s32 arg2) {
@@ -5715,10 +5715,10 @@ void obj_init_butterfly(Object *butterflyObj, LevelObjectEntry_Butterfly *butter
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_butterfly.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_loop_butterfly.s")
 
 // Scratch: https://decomp.me/scratch/h4CcJ
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_midifade.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/object_functions/obj_init_midifade.s")
 
 void obj_init_midifadepoint(Object *obj, LevelObjectEntry_MidiFadePoint *entry) {
     Object_MidiFadePoint *obj64;

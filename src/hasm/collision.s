@@ -7,8 +7,6 @@
 
 .section .rodata
 
-.section .rodata
-
 glabel D_800E5F60
 .float -0.1
 glabel D_800E5F64

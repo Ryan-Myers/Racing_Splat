@@ -1145,5 +1145,5 @@ void render_rain_overlay(RainGfxData *arg0, s32 arg1) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/weather/render_rain_overlay.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/weather/render_rain_overlay.s")
 #endif

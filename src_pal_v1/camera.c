@@ -156,7 +156,7 @@ void camera_init(void) {
     gCurCamFOV = CAMERA_DEFAULT_FOV;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_init.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/camera_init.s")
 #endif
 
 void func_80066060(s32 cameraID, s32 zoomLevel) {
@@ -765,7 +765,7 @@ void func_80066CDC(Gfx **dlist, MatrixS **mats) {
     gActiveCameraID = originalCameraID;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/func_80066CDC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/camera/func_80066CDC.s")
 #endif
 
 /**

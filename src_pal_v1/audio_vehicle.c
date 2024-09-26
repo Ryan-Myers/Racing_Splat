@@ -166,7 +166,7 @@ VehicleSoundData *func_80004B40(s8 characterId, s8 vehicleId) {
     return temp_v0_3;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/audio_vehicle/func_80004B40.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_vehicle/func_80004B40.s")
 #endif
 
 /**
@@ -367,7 +367,7 @@ void func_80005254(Object *obj, u32 buttonsPressed, u32 buttonsHeld, s32 updateR
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/audio_vehicle/func_80005254.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_vehicle/func_80005254.s")
 #endif
 
 /**
@@ -571,7 +571,7 @@ void func_800063EC(Object *obj, UNUSED u32 buttonsPressed, u32 buttonsHeld, s32 
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/audio_vehicle/func_800063EC.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_vehicle/func_800063EC.s")
 #endif
 
 /**
@@ -941,7 +941,7 @@ void func_80006FC8(Object **objs, s32 numRacers, ObjectSegment *segment, u8 arg3
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/audio_vehicle/func_80006FC8.s")
+#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/audio_vehicle/func_80006FC8.s")
 #endif
 
 /**
