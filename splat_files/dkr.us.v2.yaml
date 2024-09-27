@@ -11,12 +11,14 @@ options:
   undefined_funcs_auto_path: undefined_funcs_auto.us.v2.txt
   undefined_syms_auto_path: undefined_syms_auto.us.v2.txt
   symbol_addrs_path: symbol_addrs.us.v2.txt
+  symbol_name_format: $VRAM_$ROM
   asm_path: asm_us_v2
   src_path: src_us_v2
   build_path: build_us_v2
   asset_path: assets_us_v2
   section_order: [".text", ".data", ".rodata", ".bss"]
-  # auto_all_sections: [".data", ".rodata", ".bss"]
+  migrate_rodata_to_functions: False
+  hasm_in_src_path: False
 segments:
   - name: header
     type: header
@@ -31,7 +33,7 @@ segments:
     start: 0x1000
     vram: 0x80000400
     subsegments:
-      - [0x1000, hasm, entrypoint]
+      - [0x1000, hasm, hasm/entrypoint]
 
   - name: main
     type: code
@@ -203,7 +205,12 @@ segments:
       - [0xDBAD0, textbin, ucode_f3ddkr_xbus] # + 0x11E0
       - [0xDCCE0, textbin, ucode_unknown_2] # + 0x1200
       - [0xDD7A0, data] # + 0xAC0
-      - { start: 0xED0E0, type: bss, vram: 0x800EC4E0 }
+      - [0xED0E0, bin, assets]
+      - { start: auto, type: bss, vram: 0x800EC4E0, name: audio } # + 0x4f0
+      - { start: auto, type: bss, vram: 0x80116510, name: audiomgr }
+      - { start: auto, type: bss, vram: 0x8011A150, name: audiosfx }
+      - { start: auto, type: bss, vram: 0x8011A1B0, name: audio_vehicle }
+      - { start: auto, type: bss, vram: 0x8011B1A0 }
 
   - type: bin
     start: 0xED0E0
