@@ -3035,7 +3035,6 @@ void optionscreen_render(UNUSED s32 updateRate) {
     }
 }
 
-#ifdef NON_MATCHING
 /**
  * Draw the text list and accept input for going to specific option menus.
  */
@@ -3045,7 +3044,7 @@ s32 menu_options_loop(s32 updateRate) {
     UNUSED s32 pad0;
     s32 analogueX;
     s32 analogueY;
-    UNUSED s32 pad1[4];
+    UNUSED s32 pad1;
 
     gOptionBlinkTimer = (gOptionBlinkTimer + updateRate) & 0x3F;
     if (gMenuDelay != 0) {
@@ -3063,13 +3062,10 @@ s32 menu_options_loop(s32 updateRate) {
     analogueX = 0;
     analogueY = 0;
     if (gIgnorePlayerInputTime == 0 && gMenuDelay == 0) {
-        s8 *xAxisPtr;
-        s8 *yAxisPtr;
-        for (i = 0, xAxisPtr = gControllersXAxisDirection, yAxisPtr = gControllersYAxisDirection; i < MAXCONTROLLERS;
-             i++) {
+        for (i = 0; i < MAXCONTROLLERS; i++) {
             buttonsPressed |= get_buttons_pressed_from_player(i);
-            analogueX += *(xAxisPtr++);
-            analogueY += *(yAxisPtr++);
+            analogueX += gControllersXAxisDirection[i];
+            analogueY += gControllersYAxisDirection[i];
         }
     }
     if ((buttonsPressed & B_BUTTON) || ((buttonsPressed & (A_BUTTON | START_BUTTON)) && gMenuCurIndex == 5)) {
@@ -3084,7 +3080,27 @@ s32 menu_options_loop(s32 updateRate) {
         sound_play(SOUND_SELECT2, NULL);
 
     } else if (gMenuCurIndex == 0 && analogueX != 0) {
-        switch ((u64) get_language()) {
+        s32 langVal = get_language();
+#ifdef VERSION_pal_v1
+        if (analogueX < 0) {
+            if ((u64) langVal == LANGUAGE_ENGLISH) {
+                set_language(LANGUAGE_GERMAN);
+            } else if ((u64)langVal == LANGUAGE_FRENCH) {
+                set_language(LANGUAGE_ENGLISH);
+            } else {
+                set_language(LANGUAGE_FRENCH);
+            }
+        } else {
+            if ((u64) langVal == LANGUAGE_ENGLISH) {
+                set_language(LANGUAGE_FRENCH);
+            } else if ((u64)langVal == LANGUAGE_FRENCH) {
+                set_language(LANGUAGE_GERMAN);
+            } else {
+                set_language(LANGUAGE_ENGLISH);
+            }         
+        }
+#else
+        switch ((u64) langVal) {
             case LANGUAGE_ENGLISH:
                 set_language(LANGUAGE_FRENCH);
                 break;
@@ -3092,6 +3108,7 @@ s32 menu_options_loop(s32 updateRate) {
                 set_language(LANGUAGE_ENGLISH);
                 break;
         }
+#endif
         sound_play(SOUND_MENU_PICK2, NULL);
     } else if (gMenuCurIndex == 1 && analogueX != 0) {
         if (sEepromSettings & 0x2000000) {
@@ -3150,9 +3167,6 @@ s32 menu_options_loop(s32 updateRate) {
     gIgnorePlayerInputTime = 0;
     return MENU_RESULT_CONTINUE;
 }
-#else
-#pragma GLOBAL_ASM("asm_pal_v1/nonmatchings/menu/menu_options_loop.s")
-#endif
 
 /**
  * Unloads all assets associated with the options menu.
