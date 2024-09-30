@@ -95,7 +95,7 @@ segments:
       - [0xC4D60, asm]
       - [0xC7A20, asm]
       - [0xC84A0, asm]
-      - [0xC84B0, asm]
+      - [0xC84B0, asm, thread30_track_loading]
       - [0xC86C0, asm]
       - [0xC8700, asm]
       - [0xC8950, asm]
@@ -224,6 +224,18 @@ segments:
       - { start: auto, type: bss, vram: 0x8011A1B0, name: audio_vehicle }
       - { start: auto, type: bss, vram: 0x8011B1A0, name: objects }
       - { start: auto, type: bss, vram: 0x8011B620 }
+      - { start: auto, type: bss, vram: 0x8012B0A0, name: thread30_track_loading }      
+      - { start: auto, type: bss, vram: 0x8012D280, name: lib/src/os/initialize }
+      - { start: auto, type: bss, vram: 0x8012D290, name: lib/src/os/seteventmesg }
+      - { start: auto, type: bss, vram: 0x8012D310, name: lib/src/io/controller }
+      - { start: auto, type: bss, vram: 0x8012D3A0, name: lib/src/io/pfsisplug }
+      - { start: auto, type: bss, vram: 0x8012D3E0, name: lib/src/io/siacs }
+      - { start: auto, type: bss, vram: 0x8012D400, name: lib/src/io/conteepread } # + 0x530 from pal v1
+      - { start: auto, type: bss, vram: 0x8012D440, name: lib/src/io/vimgr }
+      - { start: auto, type: bss, vram: 0x8012D760, name: lib/src/io/sptask }
+      - { start: auto, type: bss, vram: 0x8012D7A0, name: lib/src/io/piacs }
+      - { start: auto, type: bss, vram: 0x8012D7C0, name: lib/src/os/timerintr }
+      - { start: auto, type: bss, vram: 0x8012D800, name: lib/src/os/exceptasm }
       - { start: auto, type: .bss, vram: 0x8012D9B0, name: memory_pool } # + 0x530 from pal v1
 
   - type: bin
