@@ -1,5 +1,81 @@
 #include "common.h"
 
+/* The comment below is needed for this file to be picked up by generate_ld */
+/* RAM_POS: 0x80000450 */
+
+#include "audio.h"
+#include "memory.h"
+
+#include "types.h"
+#include "macros.h"
+#include "asset_enums.h"
+#include "asset_loading.h"
+#include "audio_internal.h"
+#include "audiomgr.h"
+#include "audiosfx.h"
+#include "sched.h"
+#include "libultra/src/audio/seqchannel.h"
+
+/************ .data ************/
+
+ALSeqPlayer *gMusicPlayer = NULL;
+ALSeqPlayer *gJinglePlayer = NULL;
+u8 gMusicBaseVolume = 127;
+u8 sfxRelativeVolume = 127;
+u8 gCanPlayMusic = TRUE;
+u8 gCanPlayJingle = FALSE;
+s32 gBlockMusicChange = FALSE;
+s32 audioPrevCount = 0;
+f32 sMusicFadeVolume = 1.0f;
+s32 gMusicSliderVolume = 256;
+s32 gDelayedSoundsCount = 0;
+u8 gMusicNextSeqID = SEQUENCE_NONE;
+u8 gJingleNextSeqID = SEQUENCE_NONE;
+UNUSED s32 D_800DC664 = 0;
+UNUSED s32 D_800DC668 = 0;
+s32 gGlobalMusicVolume = 256; // This is never not 256...
+u8 gBlockVoiceLimitChange = FALSE;
+
+/*******************************/
+
+/************ .bss ************/
+
+// The audio heap is located at the start of the BSS section.
+u8 gBssSectionStart[AUDIO_HEAP_SIZE];
+
+ALHeap gALHeap;
+ALSeqFile *gSequenceTable;
+void *gMusicSequenceData;
+void *gJingleSequenceData;
+u8 gCurrentSequenceID;
+u8 gCurrentJingleID;
+s32 gMusicTempo;
+u32 *gSeqLengthTable;
+ALBankFile *gSequenceBank;
+ALBankFile *gSoundBank;
+SoundData *gSoundTable;
+MusicData *gSeqSoundTable;
+s32 gSoundCount;
+s32 gSeqSoundCount;
+u32 gSoundTableSize;
+u32 gSeqSoundTableSize;
+s16 sMusicTempo;
+f32 gMusicAnimationTick;
+s32 sMusicDelayTimer;
+s32 sMusicDelayLength;
+u8 gMusicPlaying;
+u8 gJinglePlaying;
+DelayedSound gDelayedSounds[8];
+ALCSeq gMusicSequence;
+ALCSeq gJingleSequence;
+u8 gSkipResetChannels; // Stored and used by a single function, but redundant.
+u8 gAudioVolumeSetting;
+u32 gDynamicMusicChannelMask;
+SoundMask *gGlobalSoundMask;
+SoundMask *gSpatialSoundMask;
+SoundMask *gRacerSoundMask;
+
+
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/audio/audio_init.s")
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/audio/sound_volume_reset.s")

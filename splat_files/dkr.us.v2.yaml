@@ -168,7 +168,9 @@ segments:
       - [0xD36C0, asm]
       - [0xD3700, asm]
       - [0xD3DC0, asm]
-      - [0xD3DD0, asm]
+      - [0xD3DD0, asm, lib/src/libc/ldiv]
+      - [auto, c, memory_pool] #bss only file
+      - [0xD3E10, hasm, lib/src/os/exceptasm]
       - [0xD47D0, asm]
       - [0xD4980, asm]
       - [0xD4A00, asm]
@@ -204,18 +206,25 @@ segments:
       - [0xDA8F0, textbin, ucode_f3ddkr_fifo]
       - [0xDBAD0, textbin, ucode_f3ddkr_xbus]
       - [0xDCCE0, textbin, ucode_unknown_2]
-      - [0xDD7A0, data, audio]
+      - [0xDD7A0, .data, audio] # + 0x4E0 from pal v1
       - [0xDD7F0, data]
-      - [0xE5AE0, rodata, audio]
+      - [0xE5AB0, data, lib/src/libc/xlitob] # + 0x500 from pal v1
+      - [0xE5AE0, rodata, audio] # + 0x500 from pal v1
       - [0xE5B80, rodata]
+      - [0xEAA40, rodata, lib/src/gu/libm_vals] # + 0x4f0 from pal v1
+      - { start: 0xEAA50, type: databin, name: data_audio,       linker_section_order: .rodata }
+      - { start: 0xEAD20, type: databin, name: data_f3ddkr_dram, linker_section_order: .rodata }
+      - { start: 0xEB520, type: databin, name: data_f3ddkr_fifo, linker_section_order: .rodata }
+      - { start: 0xEBD20, type: databin, name: data_f3ddkr_xbus, linker_section_order: .rodata }
+      - { start: 0xEC520, type: databin, name: data_unknown_2,   linker_section_order: .rodata }
       - [0xED0E0, bin, assets]
-      - { start: auto, type: bss, vram: 0x800EC4E0, name: audio } # + 0x4f0
+      - { start: auto, type: .bss, vram: 0x800EC4E0, name: audio } # + 0x4f0 from pal v1
       - { start: auto, type: bss, vram: 0x80116510, name: audiomgr }
       - { start: auto, type: bss, vram: 0x8011A150, name: audiosfx }
       - { start: auto, type: bss, vram: 0x8011A1B0, name: audio_vehicle }
       - { start: auto, type: bss, vram: 0x8011B1A0, name: objects }
       - { start: auto, type: bss, vram: 0x8011B620 }
-      
+      - { start: auto, type: .bss, vram: 0x8012D9B0, name: memory_pool } # + 0x530 from pal v1
 
   - type: bin
     start: 0xED0E0
