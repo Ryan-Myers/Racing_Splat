@@ -436,8 +436,16 @@
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/objects/func_80023F7C_24B7C.s")
 
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/objects/func_800245C0_251C0.s")
+void func_800245C0_251C0(s32 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/objects/func_800245C8_251C8.s")
 
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/objects/func_800245E8_251E8.s")
+extern s16 D_8011B1A0_ED0E0[128];
+extern s32 D_800DCC70_DD870;
+void func_800245E8_251E8(s16 arg0) {
+    D_8011B1A0_ED0E0[D_800DCC70_DD870++] = arg0;
+    if (D_800DCC70_DD870 >= 128) {
+        D_800DCC70_DD870 = 0;
+    }
+}

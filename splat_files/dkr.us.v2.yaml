@@ -49,9 +49,9 @@ segments:
       - [0x8C40, c, audio_spatial]
       - [0xB310, c, lib/src/audio/mips1/seqplayer]
       - [0xBC20, c, objects]
+      - [0x25230, hasm, hasm/unknown_0251F0]
+      - [0x25620, c, tracks]
 
-      - [0x25230, asm]
-      - [0x25620, asm]
       - [0x31D70, asm]
       - [0x327A0, asm]
       - [0x34900, asm]
@@ -199,18 +199,23 @@ segments:
       - [0xD85C0, asm]
       - [0xD85D0, asm]
       - [0xD8760, textbin, ucode_audio]
-      - [0xD9620, textbin, ucode_boot] # + 0xEC0
-      - [0xD96F0, textbin, ucode_f3ddkr_dram] # + 0xD0
-      - [0xDA8F0, textbin, ucode_f3ddkr_fifo] # + 0x1200
-      - [0xDBAD0, textbin, ucode_f3ddkr_xbus] # + 0x11E0
-      - [0xDCCE0, textbin, ucode_unknown_2] # + 0x1200
-      - [0xDD7A0, data] # + 0xAC0
+      - [0xD9620, textbin, ucode_boot]
+      - [0xD96F0, textbin, ucode_f3ddkr_dram]
+      - [0xDA8F0, textbin, ucode_f3ddkr_fifo]
+      - [0xDBAD0, textbin, ucode_f3ddkr_xbus]
+      - [0xDCCE0, textbin, ucode_unknown_2]
+      - [0xDD7A0, data, audio]
+      - [0xDD7F0, data]
+      - [0xE5AE0, rodata, audio]
+      - [0xE5B80, rodata]
       - [0xED0E0, bin, assets]
       - { start: auto, type: bss, vram: 0x800EC4E0, name: audio } # + 0x4f0
       - { start: auto, type: bss, vram: 0x80116510, name: audiomgr }
       - { start: auto, type: bss, vram: 0x8011A150, name: audiosfx }
       - { start: auto, type: bss, vram: 0x8011A1B0, name: audio_vehicle }
-      - { start: auto, type: bss, vram: 0x8011B1A0 }
+      - { start: auto, type: bss, vram: 0x8011B1A0, name: objects }
+      - { start: auto, type: bss, vram: 0x8011B620 }
+      
 
   - type: bin
     start: 0xED0E0

@@ -287,6 +287,28 @@ sDebugVersionInfoString = 0x800E76A0; // type:asciz
 sDebugBuildDateString = 0x800E76A8; // type:asciz
 sDebugUsernameString = 0x800E76B8; // type:asciz
 
+gMusicPlayer = 0x800DCBA0;
+gJinglePlayer = 0x800DCBA4;
+gMusicBaseVolume = 0x800DCBA8; // type:u8 size:0x1
+sfxRelativeVolume = 0x800DCBAC; // type:u8 size:0x1
+gCanPlayMusic = 0x800DCBB0; // type:u8 size:0x1
+gCanPlayJingle = 0x800DCBB4; // type:u8 size:0x1
+gBlockMusicChange = 0x800DCBB8;
+audioPrevCount = 0x800DCBBC;
+sMusicFadeVolume = 0x800DCBC0;
+gMusicSliderVolume = 0x800DCBC4;
+gDelayedSoundsCount = 0x800DCBC8;
+gMusicNextSeqID = 0x800DCBCC; // type:u8 size:0x1
+gJingleNextSeqID = 0x800DCBD0; // type:u8 size:0x1
+D_800DC664 = 0x800DCBD4;
+D_800DC668 = 0x800DCBD8;
+gGlobalMusicVolume = 0x800DCBDC;
+gBlockVoiceLimitChange = 0x800DCBE0; // type:u8 size:0x1
+
+sAudioErrorString_01 = 0x800E4EE0;
+sAudioErrorString_02 = 0x800E4F10;
+sAudioErrorString_03 = 0x800E4F4C;
+
 
 gBssSectionStart = 0x800EC4E0;
 gALHeap = 0x80116268;
