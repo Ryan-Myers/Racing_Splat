@@ -96,9 +96,14 @@ segments:
       - [0x9FE30, asm, game_ui] #diff somewhere in here.
       - [auto, c, os_yield_data] #bss only file
       - [0xAC350, asm, weather]
-      - [0xAF3D0, asm]
-      - [0xB8E30, asm]
-      - [0xB8E40, asm]
+      - [0xAF3D0, asm, particles]
+      - [0xB5870, asm, unused_string]
+      - [0xB5AA0, asm, printf]
+      - [0xB80A0, asm, lib/src/debug/assert]
+      - [0xB80B0, asm, thread0_epc]
+      - [0xB8E30, hasm, hasm/get_stack_pointer]
+      - [0xB8E40, asm, waves]
+      - [0xC1290, asm, fade_transition]
       - [0xC3B10, asm, game_text]
       - [0xC4D60, asm, font]
       - [0xC7160, asm, lib/src/io/pimgr]
