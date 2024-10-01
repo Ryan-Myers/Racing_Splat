@@ -6,9 +6,9 @@ osAppNMIBuffer = 0x8000031C;
 entrypoint = 0x80000400;
 __BSS_SECTION_SIZE = 0x414D0; // TODO Calculate this!
 
+__ASSETS_LUT_START = 0xED0E0;
+__ASSETS_LUT_END = 0xED1B0;
 //TODO: These values need to be updated
-__ASSETS_LUT_START = 0xECBF0;
-__ASSETS_LUT_END = 0xECCC0;
 __ROM_END = 0xAC96C0;
 
 
@@ -1072,6 +1072,73 @@ osMotorStop = 0x80071F70;
 osMotorStart = 0x80072098;
 osMotorInit = 0x8007231C;
 input_get_id = 0x80072490;
+func_800724D8_730D8 = 0x800724D8; // has a diff from v1 - NEW FUNC
+rumble_init = 0x800724E4;
+rumble_exists = 0x80072534;
+rumble_set = 0x80072594;
+rumble_set_fade = 0x80072670;
+rumble_start = 0x800727C4;
+rumble_stop = 0x800728C8;
+rumble_kill = 0x80072954;
+rumble_update = 0x80072964; // has a diff from v1
+func_80072C54 = 0x80072EAC;
+func_80072E28 = 0x80073080;
+populate_settings_from_save_data = 0x800732C4;
+func_800732E8 = 0x80073540;
+func_80073588 = 0x800737E0;
+func_800738A4 = 0x80073AFC;
+get_game_data_file_size = 0x80073EA4;
+get_time_data_file_size = 0x80073EAC;
+get_file_extension = 0x80073EB4;
+read_game_data_from_controller_pak = 0x80074074;
+write_game_data_to_controller_pak = 0x800741B4;
+read_time_data_from_controller_pak = 0x80074270;
+write_time_data_to_controller_pak = 0x800743A0;
+read_save_file = 0x8007445C;
+erase_save_file = 0x80074574;
+write_save_data = 0x80074734;
+read_eeprom_data = 0x80074828;
+write_eeprom_data = 0x80074948;
+calculate_eeprom_settings_checksum = 0x80074A64;
+read_eeprom_settings = 0x80074ACC;
+write_eeprom_settings = 0x80074BD4;
+calculate_ghost_header_checksum = 0x80074CA4;
+func_80074AA8 = 0x80074D00;
+get_ghost_data_file_size = 0x80074D74;
+func_80074B34 = 0x80074D8C;
+func_80074EB8 = 0x80075110;
+func_80075000 = 0x80075258;
+func_800753D8 = 0x80075630;
+func_800756D4 = 0x8007592C;
+get_si_device_status = 0x80075B34;
+start_reading_controller_data = 0x80075D44;
+init_controller_paks = 0x80075D70;
+check_for_rumble_pak = 0x80075F38;
+repair_controller_pak = 0x80075F90;
+reformat_controller_pak = 0x8007601C;
+get_controller_pak_file_list = 0x800760B8;
+packDirectoryFree = 0x800763BC;
+get_free_space = 0x800763EC;
+delete_file = 0x80076520;
+copy_controller_pak_data = 0x800765E0;
+get_file_number = 0x80076740;
+read_data_from_controller_pak = 0x80076868;
+write_controller_pak_file = 0x8007692C;
+get_file_size = 0x80076B7C;
+font_codes_to_string = 0x80076BE4;
+string_to_font_codes = 0x80076C90;
+get_file_type = 0x80076D4C;
+
+// Entire asset_loading file seems quite different from v1
+init_PI_mesg_queue = 0x80076E00; // has a diff from v1
+load_asset_section_from_rom = 0x80076C58; // has a diff from v1
+load_compressed_asset_from_rom = 0x80076FB0; // has a diff from v1
+load_asset_section_from_rom_to_address = 0x800770E8; // has a diff from v1
+load_asset_to_address = 0x80077190; // has a diff from v1
+get_rom_offset_of_asset = 0x80077240; // has a diff from v1
+get_size_of_asset_section = 0x800772DC; // has a diff from v1
+func_80077370_77F70 = 0x80077370; // has a diff from v1 - NEW FUNC
+dmacopy = 0x800773D4;
 
 gCurrentRNGSeed = 0x800DD9A4;
 sDebugVersionInfoString = 0x800E76A0; // type:asciz
@@ -1636,6 +1703,7 @@ __osException = 0x800D3220;
 osCreatePiManager = 0x800C6560;
 gGfxTaskYieldData = 0x80127770;
 // load_compressed_asset_from_rom is a differing function
+D_800DEA00_DF600 = 0x800DEA00; // New data value.
 
 SP_MEM_ADDR_REG = 0xA4040000;
 SP_DRAM_ADDR_REG = 0xA4040004;

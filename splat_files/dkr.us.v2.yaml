@@ -84,7 +84,7 @@ segments:
       - [0x71970, asm, memory]
       - [0x72B70, asm, lib/src/io/motor]
       - [0x73090, asm, save_data] #diff here
-      - [0x77A00, asm, asset_loading] #load_compressed_asset_from_rom is a differing function +0x260
+      - [0x77A00, asm, asset_loading] # Entire asset_loading file seems quite different from v1
       - [0x780A0, asm, borders]
       - [0x784A0, asm, rcp_dkr]
       - [0x7A3A0, asm, lib/src/sc/sched]
