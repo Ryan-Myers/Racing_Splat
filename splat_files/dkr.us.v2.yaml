@@ -91,10 +91,12 @@ segments:
       - [0xAF3D0, asm]
       - [0xB8E30, asm]
       - [0xB8E40, asm]
-      - [0xC3B10, asm]
-      - [0xC4D60, asm]
-      - [0xC7A20, asm]
-      - [0xC84A0, asm]
+      - [0xC3B10, asm, game_text]
+      - [0xC4D60, asm, font]
+      - [0xC7160, c, lib/src/io/pimgr]
+      - [0xC72D0, asm, gzip]
+      - [0xC7A20, asm, hasm/gzip_asm]
+      - [0xC84A0, c, lib/src/io/leointerrupt]
       - [0xC84B0, asm, thread30_track_loading]
       - [0xC86C0, asm]
       - [0xC8700, asm]
@@ -168,7 +170,7 @@ segments:
       - [0xD36C0, asm]
       - [0xD3700, asm]
       - [0xD3DC0, asm]
-      - [0xD3DD0, asm, lib/src/libc/ldiv]
+      - [0xD3DD0, c, lib/src/libc/ldiv]
       - [auto, c, memory_pool] #bss only file
       - [0xD3E10, hasm, lib/src/os/exceptasm]
       - [0xD47D0, asm]
@@ -224,7 +226,11 @@ segments:
       - { start: auto, type: bss, vram: 0x8011A1B0, name: audio_vehicle }
       - { start: auto, type: bss, vram: 0x8011B1A0, name: objects }
       - { start: auto, type: bss, vram: 0x8011B620 }
-      - { start: auto, type: bss, vram: 0x8012B0A0, name: thread30_track_loading }      
+      - { start: auto, type: bss, vram: 0x8012AD40, name: game_text }      
+      - { start: auto, type: bss, vram: 0x8012ADA0, name: font }
+      - { start: auto, type: bss, vram: 0x8012ADC0, name: lib/src/io/pimgr }
+      - { start: auto, type: bss, vram: 0x8012B090, name: gzip }  
+      - { start: auto, type: bss, vram: 0x8012B0A0, name: thread30_track_loading }
       - { start: auto, type: bss, vram: 0x8012D280, name: lib/src/os/initialize }
       - { start: auto, type: bss, vram: 0x8012D290, name: lib/src/os/seteventmesg }
       - { start: auto, type: bss, vram: 0x8012D310, name: lib/src/io/controller }

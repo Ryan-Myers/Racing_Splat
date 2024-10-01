@@ -58,7 +58,11 @@ else
 BIN_DIRS  = assets_$(REGION)_$(VERSION)
 BUILD_DIR = build_$(REGION)_$(VERSION)
 SRC_DIR   = src_$(REGION)_$(VERSION)
+ifeq ($(REGION)$(VERSION),palv1)
 LIBULTRA_DIR = libultra
+else
+LIBULTRA_DIR = $(SRC_DIR)/lib
+endif
 ASM_DIR = asm_$(REGION)_$(VERSION)
 ASM_DIRS   = $(ASM_DIR) $(ASM_DIR)/data $(ASM_DIR)/nonmatchings $(ASM_DIR)/data/lib $(ASM_DIR)/data/hasm
 ASM_DIRS  += $(ASM_DIR)/data/lib/src $(ASM_DIR)/data/lib/src/audio $(ASM_DIR)/data/lib/src/audio/mips1 

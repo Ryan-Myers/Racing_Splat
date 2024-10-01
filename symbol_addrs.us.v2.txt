@@ -378,9 +378,11 @@ D_8011A6E0 = 0x8011AC60;
 gAudioLinesOff = 0x8011B198;
 D_8011AC1C = 0x8011B19C;
 
+__osLeoInterrupt = 0x800C78A0;
 __osThreadSave = 0x8012D800; // type:OSThread size:0x1B0
 gMainMemoryPool = 0x8012D9B0; // type:MemoryPoolSlot size:0x14
 __osException = 0x800D3220;
+osCreatePiManager = 0x800C6560;
 
 SP_MEM_ADDR_REG = 0xA4040000;
 SP_DRAM_ADDR_REG = 0xA4040004;
