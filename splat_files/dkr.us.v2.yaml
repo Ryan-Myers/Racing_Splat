@@ -48,20 +48,20 @@ segments:
       - [0x5740, asm, audio_vehicle]
       - [0x8C40, asm, audio_spatial]
       - [0xB310, c, lib/src/audio/mips1/seqplayer]
-      - [0xBC20, asm, objects]
+      - [0xBC20, asm, objects] #diff here - 0x166F8 - func_800159C8 - func_80016500 becomes 0x80016534 - Shift funcs all by 0x38
       - [0x25230, hasm, hasm/unknown_0251F0]
       - [0x25620, asm, tracks]
       - [0x31D70, hasm, hasm/collision]
       - [0x327A0, asm, lights]
       - [0x34900, asm, object_functions]
-      - [0x43960, asm, racer]
+      - [0x43960, asm, racer] #diff here
       - [0x5D090, asm, vehicle_tricky]
       - [0x5DE70, asm, vehicle_bluey]
       - [0x5E5C0, asm, vehicle_smokey]
       - [0x5F260, asm, vehicle_bubbler]
       - [0x5F830, asm, vehicle_wizpig]
       - [0x600B0, asm, vehicle_rocket]
-      - [0x605F0, asm, object_models]
+      - [0x605F0, asm, object_models] #diff here
       - [0x62B70, hasm, hasm/unknown_062930]
       - [0x630D0, c, lib/src/audio/mips1/csplayer]
       - [0x648D0, c, lib/src/audio/mips1/unknown_064690]
@@ -83,7 +83,7 @@ segments:
       - [0x70350, asm, hasm/math_util]
       - [0x71970, asm, memory]
       - [0x72B70, asm, lib/src/io/motor]
-      - [0x73090, asm, save_data]
+      - [0x73090, asm, save_data] #diff here
       - [0x77A00, asm, asset_loading] #load_compressed_asset_from_rom is a differing function +0x260
       - [0x780A0, asm, borders]
       - [0x784A0, asm, rcp_dkr]
@@ -92,19 +92,19 @@ segments:
       - [0x7B360, asm, video]
       - [0x7BCC0, asm, textures_sprites]
       - [0x80690, asm, screen_asset]
-      - [0x80950, asm, menu]
-      - [0x9FE30, asm, game_ui] #diff somewhere in here.
+      - [0x80950, asm, menu] #diff here
+      - [0x9FE30, asm, game_ui] #diff here
       - [auto, c, os_yield_data] #bss only file
       - [0xAC350, asm, weather]
       - [0xAF3D0, asm, particles]
       - [0xB5870, asm, unused_string]
       - [0xB5AA0, asm, printf]
       - [0xB80A0, asm, lib/src/debug/assert]
-      - [0xB80B0, asm, thread0_epc]
+      - [0xB80B0, asm, thread0_epc] #diff here
       - [0xB8E30, hasm, hasm/get_stack_pointer]
       - [0xB8E40, asm, waves]
       - [0xC1290, asm, fade_transition]
-      - [0xC3B10, asm, game_text]
+      - [0xC3B10, asm, game_text] #diff here
       - [0xC4D60, asm, font]
       - [0xC7160, asm, lib/src/io/pimgr]
       - [0xC72D0, asm, gzip]
