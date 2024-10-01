@@ -77,12 +77,12 @@ segments:
       - [0x6B4F0, asm]
       - [0x71970, asm]
       - [0x73090, asm]
-      - [0x77A00, c, asset_loading]
+      - [0x77A00, c, asset_loading] #load_compressed_asset_from_rom is a differing function
       - [0x780A0, asm]
-      - [0x784A0, asm]
-      - [0x7A3A0, asm]
-      - [0x7B320, asm]
-      - [0x7B360, asm]
+      - [0x784A0, c, rcp_dkr]
+      - [0x7A3A0, c, lib/src/sc/sched]
+      - [0x7B320, c, set_rsp_segment]
+      - [0x7B360, asm, video]
       - [0x7BCC0, asm]
       - [0x80690, asm]
       - [0x80950, asm]
@@ -247,8 +247,13 @@ segments:
       - { start: auto, type: bss, vram: 0x80124350, name: lib/src/io/motor }
       - { start: auto, type: bss, vram: 0x80124590, name: save_data }
       - { start: auto, type: bss, vram: 0x80124780, name: asset_loading } # + 0x4F0 from pal v1
-      - { start: auto, type: bss, vram: 0x80124820 }
-      - { start: auto, type: bss, vram: 0x80127290, name: game_ui } # + 0x530 from pal v1  
+      - { start: auto, type: bss, vram: 0x80124840, name: rcp_dkr } # + 0x510 from pal v1
+      - { start: auto, type: bss, vram: 0x801266B0, name: lib/src/sc/sched }
+      - { start: auto, type: bss, vram: 0x80126710, name: video }
+      - { start: auto, type: bss, vram: 0x801268C0, name: textures_sprites }
+      - { start: auto, type: bss, vram: 0x80126930, name: menu }      
+      - { start: auto, type: bss, vram: 0x80127290, name: game_ui } # + 0x530 from pal v1
+      - { start: auto, type: bss, vram: 0x80127770, name: os_yield_data }
       - { start: auto, type: bss, vram: 0x80128170, name: weather }
       - { start: auto, type: bss, vram: 0x80128240, name: particles }
       - { start: auto, type: bss, vram: 0x80128260, name: printf }

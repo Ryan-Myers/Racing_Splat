@@ -93,6 +93,7 @@ segments:
       - [0x80240, c, screen_asset]
       - [0x80500, c, menu]
       - [0x9F8F0, c, game_ui]
+      - [auto, c, os_yield_data] #bss only file
       - [0xABDF0, c, weather]
       - [0xAEE70, c, particles]
       - [0xB5310, c, unused_string]
@@ -416,7 +417,8 @@ segments:
       - { start: auto, type: .bss, vram: 0x80126170, name: video }
       - { start: auto, type: .bss, vram: 0x80126320, name: textures_sprites }
       - { start: auto, type: .bss, vram: 0x80126390, name: menu }
-      - { start: auto, type: .bss, vram: 0x80126CD0, name: game_ui }
+      - { start: auto, type: .bss, vram: 0x80126CD0, name: game_ui }      
+      - { start: auto, type: .bss, vram: 0x801271B0, name: os_yield_data }
       - { start: auto, type: .bss, vram: 0x80127BB0, name: weather }
       - { start: auto, type: .bss, vram: 0x80127C80, name: particles }
       - { start: auto, type: .bss, vram: 0x80127CA0, name: printf }

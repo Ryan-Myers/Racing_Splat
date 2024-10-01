@@ -4578,6 +4578,8 @@ gStopwatchErrorX = 0x8012718C;
 gStopwatchErrorY = 0x80127190;
 D_80127194 = 0x80127194;
 D_80127198 = 0x80127198;
+
+// os_yield_data .bss
 gGfxTaskYieldData = 0x801271B0;
 
 // weather .bss
