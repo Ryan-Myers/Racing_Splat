@@ -48,7 +48,7 @@ segments:
       - [0x5740, asm, audio_vehicle]
       - [0x8C40, asm, audio_spatial]
       - [0xB310, c, lib/src/audio/mips1/seqplayer]
-      - [0xBC20, asm, objects] #diff here - 0x166F8 - func_800159C8 - func_80016500 becomes 0x80016534 - Shift funcs all by 0x38
+      - [0xBC20, asm, objects] #diff here
       - [0x25230, hasm, hasm/unknown_0251F0]
       - [0x25620, asm, tracks]
       - [0x31D70, hasm, hasm/collision]
