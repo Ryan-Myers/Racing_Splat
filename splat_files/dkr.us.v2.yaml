@@ -90,11 +90,12 @@ segments:
       - [0x7A3A0, asm, lib/src/sc/sched]
       - [0x7B320, asm, set_rsp_segment]
       - [0x7B360, asm, video]
-      - [0x7BCC0, asm]
-      - [0x80690, asm]
-      - [0x80950, asm]
-      - [0x9FE30, asm]
-      - [0xAC350, asm]
+      - [0x7BCC0, asm, textures_sprites]
+      - [0x80690, asm, screen_asset]
+      - [0x80950, asm, menu]
+      - [0x9FE30, asm, game_ui] #diff somewhere in here.
+      - [auto, c, os_yield_data] #bss only file
+      - [0xAC350, asm, weather]
       - [0xAF3D0, asm]
       - [0xB8E30, asm]
       - [0xB8E40, asm]
@@ -260,7 +261,7 @@ segments:
       - { start: auto, type: bss, vram: 0x801268C0, name: textures_sprites }
       - { start: auto, type: bss, vram: 0x80126930, name: menu }      
       - { start: auto, type: bss, vram: 0x80127290, name: game_ui } # + 0x530 from pal v1
-      - { start: auto, type: bss, vram: 0x80127770, name: os_yield_data }
+      - { start: auto, type: .bss, vram: 0x80127770, name: os_yield_data }
       - { start: auto, type: bss, vram: 0x80128170, name: weather }
       - { start: auto, type: bss, vram: 0x80128240, name: particles }
       - { start: auto, type: bss, vram: 0x80128260, name: printf }
