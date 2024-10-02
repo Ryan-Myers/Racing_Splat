@@ -76,3 +76,5 @@ tools/n64crc
 !tools/build
 m2cfiles/
 tools/ido-recomp
+#Just hide my little file I use for the symbol_updater.py
+tools/symbols_to_update.txt
