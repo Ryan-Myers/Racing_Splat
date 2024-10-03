@@ -2939,7 +2939,6 @@ sDialogueBoxIsOpen = 0x800E36E8;
 gDescPowsOf10 = 0x800E36EC;
 sDialogueBoxDimensions = 0x800E3710;
 
-//TODO: MOVE THIS out of font.c
 __osPiDevMgr = 0x800E3740; // size:0x1C
 
 // gzip.c .data
@@ -2988,7 +2987,6 @@ osViModeNtscLan1 = 0x800E4710;
 osViModePalLan1 = 0x800E4760;
 osViModeMpalLan1 = 0x800E47B0;
 
-//TODO: MOVE THIS out of vitbl.c to piacs
 __osPiAccessQueueEnabled = 0x800E4800;
 
 // osSpTaskYielded .data
@@ -3004,8 +3002,6 @@ __osActiveQueue = 0x800E488C;
 __osRunningThread = 0x800E4890;
 __osFaultedThread = 0x800E4894;
 
-// TODO MOVE THIS OUT of al/alcopy to exceptasm.s
-// al/alCopy .data
 __osHwIntTable = 0x800E48A0;
 
 // xprintf.c 
@@ -3620,8 +3616,6 @@ __osIntTable = 0x800E9690; // size:0x24
 length_str = 0x800E96C0; // type:asciz "hlL" defined:true
 flags_str = 0x800E96C4; // type:asciz " +-#0" defined:true
 flags_arr = 0x800E96CC; // type:u32 size:0x18 defined:true
-
-// TODO: Piacs?
 P_cosf = 0x800E97C0; // type:Du size:0x28 defined:true
 rpi_cosf = 0x800E97E8; // type:Du size:0x8 defined:true
 pihi_cosf = 0x800E97F0; // type:Du size:0x8 defined:true
@@ -4769,11 +4763,7 @@ leoDiskStack = 0x8012AAE0;
 gThread30 = 0x8012AAF0;
 gThread30MesgQueue = 0x8012ACA0; // type:OSMesgQueue size:0x18
 gThread30Message = 0x8012ACB8; // type:OSMesg size:0x4
-
-// TODO MOVE THIS?
 gThread30Stack = 0x8012ACC0; // type:u64 size:0x2000
-
-// osViMgr TODO MOVE?
 __osFinalrom = 0x8012CCC0; // type:u32 size:0x4
 
 // osSetEventMesg .bss
@@ -4811,7 +4801,6 @@ __osViIntrCount = 0x8012D22C;
 __osTimerCounter = 0x8012D230;
 D_8012D238 = 0x8012D238;
 __osThreadSave = 0x8012D240; // type:OSThread size:0x1B0
-// TODO MOVE THIS!
 gMainMemoryPool = 0x8012D3F0; // type:MemoryPoolSlot size:0x14
 
 SP_MEM_ADDR_REG = 0xA4040000;

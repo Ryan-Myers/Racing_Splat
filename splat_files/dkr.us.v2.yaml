@@ -417,7 +417,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x801266B0, name: ../libultra/src/sc/sched }
       - { start: auto, type: bss, vram: 0x80126710, name: video }
       - { start: auto, type: bss, vram: 0x801268C0, name: textures_sprites }
-      - { start: auto, type: bss, vram: 0x80126930, name: menu }      
+      - { start: auto, type: bss, vram: 0x80126930, name: menu } #Extra bss at end of menu
       - { start: auto, type: bss, vram: 0x80127290, name: game_ui } # + 0x530 from pal v1
       - { start: auto, type: .bss, vram: 0x80127770, name: os_yield_data }
       - { start: auto, type: bss, vram: 0x80128170, name: weather }
@@ -430,9 +430,9 @@ segments:
       - { start: auto, type: bss, vram: 0x8012AD40, name: game_text }
       - { start: auto, type: bss, vram: 0x8012ADA0, name: font }
       - { start: auto, type: .bss, vram: 0x8012ADC0, name: ../libultra/src/io/pimgr }
-      - { start: auto, type: bss, vram: 0x8012B080, name: gzip }
-      - { start: auto, type: .bss, vram: 0x8012B090, name: ../libultra/src/io/leointerrupt }
-      - { start: auto, type: bss, vram: 0x8012B0A0, name: thread30_track_loading }
+      - { start: auto, type: bss, vram: 0x8012B090, name: gzip }
+      - { start: auto, type: .bss, vram: 0x8012B0A0, name: ../libultra/src/io/leointerrupt }
+      - { start: auto, type: bss, vram: 0x8012B0B0, name: thread30_track_loading }
       - { start: auto, type: .bss, vram: 0x8012D280, name: ../libultra/src/os/initialize }
       - { start: auto, type: .bss, vram: 0x8012D290, name: ../libultra/src/os/seteventmesg }
       - { start: auto, type: .bss, vram: 0x8012D310, name: ../libultra/src/io/controller }
