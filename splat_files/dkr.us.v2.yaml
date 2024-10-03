@@ -345,6 +345,7 @@ segments:
       - [0xE7C90, rodata, vehicle_rocket]
       - [0xE7CB0, rodata, object_models]
       - [0xE7DB0, .rodata, lib/src/audio/mips1/csplayer]
+      - [0xE7E70, rodata, csplayer_funcrodata] #hack until I can enable migrate_rodata_to_functions
       - [0xE8000, .rodata, ../libultra/src/audio/mips1/reverb]
       - [0xE8030, .rodata, ../libultra/src/audio/mips1/drvrnew]
       - [0xE8050, .rodata, ../libultra/src/audio/mips1/synthesizer]
