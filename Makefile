@@ -60,6 +60,8 @@ BUILD_DIR = build_$(REGION)_$(VERSION)
 SRC_DIR   = src_$(REGION)_$(VERSION)
 ifeq ($(REGION)$(VERSION),palv1)
 LIBULTRA_DIR = libultra
+else ifeq ($(REGION)$(VERSION),usv2)
+LIBULTRA_DIR = libultra
 else
 LIBULTRA_DIR = $(SRC_DIR)/lib
 endif

@@ -431,7 +431,8 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012A870, name: font }
       - { start: auto, type: .bss, vram: 0x8012A890, name: ../libultra/src/io/pimgr }
       - { start: auto, type: .bss, vram: 0x8012AB60, name: gzip }
-      - { start: auto, type: .bss, vram: 0x8012AB70, name: thread30_track_loading }
+      - { start: auto, type: .bss, vram: 0x8012AB70, name: ../libultra/src/io/leointerrupt }      
+      - { start: auto, type: .bss, vram: 0x8012AB80, name: thread30_track_loading }
       - { start: auto, type: .bss, vram: 0x8012CD50, name: ../libultra/src/os/initialize }
       - { start: auto, type: .bss, vram: 0x8012CD60, name: ../libultra/src/os/seteventmesg }
       - { start: auto, type: .bss, vram: 0x8012CDE0, name: ../libultra/src/io/controller }
