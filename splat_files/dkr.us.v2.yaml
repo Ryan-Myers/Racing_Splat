@@ -268,7 +268,7 @@ segments:
       - [0xDBAD0, textbin, ucode_f3ddkr_xbus]
       - [0xDCCE0, textbin, ucode_unknown_2]
       - [0xDD7A0, .data, audio]
-      - [0xDD7F0, data, audiomgr]
+      - [0xDD7F0, .data, audiomgr]
       - [0xDD820, data, audiosfx]
       - [0xDD840, data, audio_vehicle]
       - [0xDD850, data, audio_spatial]
@@ -326,7 +326,7 @@ segments:
       - [0xE5AA0, .data, ../libultra/src/os/timerintr]
       - [0xE5AB0, .data, ../libultra/src/libc/xlitob]
       - [0xE5AE0, .rodata, audio] # + 0x500 from pal v1
-      - [0xE5B80, rodata, audiomgr]
+      - [0xE5B80, .rodata, audiomgr]
       - [0xE5D40, rodata, audiosfx]
       - [0xE5D80, rodata, audio_vehicle]
       - [0xE5E90, rodata, audio_spatial]
@@ -390,7 +390,7 @@ segments:
       - { start: 0xEC520, type: databin, name: data_unknown_2,   linker_section_order: .rodata }
       - [0xED0E0, bin, assets]
       - { start: auto, type: .bss, vram: 0x800EC4E0, name: audio } # + 0x4F0 from pal v1
-      - { start: auto, type: bss, vram: 0x80116510, name: audiomgr }
+      - { start: auto, type: .bss, vram: 0x80116510, name: audiomgr }
       - { start: auto, type: bss, vram: 0x8011A150, name: audiosfx }
       - { start: auto, type: bss, vram: 0x8011A1B0, name: audio_vehicle }
       - { start: auto, type: bss, vram: 0x8011B1A0, name: objects }
