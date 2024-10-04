@@ -2,7 +2,7 @@
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/asset_loading/init_PI_mesg_queue.s")
 
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/asset_loading/func_80076EE4_77AE4.s")
+#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/asset_loading/load_asset_section_from_rom.s")
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/asset_loading/load_compressed_asset_from_rom.s")
 

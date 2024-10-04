@@ -110,8 +110,6 @@
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/save_data/font_codes_to_string.s")
 
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/save_data/load_asset_section_from_rom.s")
-
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/save_data/string_to_font_codes.s")
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/save_data/get_file_type.s")

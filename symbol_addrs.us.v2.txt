@@ -1131,7 +1131,7 @@ get_file_type = 0x80076D4C;
 
 // Entire asset_loading file seems quite different from v1
 init_PI_mesg_queue = 0x80076E00; // has a diff from v1
-load_asset_section_from_rom = 0x80076C58; // has a diff from v1
+load_asset_section_from_rom = 0x80076EE4; // has a diff from v1
 load_compressed_asset_from_rom = 0x80076FB0; // has a diff from v1
 load_asset_section_from_rom_to_address = 0x800770E8; // has a diff from v1
 load_asset_to_address = 0x80077190; // has a diff from v1

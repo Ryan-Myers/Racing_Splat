@@ -325,7 +325,7 @@ segments:
       - [0xE5A50, .data, ../libultra/src/libc/xprintf]
       - [0xE5AA0, .data, ../libultra/src/os/timerintr]
       - [0xE5AB0, .data, ../libultra/src/libc/xlitob]
-      - [0xE5AE0, rodata, audio] # + 0x500 from pal v1
+      - [0xE5AE0, .rodata, audio] # + 0x500 from pal v1
       - [0xE5B80, rodata, audiomgr]
       - [0xE5D40, rodata, audiosfx]
       - [0xE5D80, rodata, audio_vehicle]
