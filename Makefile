@@ -200,6 +200,10 @@ else ifeq ($(REGION)$(VERSION),palv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: MIPSISET := -mips1
+else ifeq ($(REGION)$(VERSION),usv2)
+$(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: MIPSISET := -mips1
 endif
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/os/%.c.o: OPT_FLAGS := -O1
@@ -213,6 +217,9 @@ $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/env.c.o: OPT_FLAGS := -g
 else ifeq ($(REGION)$(VERSION),palv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xprintf.c.o : OPT_FLAGS := -O3
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/env.c.o: OPT_FLAGS := -g
+else ifeq ($(REGION)$(VERSION),usv2)
+$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xprintf.c.o : OPT_FLAGS := -O3
+$(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/env.c.o: OPT_FLAGS := -g
 else
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/env.c.o: OPT_FLAGS := -O2
 endif
@@ -224,11 +231,15 @@ ifeq ($(REGION)$(VERSION),usv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ldiv.c.o: OPT_FLAGS := -O3
 else ifeq ($(REGION)$(VERSION),palv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ldiv.c.o: OPT_FLAGS := -O3
+else ifeq ($(REGION)$(VERSION),usv2)
+$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ldiv.c.o: OPT_FLAGS := -O3
 endif
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ldiv.c.o: MIPSISET := -mips2
 ifeq ($(REGION)$(VERSION),usv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xldtob.c.o: OPT_FLAGS := -O3
 else ifeq ($(REGION)$(VERSION),palv1)
+$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xldtob.c.o: OPT_FLAGS := -O3
+else ifeq ($(REGION)$(VERSION),usv2)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xldtob.c.o: OPT_FLAGS := -O3
 endif
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xldtob.c.o: MIPSISET := -mips2
