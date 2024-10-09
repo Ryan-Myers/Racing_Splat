@@ -17,7 +17,7 @@ options:
   build_path: build_us_v2
   asset_path: assets_us_v2
   section_order: [".text", ".data", ".rodata", ".bss"]
-  migrate_rodata_to_functions: False
+  migrate_rodata_to_functions: True
   hasm_in_src_path: True
 segments:
   - name: header
@@ -269,47 +269,47 @@ segments:
       - [0xDCCE0, textbin, ucode_unknown_2]
       - [0xDD7A0, .data, audio]
       - [0xDD7F0, .data, audiomgr]
-      - [0xDD820, data, audiosfx]
-      - [0xDD840, data, audio_vehicle]
-      - [0xDD850, data, audio_spatial]
-      - [0xDD860, data, objects]
-      - [0xDD9E0, data, tracks]
-      - [0xDDAC0, data, lights]
-      - [0xDDAE0, data, object_functions]
-      - [0xDDCC0, data, racer]
-      - [0xDDF50, data, vehicle_tricky]
-      - [0xDDF70, data, vehicle_bluey]
-      - [0xDDFB0, data, vehicle_bubbler]
-      - [0xDDFD0, data, vehicle_wizpig]
-      - [0xDDFF0, data, vehicle_rocket]
-      - [0xDE010, data, object_models]
+      - [0xDD820, .data, audiosfx]
+      - [0xDD840, .data, audio_vehicle]
+      - [0xDD850, .data, audio_spatial]
+      - [0xDD860, .data, objects]
+      - [0xDD9E0, .data, tracks]
+      - [0xDDAC0, .data, lights]
+      - [0xDDAE0, .data, object_functions]
+      - [0xDDCC0, .data, racer]
+      - [0xDDF50, .data, vehicle_tricky]
+      - [0xDDF70, .data, vehicle_bluey]
+      - [0xDDFB0, .data, vehicle_bubbler]
+      - [0xDDFD0, .data, vehicle_wizpig]
+      - [0xDDFF0, .data, vehicle_rocket]
+      - [0xDE010, .data, object_models]
       - [0xDE020, .data, ../libultra/src/audio/mips1/reverb]
       - [0xDE030, .data, ../libultra/src/audio/mips1/drvrnew]
       - [0xDE1C0, .data, ../libultra/src/audio/mips1/synstartvoiceparam]
-      - [0xDE1D0, data, camera]
-      - [0xDE470, data, controller_dkr]
-      - [0xDE480, data, game]
-      - [0xDE4B0, data, thread3_main]
+      - [0xDE1D0, .data, camera]
+      - [0xDE470, .data, controller_dkr]
+      - [0xDE480, .data, game]
+      - [0xDE4B0, .data, thread3_main]
       - [0xDE5A0, .data, hasm/math_util]
-      - [0xDF5B0, data, save_data]
-      - [0xDF610, data, rcp_dkr]
+      - [0xDF5B0, .data, save_data]
+      - [0xDF610, .data, rcp_dkr]
       - [0xDF8B0, .data, ../libultra/src/sc/sched]
-      - [0xDF8F0, data, video]
-      - [0xDF940, data, textures_sprites]
-      - [0xE05C0, data, screen_asset]
-      - [0xE05D0, data, menu]
-      - [0xE2FE0, data, game_ui]
-      - [0xE39E0, data, weather]
-      - [0xE3E30, data, particles]
-      - [0xE4080, data, printf]
-      - [0xE41B0, data, thread0_epc]
-      - [0xE41D0, data, waves]
-      - [0xE4330, data, fade_transition]
-      - [0xE4800, data, game_text]
-      - [0xE4820, data, font]
+      - [0xDF8F0, .data, video]
+      - [0xDF940, .data, textures_sprites]
+      - [0xE05C0, .data, screen_asset]
+      - [0xE05D0, .data, menu]
+      - [0xE2FE0, .data, game_ui]
+      - [0xE39E0, .data, weather]
+      - [0xE3E30, .data, particles]
+      - [0xE4080, .data, printf]
+      - [0xE41B0, .data, thread0_epc]
+      - [0xE41D0, .data, waves]
+      - [0xE4330, .data, fade_transition]
+      - [0xE4800, .data, game_text]
+      - [0xE4820, .data, font]
       - [0xE48D0, .data, ../libultra/src/io/pimgr]
-      - [0xE48F0, data, gzip]
-      - [0xE4900, data, thread30_track_loading]
+      - [0xE48F0, .data, gzip]
+      - [0xE4900, .data, thread30_track_loading]
       - [0xE4910, .data, ../libultra/src/audio/sl]
       - [0xE4920, .data, ../libultra/src/io/aisetnextbuf]
       - [0xE4930, .data, ../libultra/src/audio/env]
@@ -327,47 +327,47 @@ segments:
       - [0xE5AB0, .data, ../libultra/src/libc/xlitob]
       - [0xE5AE0, .rodata, audio] # + 0x500 from pal v1
       - [0xE5B80, .rodata, audiomgr]
-      - [0xE5D40, rodata, audiosfx]
-      - [0xE5D80, rodata, audio_vehicle]
-      - [0xE5E90, rodata, audio_spatial]
+      - [0xE5D40, .rodata, audiosfx]
+      - [0xE5D80, .rodata, audio_vehicle]
+      - [0xE5E90, .rodata, audio_spatial]
       - [0xE60C0, .rodata, ../libultra/src/audio/mips1/seqplayer]
-      - [0xE60F0, rodata, objects]
-      - [0xE6F80, rodata, tracks]
+      - [0xE60F0, .rodata, objects]
+      - [0xE6F80, .rodata, tracks]
       - [0xE70F0, .rodata, hasm/collision]
-      - [0xE7110, rodata, lights]
-      - [0xE7130, rodata, object_functions]
-      - [0xE7410, rodata, racer]
-      - [0xE7BA0, rodata, vehicle_tricky]
-      - [0xE7BC0, rodata, vehicle_bluey]
-      - [0xE7BE0, rodata, vehicle_smokey]
-      - [0xE7C30, rodata, vehicle_bubbler]
-      - [0xE7C40, rodata, vehicle_wizpig]
-      - [0xE7C90, rodata, vehicle_rocket]
-      - [0xE7CB0, rodata, object_models]
+      - [0xE7110, .rodata, lights]
+      - [0xE7130, .rodata, object_functions]
+      - [0xE7410, .rodata, racer]
+      - [0xE7BA0, .rodata, vehicle_tricky]
+      - [0xE7BC0, .rodata, vehicle_bluey]
+      - [0xE7BE0, .rodata, vehicle_smokey]
+      - [0xE7C30, .rodata, vehicle_bubbler]
+      - [0xE7C40, .rodata, vehicle_wizpig]
+      - [0xE7C90, .rodata, vehicle_rocket]
+      - [0xE7CB0, .rodata, object_models]
       - [0xE7DB0, .rodata, lib/src/audio/mips1/csplayer]
-      - [0xE7E70, rodata, csplayer_funcrodata] #hack until I can enable migrate_rodata_to_functions
+      #- [0xE7E70, .rodata, csplayer_funcrodata] #hack until I can enable migrate_rodata_to_functions
       - [0xE8000, .rodata, ../libultra/src/audio/mips1/reverb]
       - [0xE8030, .rodata, ../libultra/src/audio/mips1/drvrnew]
       - [0xE8050, .rodata, ../libultra/src/audio/mips1/synthesizer]
-      - [0xE8060, rodata, main]
-      - [0xE8090, rodata, camera]
-      - [0xE8240, rodata, thread3_main]
-      - [0xE83A0, rodata, memory]
-      - [0xE8720, rodata, save_data]
+      - [0xE8060, .rodata, main]
+      - [0xE8090, .rodata, camera]
+      - [0xE8240, .rodata, thread3_main]
+      - [0xE83A0, .rodata, memory]
+      - [0xE8720, .rodata, save_data]
       - [0xE8990, .rodata, ../libultra/src/sc/sched]
-      - [0xE8B20, rodata, video]
-      - [0xE8CC0, rodata, textures_sprites]
-      - [0xE8E20, rodata, screen_asset]
-      - [0xE8E40, rodata, menu]
-      - [0xE97D0, rodata, game_ui] # + 0x500 from pal v1
-      - [0xE9970, rodata, weather] # + 0x4F0 from pal v1
-      - [0xE99C0, rodata, particles]
-      - [0xE9D80, rodata, printf]
-      - [0xE9FF0, rodata, thread0_epc]
-      - [0xEA2E0, rodata, waves]
-      - [0xEA450, rodata, fade_transition]
-      - [0xEA4B0, rodata, game_text]
-      - [0xEA4E0, rodata, font]
+      - [0xE8B20, .rodata, video]
+      - [0xE8CC0, .rodata, textures_sprites]
+      - [0xE8E20, .rodata, screen_asset]
+      - [0xE8E40, .rodata, menu]
+      - [0xE97D0, .rodata, game_ui] # + 0x500 from pal v1
+      - [0xE9970, .rodata, weather] # + 0x4F0 from pal v1
+      - [0xE99C0, .rodata, particles]
+      - [0xE9D80, .rodata, printf]
+      - [0xE9FF0, .rodata, thread0_epc]
+      - [0xEA2E0, .rodata, waves]
+      - [0xEA450, .rodata, fade_transition]
+      - [0xEA4B0, .rodata, game_text]
+      - [0xEA4E0, .rodata, font]
       - [0xEA540, .rodata, hasm/gzip_asm]
       - [0xEA630, .rodata, ../libultra/src/audio/cseq]
       - [0xEA640, .rodata, ../libultra/src/audio/cents2ratio]
@@ -391,49 +391,49 @@ segments:
       - [0xED0E0, bin, assets]
       - { start: auto, type: .bss, vram: 0x800EC4E0, name: audio } # + 0x4F0 from pal v1
       - { start: auto, type: .bss, vram: 0x80116510, name: audiomgr }
-      - { start: auto, type: bss, vram: 0x8011A150, name: audiosfx }
-      - { start: auto, type: bss, vram: 0x8011A1B0, name: audio_vehicle }
-      - { start: auto, type: bss, vram: 0x8011B1A0, name: objects }
-      - { start: auto, type: bss, vram: 0x8011B620, name: tracks }
-      - { start: auto, type: bss, vram: 0x8011DA40, name: lights }
-      - { start: auto, type: bss, vram: 0x8011DA50, name: object_functions }
-      - { start: auto, type: bss, vram: 0x8011DA70, name: racer }
-      - { start: auto, type: bss, vram: 0x8011DB40, name: vehicle_tricky }
-      - { start: auto, type: bss, vram: 0x8011DB50, name: vehicle_bluey }
-      - { start: auto, type: bss, vram: 0x8011DB60, name: vehicle_smokey }
-      - { start: auto, type: bss, vram: 0x8011DB70, name: vehicle_bubbler }
-      - { start: auto, type: bss, vram: 0x8011DB80, name: vehicle_wizpig }
-      - { start: auto, type: bss, vram: 0x8011DB90, name: vehicle_rocket }
-      - { start: auto, type: bss, vram: 0x8011DBA0, name: object_models }
-      - { start: auto, type: bss, vram: 0x8011DCD0, name: main }
-      - { start: auto, type: bss, vram: 0x80121040, name: camera }
-      - { start: auto, type: bss, vram: 0x80121660, name: controller_dkr }
-      - { start: auto, type: bss, vram: 0x801216E0, name: game }
-      - { start: auto, type: bss, vram: 0x80121770, name: thread3_main }
-      - { start: auto, type: bss, vram: 0x80123B00, name: memory }
+      - { start: auto, type: .bss, vram: 0x8011A150, name: audiosfx }
+      - { start: auto, type: .bss, vram: 0x8011A1B0, name: audio_vehicle }
+      - { start: auto, type: .bss, vram: 0x8011B1A0, name: objects }
+      - { start: auto, type: .bss, vram: 0x8011B620, name: tracks }
+      - { start: auto, type: .bss, vram: 0x8011DA40, name: lights }
+      - { start: auto, type: .bss, vram: 0x8011DA50, name: object_functions }
+      - { start: auto, type: .bss, vram: 0x8011DA70, name: racer }
+      - { start: auto, type: .bss, vram: 0x8011DB40, name: vehicle_tricky }
+      - { start: auto, type: .bss, vram: 0x8011DB50, name: vehicle_bluey }
+      - { start: auto, type: .bss, vram: 0x8011DB60, name: vehicle_smokey }
+      - { start: auto, type: .bss, vram: 0x8011DB70, name: vehicle_bubbler }
+      - { start: auto, type: .bss, vram: 0x8011DB80, name: vehicle_wizpig }
+      - { start: auto, type: .bss, vram: 0x8011DB90, name: vehicle_rocket }
+      - { start: auto, type: .bss, vram: 0x8011DBA0, name: object_models }
+      - { start: auto, type: .bss, vram: 0x8011DCD0, name: main }
+      - { start: auto, type: .bss, vram: 0x80121040, name: camera }
+      - { start: auto, type: .bss, vram: 0x80121660, name: controller_dkr }
+      - { start: auto, type: .bss, vram: 0x801216E0, name: game }
+      - { start: auto, type: .bss, vram: 0x80121770, name: thread3_main }
+      - { start: auto, type: .bss, vram: 0x80123B00, name: memory }
       - { start: auto, type: .bss, vram: 0x80124350, name: ../libultra/src/io/motor }
-      - { start: auto, type: bss, vram: 0x80124590, name: save_data }
-      - { start: auto, type: bss, vram: 0x80124780, name: asset_loading } # + 0x4F0 from pal v1
-      - { start: auto, type: bss, vram: 0x80124840, name: rcp_dkr } # + 0x510 from pal v1
+      - { start: auto, type: .bss, vram: 0x80124590, name: save_data }
+      - { start: auto, type: .bss, vram: 0x80124780, name: asset_loading } # + 0x4F0 from pal v1
+      - { start: auto, type: .bss, vram: 0x80124840, name: rcp_dkr } # + 0x510 from pal v1
       - { start: auto, type: .bss, vram: 0x801266B0, name: ../libultra/src/sc/sched }
-      - { start: auto, type: bss, vram: 0x80126710, name: video }
-      - { start: auto, type: bss, vram: 0x801268C0, name: textures_sprites }
-      - { start: auto, type: bss, vram: 0x80126930, name: menu } #Extra bss at end of menu
-      - { start: auto, type: bss, vram: 0x80127290, name: game_ui } # + 0x530 from pal v1
+      - { start: auto, type: .bss, vram: 0x80126710, name: video }
+      - { start: auto, type: .bss, vram: 0x801268C0, name: textures_sprites }
+      - { start: auto, type: .bss, vram: 0x80126930, name: menu } #Extra bss at end of menu
+      - { start: auto, type: .bss, vram: 0x80127290, name: game_ui } # + 0x530 from pal v1
       - { start: auto, type: .bss, vram: 0x80127770, name: os_yield_data }
-      - { start: auto, type: bss, vram: 0x80128170, name: weather }
-      - { start: auto, type: bss, vram: 0x80128240, name: particles }
-      - { start: auto, type: bss, vram: 0x80128260, name: printf }
-      - { start: auto, type: bss, vram: 0x80128BA0, name: thread0_epc }
-      - { start: auto, type: bss, vram: 0x8012A070, name: stacks }
-      - { start: auto, type: bss, vram: 0x8012A580, name: waves }
-      - { start: auto, type: bss, vram: 0x8012ACF0, name: fade_transition }
-      - { start: auto, type: bss, vram: 0x8012AD40, name: game_text }
-      - { start: auto, type: bss, vram: 0x8012ADA0, name: font }
+      - { start: auto, type: .bss, vram: 0x80128170, name: weather }
+      - { start: auto, type: .bss, vram: 0x80128240, name: particles }
+      - { start: auto, type: .bss, vram: 0x80128260, name: printf }
+      - { start: auto, type: .bss, vram: 0x80128BA0, name: thread0_epc }
+      - { start: auto, type: .bss, vram: 0x8012A070, name: stacks }
+      - { start: auto, type: .bss, vram: 0x8012A580, name: waves }
+      - { start: auto, type: .bss, vram: 0x8012ACF0, name: fade_transition }
+      - { start: auto, type: .bss, vram: 0x8012AD40, name: game_text }
+      - { start: auto, type: .bss, vram: 0x8012ADA0, name: font }
       - { start: auto, type: .bss, vram: 0x8012ADC0, name: ../libultra/src/io/pimgr }
-      - { start: auto, type: bss, vram: 0x8012B090, name: gzip }
+      - { start: auto, type: .bss, vram: 0x8012B090, name: gzip }
       - { start: auto, type: .bss, vram: 0x8012B0A0, name: ../libultra/src/io/leointerrupt }
-      - { start: auto, type: bss, vram: 0x8012B0B0, name: thread30_track_loading }
+      - { start: auto, type: .bss, vram: 0x8012B0B0, name: thread30_track_loading }
       - { start: auto, type: .bss, vram: 0x8012D280, name: ../libultra/src/os/initialize }
       - { start: auto, type: .bss, vram: 0x8012D290, name: ../libultra/src/os/seteventmesg }
       - { start: auto, type: .bss, vram: 0x8012D310, name: ../libultra/src/io/controller }

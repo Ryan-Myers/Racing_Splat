@@ -3987,6 +3987,7 @@ gOptionsMenuItemIndex = 0x80127206;
 gNameSelectionDone = 0x80127208;
 gNewCheatID = 0x8012720C;
 gNameEntryOffsetX = 0x80127210;
+gPostRaceOld = 0x80127214; // size:0x4 
 gPostRace = 0x80127230; // size:0x4 
 gCheatInput = 0x80127218; // size:0x14
 gNameEntryTargetX = 0x8012722C;
