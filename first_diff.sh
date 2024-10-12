@@ -1,1 +1,1 @@
-python3 tools/first_diff.py
+python3 tools/first_diff.py $1 $2

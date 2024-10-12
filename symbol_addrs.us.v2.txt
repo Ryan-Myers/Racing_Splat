@@ -1994,7 +1994,7 @@ aspMainTextStart = 0x800D7B60;
 rspF3DDKRBootStart = 0x800D8A20;
 rspF3DDKRDramStart = 0x800D8AF0;
 rspF3DDKRFifoStart = 0x800D9CF0;
-rspF3DDKRXbusStart = 0x800DAED0;
+rspF3DDKRXbusStart = 0x800DAEE0;
 rspUnknown2Start = 0x800DC0D0;
 
 sDebugVersionInfoString = 0x800E76A0; // type:asciz
@@ -3994,7 +3994,7 @@ gNameEntryTargetX = 0x8012722C;
 gNumOnscreenMagicCodes = 0x80127234;
 gNameEntryString = 0x80127238;
 gNameEntryAllowedLength = 0x8012723C;
-gUnlockedCheatIDs = 0x80127240;
+gUnlockedCheatIDs = 0x80127240; // size:0x40
 gFileNew = 0x80127280;
 gMinimapOpacity = 0x80127290;
 gMinimapFade = 0x80127291;

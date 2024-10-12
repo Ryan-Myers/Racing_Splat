@@ -79,6 +79,7 @@ void thread0_Main(UNUSED void *unused) {
     }
 }
 #else
+const char gFaultString[] = ">fault< ";
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/thread0_epc/thread0_Main.s")
 #endif
 

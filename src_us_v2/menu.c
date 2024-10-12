@@ -45,10 +45,10 @@
 char gCourseInitials[4]; // course initials
 char gFLapInitials[4];   // flap initials
 s32 gAdventureSaveGhost;
-s32 gPreviousMenuID;
 Gfx *sMenuCurrDisplayList;
-char **gTTSaveGhostPakErrorText;
+s32 gPreviousMenuID;
 MatrixS *sMenuCurrHudMat;
+char **gTTSaveGhostPakErrorText;
 Vertex *sMenuCurrHudVerts;
 TriangleList *sMenuCurrHudTris;
 unk801263C0 gMenuSelectedCharacter;
@@ -164,6 +164,7 @@ s32 gTitleRevealTimer;
 f32 gTitleAudioCounter;
 s8 *sTitleScreenDemoIds; // Misc Asset 66 - title_screen_demo_ids.bin - 12 or 13 values.
 unk80126878 D_80126878[8];
+u8 D_80126E78[0x20]; // NEW BSS, or BIGGER D_80126878?
 f32 D_801268D8;
 UNUSED s32 D_801268DC; // Set to 0 during the title screen, never read.
 s32 gOpeningNameID;
@@ -265,7 +266,7 @@ unk80126C54 gPostRace;
 s32 gNumOnscreenMagicCodes;
 char *gNameEntryString;
 s32 gNameEntryAllowedLength;
-UNUSED s32 D_80126C7C;
+//UNUSED s32 D_80126C7C;
 s16 gUnlockedCheatIDs[32];
 s32 gFileNew;
 
@@ -354,8 +355,8 @@ MenuAsset sMenuImageProperties[18] = {
     { 0, 0, 0, 0x06, 0.215f, 0.0f, 0.0f, -500.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x07, 0.215f, 0.0f, 0.0f, -500.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x04, 0.125f, 0.0f, -40.0f, -500.0f, 0, 0, 0, 0, 0, 0, 0 },
-    { 0, 0, 0, 0x5B, 0.75f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
-    { 0, 0, 0, 0x5C, 0.75f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0x66, 0.75f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0x67, 0.75f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x42, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x40, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x41, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
@@ -363,7 +364,7 @@ MenuAsset sMenuImageProperties[18] = {
     { 0, 0, 0, 0x4D, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x4E, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x4F, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
-    { 0, 0, 0, 0x5D, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0x68, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
 };
 
 s16 *gAssetsMenuElementIds[1] = { NULL };
@@ -913,7 +914,7 @@ s16 gTrackSelectImageIndices[4] = { 0x04, 0x05, 0x06, -1 };
 s16 gTrackSelectPreviewObjectIndices[36] = { 0x0004, 0x0000, 0x0001, 0x0002, 0x0003, 0x0018, 0x0019, 0x001A, 0x001B,
                                              0x001C, 0x001D, 0x0024, 0x0025, 0x0026, 0x0027, 0x0028, 0x0029, 0x002A,
                                              0x002B, 0x001E, 0x001F, 0x0020, 0x0021, 0x0022, 0x0023, 0x002C, 0x002D,
-                                             0x002E, 0x002F, 0x0030, 0x0031, 0x0040, 0x0041, 0x0043, 0x005E, 0xFFFF };
+                                             0x002E, 0x002F, 0x0030, 0x0031, 0x0040, 0x0041, 0x0043, 0x0069, 0xFFFF };
 
 s16 gTrackSelectPreviewImageIndices[8] = { 0x07, 0x00, 0x01, 0x02, 0x03, 0x0B, 0x0C, -1 };
 
@@ -1086,7 +1087,7 @@ s32 D_800E0FAC = 0;
 s32 gIndexOfCurInputCharacter = 0;
 
 s16 gAdvTrackInitObjectIndices[18] = { 0x0004, 0x0000, 0x0001, 0x0018, 0x0019, 0x001A, 0x001B, 0x001C, 0x001D,
-                                       0x001E, 0x001F, 0x0020, 0x0021, 0x0022, 0x0023, 0x0030, 0x005E, -1 };
+                                       0x001E, 0x001F, 0x0020, 0x0021, 0x0022, 0x0023, 0x0030, 0x0069, -1 };
 
 s16 gAdvTrackInitImageIndices[6] = { 7, 0, 1, 2, 3, -1 };
 
@@ -1385,7 +1386,7 @@ char *gCreditsArray[87] = {
     "Additional Design",
     "M.Wakeley", 
     "Documentation", 
-    "L.Loveday", "Liason", "E.Hochberg",
+    "L.Loveday", "Liaison", "E.Hochberg",
     "Character Voices",
     "K.Bayliss", "J.Christensen", "E.Fischer", "K.Rabbette", "L.Ray", "L.Schuneman",
     "C.Seavor", "D.Smith", "J.Stamper", "K.Stamper", "C.Sutherland",
@@ -1623,248 +1624,6 @@ char *gConPakAdvSavePrefix = " (ADV.";
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/savemenu_render_element.s")
 
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8240_E8E40.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8248_E8E48.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8250_E8E50.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8258_E8E58.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8260_E8E60.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E826C_E8E6C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8274_E8E74.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E827C_E8E7C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8284_E8E84.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E828C_E8E8C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8294_E8E94.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8298_E8E98.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E82A0_E8EA0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E82B4_E8EB4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E82C0_E8EC0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E82D4_E8ED4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E82E0_E8EE0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E82E8_E8EE8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E82F0_E8EF0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8300_E8F00.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E830C_E8F0C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8318_E8F18.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8324_E8F24.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8330_E8F30.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8338_E8F38.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8348_E8F48.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8350_E8F50.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8360_E8F60.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8368_E8F68.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8370_E8F70.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8380_E8F80.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E838C_E8F8C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8394_E8F94.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E83A8_E8FA8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E83B4_E8FB4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E83C4_E8FC4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E83D0_E8FD0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E83D8_E8FD8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E83E4_E8FE4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E83F8_E8FF8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8404_E9004.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8414_E9014.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8420_E9020.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E842C_E902C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8434_E9034.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8440_E9040.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E844C_E904C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8454_E9054.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8460_E9060.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E846C_E906C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E847C_E907C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8494_E9094.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E849C_E909C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E84A8_E90A8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E84B4_E90B4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E84C0_E90C0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E84C8_E90C8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E84D0_E90D0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E84D8_E90D8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E84E0_E90E0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E84EC_E90EC.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E84F8_E90F8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8508_E9108.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8514_E9114.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E851C_E911C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8528_E9128.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8534_E9134.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8540_E9140.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E854C_E914C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8558_E9158.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8564_E9164.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8570_E9170.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E857C_E917C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E858C_E918C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8594_E9194.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E85A4_E91A4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E85B4_E91B4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E85C4_E91C4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E85D4_E91D4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E85E0_E91E0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E85E8_E91E8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E85F4_E91F4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8600_E9200.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8610_E9210.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8618_E9218.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8624_E9224.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8638_E9238.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8644_E9244.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8650_E9250.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E865C_E925C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E866C_E926C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8678_E9278.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8684_E9284.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8690_E9290.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86A4_E92A4.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86B0_E92B0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86B8_E92B8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86C0_E92C0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86C8_E92C8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86D0_E92D0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86D8_E92D8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86E0_E92E0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86E8_E92E8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86F0_E92F0.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E86F8_E92F8.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8700_E9300.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8708_E9308.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8710_E9310.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8718_E9318.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8720_E9320.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8728_E9328.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8730_E9330.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8738_E9338.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8740_E9340.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8748_E9348.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8750_E9350.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E875C_E935C.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8770_E9370.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8778_E9378.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8784_E9384.s")
-
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/D_800E8790_E9390.s")
-
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/savemenu_render.s")
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/savemenu_check_space.s")
@@ -1929,7 +1688,12 @@ char *gConPakAdvSavePrefix = " (ADV.";
 
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/cheatlist_free.s")
 
+#if 0
+#else
+u32 cksum = 0;
+u32 calculated = 0;
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/cheatmenu_checksum.s")
+#endif
 
 // These vars have to be defined after cheatmenu_checksum since that function has a static var in it.
 
@@ -1940,7 +1704,7 @@ s8 D_800E1E20[8] = { 0, -1, 1, 0, 0, 1, -1, 0 };
 s8 gGameStatusVisible = FALSE;
 
 // TT Game Status textures, think these are potentially multi-part images.
-s16 D_800E1E2C[10] = { 0x4C, 0x4D, 0x4E, 0x4F, 0x5B, 0x5C, 0x00, 0x42, -1, 0 };
+s16 D_800E1E2C[10] = { 0x4C, 0x4D, 0x4E, 0x4F, 0x66, 0x67, 0x00, 0x42, -1, 0 };
 
 // TT game status textures. And these maybe just standalone ones.
 s16 D_800E1E40[10] = { 0x0D, 0x0E, 0x0F, 0x10, 0x08, 0x09, 0x00, 0x0A, -1, 0 };
