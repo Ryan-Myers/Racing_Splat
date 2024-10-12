@@ -25,6 +25,10 @@ u8 sControllerPaksPresent = 0; // Bits 0, 1, 2, and 3 of the bit pattern corresp
                                // 1 if a controller pak is present
 s32 gRumbleKillTimer = 0;
 
+#ifdef VERSION_us_v2
+s32 D_800DEA00_DF600 = 1;
+#endif
+
 /*******************************/
 
 /************ .bss ************/
@@ -69,6 +73,11 @@ u8 input_get_id(s32 controllerIndex) {
     }
     return get_player_id(controllerIndex);
 }
+
+#ifdef VERSION_us_v2
+// New function for V2
+#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/save_data/func_800724D8_730D8.s")
+#endif
 
 /**
  * Reset the rumble state for all controllers and set whether or not to allow rumble.
@@ -193,6 +202,7 @@ void rumble_kill(void) {
  * Loop through and detect any newly connected or disconnected rumble paks.
  * Start and stop any motors set by gRumble, or stop activity altogether if requested.
  */
+#ifndef VERSION_us_v2
 void rumble_update(s32 updateRate) {
     RumbleData *pak;
     s32 pfsStatus;
@@ -284,6 +294,10 @@ void rumble_update(s32 updateRate) {
         }
     }
 }
+#else
+#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/save_data/rumble_update.s")
+#endif
+
 
 // arg0 is the number of bits we care about.
 s32 func_80072C54(s32 arg0) {

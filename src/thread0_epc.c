@@ -52,6 +52,7 @@ void thread0_create(void) {
 /**
  * Main thread for the epc lockup screen. Thread 0.
  */
+#ifndef VERSION_us_v2
 void thread0_Main(UNUSED void *unused) {
     s32 sp34;
     s32 s0 = 0;
@@ -77,6 +78,10 @@ void thread0_Main(UNUSED void *unused) {
         write_epc_data_to_cpak();
     }
 }
+#else
+const char gFaultString[] = ">fault< ";
+#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/thread0_epc/thread0_Main.s")
+#endif
 
 /**
  * Enable interrupts on all idle priority threads, which should just be the main thread 1.

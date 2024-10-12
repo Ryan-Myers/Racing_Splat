@@ -149,7 +149,11 @@ u32 gHudColour = COLOUR_RGBA32(255, 255, 255, 254);
 UNUSED f32 sRecordVel = 0.0f; // Set to whatever the highest velocity recorded is, but never actually used.
 
 // Unused?
-s32 D_800E283C[5] = { 0x06FFFFFF, 0x000FFFFF, 0x06000000, 0x0014FFFF, 0x00000000 };
+s32 D_800E283C[] = { 0x06FFFFFF, 0x000FFFFF, 0x06000000, 0x0014FFFF };
+
+#ifdef VERSION_us_v2
+char D_800E2DCC_E39CC[] = "DID NOT FINISH";
+#endif
 
 /*******************************/
 
@@ -233,7 +237,7 @@ u8 gMinimapOpacityTarget;
 s32 gStopwatchErrorX;
 s32 gStopwatchErrorY;
 LevelHeader_70 *D_80127194;
-UNUSED s32 D_80127198[6];
+UNUSED s32 D_80127198[4];
 
 /******************************/
 
@@ -2157,6 +2161,7 @@ void render_wrong_way_text(Object_Racer *obj, s32 updateRate) {
  * Render race result for multiplayer races or battles after that player has finished.
  * Displays the finish position, and in races, will display the race time.
  */
+#ifndef VERSION_us_v2
 void hud_draw_finish_misc(Object_Racer *racer) {
     s32 racerCount;
 
@@ -2185,6 +2190,9 @@ void hud_draw_finish_misc(Object_Racer *racer) {
         }
     }
 }
+#else
+#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/game_ui/hud_draw_finish_misc.s")
+#endif
 
 #ifdef NON_EQUIVALENT
 void func_800A6254(Object_Racer *racer, s32 updateRate) {
@@ -2445,6 +2453,7 @@ void func_800A6254(Object_Racer *racer, s32 updateRate) {
  * Play the normal race finish message, unless you beat your time record,
  * then T.T will say "Race Record" instead.
  */
+#ifndef VERSION_us_v2
 void play_time_trial_end_message(s16 *playerID) {
     Settings *settings = get_settings();
 
@@ -2456,6 +2465,9 @@ void play_time_trial_end_message(s16 *playerID) {
         }
     }
 }
+#else
+#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/game_ui/play_time_trial_end_message.s")
+#endif
 
 /**
  * Render the finishing overlay after a time trial.

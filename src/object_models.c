@@ -83,6 +83,7 @@ void allocate_object_model_pools(void) {
  * Load the associated model ID and assign it to the objects gfx data.
  * Also loads textures and animations.
  */
+#ifndef VERSION_us_v2
 Object_68 *object_model_init(s32 modelID, s32 flags) {
     s32 i;
     s32 sp50;
@@ -175,6 +176,9 @@ block_30:
     free_model_data((ObjectModel *) objMdl);
     return NULL;
 }
+#else
+#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/object_models/object_model_init.s")
+#endif
 
 Object_68 *func_8005FCD0(ObjectModel *model, s32 arg1) {
     s32 temp;

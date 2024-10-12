@@ -48,7 +48,11 @@
 
 /************ .rodata ************/
 
+#ifdef VERSION_us_v2
+UNUSED char *sDebugRomBuildInfo[] = { "1.1634", "17/10/97 11:19", "pmountain" };
+#else
 UNUSED char *sDebugRomBuildInfo[] = { "1.1605", "02/10/97 16:03", "pmountain" };
+#endif
 
 const char D_800E7134[] = "BBB\n"; // Functionally unused.
 
@@ -56,7 +60,11 @@ const char D_800E7134[] = "BBB\n"; // Functionally unused.
 
 /************ .data ************/
 
-UNUSED char gBuildString[40] = "Version 7.7 29/09/97 15.00 L.Schuneman";
+#ifdef VERSION_us_v2
+UNUSED char gBuildString[] = "Version 8.0 27/10/97 12.30 L.Schuneman";
+#else
+UNUSED char gBuildString[] = "Version 7.7 29/09/97 15.00 L.Schuneman";
+#endif
 
 s8 sAntiPiracyTriggered = 0;
 UNUSED s32 D_800DD378 = 1;

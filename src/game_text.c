@@ -97,6 +97,7 @@ void set_subtitles(s32 setting) {
 /**
  * Render currently active subtitles on the screen.
  */
+#ifndef VERSION_us_v2
 void render_subtitles(void) {
     s32 textX;
     s32 textY;
@@ -132,6 +133,9 @@ void render_subtitles(void) {
     }
     open_dialogue_box(6);
 }
+#else
+#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/game_text/render_subtitles.s")
+#endif
 
 /**
  * Get the line count and text timer from the next message of the subtitle.

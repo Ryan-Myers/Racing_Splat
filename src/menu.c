@@ -45,10 +45,18 @@
 char gCourseInitials[4]; // course initials
 char gFLapInitials[4];   // flap initials
 s32 gAdventureSaveGhost;
+#ifdef VERSION_us_v2
+// For some reason these BSS vars swapped places in different versions
+Gfx *sMenuCurrDisplayList;
+s32 gPreviousMenuID;
+MatrixS *sMenuCurrHudMat;
+char **gTTSaveGhostPakErrorText;
+#else
 s32 gPreviousMenuID;
 Gfx *sMenuCurrDisplayList;
 char **gTTSaveGhostPakErrorText;
 MatrixS *sMenuCurrHudMat;
+#endif
 Vertex *sMenuCurrHudVerts;
 TriangleList *sMenuCurrHudTris;
 unk801263C0 gMenuSelectedCharacter;
@@ -164,6 +172,9 @@ s32 gTitleRevealTimer;
 f32 gTitleAudioCounter;
 s8 *sTitleScreenDemoIds; // Misc Asset 66 - title_screen_demo_ids.bin - 12 or 13 values.
 unk80126878 D_80126878[8];
+#ifdef VERSION_us_v2
+u8 D_80126E78[0x20]; // NEW BSS, or BIGGER D_80126878?
+#endif
 f32 D_801268D8;
 UNUSED s32 D_801268DC; // Set to 0 during the title screen, never read.
 s32 gOpeningNameID;
@@ -258,13 +269,25 @@ s16 gOptionsMenuItemIndex;
 s32 gNameSelectionDone;
 s16 gNewCheatID;
 f32 gNameEntryOffsetX;
+#ifdef VERSION_us_v2
+//Created a replacement for this var in v2?
+unk80126C54 gPostRaceOld;
+#else
 unk80126C54 gPostRace;
+#endif
 char gCheatInput[20];
 s32 *gNameEntryTargetX;
+#ifdef VERSION_us_v2
+//Created a replacement for this var in v2?
+unk80126C54 gPostRace;
+#endif
 s32 gNumOnscreenMagicCodes;
 char *gNameEntryString;
 s32 gNameEntryAllowedLength;
+#ifndef VERSION_us_v2
+// Remove this in v2
 UNUSED s32 D_80126C7C;
+#endif
 s16 gUnlockedCheatIDs[32];
 s32 gFileNew;
 
@@ -353,8 +376,13 @@ MenuAsset sMenuImageProperties[18] = {
     { 0, 0, 0, 0x06, 0.215f, 0.0f, 0.0f, -500.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x07, 0.215f, 0.0f, 0.0f, -500.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x04, 0.125f, 0.0f, -40.0f, -500.0f, 0, 0, 0, 0, 0, 0, 0 },
+#ifdef VERSION_us_v2
+    { 0, 0, 0, 0x66, 0.75f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0x67, 0.75f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
+#else
     { 0, 0, 0, 0x5B, 0.75f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x5C, 0.75f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
+#endif
     { 0, 0, 0, 0x42, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x40, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x41, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
@@ -362,7 +390,11 @@ MenuAsset sMenuImageProperties[18] = {
     { 0, 0, 0, 0x4D, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x4E, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0x4F, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
+#ifdef VERSION_us_v2
+    { 0, 0, 0, 0x68, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
+#else
     { 0, 0, 0, 0x5D, 1.0f, 0.0f, 0.0f, 0.0f, 0, 0, 0, 0, 0, 0, 0 },
+#endif
 };
 
 s16 *gAssetsMenuElementIds[1] = { NULL };
@@ -909,10 +941,15 @@ s16 gTrackSelectObjectIndices[14] = {
 
 s16 gTrackSelectImageIndices[4] = { 0x04, 0x05, 0x06, -1 };
 
+
 s16 gTrackSelectPreviewObjectIndices[36] = { 0x0004, 0x0000, 0x0001, 0x0002, 0x0003, 0x0018, 0x0019, 0x001A, 0x001B,
                                              0x001C, 0x001D, 0x0024, 0x0025, 0x0026, 0x0027, 0x0028, 0x0029, 0x002A,
                                              0x002B, 0x001E, 0x001F, 0x0020, 0x0021, 0x0022, 0x0023, 0x002C, 0x002D,
+#ifdef VERSION_us_v2
+                                             0x002E, 0x002F, 0x0030, 0x0031, 0x0040, 0x0041, 0x0043, 0x0069, 0xFFFF };
+#else
                                              0x002E, 0x002F, 0x0030, 0x0031, 0x0040, 0x0041, 0x0043, 0x005E, 0xFFFF };
+#endif
 
 s16 gTrackSelectPreviewImageIndices[8] = { 0x07, 0x00, 0x01, 0x02, 0x03, 0x0B, 0x0C, -1 };
 
@@ -1085,7 +1122,11 @@ s32 D_800E0FAC = 0;
 s32 gIndexOfCurInputCharacter = 0;
 
 s16 gAdvTrackInitObjectIndices[18] = { 0x0004, 0x0000, 0x0001, 0x0018, 0x0019, 0x001A, 0x001B, 0x001C, 0x001D,
+#ifdef VERSION_us_v2
+                                       0x001E, 0x001F, 0x0020, 0x0021, 0x0022, 0x0023, 0x0030, 0x0069, -1 };
+#else
                                        0x001E, 0x001F, 0x0020, 0x0021, 0x0022, 0x0023, 0x0030, 0x005E, -1 };
+#endif
 
 s16 gAdvTrackInitImageIndices[6] = { 7, 0, 1, 2, 3, -1 };
 
@@ -1384,7 +1425,13 @@ char *gCreditsArray[87] = {
     "Additional Design",
     "M.Wakeley", 
     "Documentation", 
-    "L.Loveday", "Liason", "E.Hochberg",
+    "L.Loveday", 
+#ifdef VERSION_us_v2
+    "Liaison", 
+#else
+    "Liason", 
+#endif
+    "E.Hochberg",
     "Character Voices",
     "K.Bayliss", "J.Christensen", "E.Fischer", "K.Rabbette", "L.Ray", "L.Schuneman",
     "C.Seavor", "D.Smith", "J.Stamper", "K.Stamper", "C.Sutherland",
@@ -5820,7 +5867,11 @@ s8 D_800E1E20[8] = { 0, -1, 1, 0, 0, 1, -1, 0 };
 s8 gGameStatusVisible = FALSE;
 
 // TT Game Status textures, think these are potentially multi-part images.
+#ifdef VERSION_us_v2
+s16 D_800E1E2C[10] = { 0x4C, 0x4D, 0x4E, 0x4F, 0x66, 0x67, 0x00, 0x42, -1, 0 };
+#else
 s16 D_800E1E2C[10] = { 0x4C, 0x4D, 0x4E, 0x4F, 0x5B, 0x5C, 0x00, 0x42, -1, 0 };
+#endif
 
 // TT game status textures. And these maybe just standalone ones.
 s16 D_800E1E40[10] = { 0x0D, 0x0E, 0x0F, 0x10, 0x08, 0x09, 0x00, 0x0A, -1, 0 };
