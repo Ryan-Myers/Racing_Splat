@@ -14,11 +14,11 @@ OSMesg gDmaMesg;
 OSMesgQueue gDmaMesgQueue;
 OSMesg gPIMesgBuf[16];
 OSMesgQueue gPIMesgQueue;
-u32 *gAssetsLookupTable;
 #ifdef VERSION_us_v2
+OSMesg gAssetsLookupTableMesgBuf;
 OSMesgQueue gDmaMesgQueueV2;
-u32 *gAssetsLookupTableV2;
 #endif
+u32 *gAssetsLookupTable;
 
 /*******************************/
 
@@ -48,12 +48,12 @@ void init_PI_mesg_queue(void) {
     osCreateMesgQueue(&gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
     osCreateMesgQueue(&gDmaMesgQueue, &gDmaMesg, 1);
     osCreatePiManager((OSPri) 150, &gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
-    osCreateMesgQueue(&gDmaMesgQueueV2, (void **) &gAssetsLookupTable, 1);
-    osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, 0);
+    osCreateMesgQueue(&gDmaMesgQueueV2, &gAssetsLookupTableMesgBuf, 1);
+    osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
     assetTableSize = __ASSETS_LUT_END - __ASSETS_LUT_START;
-    gAssetsLookupTableV2 = (u32 *) allocate_from_main_pool_safe(assetTableSize, COLOUR_TAG_GREY);
-    func_80071478((u8 *) gAssetsLookupTableV2);
-    dmacopy_v1((u32) __ASSETS_LUT_START, (u32) gAssetsLookupTableV2, (s32) assetTableSize);
+    gAssetsLookupTable = (u32 *) allocate_from_main_pool_safe(assetTableSize, COLOUR_TAG_GREY);
+    func_80071478((u8 *) gAssetsLookupTable);
+    dmacopy_v1((u32) __ASSETS_LUT_START, (u32) gAssetsLookupTable, (s32) assetTableSize);
 }
 #endif
 
@@ -222,8 +222,9 @@ void dmacopy(u32 romOffset, u32 ramAddress, s32 numBytes) {
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, 1);
     dmacopy_v1(romOffset, ramAddress, numBytes);
-    osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, 0);
+    osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
 }
+
 // Looks like v2 ROMs made an alternate version of this function, and this is the original.
 void dmacopy_v1(u32 romOffset, u32 ramAddress, s32 numBytes) {
 #endif
