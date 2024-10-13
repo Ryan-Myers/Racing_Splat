@@ -88,13 +88,16 @@ u32 *load_asset_section_from_rom(u32 assetIndex) {
  * Returns a pointer to the decompressed data.
  * Official name: piRomLoadCompressed
  */
-#ifndef VERSION_us_v2
 UNUSED u8 *load_compressed_asset_from_rom(u32 assetIndex, s32 extraMemory) {
     s32 size;
     s32 start;
     s32 totalSpace;
     u8 *gzipHeaderRamPos;
     u8 *out;
+#ifdef VERSION_us_v2
+    OSMesg msg = NULL;
+    osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
+#endif
     if (gAssetsLookupTable[0] < assetIndex) {
         return NULL;
     }
@@ -103,7 +106,11 @@ UNUSED u8 *load_compressed_asset_from_rom(u32 assetIndex, s32 extraMemory) {
     start = ((s32 *) out)[0];
     size = ((s32 *) out)[1] - start;
     gzipHeaderRamPos = (u8 *) allocate_from_main_pool_safe(8, COLOUR_TAG_WHITE);
+#ifdef VERSION_us_v2
+    dmacopy_v1((u32) (start + __ASSETS_LUT_END), (u32) gzipHeaderRamPos, 8);
+#else
     dmacopy((u32) (start + __ASSETS_LUT_END), (u32) gzipHeaderRamPos, 8);
+#endif
     totalSpace = byteswap32(gzipHeaderRamPos) + extraMemory;
     free_from_memory_pool(gzipHeaderRamPos);
     out = (u8 *) allocate_from_main_pool_safe(totalSpace + extraMemory, COLOUR_TAG_GREY);
@@ -112,13 +119,16 @@ UNUSED u8 *load_compressed_asset_from_rom(u32 assetIndex, s32 extraMemory) {
     }
     gzipHeaderRamPos = (out + totalSpace) - size;
     if (1) {} // Fakematch
+#ifdef VERSION_us_v2
+    dmacopy_v1((u32) (start + __ASSETS_LUT_END), (u32) gzipHeaderRamPos, size);
+    gzip_inflate(gzipHeaderRamPos, out);
+    osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
+#else
     dmacopy((u32) (start + __ASSETS_LUT_END), (u32) gzipHeaderRamPos, size);
     gzip_inflate(gzipHeaderRamPos, out);
+#endif
     return out;
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/asset_loading/load_compressed_asset_from_rom.s")
-#endif
 
 /**
  * Loads an asset section to a specific memory address.
