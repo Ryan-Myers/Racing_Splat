@@ -16,8 +16,8 @@ OSMesg gPIMesgBuf[16];
 OSMesgQueue gPIMesgQueue;
 u32 *gAssetsLookupTable;
 #ifdef VERSION_us_v2
-u8 D_80124818_ED178[0x18]; // NEW BSS
-u32 *D_80124830_ED190; // NEW BSS
+OSMesgQueue gDmaMesgQueueV2;
+u32 *D_80124830_ED190;
 #endif
 
 /*******************************/
@@ -206,7 +206,14 @@ s32 get_size_of_asset_section(u32 assetIndex) {
  * Copies data from the game cartridge to a ram address.
  * Official name: romCopy
  */
-#ifndef VERSION_us_v2
+#ifdef VERSION_us_v2
+void dmacopy(u32 romOffset, u32 ramAddress, s32 numBytes) {
+    OSMesg msg = NULL;
+    osRecvMesg(&gDmaMesgQueueV2, &msg, 1);
+    dmacopy_v1(romOffset, ramAddress, numBytes);
+    osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, 0);
+}
+#else
 void dmacopy(u32 romOffset, u32 ramAddress, s32 numBytes) {
     OSMesg dmaMesg;
     s32 numBytesToDMA;
@@ -225,8 +232,6 @@ void dmacopy(u32 romOffset, u32 ramAddress, s32 numBytes) {
         ramAddress += numBytesToDMA;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/asset_loading/dmacopy.s")
 #endif
 
 #ifdef VERSION_us_v2
