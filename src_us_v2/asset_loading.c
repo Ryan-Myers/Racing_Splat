@@ -206,37 +206,16 @@ s32 get_size_of_asset_section(u32 assetIndex) {
  * Copies data from the game cartridge to a ram address.
  * Official name: romCopy
  */
-#ifdef VERSION_us_v2
 void dmacopy(u32 romOffset, u32 ramAddress, s32 numBytes) {
+#ifdef VERSION_us_v2
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, 1);
     dmacopy_v1(romOffset, ramAddress, numBytes);
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, 0);
 }
-#else
-void dmacopy(u32 romOffset, u32 ramAddress, s32 numBytes) {
-    OSMesg dmaMesg;
-    s32 numBytesToDMA;
-
-    osInvalDCache((u32 *) ramAddress, numBytes);
-    numBytesToDMA = MAX_TRANSFER_SIZE;
-    while (numBytes > 0) {
-        if (numBytes < numBytesToDMA) {
-            numBytesToDMA = numBytes;
-        }
-        osPiStartDma(&gAssetsDmaIoMesg, OS_MESG_PRI_NORMAL, OS_READ, romOffset, (u32 *) ramAddress, numBytesToDMA,
-                     &gDmaMesgQueue);
-        osRecvMesg(&gDmaMesgQueue, &dmaMesg, OS_MESG_BLOCK);
-        numBytes -= numBytesToDMA;
-        romOffset += numBytesToDMA;
-        ramAddress += numBytesToDMA;
-    }
-}
-#endif
-
-#ifdef VERSION_us_v2
 // Looks like v2 ROMs made an alternate version of this function, and this is the original.
 void dmacopy_v1(u32 romOffset, u32 ramAddress, s32 numBytes) {
+#endif
     OSMesg dmaMesg;
     s32 numBytesToDMA;
 
@@ -253,5 +232,5 @@ void dmacopy_v1(u32 romOffset, u32 ramAddress, s32 numBytes) {
         romOffset += numBytesToDMA;
         ramAddress += numBytesToDMA;
     }
+
 }
-#endif
