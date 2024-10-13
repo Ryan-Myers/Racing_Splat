@@ -1137,7 +1137,7 @@ load_asset_to_address = 0x80077190; // has a diff from v1
 get_rom_offset_of_asset = 0x80077240; // has a diff from v1
 get_size_of_asset_section = 0x800772DC; // has a diff from v1
 dmacopy = 0x80077370; // has a diff from v1
-func_800773D4_77FD4 = 0x800773D4;// has a diff from v1 - NEW FUNC
+dmacopy_v1 = 0x800773D4;// has a diff from v1 - NEW FUNC
 
 divider_draw = 0x800774A0;
 divider_clear_coverage = 0x800776B8;
