@@ -172,7 +172,7 @@ UNUSED s32 load_asset_section_from_rom_to_address(u32 assetIndex, u32 address) {
 s32 load_asset_to_address(u32 assetIndex, u32 address, s32 assetOffset, s32 size) {
     u32 *index;
     s32 start;
-    
+
 #ifdef VERSION_us_v2
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
@@ -202,7 +202,7 @@ s32 load_asset_to_address(u32 assetIndex, u32 address, s32 assetOffset, s32 size
 u8 *get_rom_offset_of_asset(u32 assetIndex, u32 assetOffset) {
     u32 *index;
     u32 start;
-    
+
 #ifdef VERSION_us_v2
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
@@ -229,7 +229,7 @@ u8 *get_rom_offset_of_asset(u32 assetIndex, u32 assetOffset) {
  */
 s32 get_size_of_asset_section(u32 assetIndex) {
     u32 *index;
-    
+
 #ifdef VERSION_us_v2
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
