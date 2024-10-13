@@ -1964,7 +1964,11 @@ void init_save_data(void) {
     
     gCheatsAssetData = (u16 (*)[30]) get_misc_asset(ASSET_MISC_MAGIC_CODES);
     gNumberOfCheats = (*gCheatsAssetData)[0];
+#ifdef VERSION_us_v2
+    gMenuText = allocate_from_main_pool_safe(1280 * sizeof(char *), COLOUR_TAG_WHITE);
+#else
     gMenuText = allocate_from_main_pool_safe(1024 * sizeof(char *), COLOUR_TAG_WHITE);
+#endif
     load_menu_text(LANGUAGE_ENGLISH);
     
     for (i = 0; i < ARRAY_COUNT(gMenuAssets); i++) { \
@@ -3424,6 +3428,7 @@ void soundoptions_free(void) {
  * Allocates space for the pak filesystem to load its results into, then resets all
  * the other variables related to the save options.
  */
+#ifndef VERSION_us_v2
 void menu_save_options_init(void) {
     gSaveMenuRumbleNagSet = TRUE;
     gSaveMenuRumbleNag = FALSE;
@@ -3457,12 +3462,16 @@ void menu_save_options_init(void) {
     mark_read_all_save_files();
     transition_begin(&sMenuTransitionFadeOut);
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/menu_save_options_init.s")
+#endif
 
 /**
  * Render a save menu entry.
  * This has the file name, and then a background and icon based on kind of file it is.
  * DKR save files will display the balloon count and adventure type.
  */
+#ifndef VERSION_us_v2
 void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
     s32 i;
     s32 firstDigit;
@@ -3619,6 +3628,9 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
         draw_text(&sMenuCurrDisplayList, x + 79, y + 47, text2, ALIGN_TOP_CENTER);
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/savemenu_render_element.s")
+#endif
 
 /**
  * Render all of the save option elements onscreen.
@@ -3991,6 +4003,7 @@ void savemenu_move(s32 updateRate) {
  * If the file type is marked as "erase", then erase the data instead.
  * Return the controller pak status.
  */
+#ifndef VERSION_us_v2
 SIDeviceStatus savemenu_write(void) {
     s32 i;
     SIDeviceStatus ret;
@@ -4135,6 +4148,9 @@ SIDeviceStatus savemenu_write(void) {
     }
     return ret;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/savemenu_write.s")
+#endif
 
 /**
  * Render an error message based on what the error itself is.
@@ -4501,6 +4517,7 @@ s32 menu_save_options_loop(s32 updateRate) {
 /**
  * Free the assets associated with the save options menu.
  */
+#ifndef VERSION_us_v2
 void savemenu_free(void) {
     unload_font(ASSET_FONTS_BIGFONT);
     menu_button_free();
@@ -4509,6 +4526,9 @@ void savemenu_free(void) {
     free_from_memory_pool((void *) gSaveMenuFilesSource);
     free_from_memory_pool((void *) D_80126A64);
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/savemenu_free.s")
+#endif
 
 #ifdef NON_EQUIVALENT
 // Nearly complete
@@ -4803,6 +4823,7 @@ void bootscreen_free(void) {
  * Initialises the controller pak menu variables.
  * Allocate space for the pak data and load the assets into memory.
  */
+#ifndef VERSION_us_v2
 void bootscreen_init_cpak(void) {
     s32 i;
 
@@ -4842,6 +4863,9 @@ void bootscreen_init_cpak(void) {
     }
     load_font(ASSET_FONTS_BIGFONT);
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/bootscreen_init_cpak.s")
+#endif
 
 /**
  * Render the controller pak menu.
@@ -4927,8 +4951,14 @@ void pakmenu_render(UNUSED s32 updateRate) {
             render_dialogue_text(6, 26, 2, noteText, gOpacityDecayTimer + i + 1, HORZ_ALIGN_CENTER);
             render_dialogue_text(6, 56, 2, fileNameText, 1, HORZ_ALIGN_LEFT);
             render_dialogue_text(6, 240, 2, pagesText, numberOfPages, HORZ_ALIGN_CENTER);
+#ifdef VERSION_us_v2
+            set_kerning(TRUE);
+#endif
             render_dialogue_box(&sMenuCurrDisplayList, NULL, NULL, 6);
             yPos += 16;
+#ifdef VERSION_us_v2
+            set_kerning(FALSE);
+#endif
         }
         if (gOpacityDecayTimer < (16 - sControllerPakMenuNumberOfRows)) {
             if ((gOptionBlinkTimer & 8) != 0) {
@@ -5162,11 +5192,15 @@ s32 menu_controller_pak_loop(s32 updateRate) {
 /**
  * Free all assets associated with the boot sequence controller pak menu.
  */
+#ifndef VERSION_us_v2
 void pakmenu_free(void) {
     menu_asset_free(63);
     free_from_memory_pool(gBootPakData[0]);
     unload_font(ASSET_FONTS_BIGFONT);
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/pakmenu_free.s")
+#endif
 
 /**
  * Initialises all the cheat menu variables and sets up a text box containing the keyboard.
@@ -5329,6 +5363,7 @@ void cheatmenu_render(UNUSED s32 updateRate) {
  * Generates a string based on the input, and when asked,
  * compares it with the cheat code table to see if it matches.
  */
+#ifndef VERSION_us_v2
 s32 menu_magic_codes_loop(s32 updateRate) {
     s32 i;
     s32 buttonsPressed;
@@ -5577,6 +5612,9 @@ s32 menu_magic_codes_loop(s32 updateRate) {
     }
     return MENU_RESULT_CONTINUE;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/menu_magic_codes_loop.s")
+#endif
 
 /**
  * Free all assets associated with the cheat code menu.
@@ -5609,6 +5647,7 @@ void menu_magic_codes_list_init(void) {
  * Renders all registered cheat codes in a list, starting from the top.
  * Once it reaches the end, render the back button too.
  */
+#ifndef VERSION_us_v2
 void cheatlist_render(UNUSED s32 updateRate) {
     s32 i;
     s32 alpha;
@@ -5668,6 +5707,9 @@ void cheatlist_render(UNUSED s32 updateRate) {
                                   255, 255);
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/cheatlist_render.s")
+#endif
 
 /**
  * Checks if cheatA is active, and disables cheatB if it is.
@@ -6805,10 +6847,21 @@ void fileselect_render(UNUSED s32 updateRate) {
     }
     set_text_font(ASSET_FONTS_BIGFONT);
     set_text_colour(0, 0, 0, 255, 128);
+#ifdef VERSION_us_v2
+    // Did the enum for ASSET_MENU_TEXT_GAMESELECT change?
+    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF + 1, 19, gMenuText[ASSET_MENU_TEXT_GAMESELECT+112],
+              ALIGN_TOP_CENTER);
+#else
     draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF + 1, 19, gMenuText[ASSET_MENU_TEXT_GAMESELECT],
               ALIGN_TOP_CENTER);
+#endif
     set_text_colour(255, 255, 255, 0, 255);
+#ifdef VERSION_us_v2
+    // Did the enum for ASSET_MENU_TEXT_GAMESELECT change?
+    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, 16, gMenuText[ASSET_MENU_TEXT_GAMESELECT+112], ALIGN_TOP_CENTER);
+#else
     draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, 16, gMenuText[ASSET_MENU_TEXT_GAMESELECT], ALIGN_TOP_CENTER);
+#endif
     set_text_colour(255, 255, 255, 0, 255);
     yPos += 187;
     if (gFileCopy) {
@@ -7552,7 +7605,12 @@ void trackmenu_assets(s32 type) {
                 gRaceSelectionPlayer4Texture[0].texture = gMenuAssets[TEXTURE_ICON_PLAYER_4];
                 gRaceSelectionVehicleTitleTexture[0].texture = gMenuAssets[TEXTURE_ICON_VEHICLE_TITLE];
                 gRaceSelectionTTTitleTexture[0].texture = gMenuAssets[TEXTURE_ICON_TT_TITLE];
+#ifdef VERSION_us_v2
+                // Did the TEXTURE_ICON_TT_HEAD enum value change?
+                gRaceSelectionTTTexture[0].texture = gMenuAssets[TEXTURE_UNK_69];
+#else
                 gRaceSelectionTTTexture[0].texture = gMenuAssets[TEXTURE_ICON_TT_HEAD];
+#endif
                 break;
         }
     }
@@ -8186,6 +8244,7 @@ void trackmenu_timetrial_sound(UNUSED s32 updateRate) {
  * This includes which adventure mode, which vehicles,
  * racer count and whether to use time trial mode.
  */
+#ifndef VERSION_us_v2
 void trackmenu_setup_render(UNUSED s32 updateRate) {
     // Had to mess around with shifting the local variables, so they all probably need to be renamed.
     s32 k;
@@ -8503,6 +8562,9 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
         sMenuGuiOpacity = 255;
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/trackmenu_setup_render.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80092188.s")
 
@@ -8583,7 +8645,12 @@ void menu_adventure_track_init(void) {
         gRaceSelectionPlaneOptHighlight[0].texture = gMenuAssets[TEXTURE_ICON_VEHICLE_SELECT_PLANE_HIGHLIGHT];
         gRaceSelectionPlaneOpt[0].texture = gMenuAssets[TEXTURE_ICON_VEHICLE_SELECT_PLANE];
         gRaceSelectionVehicleTitleTexture[0].texture = gMenuAssets[TEXTURE_ICON_VEHICLE_TITLE];
+#ifdef VERSION_us_v2
+        // Did the TEXTURE_ICON_TT_HEAD enum value change?
+        gRaceSelectionTTTexture[0].texture = gMenuAssets[TEXTURE_UNK_69];
+#else
         gRaceSelectionTTTexture[0].texture = gMenuAssets[TEXTURE_ICON_TT_HEAD];
+#endif
 
         transition_begin(&sMenuTransitionFadeOut);
         gOptionBlinkTimer = 0;
@@ -8602,6 +8669,7 @@ void menu_adventure_track_init(void) {
  * Render the setup gui when in a track preview in adventure mode.
  * This includes the vehicle selection and if time trial is enabled, the best times.
  */
+#ifndef VERSION_us_v2
 void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
     s32 alpha;
     s32 y;
@@ -8728,6 +8796,9 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
         }
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/adventuretrack_render.s")
+#endif
 
 /**
  * Process the logic for the track setup selection after entering a door in adventure mode.
@@ -9934,6 +10005,7 @@ void menu_results_init(void) {
  * Draw the portraits of the four player onscreen, then draw the scoreboard below.
  * After, draw the text options at the bottom.
  */
+#ifndef VERSION_us_v2
 void results_render(UNUSED s32 updateRate, f32 opacity) {
     s32 x2;
     s32 y2;
@@ -10083,6 +10155,9 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
         open_dialogue_box(7);
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/results_render.s")
+#endif
 
 /**
  * When someone presses A, decide whether to play the stage again,
@@ -10312,6 +10387,7 @@ void filename_trim(char *input, char *output) {
  * Initialise the name entry variables. Reset the entry to zero.
  * Position of the keyboard and title can be placed anywhere.
  */
+#ifndef VERSION_us_v2
 void filename_init(s32 titleY, s32 x, s32 y, s32 font, s32 *targetX, char *fileName, s32 fileNameLength) {
     gEnterInitalsY = titleY;
     gFilenameX = x;
@@ -10327,6 +10403,9 @@ void filename_init(s32 titleY, s32 x, s32 y, s32 font, s32 *targetX, char *fileN
     gNameEntryStickHeld = 0;
     load_font(ASSET_FONTS_BIGFONT);
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/filename_init.s")
+#endif
 
 /**
  * Draw menu for "Enter your initials" when starting a new game.
@@ -11349,7 +11428,11 @@ void ghostmenu_render(UNUSED s32 updateRate) {
     if (gMenuStage > GHOSTMENU_CHOOSE) {
         clear_dialogue_box_open_flag(7);
         dialogue_clear(7);
+#ifdef VERSION_us_v2
+        set_current_dialogue_box_coords(7, 92, 102, 228, 138);
+#else
         set_current_dialogue_box_coords(7, 104, 102, 216, 138);
+#endif
         set_current_dialogue_background_colour(7, 0, 0, 0, 192);
         set_dialogue_font(7, 0);
         set_current_text_background_colour(7, 0, 0, 0, 0);
@@ -11537,6 +11620,7 @@ void cinematic_start(s8 *params, s32 arg1, s32 endFlags, s32 skipFlagsA, s32 ski
 /**
  * Load a new level and trigger a cutscene.
  */
+#ifndef VERSION_us_v2
 void menu_cinematic_init(void) {
     if (gCinematicPortraits != NULL) {
         menu_assetgroup_load(gCinematicObjectIndices);
@@ -11547,6 +11631,9 @@ void menu_cinematic_init(void) {
     gMenuDelay = 0;
     gMenuStage = 0;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/menu_cinematic_init.s")
+#endif
 
 /**
  * Wait for a signal, which can come from a few sources depending on what cutscene is playing.
@@ -11606,6 +11693,7 @@ void cinematic_free(void) {
  * Initialise credits sequence.
  * Sets the ending text depending on when the credits were called.
  */
+#ifndef VERSION_us_v2
 void menu_credits_init(void) {
     s32 cheat;
     s32 cheatIndex;
@@ -11672,6 +11760,9 @@ void menu_credits_init(void) {
     enable_new_screen_transitions();
     set_gIntDisFlag(TRUE);
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/menu_credits_init.s")
+#endif
 
 /**
  * Render a fading rectangle over the screen during the credits to serve as a transition between levels.
@@ -12750,8 +12841,14 @@ s32 taj_menu_loop(void) {
             break;
         case DIALOGUEPAGE_TAJ_ROOT:
             gNextTajChallengeMenu = 0;
+#ifdef VERSION_us_v2
+            // ASSET_MENU_TEXT_OPTIONS must have changed
+            render_dialogue_text(1, POS_CENTRED, 6, gMenuText[190], 1,
+                                 HORZ_ALIGN_CENTER); // OPTIONS
+#else
             render_dialogue_text(1, POS_CENTRED, 6, gMenuText[ASSET_MENU_TEXT_OPTIONS], 1,
                                  HORZ_ALIGN_CENTER); // OPTIONS
+#endif
             gDialogueOptionYOffset = 30;
             render_dialogue_option(gMenuText[ASSET_MENU_TEXT_CHANGEVEHICLE], 20, 0); // CHANGE VEHICLE
             if (settings->tajFlags & TAJ_FLAGS_UNLOCKED_A_CHALLENGE) {
@@ -12938,8 +13035,14 @@ s32 tt_menu_loop(void) {
     switch (sCurrentMenuID) {
         case TT_MENU_ROOT:
         case TT_MENU_EXIT:
+#ifdef VERSION_us_v2
+            // ASSET_MENU_TEXT_OPTIONS must have changed
+            render_dialogue_text(1, POS_CENTRED, 6, gMenuText[189], 1,
+                                 HORZ_ALIGN_CENTER);                          // OPTIONS
+#else
             render_dialogue_text(1, POS_CENTRED, 6, gMenuText[ASSET_MENU_TEXT_OPTIONS], 1,
                                  HORZ_ALIGN_CENTER);                          // OPTIONS
+#endif
             render_dialogue_option(gMenuText[ASSET_MENU_TEXT_STATUS], 20, 3); // STATUS
             if (!is_in_two_player_adventure()) {
                 if (is_time_trial_enabled()) {
@@ -13058,8 +13161,14 @@ s32 tt_menu_loop(void) {
                                  HORZ_ALIGN_CENTER); // If you wish to use
             render_dialogue_text(1, POS_CENTRED, 50, gMenuText[ASSET_MENU_TEXT_INSERTDEVICE_4], 1,
                                  HORZ_ALIGN_CENTER); // the Controller Pak
+#ifdef VERSION_us_v2
+            // ASSET_MENU_TEXT_INSERTDEVICE_6 must have changed
+            render_dialogue_text(1, POS_CENTRED, 66, gMenuText[161], 1,
+                                 HORZ_ALIGN_CENTER); // insert it now!
+#else
             render_dialogue_text(1, POS_CENTRED, 66, gMenuText[ASSET_MENU_TEXT_INSERTDEVICE_6], 1,
                                  HORZ_ALIGN_CENTER); // insert it now!
+#endif
             if (buttonsPressed & (A_BUTTON | START_BUTTON)) {
                 sound_play(SOUND_SELECT2, NULL);
                 gAdventureSaveGhost = 0;
@@ -13071,12 +13180,21 @@ s32 tt_menu_loop(void) {
             }
             break;
         case TT_MENU_INSERT_RUMBLE_PAK:
+#ifdef VERSION_us_v2
+            render_dialogue_text(1, POS_CENTRED, 34, gMenuText[162], 1,
+                                 HORZ_ALIGN_CENTER); // If you wish to use
+            render_dialogue_text(1, POS_CENTRED, 50, gMenuText[186], 1,
+                                 HORZ_ALIGN_CENTER); // the Rumble Pak
+            render_dialogue_text(1, POS_CENTRED, 66, gMenuText[187], 1,
+                                 HORZ_ALIGN_CENTER); // insert it now!
+#else
             render_dialogue_text(1, POS_CENTRED, 34, gMenuText[ASSET_MENU_TEXT_INSERTDEVICE_3], 1,
                                  HORZ_ALIGN_CENTER); // If you wish to use
             render_dialogue_text(1, POS_CENTRED, 50, gMenuText[ASSET_MENU_TEXT_INSERTDEVICE_5], 1,
                                  HORZ_ALIGN_CENTER); // the Rumble Pak
             render_dialogue_text(1, POS_CENTRED, 66, gMenuText[ASSET_MENU_TEXT_INSERTDEVICE_6], 1,
                                  HORZ_ALIGN_CENTER); // insert it now!
+#endif
             if (buttonsPressed & (A_BUTTON | B_BUTTON | START_BUTTON)) {
                 sCurrentMenuID = TT_MENU_ROOT;
             }
