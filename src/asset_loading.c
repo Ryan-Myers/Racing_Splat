@@ -16,9 +16,10 @@ OSMesg gPIMesgBuf[16];
 OSMesgQueue gPIMesgQueue;
 u32 *gAssetsLookupTable;
 #ifdef VERSION_us_v2
-OSMesgQueue gDmaMesgQueueV2; // NEW BSS
-u32 *D_80124830_ED190; // NEW BSS
+OSMesg gAssetsLookupTableMesgBuf;
+OSMesgQueue gDmaMesgQueueV2;
 #endif
+u32 *gAssetsLookupTable;
 
 /*******************************/
 

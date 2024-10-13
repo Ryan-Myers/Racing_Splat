@@ -31,42 +31,38 @@ extern u8 __ASSETS_LUT_START[], __ASSETS_LUT_END[]; // __ASSETS_LUT_START = 0xEC
  * After, allocate space and load the asset table into RAM.
  * Official Name: piInit
  */
-#ifndef VERSION_us_v2
 void init_PI_mesg_queue(void) {
     u32 assetTableSize;
     osCreateMesgQueue(&gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
     osCreateMesgQueue(&gDmaMesgQueue, &gDmaMesg, 1);
     osCreatePiManager((OSPri) 150, &gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
-    assetTableSize = __ASSETS_LUT_END - __ASSETS_LUT_START;
-    gAssetsLookupTable = (u32 *) allocate_from_main_pool_safe(assetTableSize, COLOUR_TAG_GREY);
-    func_80071478((u8 *) gAssetsLookupTable);
-    dmacopy((u32) __ASSETS_LUT_START, (u32) gAssetsLookupTable, (s32) assetTableSize);
-}
-#else
-void init_PI_mesg_queue(void) {
-    u32 assetTableSize;
-    osCreateMesgQueue(&gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
-    osCreateMesgQueue(&gDmaMesgQueue, &gDmaMesg, 1);
-    osCreatePiManager((OSPri) 150, &gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
+#ifdef VERSION_us_v2
     osCreateMesgQueue(&gDmaMesgQueueV2, &gAssetsLookupTableMesgBuf, 1);
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
+#endif
     assetTableSize = __ASSETS_LUT_END - __ASSETS_LUT_START;
     gAssetsLookupTable = (u32 *) allocate_from_main_pool_safe(assetTableSize, COLOUR_TAG_GREY);
     func_80071478((u8 *) gAssetsLookupTable);
+#ifdef VERSION_us_v2
     dmacopy_v1((u32) __ASSETS_LUT_START, (u32) gAssetsLookupTable, (s32) assetTableSize);
-}
+#else
+    dmacopy((u32) __ASSETS_LUT_START, (u32) gAssetsLookupTable, (s32) assetTableSize);
 #endif
+}
 
 /**
  * Returns the memory address containing an asset section loaded from ROM.
  * Official Name: piRomLoad
  */
-#ifndef VERSION_us_v2
 u32 *load_asset_section_from_rom(u32 assetIndex) {
     u32 *index;
     u32 *out;
     s32 size;
     u32 start;
+#ifdef VERSION_us_v2
+    OSMesg msg = NULL;
+    osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
+#endif
     if (gAssetsLookupTable[0] < assetIndex) {
         return 0;
     }
@@ -78,12 +74,14 @@ u32 *load_asset_section_from_rom(u32 assetIndex) {
     if (out == 0) {
         return 0;
     }
+#ifdef VERSION_us_v2
+    dmacopy_v1((u32) (start + __ASSETS_LUT_END), (u32) out, size);
+    osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
+#else
     dmacopy((u32) (start + __ASSETS_LUT_END), (u32) out, size);
+#endif
     return out;
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/asset_loading/load_asset_section_from_rom.s")
-#endif
 
 /**
  * Loads a gzip compressed asset from the ROM file.
@@ -220,7 +218,7 @@ s32 get_size_of_asset_section(u32 assetIndex) {
 void dmacopy(u32 romOffset, u32 ramAddress, s32 numBytes) {
 #ifdef VERSION_us_v2
     OSMesg msg = NULL;
-    osRecvMesg(&gDmaMesgQueueV2, &msg, 1);
+    osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
     dmacopy_v1(romOffset, ramAddress, numBytes);
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
 }
