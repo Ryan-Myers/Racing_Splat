@@ -178,5 +178,6 @@ SIDeviceStatus func_80074EB8(s32 controllerIndex, s16 levelId, s16 vehicleId, s1
 SIDeviceStatus func_80075000(s32 controllerIndex, s16 levelId, s16 vehicleId, s16 ghostCharacterId, s16 ghostTime,
                              s16 ghostNodeCount, unk80075000_body *ghostData);
 s32 func_800753D8(s32 controllerIndex, s32 worldId);
+void func_800724D8_730D8(s32 arg0);
 
 #endif

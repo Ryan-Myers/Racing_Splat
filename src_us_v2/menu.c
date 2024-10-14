@@ -3428,7 +3428,6 @@ void soundoptions_free(void) {
  * Allocates space for the pak filesystem to load its results into, then resets all
  * the other variables related to the save options.
  */
-#ifndef VERSION_us_v2
 void menu_save_options_init(void) {
     gSaveMenuRumbleNagSet = TRUE;
     gSaveMenuRumbleNag = FALSE;
@@ -3461,10 +3460,10 @@ void menu_save_options_init(void) {
     menu_init_arrow_textures();
     mark_read_all_save_files();
     transition_begin(&sMenuTransitionFadeOut);
-}
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/menu_save_options_init.s")
+#ifdef VERSION_us_v2
+    func_800724D8_730D8(0);
 #endif
+}
 
 /**
  * Render a save menu entry.
