@@ -10019,7 +10019,6 @@ void menu_results_init(void) {
  * Draw the portraits of the four player onscreen, then draw the scoreboard below.
  * After, draw the text options at the bottom.
  */
-#ifndef VERSION_us_v2
 void results_render(UNUSED s32 updateRate, f32 opacity) {
     s32 x2;
     s32 y2;
@@ -10031,6 +10030,10 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
     s32 tens;
     UNUSED s32 pad;
     s32 i;
+#ifdef VERSION_us_v2
+    s32 offsetX2;
+    s32 timesToLoop;
+#endif
     Settings *settings;
 
     settings = get_settings();
@@ -10051,7 +10054,15 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
     set_text_colour(255, 255, 255, 0, sMenuGuiOpacity);
     draw_text(&sMenuCurrDisplayList, POS_CENTRED, 34, gMenuText[ASSET_MENU_TEXT_RANKINGS], ALIGN_MIDDLE_CENTER);
     sMenuGuiOpacity = 255;
+#ifdef VERSION_us_v2
+    offsetX2 = 64;
+    if (gNumberOfActivePlayers == 4) {
+        offsetX2 = 56;
+    }
+    offsetX = 160 - ((gNumberOfActivePlayers - 1) * (offsetX2 >> 1));
+#else
     offsetX = 160 - ((gNumberOfActivePlayers - 1) << 5);
+#endif
     x2 = offsetX;
 
     for (i = 0; i < gNumberOfActivePlayers; i++) {
@@ -10066,13 +10077,22 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
         }
         render_textured_rectangle(&sMenuCurrDisplayList, gRacerPortraits[settings->racers[i].character], x2 - 20,
                                   54 - (s32) (240 * opacity), spA0, spA0, spA0, 255);
+#ifdef VERSION_us_v2
+        x2 += offsetX2;
+#else
         x2 += 64;
+#endif
     }
 
     offsetX = offsetX + (s32) (320 * opacity); // Cannot use += here?
     set_text_font(ASSET_FONTS_FUNFONT);
     y2 = 104;
+#ifdef VERSION_us_v2
+    timesToLoop = 4;
+    for (spA0 = 0; spA0 < timesToLoop; spA0++) {
+#else
     for (spA0 = 0; spA0 < 4; spA0++) {
+#endif
         time = offsetX;
         set_text_colour(0, 0, 0, 255, 255);
         draw_text(&sMenuCurrDisplayList, time - 32, y2 + offsetY + 4, gRacePlacementsArray[spA0], ALIGN_MIDDLE_CENTER);
@@ -10086,7 +10106,11 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
         sMenuGuiColourB = 255;
         sMenuGuiColourBlendFactor = 255;
         x2 = offsetX;
+#ifdef VERSION_us_v2
+        for (i = 0; i < gNumberOfActivePlayers; i++, x2 += offsetX2) {
+#else
         for (i = 0; i < gNumberOfActivePlayers; i++, x2 += 64) {
+#endif
             time = settings->racers[i].placements[spA0]; // Is this local var name correct?
             if (time > 999) {
                 time = 999;
@@ -10169,9 +10193,6 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
         open_dialogue_box(7);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/results_render.s")
-#endif
 
 /**
  * When someone presses A, decide whether to play the stage again,
@@ -10401,7 +10422,6 @@ void filename_trim(char *input, char *output) {
  * Initialise the name entry variables. Reset the entry to zero.
  * Position of the keyboard and title can be placed anywhere.
  */
-#ifndef VERSION_us_v2
 void filename_init(s32 titleY, s32 x, s32 y, s32 font, s32 *targetX, char *fileName, s32 fileNameLength) {
     gEnterInitalsY = titleY;
     gFilenameX = x;
@@ -10417,9 +10437,6 @@ void filename_init(s32 titleY, s32 x, s32 y, s32 font, s32 *targetX, char *fileN
     gNameEntryStickHeld = 0;
     load_font(ASSET_FONTS_BIGFONT);
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/filename_init.s")
-#endif
 
 /**
  * Draw menu for "Enter your initials" when starting a new game.
@@ -11634,7 +11651,6 @@ void cinematic_start(s8 *params, s32 arg1, s32 endFlags, s32 skipFlagsA, s32 ski
 /**
  * Load a new level and trigger a cutscene.
  */
-#ifndef VERSION_us_v2
 void menu_cinematic_init(void) {
     if (gCinematicPortraits != NULL) {
         menu_assetgroup_load(gCinematicObjectIndices);
@@ -11645,9 +11661,6 @@ void menu_cinematic_init(void) {
     gMenuDelay = 0;
     gMenuStage = 0;
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/menu_cinematic_init.s")
-#endif
 
 /**
  * Wait for a signal, which can come from a few sources depending on what cutscene is playing.
@@ -11707,7 +11720,6 @@ void cinematic_free(void) {
  * Initialise credits sequence.
  * Sets the ending text depending on when the credits were called.
  */
-#ifndef VERSION_us_v2
 void menu_credits_init(void) {
     s32 cheat;
     s32 cheatIndex;
@@ -11767,16 +11779,18 @@ void menu_credits_init(void) {
         // The first u16 of gCheatsAssetData is the total number of cheats.
         // After that is the offsets to the cheat strings.
         cheatOffsets = *gCheatsAssetData + 1;
-        gCreditsArray[85] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex << 1) + 1]; // Cheat name
-        gCreditsArray[86] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex << 1)];     // Cheat code
+#ifdef VERSION_us_v2
+    #define CHEATINDEXMULT 3
+#else
+    #define CHEATINDEXMULT 2
+#endif
+        gCreditsArray[85] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT) + 1]; // Cheat name
+        gCreditsArray[86] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT)];     // Cheat code
     }
     music_change_off();
     enable_new_screen_transitions();
     set_gIntDisFlag(TRUE);
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/menu_credits_init.s")
-#endif
 
 /**
  * Render a fading rectangle over the screen during the credits to serve as a transition between levels.
