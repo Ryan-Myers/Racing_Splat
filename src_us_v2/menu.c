@@ -3470,7 +3470,6 @@ void menu_save_options_init(void) {
  * This has the file name, and then a background and icon based on kind of file it is.
  * DKR save files will display the balloon count and adventure type.
  */
-#ifndef VERSION_us_v2
 void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
     s32 i;
     s32 firstDigit;
@@ -3622,14 +3621,16 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
     if (text2 != NULL) {
         set_text_font(1);
         set_text_colour(0, 0, 0, 255, 160);
-        draw_text(&sMenuCurrDisplayList, x + 80, y + 48, text2, ALIGN_TOP_CENTER);
+#ifdef VERSION_us_v2
+        #define SAVEMENUTEXTOFFSET 1
+#else
+        #define SAVEMENUTEXTOFFSET 0
+#endif
+        draw_text(&sMenuCurrDisplayList, x + 80 + SAVEMENUTEXTOFFSET, y + 48, text2, ALIGN_TOP_CENTER);
         set_text_colour(255, 255, 255, 255, 255);
-        draw_text(&sMenuCurrDisplayList, x + 79, y + 47, text2, ALIGN_TOP_CENTER);
+        draw_text(&sMenuCurrDisplayList, x + 79 + SAVEMENUTEXTOFFSET, y + 47, text2, ALIGN_TOP_CENTER);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/savemenu_render_element.s")
-#endif
 
 /**
  * Render all of the save option elements onscreen.
@@ -4002,7 +4003,6 @@ void savemenu_move(s32 updateRate) {
  * If the file type is marked as "erase", then erase the data instead.
  * Return the controller pak status.
  */
-#ifndef VERSION_us_v2
 SIDeviceStatus savemenu_write(void) {
     s32 i;
     SIDeviceStatus ret;
@@ -4045,6 +4045,10 @@ SIDeviceStatus savemenu_write(void) {
                 mark_to_write_flap_and_course_times();
                 unset_eeprom_settings_value(
                     0xFFFFF0); // Reset most eeprom save data, but keep Adventure 2, and Drumstick.
+#ifdef VERSION_us_v2
+                gActiveMagicCodes &= ~CHEAT_CONTROL_TT;
+                gUnlockedMagicCodes &= ~CHEAT_CONTROL_TT;
+#endif
             }
             break;
         case SAVE_FILE_TYPE_CPAK_SAVE:
@@ -4094,6 +4098,9 @@ SIDeviceStatus savemenu_write(void) {
                 case SAVE_FILE_TYPE_CART_TIMES:
                     ret = read_time_data_from_controller_pak(
                         gSaveMenuFilesSource[gSaveMenuOptionSource].controllerIndex, fileExt, settings);
+#ifdef VERSION_us_v2
+                    mark_to_write_flap_and_course_times();
+#endif
                     break;
                 case SAVE_FILE_TYPE_CPAK_EMPTY:
                     ret = read_time_data_from_controller_pak(
@@ -4147,9 +4154,6 @@ SIDeviceStatus savemenu_write(void) {
     }
     return ret;
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/savemenu_write.s")
-#endif
 
 /**
  * Render an error message based on what the error itself is.
@@ -4516,7 +4520,6 @@ s32 menu_save_options_loop(s32 updateRate) {
 /**
  * Free the assets associated with the save options menu.
  */
-#ifndef VERSION_us_v2
 void savemenu_free(void) {
     unload_font(ASSET_FONTS_BIGFONT);
     menu_button_free();
@@ -4524,10 +4527,10 @@ void savemenu_free(void) {
     dialogue_clear(7);
     free_from_memory_pool((void *) gSaveMenuFilesSource);
     free_from_memory_pool((void *) D_80126A64);
-}
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/savemenu_free.s")
+#ifdef VERSION_us_v2
+    func_800724D8_730D8(1);
 #endif
+}
 
 #ifdef NON_EQUIVALENT
 // Nearly complete
