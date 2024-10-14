@@ -4825,7 +4825,6 @@ void bootscreen_free(void) {
  * Initialises the controller pak menu variables.
  * Allocate space for the pak data and load the assets into memory.
  */
-#ifndef VERSION_us_v2
 void bootscreen_init_cpak(void) {
     s32 i;
 
@@ -4864,10 +4863,10 @@ void bootscreen_init_cpak(void) {
         sControllerPakMenuNumberOfRows = 7;
     }
     load_font(ASSET_FONTS_BIGFONT);
-}
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/bootscreen_init_cpak.s")
+#ifdef VERSION_us_v2
+    func_800724D8_730D8(0);
 #endif
+}
 
 /**
  * Render the controller pak menu.
@@ -5194,15 +5193,14 @@ s32 menu_controller_pak_loop(s32 updateRate) {
 /**
  * Free all assets associated with the boot sequence controller pak menu.
  */
-#ifndef VERSION_us_v2
 void pakmenu_free(void) {
     menu_asset_free(63);
     free_from_memory_pool(gBootPakData[0]);
     unload_font(ASSET_FONTS_BIGFONT);
-}
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/pakmenu_free.s")
+#ifdef VERSION_us_v2
+    func_800724D8_730D8(1);
 #endif
+}
 
 /**
  * Initialises all the cheat menu variables and sets up a text box containing the keyboard.
@@ -8246,7 +8244,6 @@ void trackmenu_timetrial_sound(UNUSED s32 updateRate) {
  * This includes which adventure mode, which vehicles,
  * racer count and whether to use time trial mode.
  */
-#ifndef VERSION_us_v2
 void trackmenu_setup_render(UNUSED s32 updateRate) {
     // Had to mess around with shifting the local variables, so they all probably need to be renamed.
     s32 k;
@@ -8300,6 +8297,16 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
             sMenuGuiOpacity = 0;
         }
         availableVehicleFlags = get_map_available_vehicles(gTrackIdForPreview);
+#ifdef VERSION_us_v2
+        if (gNumberOfActivePlayers >= 2) {
+            if (gTrackIdForPreview == ASSET_LEVEL_SPACEPORTALPHA) {
+                availableVehicleFlags &= ~VEHICLE_PLANE;
+            }
+            if (gTrackIdForPreview == ASSET_LEVEL_FROSTYVILLAGE) {
+                availableVehicleFlags &= ~VEHICLE_LOOPDELOOP;
+            }
+        }
+#endif
         i = (s32) get_level_name(gTrackIdForPreview);
         set_text_font(ASSET_FONTS_BIGFONT);
         set_text_colour(192, 192, 255, 0, sMenuGuiOpacity);
@@ -8535,11 +8542,19 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
             }
             gMenuImages[k].y = 42.0f;
             if ((settings->courseFlagsPtr[gTrackIdForPreview] & 2) || (is_adventure_two_unlocked())) {
+#ifdef VERSION_us_v2
+                gMenuImages[k].x = (f32) ((gIsInAdventureTwo * 2) - 128);
+#else
                 gMenuImages[k].x = -128.0f;
+#endif
                 menu_element_render(k);
             }
             if ((settings->courseFlagsPtr[gTrackIdForPreview] & 4) || (is_adventure_two_unlocked())) {
+#ifdef VERSION_us_v2
+                gMenuImages[k].x = (f32) ((gIsInAdventureTwo * 2) + 120);
+#else
                 gMenuImages[k].x = 120.0f;
+#endif
                 menu_element_render(k);
             }
             sprite_opaque(TRUE);
@@ -8564,9 +8579,6 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
         sMenuGuiOpacity = 255;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/trackmenu_setup_render.s")
-#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80092188.s")
 
