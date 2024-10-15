@@ -151,7 +151,10 @@ UNUSED f32 sRecordVel = 0.0f; // Set to whatever the highest velocity recorded i
 // Unused?
 s32 D_800E283C[4] = { 0x06FFFFFF, 0x000FFFFF, 0x06000000, 0x0014FFFF };
 
-char D_800E2DCC_E39CC[] = "DID NOT FINISH";
+#ifdef VERSION_us_v2
+// For some reason, this string is a data symbol in v2, but is rodata in v1.
+char sDidNotFinish[] = "DID NOT FINISH";
+#endif
 
 /*******************************/
 
@@ -2155,7 +2158,6 @@ void render_wrong_way_text(Object_Racer *obj, s32 updateRate) {
     sprite_opaque(FALSE);
 }
 
-#if 0
 /**
  * Render race result for multiplayer races or battles after that player has finished.
  * Displays the finish position, and in races, will display the race time.
@@ -2183,14 +2185,15 @@ void hud_draw_finish_misc(Object_Racer *racer) {
                              gCurrentHud->lapTimeText.unk1B, gCurrentHud->lapTimeText.unk1C, 1);
             } else {
                 draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35.0f, gCurrentHud->raceTimeNumber.y,
+#ifdef VERSION_us_v2
+                          &sDidNotFinish, ALIGN_TOP_LEFT);
+#else
                           "DID NOT FINISH", ALIGN_TOP_LEFT);
+#endif
             }
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/game_ui/hud_draw_finish_misc.s")
-#endif
 
 #ifdef NON_EQUIVALENT
 void func_800A6254(Object_Racer *racer, s32 updateRate) {
