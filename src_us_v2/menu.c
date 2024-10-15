@@ -5629,6 +5629,7 @@ s32 menu_magic_codes_loop(s32 updateRate) {
     }
     return MENU_RESULT_CONTINUE;
 }
+
 /**
  * Free all assets associated with the cheat code menu.
  */
