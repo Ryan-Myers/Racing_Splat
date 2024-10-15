@@ -16,7 +16,7 @@
 
 #pragma GLOBAL_ASM("asm_jpn_v1/nonmatchings/audiosfx/func_8000418C.s")
 
-#pragma GLOBAL_ASM("asm_jpn_v1/nonmatchings/audiosfx/func_800041FC.s")
+#pragma GLOBAL_ASM("asm_jpn_v1/nonmatchings/audiosfx/func_800041FC_4DFC.s")
 
 #pragma GLOBAL_ASM("asm_jpn_v1/nonmatchings/audiosfx/func_800042CC.s")
 

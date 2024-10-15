@@ -50,7 +50,6 @@ segments:
       - [0x8C40, c, audio_spatial]
       - [0xB310, c, lib/src/audio/mips1/seqplayer]
       - [0xBC20, c, objects]
-      
       - [0x255E0, asm]
       - [0x31D30, asm]
       - [0x32760, asm]
