@@ -38,10 +38,10 @@
 #define VERSION VERSION_80
 #define REGION REGION_NA
 #elif defined(VERSION_pal_v2)
-#define Func80019808Checksum 0x0000
-#define ViewportFuncChecksum 0x0000
-#define TractionTableChecksum 0x0000
-#define ObjLoopGoldenBalloonChecksum 0x0000
+#define Func80019808Checksum 0x3507C
+#define ViewportFuncChecksum 0x580A
+#define TractionTableChecksum 0x1CE40
+#define ObjLoopGoldenBalloonChecksum 0xA6AF
 #define VERSION VERSION_80
 #define REGION REGION_PAL
 #else

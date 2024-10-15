@@ -48,20 +48,20 @@ segments:
       - [0x5740, c, audio_vehicle]
       - [0x8C40, c, audio_spatial]
       - [0xB310, c, ../libultra/src/audio/mips1/seqplayer]
-      - [0xBC20, c, objects] #diff here
+      - [0xBC20, c, objects]
       - [0x25230, hasm, hasm/unknown_0251F0]
       - [0x25620, c, tracks]
       - [0x31D70, hasm, hasm/collision]
       - [0x327A0, c, lights]
       - [0x34900, c, object_functions]
-      - [0x43960, c, racer] #diff here
+      - [0x43960, c, racer]
       - [0x5D090, c, vehicle_tricky]
       - [0x5DE70, c, vehicle_bluey]
       - [0x5E5C0, c, vehicle_smokey]
       - [0x5F260, c, vehicle_bubbler]
       - [0x5F830, c, vehicle_wizpig]
       - [0x600B0, c, vehicle_rocket]
-      - [0x605F0, c, object_models] #diff here
+      - [0x605F0, c, object_models]
       - [0x62B70, hasm, hasm/unknown_062930]
       - [0x630D0, c, lib/src/audio/mips1/csplayer]
       - [0x648D0, c, ../libultra/src/audio/mips1/unknown_064690]
@@ -83,8 +83,8 @@ segments:
       - [0x70350, hasm, hasm/math_util]
       - [0x71970, c, memory]
       - [0x72B70, c, ../libultra/src/io/motor]
-      - [0x73090, c, save_data] #diff here
-      - [0x77A00, c, asset_loading] # Entire asset_loading file seems quite different from v1
+      - [0x73090, c, save_data]
+      - [0x77A00, c, asset_loading]
       - [0x780A0, c, borders]
       - [0x784A0, c, rcp_dkr]
       - [0x7A3A0, c, ../libultra/src/sc/sched]
@@ -92,19 +92,19 @@ segments:
       - [0x7B360, c, video]
       - [0x7BCC0, c, textures_sprites]
       - [0x80690, c, screen_asset]
-      - [0x80950, c, menu] #diff here
-      - [0x9FE30, c, game_ui] #diff here
+      - [0x80950, c, menu]
+      - [0x9FE30, c, game_ui]
       - [auto, c, os_yield_data] #bss only file
       - [0xAC350, c, weather]
       - [0xAF3D0, c, particles]
       - [0xB5870, c, unused_string]
       - [0xB5AA0, c, printf]
       - [0xB80A0, c, ../libultra/src/debug/assert]
-      - [0xB80B0, c, thread0_epc] #diff here
+      - [0xB80B0, c, thread0_epc]
       - [0xB8E30, hasm, hasm/get_stack_pointer]
       - [0xB8E40, c, waves]
       - [0xC1290, c, fade_transition]
-      - [0xC3B10, c, game_text] #diff here
+      - [0xC3B10, c, game_text]
       - [0xC4D60, c, font]
       - [0xC7160, c, ../libultra/src/io/pimgr]
       - [0xC72D0, c, gzip]
@@ -325,7 +325,7 @@ segments:
       - [0xE5A50, .data, ../libultra/src/libc/xprintf]
       - [0xE5AA0, .data, ../libultra/src/os/timerintr]
       - [0xE5AB0, .data, ../libultra/src/libc/xlitob]
-      - [0xE5AE0, .rodata, audio] # + 0x500 from pal v1
+      - [0xE5AE0, .rodata, audio]
       - [0xE5B80, .rodata, audiomgr]
       - [0xE5D40, .rodata, audiosfx]
       - [0xE5D80, .rodata, audio_vehicle]
@@ -345,7 +345,6 @@ segments:
       - [0xE7C90, .rodata, vehicle_rocket]
       - [0xE7CB0, .rodata, object_models]
       - [0xE7DB0, .rodata, lib/src/audio/mips1/csplayer]
-      #- [0xE7E70, .rodata, csplayer_funcrodata] #hack until I can enable migrate_rodata_to_functions
       - [0xE8000, .rodata, ../libultra/src/audio/mips1/reverb]
       - [0xE8030, .rodata, ../libultra/src/audio/mips1/drvrnew]
       - [0xE8050, .rodata, ../libultra/src/audio/mips1/synthesizer]
@@ -359,8 +358,8 @@ segments:
       - [0xE8CC0, .rodata, textures_sprites]
       - [0xE8E20, .rodata, screen_asset]
       - [0xE8E40, .rodata, menu]
-      - [0xE97D0, .rodata, game_ui] # + 0x500 from pal v1
-      - [0xE9970, .rodata, weather] # + 0x4F0 from pal v1
+      - [0xE97D0, .rodata, game_ui]
+      - [0xE9970, .rodata, weather]
       - [0xE99C0, .rodata, particles]
       - [0xE9D80, .rodata, printf]
       - [0xE9FF0, .rodata, thread0_epc]
@@ -382,14 +381,14 @@ segments:
       - [0xEA940, .rodata, ../libultra/src/gu/cosf]
       - [0xEA990, .rodata, ../libultra/src/gu/sinf]
       - [0xEA9E0, .rodata, ../libultra/src/libc/xldtob]
-      - [0xEAA40, hasm, ../libultra/src/gu/libm_vals] # + 0x4F0 from pal v1
+      - [0xEAA40, hasm, ../libultra/src/gu/libm_vals]
       - { start: 0xEAA50, type: databin, name: data_audio,       linker_section_order: .rodata }
       - { start: 0xEAD20, type: databin, name: data_f3ddkr_dram, linker_section_order: .rodata }
       - { start: 0xEB520, type: databin, name: data_f3ddkr_fifo, linker_section_order: .rodata }
       - { start: 0xEBD20, type: databin, name: data_f3ddkr_xbus, linker_section_order: .rodata }
       - { start: 0xEC520, type: databin, name: data_unknown_2,   linker_section_order: .rodata }
       - [0xED0E0, bin, assets]
-      - { start: auto, type: .bss, vram: 0x800EC4E0, name: audio } # + 0x4F0 from pal v1
+      - { start: auto, type: .bss, vram: 0x800EC4E0, name: audio }
       - { start: auto, type: .bss, vram: 0x80116510, name: audiomgr }
       - { start: auto, type: .bss, vram: 0x8011A150, name: audiosfx }
       - { start: auto, type: .bss, vram: 0x8011A1B0, name: audio_vehicle }
@@ -413,13 +412,13 @@ segments:
       - { start: auto, type: .bss, vram: 0x80123B00, name: memory }
       - { start: auto, type: .bss, vram: 0x80124350, name: ../libultra/src/io/motor }
       - { start: auto, type: .bss, vram: 0x80124590, name: save_data }
-      - { start: auto, type: .bss, vram: 0x80124780, name: asset_loading } # + 0x4F0 from pal v1
-      - { start: auto, type: .bss, vram: 0x80124840, name: rcp_dkr } # + 0x510 from pal v1
+      - { start: auto, type: .bss, vram: 0x80124780, name: asset_loading }
+      - { start: auto, type: .bss, vram: 0x80124840, name: rcp_dkr }
       - { start: auto, type: .bss, vram: 0x801266B0, name: ../libultra/src/sc/sched }
       - { start: auto, type: .bss, vram: 0x80126710, name: video }
       - { start: auto, type: .bss, vram: 0x801268C0, name: textures_sprites }
-      - { start: auto, type: .bss, vram: 0x80126930, name: menu } #Extra bss at end of menu
-      - { start: auto, type: .bss, vram: 0x80127290, name: game_ui } # + 0x530 from pal v1
+      - { start: auto, type: .bss, vram: 0x80126930, name: menu }
+      - { start: auto, type: .bss, vram: 0x80127290, name: game_ui }
       - { start: auto, type: .bss, vram: 0x80127770, name: os_yield_data }
       - { start: auto, type: .bss, vram: 0x80128170, name: weather }
       - { start: auto, type: .bss, vram: 0x80128240, name: particles }
@@ -445,7 +444,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012D7A0, name: ../libultra/src/io/piacs }
       - { start: auto, type: .bss, vram: 0x8012D7C0, name: ../libultra/src/os/timerintr }
       - { start: auto, type: .bss, vram: 0x8012D800, name: ../libultra/src/os/exceptasm }
-      - { start: auto, type: .bss, vram: 0x8012D9B0, name: memory_pool } # + 0x530 from pal v1
+      - { start: auto, type: .bss, vram: 0x8012D9B0, name: memory_pool }
 
   - type: bin
     start: 0xED0E0
