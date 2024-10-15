@@ -2,6 +2,7 @@
 /* RAM_POS: 0x80072250 */
 
 #include "save_data.h"
+#include "common.h"
 #include "memory.h"
 #include "PR/os_pfs.h"
 #include "PR/os_cont.h"
@@ -24,6 +25,10 @@ u8 gN64FontCodes[] = "\0               0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'
 u8 sControllerPaksPresent = 0; // Bits 0, 1, 2, and 3 of the bit pattern correspond to Controllers 1, 2, 3, and 4.
                                // 1 if a controller pak is present
 s32 gRumbleKillTimer = 0;
+
+#if VERSION >= VERSION_79
+s32 D_800DEA00_DF600 = 1;
+#endif
 
 /*******************************/
 
@@ -69,6 +74,12 @@ u8 input_get_id(s32 controllerIndex) {
     }
     return get_player_id(controllerIndex);
 }
+
+#if VERSION >= VERSION_79
+void func_800724D8_730D8(s32 arg0) {
+    D_800DEA00_DF600 = arg0;
+}
+#endif
 
 /**
  * Reset the rumble state for all controllers and set whether or not to allow rumble.
@@ -200,7 +211,11 @@ void rumble_update(s32 updateRate) {
     u8 controllerToCheck;
     u8 pfsBitPattern;
 
-    if (gRumbleIdle != 0 || gRumbleKillTimer != 0) {
+    if (
+#if VERSION >= VERSION_79
+        (D_800DEA00_DF600 != 0) &&
+#endif
+    (gRumbleIdle != 0 || gRumbleKillTimer != 0)) {
         gRumbleDetectionTimer += updateRate;
         if (gRumbleDetectionTimer > 120) {
             gRumbleDetectionTimer = 0;
