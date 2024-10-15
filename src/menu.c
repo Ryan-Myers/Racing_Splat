@@ -1,10 +1,10 @@
 /* The comment below is needed for this file to be picked up by generate_ld */
 /* RAM_POS: 0x8007F900 */
 
+#include "common.h"
 #include "menu.h"
 #include "memory.h"
 #include "fade_transition.h"
-
 #include <PR/os_cont.h>
 #include "asset_enums.h"
 #include "types.h"
@@ -3132,7 +3132,7 @@ s32 menu_options_loop(s32 updateRate) {
 
     } else if (gMenuCurIndex == 0 && analogueX != 0) {
         s32 langVal = get_language();
-#ifdef VERSION_pal_v1
+#if REGION == REGION_PAL
         if (analogueX < 0) {
             if ((u64) langVal == LANGUAGE_ENGLISH) {
                 set_language(LANGUAGE_GERMAN);
