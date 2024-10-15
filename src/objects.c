@@ -4807,7 +4807,7 @@ f32 func_8001B834(Object_Racer *racer1, Object_Racer *racer2) {
     return var_f2;
 }
 
-UNUSED f32 func_8001B974(Object_Racer *racer) {
+UNUSED f32 func_8001B954(Object_Racer *racer) {
     f32 distLeft;
     s32 checkpointID;
 
