@@ -76,6 +76,7 @@ GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).
 endif
 
 SRC_DIRS = $(SRC_DIR) $(LIBULTRA_SRC_DIRS)
+SYMBOLS_DIR = symbols
 
 TOOLS_DIR = tools
 
@@ -169,16 +170,9 @@ CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -funsigned-char -std=gnu90 -m32 -D
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION)
 LD_SCRIPT  = $(BASENAME).$(REGION).$(VERSION).ld
 
-LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_funcs_auto.$(REGION).$(VERSION).txt  -T undefined_syms_auto.$(REGION).$(VERSION).txt -T undefined_syms.$(REGION).$(VERSION).txt
+LD_FLAGS   = -T $(LD_SCRIPT) -T $(SYMBOLS_DIR)/undefined_funcs_auto.$(REGION).$(VERSION).txt  -T $(SYMBOLS_DIR)/undefined_syms_auto.$(REGION).$(VERSION).txt -T $(SYMBOLS_DIR)/undefined_syms.$(REGION).$(VERSION).txt
 LD_FLAGS  += -Map $(TARGET).map
-
-ifeq ($(REGION)$(VERSION),usv1)
-LD_FLAGS_EXTRA  =
-LD_FLAGS_EXTRA += $(foreach sym,$(UNDEFINED_SYMS),-u $(sym))
-else
-LD_FLAGS_EXTRA  =
-LD_FLAGS_EXTRA += $(foreach sym,$(UNDEFINED_SYMS),-u $(sym))
-endif
+LD_FLAGS_EXTRA  = $(foreach sym,$(UNDEFINED_SYMS),-u $(sym))
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py
@@ -303,7 +297,7 @@ cleanall:
 distclean: clean
 	rm -rf $(ASM_DIRS)
 	rm -rf $(BIN_DIRS)
-	rm -f *auto.$(REGION).$(VERSION).txt
+	rm -f $(SYMBOLS_DIR)/*auto.$(REGION).$(VERSION).txt
 	rm -f $(LD_SCRIPT)
 
 distcleanall: cleanall
@@ -311,17 +305,17 @@ distcleanall: cleanall
 	rm -rf asm_jpn_v1
 	rm -rf assets
 	rm -rf assets_jpn_v1
-	rm -f *auto.*.txt
+	rm -f $(SYMBOLS_DIR)/*auto.*.txt
 	rm -f dkr.us.v1.ld
 	rm -f dkr.us.v2.ld
 	rm -f dkr.pal.v1.ld
 	rm -f dkr.pal.v2.ld
 	rm -f dkr.jpn.v1.ld
-	rm -f *auto.us.v1.txt
-	rm -f *auto.pal.v1.txt
-	rm -f *auto.jpn.v1.txt
-	rm -f *auto.us.v2.txt
-	rm -f *auto.pal.v2.txt
+	rm -f $(SYMBOLS_DIR)/*auto.us.v1.txt
+	rm -f $(SYMBOLS_DIR)/*auto.pal.v1.txt
+	rm -f $(SYMBOLS_DIR)/*auto.jpn.v1.txt
+	rm -f $(SYMBOLS_DIR)/*auto.us.v2.txt
+	rm -f $(SYMBOLS_DIR)/*auto.pal.v2.txt
 
 #When you just need to wipe old symbol names and re-extract
 cleanextract: distclean extract

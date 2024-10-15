@@ -41,7 +41,7 @@ def firstDiffMain():
     args = parser.parse_args()
 
     buildFolder = Path("build")
-    if (args.region != "us" or args.version != "v1"): 
+    if (args.region == "jpn"): 
         buildFolder = Path(f"build_{args.region}_{args.version}")
 
     BUILTROM = buildFolder / f"dkr.{args.region}.{args.version}.z64"

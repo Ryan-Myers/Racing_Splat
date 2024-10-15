@@ -8,9 +8,9 @@ options:
   find_file_boundaries: True
   header_encoding: ASCII
   platform: n64
-  undefined_funcs_auto_path: undefined_funcs_auto.us.v2.txt
-  undefined_syms_auto_path: undefined_syms_auto.us.v2.txt
-  symbol_addrs_path: symbol_addrs.us.v2.txt
+  undefined_funcs_auto_path: symbols/undefined_funcs_auto.us.v2.txt
+  undefined_syms_auto_path: symbols/undefined_syms_auto.us.v2.txt
+  symbol_addrs_path: symbols/symbol_addrs.us.v2.txt
   symbol_name_format: $VRAM_$ROM
   asm_path: asm
   src_path: src
