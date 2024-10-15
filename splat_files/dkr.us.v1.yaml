@@ -32,7 +32,7 @@ segments:
     start: 0x1000
     vram: 0x80000400
     subsegments:
-      - [0x1000, asm, entrypoint]
+      - [0x1000, hasm, hasm/entrypoint]
 
   - name: main
     type: code

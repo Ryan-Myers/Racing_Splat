@@ -6,6 +6,10 @@ osAppNMIBuffer = 0x8000031C;
 entrypoint = 0x80000400;
 __BSS_SECTION_SIZE = 0x41490; // TODO Calculate this!
 
+__ASSETS_LUT_START = 0xECB60;
+__ASSETS_LUT_END = 0xECC30;
+__ROM_END = 0xAC9630;
+
 // From map file to symbol file regex
 // (.*)0x000000008([0-9a-f]*)(\s*)(.*)
 // $4 = 0x8\U$2;
@@ -4852,7 +4856,3 @@ SI_PIF_ADDR_WR64B_REG = 0xA4800010;
 SI_STATUS_REG = 0xA4800018;
 D_B0000574 = 0xB0000574;
 D_B0000578 = 0xB0000578;
-
-__ASSETS_LUT_START = 0xECB60;
-__ASSETS_LUT_END = 0xECC30;
-__ROM_END = 0xAC9630;
