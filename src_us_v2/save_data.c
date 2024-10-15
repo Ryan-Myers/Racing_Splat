@@ -2,6 +2,7 @@
 /* RAM_POS: 0x80072250 */
 
 #include "save_data.h"
+#include "common.h"
 #include "memory.h"
 #include "PR/os_pfs.h"
 #include "PR/os_cont.h"
@@ -25,7 +26,7 @@ u8 sControllerPaksPresent = 0; // Bits 0, 1, 2, and 3 of the bit pattern corresp
                                // 1 if a controller pak is present
 s32 gRumbleKillTimer = 0;
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
 s32 D_800DEA00_DF600 = 1;
 #endif
 
@@ -74,7 +75,7 @@ u8 input_get_id(s32 controllerIndex) {
     return get_player_id(controllerIndex);
 }
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
 void func_800724D8_730D8(s32 arg0) {
     D_800DEA00_DF600 = arg0;
 }
@@ -211,7 +212,7 @@ void rumble_update(s32 updateRate) {
     u8 pfsBitPattern;
 
     if (
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
         (D_800DEA00_DF600 != 0) &&
 #endif
     (gRumbleIdle != 0 || gRumbleKillTimer != 0)) {

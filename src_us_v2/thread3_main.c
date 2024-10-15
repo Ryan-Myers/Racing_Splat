@@ -3,6 +3,7 @@
 
 #include "thread3_main.h"
 
+#include "common.h"
 #include <PR/os_cont.h>
 #include <PR/gu.h>
 #include <PR/os_time.h>
@@ -48,7 +49,11 @@
 
 /************ .rodata ************/
 
+#if VERSION == VERSION_80
 UNUSED char *sDebugRomBuildInfo[] = { "1.1634", "17/10/97 11:19", "pmountain" };
+#elif VERSION == VERSION_77
+UNUSED char *sDebugRomBuildInfo[] = { "1.1605", "02/10/97 16:03", "pmountain" };
+#endif
 
 const char D_800E7134[] = "BBB\n"; // Functionally unused.
 
@@ -56,7 +61,11 @@ const char D_800E7134[] = "BBB\n"; // Functionally unused.
 
 /************ .data ************/
 
+#if VERSION == VERSION_80
 UNUSED char gBuildString[] = "Version 8.0 27/10/97 12.30 L.Schuneman";
+#elif VERSION == VERSION_77
+UNUSED char gBuildString[] = "Version 7.7 29/09/97 15.00 L.Schuneman";
+#endif
 
 s8 sAntiPiracyTriggered = 0;
 UNUSED s32 D_800DD378 = 1;
