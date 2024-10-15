@@ -3,15 +3,16 @@ sha1: 6d96743d46f8c0cd0edb0ec5600b003c89b93755
 options:
   basename: dkr.us.v2
   target_path: baseroms/baserom.us.v2.z64
-  base_path: ../
+  base_path: ../../
   compiler: IDO
   find_file_boundaries: True
   header_encoding: ASCII
   platform: n64
-  undefined_funcs_auto_path: symbols/undefined_funcs_auto.us.v2.txt
-  undefined_syms_auto_path: symbols/undefined_syms_auto.us.v2.txt
-  symbol_addrs_path: symbols/symbol_addrs.us.v2.txt
+  undefined_funcs_auto_path: ver/symbols/undefined_funcs_auto.us.v2.txt
+  undefined_syms_auto_path: ver/symbols/undefined_syms_auto.us.v2.txt
+  symbol_addrs_path: ver/symbols/symbol_addrs.us.v2.txt
   symbol_name_format: $VRAM_$ROM
+  ld_script_path: ver/dkr.us.v2.ld
   asm_path: asm
   src_path: src
   build_path: build
@@ -33,7 +34,7 @@ segments:
     start: 0x1000
     vram: 0x80000400
     subsegments:
-      - [0x1000, asm, entrypoint]
+      - [0x1000, hasm, hasm/entrypoint]
 
   - name: main
     type: code

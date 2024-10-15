@@ -3,20 +3,23 @@ sha1: 23ba3d302025153d111416e751027cef11213a19
 options:
   basename: dkr.jpn.v1
   target_path: baseroms/baserom.jpn.v1.z64
-  base_path: ../
+  base_path: ../../
   compiler: IDO
   find_file_boundaries: True
   header_encoding: ASCII
   platform: n64
-  undefined_funcs_auto_path: symbols/undefined_funcs_auto.jpn.v1.txt
-  undefined_syms_auto_path: symbols/undefined_syms_auto.jpn.v1.txt
-  symbol_addrs_path: symbols/symbol_addrs.jpn.v1.txt
+  undefined_funcs_auto_path: ver/symbols/undefined_funcs_auto.jpn.v1.txt
+  undefined_syms_auto_path: ver/symbols/undefined_syms_auto.jpn.v1.txt
+  symbol_addrs_path: ver/symbols/symbol_addrs.jpn.v1.txt
+  symbol_name_format: $VRAM_$ROM
+  ld_script_path: ver/dkr.jpn.v1.ld
   asm_path: asm_jpn_v1
   src_path: src_jpn_v1
   build_path: build_jpn_v1
   asset_path: assets_jpn_v1
   section_order: [".text", ".data", ".rodata", ".bss"]
-  # auto_all_sections: [".data", ".rodata", ".bss"]
+  migrate_rodata_to_functions: False
+  hasm_in_src_path: False
 segments:
   - name: header
     type: header
@@ -31,7 +34,7 @@ segments:
     start: 0x1000
     vram: 0x80000400
     subsegments:
-      - [0x1000, hasm, entrypoint]
+      - [0x1000, hasm, hasm/entrypoint]
 
   - name: main
     type: code

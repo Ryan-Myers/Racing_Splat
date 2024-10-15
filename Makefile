@@ -76,7 +76,7 @@ GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).
 endif
 
 SRC_DIRS = $(SRC_DIR) $(LIBULTRA_SRC_DIRS)
-SYMBOLS_DIR = symbols
+SYMBOLS_DIR = ver/symbols
 
 TOOLS_DIR = tools
 
@@ -168,7 +168,7 @@ CHECK_WARNINGS += -Wno-builtin-declaration-mismatch -Wno-pointer-to-int-cast -Wn
 CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -funsigned-char -std=gnu90 -m32 -D_LANGUAGE_C $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(C_DEFINES) $(GCC_COLOR)
 
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION)
-LD_SCRIPT  = $(BASENAME).$(REGION).$(VERSION).ld
+LD_SCRIPT  = ver/$(BASENAME).$(REGION).$(VERSION).ld
 
 LD_FLAGS   = -T $(LD_SCRIPT) -T $(SYMBOLS_DIR)/undefined_funcs_auto.$(REGION).$(VERSION).txt  -T $(SYMBOLS_DIR)/undefined_syms_auto.$(REGION).$(VERSION).txt -T $(SYMBOLS_DIR)/undefined_syms.$(REGION).$(VERSION).txt
 LD_FLAGS  += -Map $(TARGET).map
@@ -262,7 +262,7 @@ dirs:
 verify: $(TARGET).z64
 	@$(CRC)
 ifeq ($(NON_MATCHING),0)
-	@(sha1sum -c --quiet $(BASENAME).$(REGION).$(VERSION).sha1 \
+	@(sha1sum -c --quiet ver/verification/$(BASENAME).$(REGION).$(VERSION).sha1 \
 	&& $(PRINT) "$(GREEN)Verify:$(NO_COL)\
 	 $(YELLOW)OK$(NO_COL)\n")
 	$(V)$(PRINT) "$(YELLOW)    __\n .\`_  _\`.\n| | \`| | |\n| |_|._| |\n \`. __ .\'$(NO_COL)\n\n"
@@ -274,14 +274,14 @@ no_verify: $(TARGET).z64
 	$(V)$(PRINT) "$(GREEN)Build Complete!$(NO_COL)\n"
 
 extract: tools
-	$(SPLAT) splat_files/$(BASENAME).$(REGION).$(VERSION).yaml
+	$(SPLAT) ver/splat/$(BASENAME).$(REGION).$(VERSION).yaml
 
 extractall: tools
-	$(SPLAT) splat_files/$(BASENAME).us.v1.yaml
-	$(SPLAT) splat_files/$(BASENAME).pal.v1.yaml
-	$(SPLAT) splat_files/$(BASENAME).jpn.v1.yaml
-	$(SPLAT) splat_files/$(BASENAME).us.v2.yaml
-	$(SPLAT) splat_files/$(BASENAME).pal.v2.yaml
+	$(SPLAT) ver/splat/$(BASENAME).us.v1.yaml
+	$(SPLAT) ver/splat/$(BASENAME).pal.v1.yaml
+	$(SPLAT) ver/splat/$(BASENAME).jpn.v1.yaml
+	$(SPLAT) ver/splat/$(BASENAME).us.v2.yaml
+	$(SPLAT) ver/splat/$(BASENAME).pal.v2.yaml
 
 dependencies: tools
 	$(V)make -C $(TOOLS_DIR)
@@ -306,11 +306,11 @@ distcleanall: cleanall
 	rm -rf assets
 	rm -rf assets_jpn_v1
 	rm -f $(SYMBOLS_DIR)/*auto.*.txt
-	rm -f dkr.us.v1.ld
-	rm -f dkr.us.v2.ld
-	rm -f dkr.pal.v1.ld
-	rm -f dkr.pal.v2.ld
-	rm -f dkr.jpn.v1.ld
+	rm -f ver/dkr.us.v1.ld
+	rm -f ver/dkr.us.v2.ld
+	rm -f ver/dkr.pal.v1.ld
+	rm -f ver/dkr.pal.v2.ld
+	rm -f ver/dkr.jpn.v1.ld
 	rm -f $(SYMBOLS_DIR)/*auto.us.v1.txt
 	rm -f $(SYMBOLS_DIR)/*auto.pal.v1.txt
 	rm -f $(SYMBOLS_DIR)/*auto.jpn.v1.txt

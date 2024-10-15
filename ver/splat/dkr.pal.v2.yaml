@@ -3,15 +3,16 @@ sha1: b7f628073237b3d211d40406aa0884ff8fdd70d5
 options:
   basename: dkr.pal.v2
   target_path: baseroms/baserom.pal.v2.z64
-  base_path: ../
+  base_path: ../../
   compiler: IDO
   find_file_boundaries: True
   header_encoding: ASCII
   platform: n64
-  undefined_funcs_auto_path: symbols/undefined_funcs_auto.pal.v2.txt
-  undefined_syms_auto_path: symbols/undefined_syms_auto.pal.v2.txt
-  symbol_addrs_path: symbols/symbol_addrs.pal.v2.txt
+  undefined_funcs_auto_path: ver/symbols/undefined_funcs_auto.pal.v2.txt
+  undefined_syms_auto_path: ver/symbols/undefined_syms_auto.pal.v2.txt
+  symbol_addrs_path: ver/symbols/symbol_addrs.pal.v2.txt
   symbol_name_format: $VRAM_$ROM
+  ld_script_path: ver/dkr.pal.v2.ld
   asm_path: asm
   src_path: src
   build_path: build
