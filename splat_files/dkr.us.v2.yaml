@@ -12,10 +12,10 @@ options:
   undefined_syms_auto_path: undefined_syms_auto.us.v2.txt
   symbol_addrs_path: symbol_addrs.us.v2.txt
   symbol_name_format: $VRAM_$ROM
-  asm_path: asm_us_v2
-  src_path: src_us_v2
-  build_path: build_us_v2
-  asset_path: assets_us_v2
+  asm_path: asm
+  src_path: src
+  build_path: build
+  asset_path: assets
   section_order: [".text", ".data", ".rodata", ".bss"]
   migrate_rodata_to_functions: True
   hasm_in_src_path: True
@@ -33,7 +33,7 @@ segments:
     start: 0x1000
     vram: 0x80000400
     subsegments:
-      - [0x1000, hasm, hasm/entrypoint]
+      - [0x1000, asm, entrypoint]
 
   - name: main
     type: code
@@ -63,7 +63,7 @@ segments:
       - [0x600B0, c, vehicle_rocket]
       - [0x605F0, c, object_models]
       - [0x62B70, hasm, hasm/unknown_062930]
-      - [0x630D0, c, lib/src/audio/mips1/csplayer]
+      - [0x630D0, c, ../libultra/src/audio/mips1/csplayer]
       - [0x648D0, c, ../libultra/src/audio/mips1/unknown_064690]
       - [0x64930, c, ../libultra/src/audio/mips1/seqchannel]
       - [0x649E0, c, ../libultra/src/audio/mips1/cspsetfadein]
@@ -344,7 +344,7 @@ segments:
       - [0xE7C40, .rodata, vehicle_wizpig]
       - [0xE7C90, .rodata, vehicle_rocket]
       - [0xE7CB0, .rodata, object_models]
-      - [0xE7DB0, .rodata, lib/src/audio/mips1/csplayer]
+      - [0xE7DB0, .rodata, ../libultra/src/audio/mips1/csplayer]
       - [0xE8000, .rodata, ../libultra/src/audio/mips1/reverb]
       - [0xE8030, .rodata, ../libultra/src/audio/mips1/drvrnew]
       - [0xE8050, .rodata, ../libultra/src/audio/mips1/synthesizer]

@@ -39,30 +39,11 @@ endef
 
 # Directories
 
-
-ifeq ($(REGION)$(VERSION),usv1)
-BIN_DIRS  = assets
-BUILD_DIR = build
-SRC_DIR   = src
-LIBULTRA_DIR = libultra
-ASM_DIRS  = asm asm/data asm/nonmatchings
-HASM_DIRS = $(SRC_DIR)/hasm $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/libc
-LIBULTRA_SRC_DIRS  = $(LIBULTRA_DIR) $(LIBULTRA_DIR)/src $(LIBULTRA_DIR)/src/audio $(LIBULTRA_DIR)/src/audio/mips1 
-LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/debug $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/io
-LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/libc $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/sc
-
-# Files requiring pre/post-processing
-GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) $(LIBULTRA_DIR) </dev/null 2>/dev/null)
-GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
-else
+ifeq ($(REGION)$(VERSION),jpnv1)
 BIN_DIRS  = assets_$(REGION)_$(VERSION)
 BUILD_DIR = build_$(REGION)_$(VERSION)
 SRC_DIR   = src_$(REGION)_$(VERSION)
-ifeq ($(REGION)$(VERSION),jpnv1)
 LIBULTRA_DIR = $(SRC_DIR)/lib
-else
-LIBULTRA_DIR = libultra
-endif
 ASM_DIR = asm_$(REGION)_$(VERSION)
 ASM_DIRS   = $(ASM_DIR) $(ASM_DIR)/data $(ASM_DIR)/nonmatchings $(ASM_DIR)/data/lib $(ASM_DIR)/data/hasm
 ASM_DIRS  += $(ASM_DIR)/data/lib/src $(ASM_DIR)/data/lib/src/audio $(ASM_DIR)/data/lib/src/audio/mips1 
@@ -77,6 +58,20 @@ LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/libc $(LIBULTRA_DIR)/src/os $(LIBULTRA_
 
 # Files requiring pre/post-processing
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
+GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
+else
+BIN_DIRS  = assets
+BUILD_DIR = build
+SRC_DIR   = src
+LIBULTRA_DIR = libultra
+ASM_DIRS  = asm asm/data asm/nonmatchings
+HASM_DIRS = $(SRC_DIR)/hasm $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/libc
+LIBULTRA_SRC_DIRS  = $(LIBULTRA_DIR) $(LIBULTRA_DIR)/src $(LIBULTRA_DIR)/src/audio $(LIBULTRA_DIR)/src/audio/mips1 
+LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/debug $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/io
+LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/libc $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/sc
+
+# Files requiring pre/post-processing
+GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) $(LIBULTRA_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 endif
 
@@ -196,16 +191,10 @@ ifeq ($(REGION)$(VERSION),usv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
 else ifeq ($(REGION)$(VERSION),palv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
-$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: MIPSISET := -mips1
 else ifeq ($(REGION)$(VERSION),usv2)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
-$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: MIPSISET := -mips1
 else ifeq ($(REGION)$(VERSION),palv2)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
-$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/src/lib/src/audio/mips1/%.c.o: MIPSISET := -mips1
 endif
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/os/%.c.o: OPT_FLAGS := -O1
@@ -309,11 +298,7 @@ clean:
 	
 cleanall:
 	rm -rf build
-	rm -rf build_us_v2
-	rm -rf build_pal_v1
 	rm -rf build_jpn_v1
-	rm -rf build_pal_v2
-	rm -rf build_jpn_v2
 
 distclean: clean
 	rm -rf $(ASM_DIRS)
@@ -323,15 +308,8 @@ distclean: clean
 
 distcleanall: cleanall
 	rm -rf asm
-	rm -rf asm_us_v2
-	rm -rf asm_pal_v1
 	rm -rf asm_jpn_v1
-	rm -rf asm_pal_v2
-	rm -rf asm_jpn_v2
 	rm -rf assets
-	rm -rf assets_us_v2
-	rm -rf assets_pal_v1
-	rm -rf assets_pal_v2
 	rm -rf assets_jpn_v1
 	rm -f *auto.*.txt
 	rm -f dkr.us.v1.ld
