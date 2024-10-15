@@ -79,7 +79,6 @@ void allocate_object_model_pools(void) {
 #endif
 }
 
-#if 0
 /**
  * Load the associated model ID and assign it to the objects gfx data.
  * Also loads textures and animations.
@@ -92,6 +91,10 @@ Object_68 *object_model_init(s32 modelID, s32 flags) {
     s32 temp_s0;
     Object_68 *ret;
     s8 sp3F;
+#ifdef VERSION_us_v2
+    s8 var_a2;
+    s8 var_a3;
+#endif
     u32 compressedData;
     s32 sp34;
 
@@ -112,11 +115,21 @@ Object_68 *object_model_init(s32 modelID, s32 flags) {
         }
     }
 
+#ifdef VERSION_us_v2
+    var_a2 = FALSE;
+    var_a3 = FALSE;
+#endif
     if (D_8011D634 > 0) {
         D_8011D634--;
+#ifdef VERSION_us_v2
+        var_a2 = TRUE;
+#endif
         sp50 = D_8011D628[D_8011D634];
     } else {
         sp50 = D_8011D62C;
+#ifdef VERSION_us_v2
+        var_a3 = TRUE;
+#endif
         D_8011D62C++;
     }
 
@@ -125,6 +138,14 @@ Object_68 *object_model_init(s32 modelID, s32 flags) {
     sp34 = get_asset_uncompressed_size(ASSET_OBJECT_MODELS, temp_s0) + 0x80;
     objMdl = (ObjectModel *) allocate_from_main_pool(sp34, COLOUR_TAG_RED);
     if (objMdl == NULL) {
+#ifdef VERSION_us_v2
+        if (var_a2) {
+            D_8011D634++;
+        }
+        if (var_a3) {
+            D_8011D62C--;
+        }
+#endif
         return NULL;
     }
     compressedData = (u32) ((u8 *) objMdl + sp34) - sp48;
@@ -173,12 +194,17 @@ Object_68 *object_model_init(s32 modelID, s32 flags) {
         }
     }
 block_30:
+#ifdef VERSION_us_v2
+    if (var_a3) {
+        D_8011D62C--;
+    }
+    if (var_a2) {
+        D_8011D634++;
+    }
+#endif
     free_model_data((ObjectModel *) objMdl);
     return NULL;
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/object_models/object_model_init.s")
-#endif
 
 Object_68 *func_8005FCD0(ObjectModel *model, s32 arg1) {
     s32 temp;

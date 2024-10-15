@@ -52,7 +52,6 @@ void thread0_create(void) {
 /**
  * Main thread for the epc lockup screen. Thread 0.
  */
-#ifndef VERSION_us_v2
 void thread0_Main(UNUSED void *unused) {
     s32 sp34;
     s32 s0 = 0;
@@ -64,6 +63,7 @@ void thread0_Main(UNUSED void *unused) {
 
     while (1) {
         osRecvMesg(&D_80129790, (OSMesg) &sp34, OS_MESG_BLOCK);
+#ifndef VERSION_us_v2
         if (!(get_filtered_cheats() & CHEAT_EPC_LOCK_UP_DISPLAY)) {
             continue;
         }
@@ -71,6 +71,7 @@ void thread0_Main(UNUSED void *unused) {
         if ((s0 & 8) == 0 && (s0 & 2) == 0) {
             continue;
         }
+#endif
         s0 &= ~8;
         stubbed_printf(">fault< ");
         enable_interupts_on_main();
@@ -78,10 +79,6 @@ void thread0_Main(UNUSED void *unused) {
         write_epc_data_to_cpak();
     }
 }
-#else
-const char gFaultString[] = ">fault< ";
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/thread0_epc/thread0_Main.s")
-#endif
 
 /**
  * Enable interrupts on all idle priority threads, which should just be the main thread 1.

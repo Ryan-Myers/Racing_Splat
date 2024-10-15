@@ -2450,7 +2450,6 @@ void func_800A6254(Object_Racer *racer, s32 updateRate) {
 #pragma GLOBAL_ASM("asm_us_v2/nonmatchings/game_ui/func_800A6254.s")
 #endif
 
-#if 0
 /**
  * Play the normal race finish message, unless you beat your time record,
  * then T.T will say "Race Record" instead.
@@ -2459,16 +2458,18 @@ void play_time_trial_end_message(s16 *playerID) {
     Settings *settings = get_settings();
 
     if (playerID != NULL) {
+#ifdef VERSION_us_v2
+        if (settings->racers[*playerID].best_times & 0x80 && (get_current_level_race_type() == RACETYPE_DEFAULT)) {
+#else
         if (settings->racers[*playerID].best_times & 0x80) {
+#endif
+
             sound_play(SOUND_VOICE_TT_RACE_RECORD, &gHUDVoiceSoundMask);
         } else {
             sound_play(SOUND_VOICE_TT_FINISH, &gHUDVoiceSoundMask);
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/game_ui/play_time_trial_end_message.s")
-#endif
 
 /**
  * Render the finishing overlay after a time trial.
