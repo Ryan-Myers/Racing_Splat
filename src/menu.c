@@ -5661,7 +5661,6 @@ void menu_magic_codes_list_init(void) {
  * Renders all registered cheat codes in a list, starting from the top.
  * Once it reaches the end, render the back button too.
  */
-#ifndef VERSION_us_v2
 void cheatlist_render(UNUSED s32 updateRate) {
     s32 i;
     s32 alpha;
@@ -5698,7 +5697,11 @@ void cheatlist_render(UNUSED s32 updateRate) {
             set_text_colour(255, 255, 255, alpha, 255);
         }
         draw_text(&sMenuCurrDisplayList, 48, yPos,
-                  (char *) (*gCheatsAssetData) + cheatData[(gUnlockedCheatIDs[i] << 1) + 1], ALIGN_TOP_LEFT);
+#ifdef VERSION_us_v2
+                  (char *) (*gCheatsAssetData) + cheatData[(gUnlockedCheatIDs[i] * 3) + 1], ALIGN_TOP_LEFT);
+#else
+                  (char *) (*gCheatsAssetData) + cheatData[(gUnlockedCheatIDs[i] * 2) + 1], ALIGN_TOP_LEFT);
+#endif
         if ((1 << gUnlockedCheatIDs[i]) & gActiveMagicCodes) {
             draw_text(&sMenuCurrDisplayList, 256, yPos, gMenuText[ASSET_MENU_TEXT_ON], ALIGN_TOP_LEFT); // ON
         } else {
@@ -5721,9 +5724,6 @@ void cheatlist_render(UNUSED s32 updateRate) {
                                   255, 255);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/cheatlist_render.s")
-#endif
 
 /**
  * Checks if cheatA is active, and disables cheatB if it is.
@@ -8697,7 +8697,6 @@ void menu_adventure_track_init(void) {
  * Render the setup gui when in a track preview in adventure mode.
  * This includes the vehicle selection and if time trial is enabled, the best times.
  */
-#ifndef VERSION_us_v2
 void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
     s32 alpha;
     s32 y;
@@ -8741,6 +8740,29 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
                         }
                         set_text_font(0);
                         set_text_colour(255, 64, 64, 96, 255);
+#ifdef VERSION_us_v2
+                        draw_text(&sMenuCurrDisplayList, 56, yOffset + 72, gMenuText[ASSET_MENU_TEXT_BESTTIME],
+                                  ALIGN_MIDDLE_LEFT);
+                        draw_text(&sMenuCurrDisplayList, 56, yOffset + 92, gMenuText[ASSET_MENU_TEXT_BESTLAP],
+                                  ALIGN_MIDDLE_LEFT);
+                        set_text_colour(255, 128, 255, 96, 255);
+                        filename_decompress(settings->courseInitialsPtr[gPlayerSelectVehicle[0]][mapID],
+                                            (char *) &filename, 3);
+                        draw_text(&sMenuCurrDisplayList, 250, yOffset + 72, (char *) &filename, ALIGN_MIDDLE_CENTER);
+                        filename_decompress(settings->flapInitialsPtr[gPlayerSelectVehicle[0]][mapID],
+                                            (char *) &filename, 3);
+                        draw_text(&sMenuCurrDisplayList, 250, yOffset + 92, (char *) &filename, ALIGN_MIDDLE_CENTER);
+                        menu_timestamp_render(
+                            settings
+                                ->courseTimesPtr[gPlayerSelectVehicle[0]]
+                                                [mapID],
+                            22, 53, 128, 255, 255, 0);
+                        menu_timestamp_render(
+                            settings
+                                ->flapTimesPtr[gPlayerSelectVehicle[0]]
+                                              [mapID],
+                            22, 33, 255, 192, 255, 0);
+#else
                         draw_text(&sMenuCurrDisplayList, 88, yOffset + 72, gMenuText[ASSET_MENU_TEXT_BESTTIME],
                                   ALIGN_MIDDLE_CENTER);
                         draw_text(&sMenuCurrDisplayList, 88, yOffset + 92, gMenuText[ASSET_MENU_TEXT_BESTLAP],
@@ -8762,6 +8784,7 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
                                 ->flapTimesPtr[gPlayerSelectVehicle[0]]
                                               [((Settings4C *) ((u8 *) settings->unk4C + gTrackIdForPreview))->mapID],
                             26, 33, 255, 192, 255, 0);
+#endif
                     }
                     greenAmount = gOptionBlinkTimer * 8;
                     if (greenAmount > 255) {
@@ -8801,7 +8824,9 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
                     menu_element_render(7);
                     if (gMenuStage != ADVENTURESETUP_VEHICLE) {
                         set_text_font(FONT_LARGE);
+#ifndef VERSION_us_v2
                         set_text_background_colour(0, 0, 0, 0);
+#endif
                         set_text_colour(255, 255, 255, 0, 255);
                         draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, yOffset + 172, "OK?", ALIGN_MIDDLE_CENTER);
                     }
@@ -8811,22 +8836,27 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
                     set_text_colour(255, 255, 255, 0, 255);
                     y = yOffset + 176;
                     if (get_language() == LANGUAGE_FRENCH) {
-                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[13], ALIGN_MIDDLE_CENTER);
+#ifdef VERSION_us_v2
+                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[191], ALIGN_MIDDLE_CENTER);
+#else
+                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[ASSET_MENU_TEXT_CHALLENGE], ALIGN_MIDDLE_CENTER);
+#endif
                         y += 32;
                     }
-                    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[11], ALIGN_MIDDLE_CENTER);
+                    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[ASSET_MENU_TEXT_SILVERCOIN], ALIGN_MIDDLE_CENTER);
                     y += 32;
                     if (get_language() != LANGUAGE_FRENCH) {
-                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[13], ALIGN_MIDDLE_CENTER);
+#ifdef VERSION_us_v2
+                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[191], ALIGN_MIDDLE_CENTER);
+#else
+                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[ASSET_MENU_TEXT_CHALLENGE], ALIGN_MIDDLE_CENTER);
+#endif
                     }
                 }
             }
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/adventuretrack_render.s")
-#endif
 
 /**
  * Process the logic for the track setup selection after entering a door in adventure mode.
