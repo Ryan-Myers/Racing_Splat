@@ -5363,7 +5363,6 @@ void cheatmenu_render(UNUSED s32 updateRate) {
  * Generates a string based on the input, and when asked,
  * compares it with the cheat code table to see if it matches.
  */
-#ifndef VERSION_us_v2
 s32 menu_magic_codes_loop(s32 updateRate) {
     s32 i;
     s32 buttonsPressed;
@@ -5485,9 +5484,15 @@ s32 menu_magic_codes_loop(s32 updateRate) {
             } else {
                 cheatDataEntries = &(*gCheatsAssetData)[1];
                 gNewCheatID = 0; // Index into the gCheatsAssetData cheatsTable
+#ifdef VERSION_us_v2
+                while (gNewCheatID < gNumberOfCheats && foundCheat == FALSE) {
+                    foundCheat = TRUE;
+                    cheatCodeText = ((char *) (*gCheatsAssetData)) + cheatDataEntries[gNewCheatID * 3];
+#else
                 while (gNewCheatID < gNumberOfCheats * 2 && foundCheat == FALSE) {
                     foundCheat = TRUE;
                     cheatCodeText = ((char *) (*gCheatsAssetData)) + cheatDataEntries[gNewCheatID];
+#endif
                     // gCheatInput = char *gPlayerEnteredCode; (Or something like that)
                     i = -1;
                     do {
@@ -5496,21 +5501,33 @@ s32 menu_magic_codes_loop(s32 updateRate) {
                             foundCheat = FALSE;
                         }
                         if (foundCheat == FALSE) {
+#ifndef VERSION_us_v2
                             do {
-                            } while (0); // Fakematch
+                            } while (0); // Fakematch only for v1
+#endif
                             break;
                         }
                     } while (cheatCodeText[i] != '\0' && gCheatInput[i] != '\0');
                     if (foundCheat) {
                         continue;
                     }
+#ifdef VERSION_us_v2
+                    gNewCheatID += 1;
+#else
                     gNewCheatID += 2;
+#endif
                 }
                 if (foundCheat == FALSE) {
                     gNewCheatID = -1;
                 } else {
+#ifdef VERSION_us_v2
+                    gUnlockedMagicCodes |= 1 << gNewCheatID;
+                    gActiveMagicCodes |= 1 << gNewCheatID;
+                    gNewCheatID *= 3;
+#else
                     gUnlockedMagicCodes |= 1 << (gNewCheatID >> 1);
                     gActiveMagicCodes |= 1 << (gNewCheatID >> 1);
+#endif
                 }
                 gOptionsMenuItemIndex = 4;
                 gOpacityDecayTimer = 240;
@@ -5612,10 +5629,6 @@ s32 menu_magic_codes_loop(s32 updateRate) {
     }
     return MENU_RESULT_CONTINUE;
 }
-#else
-#pragma GLOBAL_ASM("asm_us_v2/nonmatchings/menu/menu_magic_codes_loop.s")
-#endif
-
 /**
  * Free all assets associated with the cheat code menu.
  */
