@@ -29,7 +29,7 @@
 #define TractionTableChecksum 0x0000
 #define ObjLoopGoldenBalloonChecksum 0xA597
 #define VERSION VERSION_79
-#define REGION REGION_NA
+#define REGION REGION_JP
 #elif defined(VERSION_us_v2)
 #define Func80019808Checksum 0x34B94
 #define ViewportFuncChecksum 0x5881

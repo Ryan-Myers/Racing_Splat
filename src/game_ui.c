@@ -2154,11 +2154,6 @@ void render_wrong_way_text(Object_Racer *obj, s32 updateRate) {
     sprite_opaque(FALSE);
 }
 
-
-#if VERSION >= VERSION_79
-char sDidNotFinish[] = "DID NOT FINISH";
-#endif
-
 /**
  * Render race result for multiplayer races or battles after that player has finished.
  * Displays the finish position, and in races, will display the race time.
@@ -2185,10 +2180,12 @@ void hud_draw_finish_misc(Object_Racer *racer) {
                 render_timer(gCurrentHud->lapTimeText.x, gCurrentHud->lapTimeText.y, gCurrentHud->lapTimeText.unk1A,
                              gCurrentHud->lapTimeText.unk1B, gCurrentHud->lapTimeText.unk1C, 1);
             } else {
-                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35.0f, gCurrentHud->raceTimeNumber.y,
 #if VERSION >= VERSION_79
+                static char sDidNotFinish[] = "DID NOT FINISH";
+                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35.0f, gCurrentHud->raceTimeNumber.y,
                           &sDidNotFinish, ALIGN_TOP_LEFT);
 #else
+                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35.0f, gCurrentHud->raceTimeNumber.y,
                           "DID NOT FINISH", ALIGN_TOP_LEFT);
 #endif
             }
