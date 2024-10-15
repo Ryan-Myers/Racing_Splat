@@ -4058,7 +4058,6 @@ gNameEntryTargetX = 0x80126CFC;
 gNumOnscreenMagicCodes = 0x80126D00;
 gNameEntryString = 0x80126D04;
 gNameEntryAllowedLength = 0x80126D08;
-D_80126C7C = 0x80126D0C;
 gUnlockedCheatIDs = 0x80126D10;
 gFileNew = 0x80126D50;
 gMinimapOpacity = 0x80126D60;

@@ -2,6 +2,7 @@
 /* RAM_POS: 0x800C29F0 */
 
 #include "game_text.h"
+#include "common.h"
 #include "menu.h"
 #include "objects.h"
 #include "racer.h"
@@ -105,11 +106,20 @@ void render_subtitles(void) {
     char **textData;
 
     dialogue_clear(6);
+#if VERSION >= VERSION_79
+    if (gSubtitleLineCount >= 2) {
+        gDialogueYPos1 -= 14;
+    }
+#endif
     set_current_dialogue_box_coords(6, gDialogueXPos1, gDialogueYPos1, gDialogueXPos2, gDialogueYPos2);
     set_current_dialogue_background_colour(6, 64, 96, 96, (gDialogueAlpha * 160) >> 8);
     set_current_text_background_colour(6, 0, 0, 0, 0);
     textY = ((((gDialogueYPos2 - gDialogueYPos1) - (gSubtitleLineCount * 12)) - (gSubtitleLineCount * 2)) + 2) >> 1;
-
+#if VERSION >= VERSION_79
+    if (gSubtitleLineCount >= 2) {
+        gDialogueYPos1 += 14;
+    }
+#endif
     for (i = 0; i < gSubtitleLineCount; i++) {
         textData = &gSubtitleProperties[0];
         set_dialogue_font(6, (s32) textData[i][TEXT_FONT]);

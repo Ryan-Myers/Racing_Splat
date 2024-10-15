@@ -4501,7 +4501,6 @@ gNameEntryTargetX = 0x80126C6C;
 gNumOnscreenMagicCodes = 0x80126C70;
 gNameEntryString = 0x80126C74;
 gNameEntryAllowedLength = 0x80126C78;
-D_80126C7C = 0x80126C7C;
 gUnlockedCheatIDs = 0x80126C80;
 gFileNew = 0x80126CC0;
 

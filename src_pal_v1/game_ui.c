@@ -2,6 +2,7 @@
 /* RAM_POS: 0x8009ECF0 */
 
 #include "game_ui.h"
+#include "common.h"
 #include "types.h"
 #include "macros.h"
 #include "structs.h"
@@ -149,7 +150,7 @@ u32 gHudColour = COLOUR_RGBA32(255, 255, 255, 254);
 UNUSED f32 sRecordVel = 0.0f; // Set to whatever the highest velocity recorded is, but never actually used.
 
 // Unused?
-s32 D_800E283C[5] = { 0x06FFFFFF, 0x000FFFFF, 0x06000000, 0x0014FFFF, 0x00000000 };
+s32 D_800E283C[] = { 0x06FFFFFF, 0x000FFFFF, 0x06000000, 0x0014FFFF };
 
 /*******************************/
 
@@ -233,7 +234,7 @@ u8 gMinimapOpacityTarget;
 s32 gStopwatchErrorX;
 s32 gStopwatchErrorY;
 LevelHeader_70 *D_80127194;
-UNUSED s32 D_80127198[6];
+UNUSED s32 D_80127198[4];
 
 /******************************/
 
@@ -2153,6 +2154,11 @@ void render_wrong_way_text(Object_Racer *obj, s32 updateRate) {
     sprite_opaque(FALSE);
 }
 
+
+#if VERSION >= VERSION_79
+char sDidNotFinish[] = "DID NOT FINISH";
+#endif
+
 /**
  * Render race result for multiplayer races or battles after that player has finished.
  * Displays the finish position, and in races, will display the race time.
@@ -2180,7 +2186,11 @@ void hud_draw_finish_misc(Object_Racer *racer) {
                              gCurrentHud->lapTimeText.unk1B, gCurrentHud->lapTimeText.unk1C, 1);
             } else {
                 draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35.0f, gCurrentHud->raceTimeNumber.y,
+#if VERSION >= VERSION_79
+                          &sDidNotFinish, ALIGN_TOP_LEFT);
+#else
                           "DID NOT FINISH", ALIGN_TOP_LEFT);
+#endif
             }
         }
     }
@@ -2449,7 +2459,12 @@ void play_time_trial_end_message(s16 *playerID) {
     Settings *settings = get_settings();
 
     if (playerID != NULL) {
+#if VERSION >= VERSION_79
+        if (settings->racers[*playerID].best_times & 0x80 && (get_current_level_race_type() == RACETYPE_DEFAULT)) {
+#else
         if (settings->racers[*playerID].best_times & 0x80) {
+#endif
+
             sound_play(SOUND_VOICE_TT_RACE_RECORD, &gHUDVoiceSoundMask);
         } else {
             sound_play(SOUND_VOICE_TT_FINISH, &gHUDVoiceSoundMask);

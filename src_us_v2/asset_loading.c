@@ -3,6 +3,7 @@
 
 #include "asset_loading.h"
 
+#include "common.h"
 // #include "assets.h"
 #include "macros.h"
 #include "ultra64.h"
@@ -14,7 +15,7 @@ OSMesg gDmaMesg;
 OSMesgQueue gDmaMesgQueue;
 OSMesg gPIMesgBuf[16];
 OSMesgQueue gPIMesgQueue;
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
 OSMesg gAssetsLookupTableMesgBuf;
 OSMesgQueue gDmaMesgQueueV2;
 #define dmacopy_internal dmacopy_v1
@@ -40,7 +41,7 @@ void init_PI_mesg_queue(void) {
     osCreateMesgQueue(&gDmaMesgQueue, &gDmaMesg, 1);
     osCreatePiManager((OSPri) 150, &gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     osCreateMesgQueue(&gDmaMesgQueueV2, &gAssetsLookupTableMesgBuf, 1);
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
 #endif
@@ -61,7 +62,7 @@ u32 *load_asset_section_from_rom(u32 assetIndex) {
     s32 size;
     u32 start;
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
 #endif
@@ -80,7 +81,7 @@ u32 *load_asset_section_from_rom(u32 assetIndex) {
 
     dmacopy_internal((u32) (start + __ASSETS_LUT_END), (u32) out, size);
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
 #endif
 
@@ -99,7 +100,7 @@ UNUSED u8 *load_compressed_asset_from_rom(u32 assetIndex, s32 extraMemory) {
     u8 *gzipHeaderRamPos;
     u8 *out;
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
 #endif
@@ -126,7 +127,7 @@ UNUSED u8 *load_compressed_asset_from_rom(u32 assetIndex, s32 extraMemory) {
     dmacopy_internal((u32) (start + __ASSETS_LUT_END), (u32) gzipHeaderRamPos, size);
     gzip_inflate(gzipHeaderRamPos, out);
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
 #endif
 
@@ -142,7 +143,7 @@ UNUSED s32 load_asset_section_from_rom_to_address(u32 assetIndex, u32 address) {
     s32 size;
     u32 *index;
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
 #endif
@@ -157,7 +158,7 @@ UNUSED s32 load_asset_section_from_rom_to_address(u32 assetIndex, u32 address) {
 
     dmacopy_internal((u32) (start + __ASSETS_LUT_END), address, size);
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
 #endif
 
@@ -173,7 +174,7 @@ s32 load_asset_to_address(u32 assetIndex, u32 address, s32 assetOffset, s32 size
     u32 *index;
     s32 start;
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
 #endif
@@ -188,7 +189,7 @@ s32 load_asset_to_address(u32 assetIndex, u32 address, s32 assetOffset, s32 size
 
     dmacopy_internal((u32) (start + __ASSETS_LUT_END), address, size);
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
 #endif
 
@@ -203,7 +204,7 @@ u8 *get_rom_offset_of_asset(u32 assetIndex, u32 assetOffset) {
     u32 *index;
     u32 start;
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
 #endif
@@ -216,7 +217,7 @@ u8 *get_rom_offset_of_asset(u32 assetIndex, u32 assetOffset) {
     index = assetIndex + gAssetsLookupTable;
     start = *index + assetOffset;
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
 #endif
 
@@ -230,7 +231,7 @@ u8 *get_rom_offset_of_asset(u32 assetIndex, u32 assetOffset) {
 s32 get_size_of_asset_section(u32 assetIndex) {
     u32 *index;
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
 #endif
@@ -242,7 +243,7 @@ s32 get_size_of_asset_section(u32 assetIndex) {
     assetIndex++;
     index = assetIndex + gAssetsLookupTable;
 
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     osSendMesg(&gDmaMesgQueueV2, (OSMesg) 1, OS_MESG_NOBLOCK);
 #endif
 
@@ -256,7 +257,7 @@ s32 get_size_of_asset_section(u32 assetIndex) {
  * Official name: romCopy
  */
 void dmacopy(u32 romOffset, u32 ramAddress, s32 numBytes) {
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
     OSMesg msg = NULL;
     osRecvMesg(&gDmaMesgQueueV2, &msg, OS_MESG_BLOCK);
     dmacopy_internal(romOffset, ramAddress, numBytes);

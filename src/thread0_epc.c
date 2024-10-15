@@ -2,6 +2,7 @@
 /* RAM_POS: 0x800B6F50 */
 
 #include "thread0_epc.h"
+#include "common.h"
 #include "types.h"
 #include "macros.h"
 #include "menu.h"
@@ -63,7 +64,7 @@ void thread0_Main(UNUSED void *unused) {
 
     while (1) {
         osRecvMesg(&D_80129790, (OSMesg) &sp34, OS_MESG_BLOCK);
-#ifndef VERSION_us_v2
+#if VERSION == VERSION_77
         if (!(get_filtered_cheats() & CHEAT_EPC_LOCK_UP_DISPLAY)) {
             continue;
         }

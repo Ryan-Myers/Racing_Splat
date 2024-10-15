@@ -2,6 +2,7 @@
 /* RAM_POS: 0x8009ECF0 */
 
 #include "game_ui.h"
+#include "common.h"
 #include "types.h"
 #include "macros.h"
 #include "structs.h"
@@ -149,12 +150,7 @@ u32 gHudColour = COLOUR_RGBA32(255, 255, 255, 254);
 UNUSED f32 sRecordVel = 0.0f; // Set to whatever the highest velocity recorded is, but never actually used.
 
 // Unused?
-s32 D_800E283C[4] = { 0x06FFFFFF, 0x000FFFFF, 0x06000000, 0x0014FFFF };
-
-#ifdef VERSION_us_v2
-// For some reason, this string is a data symbol in v2, but is rodata in v1.
-char sDidNotFinish[] = "DID NOT FINISH";
-#endif
+s32 D_800E283C[] = { 0x06FFFFFF, 0x000FFFFF, 0x06000000, 0x0014FFFF };
 
 /*******************************/
 
@@ -2158,6 +2154,11 @@ void render_wrong_way_text(Object_Racer *obj, s32 updateRate) {
     sprite_opaque(FALSE);
 }
 
+
+#if VERSION >= VERSION_79
+char sDidNotFinish[] = "DID NOT FINISH";
+#endif
+
 /**
  * Render race result for multiplayer races or battles after that player has finished.
  * Displays the finish position, and in races, will display the race time.
@@ -2185,7 +2186,7 @@ void hud_draw_finish_misc(Object_Racer *racer) {
                              gCurrentHud->lapTimeText.unk1B, gCurrentHud->lapTimeText.unk1C, 1);
             } else {
                 draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35.0f, gCurrentHud->raceTimeNumber.y,
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
                           &sDidNotFinish, ALIGN_TOP_LEFT);
 #else
                           "DID NOT FINISH", ALIGN_TOP_LEFT);
@@ -2458,7 +2459,7 @@ void play_time_trial_end_message(s16 *playerID) {
     Settings *settings = get_settings();
 
     if (playerID != NULL) {
-#ifdef VERSION_us_v2
+#if VERSION >= VERSION_79
         if (settings->racers[*playerID].best_times & 0x80 && (get_current_level_race_type() == RACETYPE_DEFAULT)) {
 #else
         if (settings->racers[*playerID].best_times & 0x80) {
