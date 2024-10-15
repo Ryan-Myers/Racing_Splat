@@ -29,6 +29,21 @@ glabel gArcTanTable
 
 /* Handwritten function */
 glabel disable_interrupts
+/* 70350 8006F750 3C08800E */  lui        $t0, %hi(gIntDisFlag)
+/* 70354 8006F754 8108DA30 */  lb         $t0, %lo(gIntDisFlag)($t0)
+/* 70358 8006F758 11000006 */  beqz       $t0, .L8006F774_70374
+/* 7035C 8006F75C 40086000 */   mfc0      $t0, $12 /* handwritten instruction */
+/* 70360 8006F760 2401FFFE */  addiu      $at, $zero, -0x2
+/* 70364 8006F764 01014824 */  and        $t1, $t0, $at
+/* 70368 8006F768 40896000 */  mtc0       $t1, $12 /* handwritten instruction */
+/* 7036C 8006F76C 31020001 */  andi       $v0, $t0, 0x1
+/* 70370 8006F770 00000000 */  nop
+.L8006F774_70374:
+/* 70374 8006F774 03E00008 */  jr         $ra
+/* 70378 8006F778 00000000 */   nop
+
+/* Handwritten function */
+glabel enable_interrupts
 /* 7037C 8006F77C 3C08800E */  lui        $t0, %hi(gIntDisFlag)
 /* 70380 8006F780 8108DA30 */  lb         $t0, %lo(gIntDisFlag)($t0)
 /* 70384 8006F784 11000005 */  beqz       $t0, .L8006F79C_7039C
