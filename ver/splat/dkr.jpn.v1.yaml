@@ -84,15 +84,16 @@ segments:
       - [0x701F0, hasm, hasm/math_util] # + 0xE0
       - [0x71810, c, memory]
       - [0x72A10, c, lib/src/io/motor]
-      - [0x72F30, asm, save_data] #new func func_80072378_72F78
-      - [0x778C0, asm]
-      - [0x78360, asm]
-      - [0x7A260, asm]
-      - [0x7B1E0, asm]
-      - [0x7B220, asm]
-      - [0x7BB80, asm]
-      - [0x80550, asm]
-      - [0x80810, asm]
+      - [0x72F30, c, save_data] #new func func_80072378_72F78
+      - [0x778C0, c, asset_loading] # +0x120
+      - [0x77F60, c, borders] # +0x310
+      - [0x78360, c, rcp_dkr]
+      - [0x7A260, c, lib/src/sc/sched]
+      - [0x7B1E0, c, set_rsp_segment]
+      - [0x7B220, c, video]
+      - [0x7BB80, c, textures_sprites]
+      - [0x80550, c, screen_asset]
+      - [0x80810, asm, menu]
       - [0x9FEB0, asm]
       - [0xAF470, asm]
       - [0xB8F10, asm]

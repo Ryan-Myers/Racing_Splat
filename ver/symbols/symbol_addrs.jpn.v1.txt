@@ -7,7 +7,7 @@ entrypoint = 0x80000400;
 __BSS_SECTION_SIZE = 0x41500; // TODO Calculate this!
 
 __ASSETS_LUT_START = 0xEE5D0;
-//__ASSETS_LUT_END = 0x00000;
+__ASSETS_LUT_END = 0xEE6A0;
 //__ROM_END = 0x000001;
 
 // From map file to symbol file regex
@@ -1140,6 +1140,181 @@ osMotorInit = 0x800721BC;
 
 // save_data.c .text
 input_get_id = 0x80072330;
+rumble_init = 0x80072384;
+rumble_exists = 0x800723D4;
+rumble_set = 0x80072434;
+rumble_set_fade = 0x80072510;
+rumble_start = 0x80072664;
+rumble_stop = 0x80072768;
+rumble_kill = 0x800727F4;
+rumble_update = 0x80072804;
+func_80072C54 = 0x80072D4C;
+func_80072E28 = 0x80072F20;
+populate_settings_from_save_data = 0x80073164;
+func_800732E8 = 0x800733E0;
+func_80073588 = 0x80073680;
+func_800738A4 = 0x8007399C;
+get_game_data_file_size = 0x80073D44;
+get_time_data_file_size = 0x80073D4C;
+get_file_extension = 0x80073D54;
+read_game_data_from_controller_pak = 0x80073F14;
+write_game_data_to_controller_pak = 0x80074054;
+read_time_data_from_controller_pak = 0x80074110;
+write_time_data_to_controller_pak = 0x80074240;
+read_save_file = 0x800742FC;
+erase_save_file = 0x80074414;
+write_save_data = 0x800745D4;
+read_eeprom_data = 0x800746C8;
+write_eeprom_data = 0x800747E8;
+calculate_eeprom_settings_checksum = 0x80074904;
+read_eeprom_settings = 0x8007496C;
+write_eeprom_settings = 0x80074A74;
+calculate_ghost_header_checksum = 0x80074B44;
+func_80074AA8 = 0x80074BA0;
+get_ghost_data_file_size = 0x80074C14;
+func_80074B34 = 0x80074C2C;
+func_80074EB8 = 0x80074FB0;
+func_80075000 = 0x800750F8;
+func_800753D8 = 0x800754D0;
+func_800756D4 = 0x800757CC;
+get_si_device_status = 0x800759D4;
+start_reading_controller_data = 0x80075BE4;
+init_controller_paks = 0x80075C10;
+check_for_rumble_pak = 0x80075DD8;
+repair_controller_pak = 0x80075E30;
+reformat_controller_pak = 0x80075EBC;
+get_controller_pak_file_list = 0x80075F58;
+packDirectoryFree = 0x8007625C;
+get_free_space = 0x8007628C;
+delete_file = 0x800763C0;
+copy_controller_pak_data = 0x80076480;
+get_file_number = 0x800765E0;
+read_data_from_controller_pak = 0x80076708;
+write_controller_pak_file = 0x800767CC;
+get_file_size = 0x80076A1C;
+font_codes_to_string = 0x80076A84;
+string_to_font_codes = 0x80076B38;
+get_file_type = 0x80076C10;
+
+// asset_loading.c .text
+init_PI_mesg_queue = 0x80076CC0;
+load_asset_section_from_rom = 0x80076DA4;
+load_compressed_asset_from_rom = 0x80076E70;
+load_asset_section_from_rom_to_address = 0x80076FA8;
+load_asset_to_address = 0x80077050;
+get_rom_offset_of_asset = 0x80077100;
+get_size_of_asset_section = 0x8007719C;
+dmacopy = 0x80077230;
+dmacopy_v1 = 0x80077294;
+
+// borders.c .text
+divider_draw = 0x80077360;
+divider_clear_coverage = 0x80077578;
+
+// rcp.c .text
+setup_ostask_xbus = 0x80077760;
+setup_ostask_xbus_2 = 0x800778C0;
+setup_ostask_fifo = 0x80077A44;
+setup_ostask_fifo_2 = 0x80077BD8;
+wait_for_gfx_task = 0x80077D64;
+func_80077AAC = 0x80077DBC;
+set_background_prim_colour = 0x80077E44;
+set_background_fill_colour = 0x80077E6C;
+render_background = 0x80077EAC;
+init_rdp_and_framebuffer = 0x80078364;
+init_rsp = 0x800783EC;
+setup_gfx_mesg_queues = 0x80078410;
+mosaic_init = 0x80078480;
+func_80078190 = 0x800784A0;
+set_chequer_background = 0x80078A88;
+disable_chequer_background = 0x80078B00;
+render_chequer_background = 0x80078B0C;
+set_background_draw_function = 0x80078DBC;
+render_textured_rectangle = 0x80078DC8;
+render_texture_rectangle_scaled = 0x80079010;
+
+// sched.c .text
+osCreateScheduler = 0x80079660;
+osScAddClient = 0x80079790;
+osScRemoveClient = 0x800797F4;
+osScGetCmdQ = 0x80079884;
+osScGetInterruptQ = 0x8007988C;
+scGetAudioTaskTimers = 0x80079894;
+func_80079760 = 0x80079A70;
+dummy_80079808 = 0x80079B18;
+dummy_80079810 = 0x80079B20;
+__scHandleRetrace = 0x80079B28;
+__scHandleRSP = 0x80079E54;
+__scHandleRDP = 0x8007A06C;
+__scTaskReady = 0x8007A0F8;
+__scTaskComplete = 0x8007A150;
+__scAppendList = 0x8007A250;
+__scExec = 0x8007A2B8;
+__scYield = 0x8007A390;
+
+// set_rsp_segment.c .text
+set_rsp_segment = 0x8007A5E0;
+
+// video.c .text
+init_video = 0x8007A620;
+set_video_mode_index = 0x8007A7D0;
+get_video_mode_index = 0x8007A7DC;
+set_video_width_and_height_from_index = 0x8007A7EC;
+get_video_width_and_height_as_s32 = 0x8007A830;
+init_vi_settings = 0x8007A860;
+init_framebuffer = 0x8007AAF8;
+reset_video_delta_time = 0x8007AC84;
+swap_framebuffer_when_ready = 0x8007AC9C;
+func_8007AB24 = 0x8007AE34;
+get_video_refresh_speed = 0x8007AE44;
+swap_framebuffers = 0x8007AEAC;
+memory_copy = 0x8007AF0C;
+
+// textures_sprites.c .text
+tex_init_textures = 0x8007AF80;
+tex_disable_modes = 0x8007B11C;
+tex_enable_modes = 0x8007B138;
+get_loaded_2D_textures = 0x8007B154;
+get_loaded_3D_textures = 0x8007B164;
+func_8007AE64 = 0x8007B174;
+load_texture = 0x8007B184;
+free_texture = 0x8007B5CC;
+set_texture_colour_tag = 0x8007B684;
+func_8007B380 = 0x8007B690;
+reset_render_settings = 0x8007B6E0;
+enable_primitive_colour = 0x8007B74C;
+disable_primitive_colour = 0x8007B764;
+set_animated_texture_header = 0x8007B77C;
+load_and_set_texture_no_offset = 0x8007B7D8;
+load_and_set_texture = 0x8007B7F8;
+load_blinking_lights_texture = 0x8007BD6C;
+sprite_opaque = 0x8007C22C;
+func_8007BF34 = 0x8007C244;
+func_8007C12C = 0x8007C43C;
+func_8007C52C = 0x8007C83C;
+get_texture_size_from_id = 0x8007C88C;
+func_8007C660 = 0x8007C970;
+func_8007C860 = 0x8007CB70;
+func_8007C8A0 = 0x8007CBB0;
+load_sprite_info = 0x8007CBF0;
+func_8007CA68 = 0x8007CD78;
+free_sprite = 0x8007CFC0;
+func_8007CDC0 = 0x8007D0D0;
+build_tex_display_list = 0x8007D404;
+func_8007EF64 = 0x8007F274;
+tex_animate_texture = 0x8007F290;
+func_8007F1E8 = 0x8007F4F8;
+update_colour_cycle = 0x8007F55C;
+init_pulsating_light_data = 0x8007F724;
+update_pulsating_light_data = 0x8007F770;
+func_8007F594 = 0x8007F8A4;
+
+// screen_asset.c .text
+load_screen = 0x8007F950;
+render_screen = 0x8007FA24;
+
+//menu.c .text
+load_menu_text = 0x8007FC10;
 
 
 gCurrentRNGSeed = 0x800DEDD4;
