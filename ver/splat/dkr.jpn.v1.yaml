@@ -82,8 +82,9 @@ segments:
       - [0x6B380, c, game]
       - [0x6D000, c, thread3_main] #diffs main_game_loop
       - [0x701F0, hasm, hasm/math_util] # + 0xE0
-      - [0x71810, asm]
-      - [0x72F30, asm]
+      - [0x71810, c, memory]
+      - [0x72A10, c, lib/src/io/motor]
+      - [0x72F30, asm, save_data] #new func func_80072378_72F78
       - [0x778C0, asm]
       - [0x78360, asm]
       - [0x7A260, asm]
