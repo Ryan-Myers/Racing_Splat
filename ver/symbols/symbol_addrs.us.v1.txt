@@ -4752,7 +4752,7 @@ sDialogueBoxCloseTimer = 0x8012A7F4;
 
 // osCreatePiManager .bss
 piThread = 0x8012A800;
-gPiMgrStack = 0x8012A9B0;
+piThreadStack = 0x8012A9B0;
 piEventQueue = 0x8012AAB0;
 piEventBuf = 0x8012AAC8;
 

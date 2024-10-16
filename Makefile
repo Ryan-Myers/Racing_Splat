@@ -383,5 +383,5 @@ $(TARGET).z64: $(TARGET).bin
 
 ### Settings
 .SECONDARY:
-.PHONY: all clean default
+.PHONY: all clean default cleanextractall cleanextract expected cleanall dependencies extractall extract verify
 SHELL = /bin/bash -e -o pipefail

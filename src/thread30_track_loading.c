@@ -5,7 +5,6 @@
 #include "macros.h"
 #include <ultra64.h>
 #include "game.h"
-#include "stacks.h"
 
 /************ .data ************/
 
