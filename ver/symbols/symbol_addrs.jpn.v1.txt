@@ -1315,7 +1315,35 @@ render_screen = 0x8007FA24;
 
 //menu.c .text
 load_menu_text = 0x8007FC10;
-
+menu_button_free = 0x80080298;
+func_8007FFEC = 0x800802FC;
+menu_button_uvs = 0x80080828;
+func_80080580 = 0x80080890;
+func_80080BC8 = 0x80080ED8;
+menu_geometry_end = 0x8008117C;
+func_80080E90 = 0x800811A0;
+init_save_data = 0x80081528; // has a diff from v1
+reset_title_logo_scale = 0x800816D0;
+menu_init = 0x800816E0;
+menu_loop = 0x800818B4;
+menu_timestamp_render = 0x80081B10;
+menu_number_render = 0x80081F14;
+postrace_offsets = 0x80082164;
+postrace_render = 0x8008225C;
+draw_menu_elements = 0x800824FC;
+func_80082BC8_837C8 = 0x80082BC8;
+trackmenu_set_records = 0x80082D78;
+menu_missing_controller = 0x80082EB8;
+menu_logos_screen_init = 0x80082F6C;
+menu_logo_screen_loop = 0x80083044;
+init_title_screen_variables = 0x8008346C;
+func_80083098 = 0x80083558;
+menu_title_screen_init = 0x80083A60;
+render_title_screen = 0x80083C98;
+menu_title_screen_loop = 0x80083F00;
+titlescreen_free = 0x80084638;
+menu_options_init = 0x80084674;
+optionscreen_render = 0x800846C8;
 
 gCurrentRNGSeed = 0x800DEDD4;
 sDebugVersionInfoString = 0x800E8C70; // type:asciz
