@@ -47,7 +47,7 @@ s16 gDialogueYPos2; // The Lower Right Y Coord of the Dialogue Box. Changes for 
 s16 gShowSubtitles;
 s16 gSubtitleLineCount;
 s16 gCurrentTextID;
-UNUSED s16 D_8012A7BE;
+UNUSED s16 D_8012A7BC;
 char *gSubtitleProperties[1];
 char *gCurrentMessageText[2];
 char *gCurrentTextProperties;

@@ -4736,7 +4736,7 @@ gDialogueYPos2 = 0x8012A7B4;
 gShowSubtitles = 0x8012A7B6;
 gSubtitleLineCount = 0x8012A7B8;
 gCurrentTextID = 0x8012A7BA;
-D_8012A7BE = 0x8012A7BC;
+D_8012A7BC = 0x8012A7BC;
 gSubtitleProperties = 0x8012A7C0;
 gCurrentMessageText = 0x8012A7C8;
 gCurrentTextProperties = 0x8012A7D0;
@@ -4779,7 +4779,6 @@ __osMaxControllers = 0x8012CD91;
 __osEepromTimer = 0x8012CD98;
 __osEepromTimerQ = 0x8012CDB8;
 __osEepromTimerMsg = 0x8012CDD0;
-D_8012CDD4 = 0x8012CDD8;
 __osPfsPifRam = 0x8012CDE0;
 
 // siacs .bss
@@ -4792,8 +4791,6 @@ viEventBuf = 0x8012D148;
 viRetraceMsg = 0x8012D160;
 viCounterMsg = 0x8012D178;
 retrace = 0x8012D190;
-D_8012D192 = 0x8012D192;
-D_8012D194 = 0x8012D198;
 tmp_task = 0x8012D1A0;
 piAccessBuf = 0x8012D1E0;
 __osPiAccessQueue = 0x8012D1E8;
