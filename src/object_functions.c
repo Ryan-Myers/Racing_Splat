@@ -51,7 +51,7 @@ VertexPosition D_800DC9A8[6] = {
     { 0, 64, -64 }, { 0, -64, -64 }, { 0, 64, 32 }, { 0, -64, 32 }, { 0, 64, 64 }, { 0, -64, 64 },
 };
 
-UNUSED s32 D_800DC9C8 = 0;
+UNUSED s32 D_800DC9CC = 0;
 
 // Fish Object Related
 Triangle D_800DC9D0[8] = {

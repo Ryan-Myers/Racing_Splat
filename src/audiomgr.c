@@ -108,7 +108,7 @@ const char D_800E4A58[] = "audio: ai out of samples\n";
 const char D_800E4A74[] = "OH DEAR - No audio DMA buffers left\n";
 const char D_800E4A9C[] = "Dma not done\n";
 const char D_800E4AAC[] = "";
-const char D_800E49B0[] = "Bad soundState: voices =%d, states free =%d, states busy =%d, type %d data %x\n";
+const char D_800E4AB0[] = "Bad soundState: voices =%d, states free =%d, states busy =%d, type %d data %x\n";
 const char D_800E4B00[] = "playing a playing sound\n";
 const char D_800E4B1C[] = "Nonsense sndp event\n";
 const char D_800E4B34[] = "Sound state allocate failed - sndId %d\n";

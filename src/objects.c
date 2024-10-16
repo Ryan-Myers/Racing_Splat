@@ -158,7 +158,7 @@ BossRaceVehicles gBossVehicles[] = {
     { VEHICLE_PLANE, VEHICLE_ROCKET },       // Wizpig 2
 };
 
-s8 D_800DC820[10] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+s8 D_800DC834[10] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
 s8 D_800DC840[8] = { 9, 1, 2, 3, 4, 5, 7, 0 };
 
