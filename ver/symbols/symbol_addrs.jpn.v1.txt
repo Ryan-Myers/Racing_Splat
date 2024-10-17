@@ -3027,6 +3027,492 @@ udigs = 0x800E6494; // type:asciz
 
 // audio.c .rodata
 sAudioErrorString_01 = 0x800E64B0; // defined:true type:asciz
+sAudioErrorString_02 = 0x800E64E0; // defined:true type:asciz
+sAudioErrorString_03 = 0x800E651C; // defined:true type:asciz
+
+// audiomgr .rodata
+D_800E49F0 = 0x800E6550;
+D_800E4A58 = 0x800E65B8;
+D_800E4A74 = 0x800E65D4;
+D_800E4A9C = 0x800E65FC;
+D_800E4AAC = 0x800E660C;
+D_800E4AB0 = 0x800E6610;
+D_800E4B00 = 0x800E6660;
+D_800E4B1C = 0x800E667C;
+D_800E4B34 = 0x800E6694;
+D_800E4B5C = 0x800E66BC;
+D_800E4B80 = 0x800E66E0;
+
+// audiosfx .rodata
+jpt_800E4BB0 = 0x800E6710;
+
+// audio_vehicle .rodata
+D_800E4BF0 = 0x800E6750;
+D_800E4BF8 = 0x800E6758;
+D_800E4C00 = 0x800E6760;
+D_800E4C08 = 0x800E6768;
+D_800E4C10 = 0x800E6770;
+D_800E4C18 = 0x800E6778;
+D_800E4C20 = 0x800E6780;
+D_800E4C28 = 0x800E6788;
+D_800E4C30 = 0x800E6790;
+D_800E4C38 = 0x800E6798;
+D_800E4C40 = 0x800E67A0;
+D_800E4C48 = 0x800E67A8;
+
+//D_800E4C50 = 0x800E67B0;
+//D_800E4C58 = 0x800E67B8;
+//D_800E4C60 = 0x800E67C0;
+//D_800E4C68 = 0x800E67C8;
+//D_800E4C70 = 0x800E67D0;
+//D_800E4C74 = 0x800E67D4;
+
+D_800E4C78 = 0x800E67D8;
+D_800E4C80 = 0x800E67E0;
+D_800E4C88 = 0x800E67E8;
+D_800E4C90 = 0x800E67F0;
+D_800E4C98 = 0x800E67F8;
+
+D_800E4CC4 = 0x800E6824;
+D_800E4CC8 = 0x800E6828;
+D_800E4CD0 = 0x800E6830;
+D_800E4CD4 = 0x800E6834;
+D_800E4CD8 = 0x800E6838;
+D_800E4CE0 = 0x800E6840;
+D_800E4CE8 = 0x800E6848;
+D_800E4CF0 = 0x800E6850;
+D_800E4CF4 = 0x800E6854;
+
+// audio_spatial .rodata
+D_800E4D00 = 0x800E6860;
+D_800E4D18 = 0x800E6878;
+D_800E4D58 = 0x800E68B8;
+D_800E4DA0 = 0x800E6900;
+D_800E4DE0 = 0x800E6940;
+D_800E4E28 = 0x800E6988;
+D_800E4E68 = 0x800E69C8;
+D_800E4E9C = 0x800E69FC;
+D_800E4EDC = 0x800E6A3C;
+D_800E4F10 = 0x800E6A70;
+D_800E4F14 = 0x800E6A74;
+
+// al/seqplayer .rodata
+D_800E4F30 = 0x800E6A90; // type:asciz size:0x24
+
+// objects .rodata
+sObjectOutofMemString = 0x800E6AC0; // defined:true
+sDoorNumberErrorString = 0x800E6ADC; // defined:true
+sObjectScopeErrorString = 0x800E6AF8; // defined:true
+sObjectListDataOverflowString = 0x800E6B24; // defined:true
+sObjectSetupError1String = 0x800E6B44; // defined:true
+sObjectSetupError2String = 0x800E6B68; // defined:true
+sObjectSetupError5String = 0x800E6B8C; // defined:true
+sObjectSetupError6String = 0x800E6BB0; // defined:true
+sObjectSetupError3String = 0x800E6BD4; // defined:true
+sObjectListOverflowString = 0x800E6BF8; // defined:true
+sObjectSetupError4String = 0x800E6C10; // defined:true
+sDuplicateCheckpointString = 0x800E6C34; // force_not_migration:true defined:true 
+sErrorChannelString = 0x800E6C5C; // force_not_migration:true defined:true
+sReadOutErrorString = 0x800E6C70; // force_not_migration:true defined:true
+sPureAnguishString = 0x800E6C80; // force_not_migration:true defined:true
+D_800E5130 = 0x800E6C90;
+D_800E5134 = 0x800E6C94;
+jpt_800E5154 = 0x800E6CB4;
+D_800E5178 = 0x800E6CD8;
+D_800E517C = 0x800E6CDC;
+D_800E5180 = 0x800E6CE0;
+D_800E5184 = 0x800E6CE4;
+jpt_800E51B4 = 0x800E6D14;
+jpt_800E5250 = 0x800E6DB0;
+jpt_800E5420 = 0x800E6F80;
+D_800E5554 = 0x800E70B4;
+D_800E5558 = 0x800E70B8;
+D_800E555C = 0x800E70BC;
+D_800E5560 = 0x800E70C0;
+D_800E5564 = 0x800E70C4;
+D_800E5568 = 0x800E70C8;
+jpt_800E5588 = 0x800E70E8;
+D_800E55B8 = 0x800E7118;
+D_800E55C0 = 0x800E7120;
+D_800E55C8 = 0x800E7128;
+D_800E55D0 = 0x800E7130;
+D_800E55D8 = 0x800E7138;
+D_800E55E0 = 0x800E7140;
+D_800E55E8 = 0x800E7148;
+D_800E55F0 = 0x800E7150;
+D_800E5608 = 0x800E7168;
+D_800E5610 = 0x800E7170;
+D_800E5618 = 0x800E7178;
+D_800E5620 = 0x800E7180;
+D_800E5628 = 0x800E7188;
+D_800E5648 = 0x800E71A8;
+D_800E5650 = 0x800E71B0;
+D_800E5658 = 0x800E71B8;
+D_800E5670 = 0x800E71D0;
+D_800E5678 = 0x800E71D8;
+D_800E5680 = 0x800E71E0;
+
+// tracks .rodata
+gTrackClippingErrorString = 0x800E7950;
+gTrackHeightOverflowString = 0x800E7970;
+D_800E5E38 = 0x800E7990;
+D_800E5E60 = 0x800E79B8;
+D_800E5E68 = 0x800E79C0;
+D_800E5E70 = 0x800E79C8;
+D_800E5E78 = 0x800E79D0;
+D_800E5E80 = 0x800E79D8;
+D_800E5E88 = 0x800E79E0;
+D_800E5E90 = 0x800E79E8;
+D_800E5E98 = 0x800E79F0;
+
+D_800E5F48 = 0x800E7AA0;
+D_800E5F4C = 0x800E7AA4;
+D_800E5F50 = 0x800E7AA8;
+D_800E5F54 = 0x800E7AAC;
+D_800E5F58 = 0x800E7AB0;
+
+// collision .rodata
+D_800E5F60 = 0x800E7AC0; // type:f32
+D_800E5F64 = 0x800E7AC4; // type:f32
+D_800E5F68 = 0x800E7AC8; // type:f32
+D_800E5F6C = 0x800E7ACC; // type:f32
+D_800E5F70 = 0x800E7AD0; // type:f32
+
+//object_functions .rodata
+D_800E6020 = 0x800E7B80; // type:f64
+D_800E6048 = 0x800E7BA8;
+D_800E6140 = 0x800E7CA0; // type:f64
+D_800E621C = 0x800E7D7C;
+D_800E6220 = 0x800E7D80;
+D_800E6224 = 0x800E7D84;
+jpt_800E6228 = 0x800E7D88;
+D_800E623C = 0x800E7D9C;
+D_800E6240 = 0x800E7DA0;
+D_800E6244 = 0x800E7DA4;
+D_800E6248 = 0x800E7DA8;
+
+// racer.c 
+gRacerDebugCoords = 0x800E7DE0;
+gChecksumOverflowString = 0x800E7DF0;
+gRacerBackString = 0x800E7E00;
+D_800E62A8 = 0x800E7E08;
+D_800E62B0 = 0x800E7E10;
+D_800E62B8 = 0x800E7E18;
+D_800E62C0 = 0x800E7E20;
+D_800E62C8 = 0x800E7E28;
+D_800E62D0 = 0x800E7E30;
+D_800E62D8 = 0x800E7E38;
+D_800E62E0 = 0x800E7E40;
+D_800E62E8 = 0x800E7E48;
+D_800E62F0 = 0x800E7E50;
+D_800E62F8 = 0x800E7E58;
+D_800E6300 = 0x800E7E60;
+D_800E6308 = 0x800E7E68;
+D_800E6310 = 0x800E7E70;
+jpt_800E6318 = 0x800E7E78;
+jpt_800E6334 = 0x800E7E94;
+D_800E6350 = 0x800E7EB0;
+jpt_800E6358 = 0x800E7EB8;
+D_800E6378 = 0x800E7ED8;
+jpt_800E637C = 0x800E7EDC;
+D_800E63A0 = 0x800E7F00;
+D_800E63A8 = 0x800E7F08;
+D_800E63B0 = 0x800E7F10;
+D_800E63B8 = 0x800E7F18;
+D_800E63C0 = 0x800E7F20;
+D_800E63C8 = 0x800E7F28;
+D_800E63D0 = 0x800E7F30;
+D_800E63D8 = 0x800E7F38;
+D_800E63E0 = 0x800E7F40;
+D_800E63E8 = 0x800E7F48;
+D_800E63F0 = 0x800E7F50;
+D_800E63F8 = 0x800E7F58;
+D_800E6400 = 0x800E7F60;
+D_800E6408 = 0x800E7F68;
+D_800E6410 = 0x800E7F70;
+D_800E6418 = 0x800E7F78;
+D_800E6420 = 0x800E7F80;
+D_800E6428 = 0x800E7F88;
+D_800E6430 = 0x800E7F90;
+D_800E6438 = 0x800E7F98;
+D_800E6440 = 0x800E7FA0;
+D_800E6448 = 0x800E7FA8;
+D_800E6450 = 0x800E7FB0;
+D_800E6458 = 0x800E7FB8;
+D_800E6460 = 0x800E7FC0;
+D_800E6468 = 0x800E7FC8;
+D_800E64A8 = 0x800E8008;
+D_800E64B0 = 0x800E8010;
+D_800E64B8 = 0x800E8018;
+D_800E64C0 = 0x800E8020;
+D_800E64C8 = 0x800E8028;
+D_800E64D0 = 0x800E8030;
+D_800E64D8 = 0x800E8038;
+D_800E64E0 = 0x800E8040;
+D_800E64E8 = 0x800E8048;
+D_800E64EC = 0x800E804C;
+D_800E64F0 = 0x800E8050;
+D_800E64F4 = 0x800E8054;
+D_800E64F8 = 0x800E8058;
+D_800E6500 = 0x800E8060;
+D_800E6508 = 0x800E8068;
+D_800E6510 = 0x800E8070;
+D_800E6518 = 0x800E8078;
+D_800E6520 = 0x800E8080;
+D_800E6528 = 0x800E8088;
+D_800E6530 = 0x800E8090;
+D_800E6538 = 0x800E8098;
+D_800E6540 = 0x800E80A0;
+D_800E6548 = 0x800E80A8;
+D_800E6558 = 0x800E80B8;
+D_800E6560 = 0x800E80C0;
+D_800E6568 = 0x800E80C8;
+D_800E6570 = 0x800E80D0;
+D_800E6578 = 0x800E80D8;
+D_800E6580 = 0x800E80E0;
+D_800E6584 = 0x800E80E4;
+D_800E6588 = 0x800E80E8;
+D_800E658C = 0x800E80EC;
+D_800E65F8 = 0x800E8158; // type:f64
+D_800E6600 = 0x800E8160; // type:f64
+D_800E6608 = 0x800E8168; // type:f64
+D_800E6610 = 0x800E8170; // type:f64
+D_800E6618 = 0x800E8178; // type:f64
+D_800E6620 = 0x800E8180; // type:f64
+D_800E6628 = 0x800E8188; // type:f64
+D_800E6630 = 0x800E8190; // type:f64
+D_800E6638 = 0x800E8198; // type:f64
+D_800E6640 = 0x800E81A0; // type:f64
+D_800E6648 = 0x800E81A8; // type:f64
+D_800E6650 = 0x800E81B0; // type:f64
+D_800E6658 = 0x800E81B8; // type:f64
+D_800E6660 = 0x800E81C0; // type:f32
+D_800E6668 = 0x800E81C8; // type:f64
+D_800E6670 = 0x800E81D0; // type:f64
+D_800E6678 = 0x800E81D8; // type:f64
+D_800E6680 = 0x800E81E0; // type:f64
+D_800E6688 = 0x800E81E8; // type:f64
+D_800E6690 = 0x800E81F0; // type:f64
+D_800E6698 = 0x800E81F8; // type:f64
+D_800E66A0 = 0x800E8200; // type:f64
+D_800E66A8 = 0x800E8208; // type:f64
+D_800E66B0 = 0x800E8210; // type:f64
+D_800E66B8 = 0x800E8218; // type:f64
+D_800E66C0 = 0x800E8220; // type:f32
+D_800E66C8 = 0x800E8228; // type:f64
+D_800E66F8 = 0x800E8258; // type:f64
+D_800E6700 = 0x800E8260; // type:f64
+D_800E6788 = 0x800E82E8;
+D_800E6790 = 0x800E82F0;
+D_800E6798 = 0x800E82F8;
+D_800E6808 = 0x800E8368; // type:f64
+D_800E6820 = 0x800E8380; // type:f64
+D_800E6838 = 0x800E8398;
+D_800E6840 = 0x800E83A0;
+D_800E6848 = 0x800E83A8; // type:f64
+D_800E68C4 = 0x800E8424;
+D_800E68C8 = 0x800E8428;
+D_800E6910 = 0x800E8470;
+D_800E6918 = 0x800E8478;
+D_800E6920 = 0x800E8480;
+D_800E6930 = 0x800E8490;
+D_800E6938 = 0x800E8498;
+D_800E69B8 = 0x800E8518; // type:f64
+D_800E69C0 = 0x800E8520;
+D_800E69C8 = 0x800E8528;
+D_800E69D0 = 0x800E8530;
+D_800E69D8 = 0x800E8538;
+D_800E69E0 = 0x800E8540;
+D_800E69E8 = 0x800E8548;
+D_800E69F0 = 0x800E8550;
+D_800E69F8 = 0x800E8558;
+D_800E6A00 = 0x800E8560; // type:f32
+D_800E6A04 = 0x800E8564; // type:s32 size:0xC padding
+
+// vehicle_rocket
+D_800E6B00 = 0x800E8660; // type:f64
+D_800E6B08 = 0x800E8668; // type:f64
+D_800E6B10 = 0x800E8670; // type:f64
+
+// object_models
+D_800E6B20 = 0x800E8680; // type:asciz
+D_800E6B4C = 0x800E86AC;
+D_800E6B64 = 0x800E86C4;
+D_800E6B84 = 0x800E86E4;
+D_800E6BC0 = 0x800E8720;
+D_800E6BE0 = 0x800E8740;
+
+// al/csplayer
+D_800E6C20 = 0x800E8780;
+
+
+// camera .rodata
+D_800E6F00 = 0x800E8A60;
+D_800E6F44 = 0x800E8AA4;
+D_800E709C = 0x800E8BFC;
+
+// thread3_main .rodata
+D_800E7134 = 0x800E8C94; //type:asciz
+
+// memory .rodata
+D_800E73A8 = 0x800E8F08;
+D_800E73D0 = 0x800E8F30;
+D_800E7400 = 0x800E8F60;
+D_800E7438 = 0x800E8F98;
+D_800E7590 = 0x800E90F0; // type:asciz
+D_800E75B4 = 0x800E9114; // type:asciz
+D_800E75BC = 0x800E911C; // type:asciz
+D_800E75C8 = 0x800E9128; // type:asciz
+D_800E75D8 = 0x800E9138; // type:asciz
+D_800E75DC = 0x800E913C; // type:asciz
+D_800E75E0 = 0x800E9140; // type:asciz
+D_800E75F4 = 0x800E9154; // type:asciz
+D_800E7604 = 0x800E9164; // type:asciz
+D_800E7614 = 0x800E9174; // type:asciz
+D_800E7620 = 0x800E9180; // type:asciz
+D_800E762C = 0x800E918C; // type:asciz
+
+// sched .rodata
+D_800E7800 = 0x800E9360; // type:asciz "(Audio task)"
+D_800E7810 = 0x800E9370; // type:asciz "(Game task)"
+D_800E781C = 0x800E937C; // type:asciz "(DI task)\n"
+D_800E7828 = 0x800E9388; // type:asciz "(DI benchmark test)\n"
+D_800E7840 = 0x800E93A0; // type:asciz "(Unknown task type %d)\n"
+D_800E7858 = 0x800E93B8; // type:asciz "\nRCP TASK INFO\n"
+D_800E7868 = 0x800E93C8; // type:asciz "-------------\n"
+D_800E7878 = 0x800E93D8; // type:asciz "\ttype\t\t= %u\n"
+D_800E7888 = 0x800E93E8; // type:asciz "\tflags\t\t= %u\n"
+D_800E7898 = 0x800E93F8; // type:asciz "\tucode_boot\t\t= %p\n"
+D_800E78AC = 0x800E940C; // type:asciz "\tucode_boot_size\t\t= %u\n"
+D_800E78C4 = 0x800E9424; // type:asciz "\tucode\t\t= %p\n"
+D_800E78D4 = 0x800E9434; // type:asciz "\tucode_size\t\t= %u\n"
+D_800E78E8 = 0x800E9448; // type:asciz "\tucode_data\t\t= %p\n"
+D_800E78FC = 0x800E945C; // type:asciz "\tucode_data_size\t\t= %u\n"
+D_800E7914 = 0x800E9474; // type:asciz "\toutput_buff\t\t= %p\n"
+D_800E7928 = 0x800E9488; // type:asciz "\toutput_buff_size\t\t= %u\n"
+D_800E7944 = 0x800E94A4; // type:asciz "\tdata_ptr\t\t= %p\n"
+D_800E7958 = 0x800E94B8; // type:asciz "\tdata_size\t\t= %u\n"
+
+// video size: 0x1A0
+
+// textures_sprites .rodata
+D_800E7B30 = 0x800E9690; // type:asciz
+D_800E7B60 = 0x800E96C0; // type:asciz
+D_800E7B88 = 0x800E96E8; // type:asciz
+D_800E7BA8 = 0x800E9708; // type:asciz
+D_800E7BC4 = 0x800E9724; // type:asciz
+D_800E7BFC = 0x800E975C; // type:asciz
+D_800E7C10 = 0x800E9770; // type:asciz
+D_800E7C30 = 0x800E9790; // type:asciz
+D_800E7C50 = 0x800E97B0; // type:asciz
+
+// menu .rodata
+jpt_800E84F4 = 0x800EA004;
+jpt_800E8508 = 0x800EA018;
+D_800E8520 = 0x800EA030;
+jpt_800E8574 = 0x800EA084;
+
+// game_ui .rodata
+D_800E86A8 = 0x800EA160; // type:f64 function_owner:func_8009F034
+D_800E86B0 = 0x800EA168; // type:f64 function_owner:func_8009F034
+D_800E86B8 = 0x800EA170; // type:f32 function_owner:func_8009F034
+D_800E86BC = 0x800EA174; // type:f32 function_owner:func_8009F034
+D_800E86C0 = 0x800EA178; // type:f32 function_owner:func_8009F034
+D_800E86C8 = 0x800EA180; // type:f64 function_owner:func_8009F034
+D_800E86D0 = 0x800EA188; // type:f64 function_owner:func_8009F034
+D_800E86D8 = 0x800EA190; // type:f64 function_owner:func_8009F034
+D_800E86E0 = 0x800EA198; // type:f64 function_owner:func_8009F034
+D_800E86E8 = 0x800EA1A0; // type:f64 function_owner:func_8009F034
+D_800E86F0 = 0x800EA1A8; // type:f64 function_owner:func_8009F034
+D_800E8718 = 0x800EA1D0;
+D_800E871C = 0x800EA1D4; // type:s32 padding
+D_800E8720 = 0x800EA1D8;
+D_800E8728 = 0x800EA1E0;
+D_800E8730 = 0x800EA1E8;
+D_800E8738 = 0x800EA1F0; // type:f64
+D_800E8758 = 0x800EA210; // type:f64
+D_800E8760 = 0x800EA218; // type:f64
+D_800E87A0 = 0x800EA258; // type:f64 force_migration:True
+D_800E87A8 = 0x800EA260; // type:f32 force_migration:True
+D_800E87B0 = 0x800EA268; // force_migration:True type:f64 size:8
+D_800E87B8 = 0x800EA270; // force_migration:True type:f64 size:8
+D_800E87D8 = 0x800EA290;
+D_800E87E0 = 0x800EA298;
+
+// particles.c .rodata size:0x3C0
+D_800E8840 = 0x800EA2F0;
+D_800E887C = 0x800EA32C;
+D_800E88BC = 0x800EA36C;
+D_800E88F8 = 0x800EA3A8;
+D_800E891C = 0x800EA3CC;
+D_800E8940 = 0x800EA3F0;
+D_800E8964 = 0x800EA414;
+D_800E8984 = 0x800EA434;
+D_800E89A4 = 0x800EA454;
+D_800E89D8 = 0x800EA488;
+D_800E8A18 = 0x800EA4C8;
+D_800E8A40 = 0x800EA4F0;
+D_800E8A68 = 0x800EA518;
+D_800E8A90 = 0x800EA540;
+D_800E8AB4 = 0x800EA564;
+D_800E8AD8 = 0x800EA588;
+D_800E8B10 = 0x800EA5C0;
+D_800E8B44 = 0x800EA5F4;
+
+// printf.c .rodata size:0x270
+gLowerCase = 0x800EA6B0; // type:asciz force_not_migration:true defined:true
+gUpperCase = 0x800EA6D8; // type:asciz force_not_migration:true defined:true
+D_800E8C50 = 0x800EA700; // type:asciz force_not_migration:true defined:true
+D_800E8C54 = 0x800EA704; // type:asciz force_not_migration:true defined:true
+D_800E8C5C = 0x800EA70C; // type:asciz force_not_migration:true defined:true
+
+// thread0_epc.c .rodata size:0x2F0
+D_800E8E70 = 0x800EA920; // type:asciz force_not_migration:true defined:true
+D_800E8EA0 = 0x800EA950; // type:asciz force_not_migration:true defined:true
+
+// gzip .rodata
+gzip_border = 0x800EAE30;
+gzip_cplens = 0x800EAE44;
+gzip_cplext = 0x800EAE82;
+gzip_cpdist = 0x800EAEA2;
+gzip_cpdext = 0x800EAEDE;
+gzip_mask_bits = 0x800EAEFC;
+D_800E94AE = 0x800EAF1E;
+
+// osSetIntMask .rodata
+__osRcpImTable = 0x800EAF40;
+
+// exception .rodata
+__osIntOffTable = 0x800EB0E0;
+__osIntTable = 0x800EB100; // size:0x24
+
+// xprintf  .rodata
+length_str = 0x800EB130; // type:asciz "hlL" defined:true
+flags_str = 0x800EB134; // type:asciz " +-#0" defined:true
+flags_arr = 0x800EB13C; // type:u32 size:0x18 defined:true
+P_cosf = 0x800EB230; // type:Du size:0x28 defined:true
+rpi_cosf = 0x800EB258; // type:Du size:0x8 defined:true
+pihi_cosf = 0x800EB260; // type:Du size:0x8 defined:true
+pilo_cosf = 0x800EB268; // type:Du size:0x8 defined:true
+zero_cosf = 0x800EB270; // type:Fu size:0x8 defined:true
+P_sinf = 0x800EB280; // type:Du size:0x28 defined:true
+rpi_sinf = 0x800EB2A8; // type:Du size:0x8 defined:true
+pihi_sinf = 0x800EB2B0; // type:Du size:0x8 defined:true
+pilo_sinf = 0x800EB2B8; // type:Du size:0x8 defined:true
+zero_sinf = 0x800EB2C0; // type:Fu size:0x8 defined:true
+pows = 0x800EB2D0; // type:f64 size:0x48 defined:true
+Ldtob_NaN = 0x800EB318; // type:asciz force_not_migration:true defined:true
+Ldtob_Inf = 0x800EB31C; // type:asciz force_not_migration:true defined:true
+_Genld_0_string = 0x800EB320; // type:asciz force_not_migration:true defined:true
+_Ldtob_1e8 = 0x800EB328; // type:f64
+__libm_qnan_f = 0x800EB330; // type:f64
+
+// ucode_data
+aspMainDataStart = 0x800EB340;
+rspF3DDKRDataDramStart = 0x800EB610;
+rspF3DDKRDataFifoStart = 0x800EBE10;
+rspF3DDKRDataXbusStart = 0x800EC610;
+rspUnknown2DataStart = 0x800ECE10;
 
 
 sDebugVersionInfoString = 0x800E8C70; // type:asciz

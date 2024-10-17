@@ -269,7 +269,6 @@ segments:
       - [0xDCF00, textbin, ucode_f3ddkr_xbus]
       - [0xDE100, textbin, ucode_unknown_2]
       - [0xDEBC0, data]
-      - [0xE70B0, rodata]
       # lights - + 0x19A0
       # rcp_dkr - + 0x19B0 
       # From gTitleCinematicTextColourCount on in menu.c - + 0x1A60
@@ -278,7 +277,17 @@ segments:
       # New D_800E4328_E4F28 pushes gWeatherPresets to be - +0x1AF0
       # 4 More dDialogueBoxDrawModes vars pushes it to be - +0x1B00
       # New D_800E5234_E5E34 pushes to -  +0x1B60
-      - { start: 0xEE5D0, type: bss, vram: 0x800ED9D0 }
+      # Missing TT CAM rodata brings it back to - +0x1B58
+      # RODATA PADDING BEFORE D_800E5F60 TO - +0x1B60
+      # CREDITS DIFF TO - +0x1B10
+      - [0xE70B0, rodata]
+      - { start: 0xEBF40, type: databin, name: data_audio,       linker_section_order: .rodata }
+      - { start: 0xEC210, type: databin, name: data_f3ddkr_dram, linker_section_order: .rodata }
+      - { start: 0xECA10, type: databin, name: data_f3ddkr_fifo, linker_section_order: .rodata }
+      - { start: 0xED210, type: databin, name: data_f3ddkr_xbus, linker_section_order: .rodata }
+      - { start: 0xEDA10, type: databin, name: data_unknown_2,   linker_section_order: .rodata }
+      - [0xEE5D0, bin, assets]
+      - { start: auto, type: bss, vram: 0x800ED9D0 }
 
   - type: bin
     start: 0xEE5D0
