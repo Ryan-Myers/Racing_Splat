@@ -3645,7 +3645,7 @@ rspF3DDKRDataXbusStart = 0x800EABA0;
 rspUnknown2DataStart = 0x800EB3A0;
 
 // audio.c .bss
-gBssSectionStart = 0x800EBF60; //TODO  Rename this?
+gBssSectionStart = 0x800EBF60; // size:0x29D88 //TODO  Rename this?
 gALHeap = 0x80115CE8;
 gSequenceTable = 0x80115CF8;
 gMusicSequenceData = 0x80115CFC;
