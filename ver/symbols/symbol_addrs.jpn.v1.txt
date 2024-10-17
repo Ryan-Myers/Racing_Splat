@@ -1842,6 +1842,334 @@ render_fill_rectangle = 0x800C5E9C;
 render_dialogue_box = 0x800C5F54;
 parse_string_with_number = 0x800C635C;
 
+// osCreatePiManager.c .text
+osCreatePiManager = 0x800C7990;
+
+// gzip.c .text
+init_rzip = 0x800C7B00;
+byteswap32 = 0x800C7B3C;
+get_asset_uncompressed_size = 0x800C7B6C;
+gzip_inflate = 0x800C7BA8;
+gzip_huft_build = 0x800C7C04;
+
+// asm/gzip.s .text
+gzip_inflate_block = 0x800C8250;
+gzip_inflate_dynamic = 0x800C8354;
+gzip_inflate_fixed = 0x800C876C;
+gzip_inflate_stored = 0x800C88C4;
+gzip_inflate_codes = 0x800C89D0;
+
+// __osLeoInterrupt.c .text
+__osLeoInterrupt = 0x800C8CD0;
+
+
+// thread30_track_loading.c .text
+create_and_start_thread30 = 0x800C8CE0;
+stop_thread30 = 0x800C8D4C;
+get_thread30_level_id_to_load = 0x800C8D70;
+tick_thread30 = 0x800C8D80;
+get_thread30_load_delay = 0x800C8DD8;
+set_level_to_load_in_background = 0x800C8DE8;
+thread30_track_loading = 0x800C8E30; // type:func
+
+// alHeapInit.c .text
+alHeapInit = 0x800C8EF0;
+
+// alBnkfNew.c .text
+alBnkfNew = 0x800C9034;
+alSeqFileNew = 0x800C9138;
+
+// alHeapDBAlloc.c .text
+alHeapDBAlloc = 0x800C9180;
+
+// 
+alCSPSetVol = 0x800C91E0;
+alCSPGetTempo = 0x800C9220;
+osGetCount = 0x800C9260;
+alCSPSetChlPan = 0x800C9270;
+alCSPSetChlVol = 0x800C92D0;
+alCSPGetChlVol = 0x800C9330;
+alSeqpGetChlFXMix = 0x800C9350;
+alCSPSetTempo = 0x800C9370;
+alCSPGetState = 0x800C93E0;
+alCSPSetBank = 0x800C93F0;
+alCSeqGetLoc = 0x800C9430;
+alCSeqSetLoc = 0x800C94D0;
+alCSeqNextEvent = 0x800C9694;
+alCSeqNew = 0x800C998C;
+alCSeqNewMarker = 0x800C9AA0;
+alCSeqGetTicks = 0x800C9C0C;
+alCSeqSecToTicks = 0x800C9C14;
+alCSeqTicksToSec = 0x800C9D10;
+__alCSeqNextDelta = 0x800C9D7C;
+
+alCSPSetSeq = 0x800C9EF0;
+alCSPPlay = 0x800C9F30;
+alCSPStop = 0x800C9F60;
+osAiSetFrequency = 0x800C9F90;
+alUnlink = 0x800CA0F0;
+alLink = 0x800CA120;
+alClose = 0x800CA144;
+alInit = 0x800CA17C;
+
+osCreateMesgQueue = 0x800CA1B0;
+osCreateThread = 0x800CA1E0;
+osStartThread = 0x800CA330;
+osStopThread = 0x800CA480;
+osRecvMesg = 0x800CA540;
+osVirtualToPhysical = 0x800CA680;
+osAiSetNextBuffer = 0x800CA700;
+osAiGetLength = 0x800CA7B0;
+osSendMesg = 0x800CA7C0;
+osPiStartDma = 0x800CA910;
+alEvtqFlushType = 0x800CAA20;
+alEvtqFlush = 0x800CAACC;
+alEvtqPostEvent = 0x800CAB3C;
+alEvtqNextEvent = 0x800CAC60;
+alEvtqNew = 0x800CACEC;
+alSynAddPlayer = 0x800CAD60;
+_allocatePVoice = 0x800CADB0;
+alSynAllocVoice = 0x800CAE98;
+alSynSetVol = 0x800CAFE0;
+alSynStartVoice = 0x800CB080;
+alSynSetPitch = 0x800CB110;
+alSynSetFXMix = 0x800CB1A0;
+alSynStopVoice = 0x800CB240;
+alSynFreeVoice = 0x800CB2C0;
+alCents2Ratio = 0x800CB370;
+osSetIntMask = 0x800CB3C0;
+sqrtf = 0x800CB460;
+alSynSetPriority = 0x800CB470;
+
+// __NOPS_NEEDED
+__NOPS_NEEDED = 0x800CB480;
+
+// llcvt.c .text
+__d_to_ll = 0x800CB4C0;
+__f_to_ll = 0x800CB4DC;
+__d_to_ull = 0x800CB4F8;
+__f_to_ull = 0x800CB598;
+__ll_to_d = 0x800CB634;
+__ll_to_f = 0x800CB64C;
+__ull_to_d = 0x800CB664;
+__ull_to_f = 0x800CB698;
+
+// rmonPrintf.c .text
+rmonPrintf = 0x800CB6E4;
+
+// bcopy
+bcopy = 0x800CB730;
+alFilterNew = 0x800CBA40;
+alEnvmixerPull = 0x800CBA60;
+alEnvmixerParam = 0x800CC40C;
+_frexpf = 0x800CCA94;
+_ldexpf = 0x800CCC18;
+alLoadParam = 0x800CCED0;
+alRaw16Pull = 0x800CD0A4;
+alAdpcmPull = 0x800CD57C;
+alResampleParam = 0x800CDA20;
+alResamplePull = 0x800CDB0C;
+alMainBusParam = 0x800CDD20;
+alMainBusPull = 0x800CDD50;
+alSaveParam = 0x800CDE70;
+alSavePull = 0x800CDEA4;
+osInitialize = 0x800CDF30;
+osSetThreadPri = 0x800CE1D0;
+guPerspectiveF = 0x800CE2B0;
+guPerspective = 0x800CE4E0;
+osSetEventMesg = 0x800CE540;
+osContInit = 0x800CE5B0;
+__osContGetInitData = 0x800CE7A8;
+__osPackRequestData = 0x800CE878;
+osContStartReadData = 0x800CE970;
+osContGetReadData = 0x800CEA34;
+__osSpSetStatus = 0x800CEBD0;
+osDpSetStatus = 0x800CEBE0;
+osSetTime = 0x800CEBF0;
+osPfsIsPlug = 0x800CEC20;
+__osPfsRequestData = 0x800CEDC0;
+__osPfsGetInitData = 0x800CEEBC;
+__osSiCreateAccessQueue = 0x800CEF90;
+__osSiGetAccess = 0x800CEFE0;
+__osSiRelAccess = 0x800CF024;
+__osSiRawStartDma = 0x800CF050;
+__osContAddressCrc = 0x800CF100;
+__osContDataCrc = 0x800CF1B0;
+__osContRamWrite = 0x800CF280;
+__osContRamRead = 0x800CF630;
+bcmp = 0x800CF9E0;
+
+// libc/string.c .text
+memcpy = 0x800CFB00;
+strlen = 0x800CFB2C;
+strchr = 0x800CFB54;
+
+// 
+osEepromProbe = 0x800CFBA0;
+osEepromRead = 0x800CFC10;
+__osPackEepReadData = 0x800CFE00;
+osEepromWrite = 0x800CFF10;
+__osPackEepWriteData = 0x800D00C0;
+__osEepStatus = 0x800D01CC;
+__ull_rshift = 0x800D03F0;
+__ull_rem = 0x800D041C;
+__ull_div = 0x800D0458;
+__ll_lshift = 0x800D0494;
+__ll_rem = 0x800D04C0;
+__ll_div = 0x800D04FC;
+__ll_mul = 0x800D0558;
+__ull_divremi = 0x800D0588;
+__ll_mod = 0x800D05E8;
+__ll_rshift = 0x800D0684;
+
+// 
+osPfsInit = 0x800D06B0;
+__osPfsGetStatus = 0x800D0764;
+osPfsReadWriteFile = 0x800D096C;
+osPfsFreeBlocks = 0x800D0D70;
+
+// osPfsChecker.c .text
+osPfsChecker = 0x800D0EC0;
+corrupted_init = 0x800D1584;
+corrupted = 0x800D1738;
+
+// osPfsReFormat
+osPfsReFormat = 0x800D1920;
+osPfsNumFiles = 0x800D1D20;
+bzero = 0x800D1E70;
+osPfsFileState = 0x800D1F10;
+osPfsDeleteFile = 0x800D2200;
+__osPfsReleasePages = 0x800D24E0;
+__osBlockSum = 0x800D2718;
+osPfsFindFile = 0x800D2810;
+osPfsAllocateFile = 0x800D29D0;
+__osPfsDeclearPage = 0x800D2E54;
+osInvalDCache = 0x800D3180;
+osWritebackDCacheAll = 0x800D3230;
+osDpGetStatus = 0x800D3260;
+osDpSetNextBuffer = 0x800D3270;
+osCreateViManager = 0x800D3320;
+viMgrMain = 0x800D3498;
+
+// osViSetMode
+osViSetMode = 0x800D3630;
+osViBlack = 0x800D36A0;
+osViSetEvent = 0x800D3710;
+osSpTaskYielded = 0x800D3780;
+osViGetCurrentFramebuffer = 0x800D3800;
+osViGetNextFramebuffer = 0x800D3840;
+osSpTaskLoad = 0x800D399C;
+osSpTaskStartGo = 0x800D3AFC;
+osGetTime = 0x800D3B40;
+osSpTaskYield = 0x800D3BD0;
+osViSetSpecialFeatures = 0x800D3BF0;
+osViSwapBuffer = 0x800D3DB0;
+__osGetActiveQueue = 0x800D3E00;
+__osPiCreateAccessQueue = 0x800D3E10;
+__osPiGetAccess = 0x800D3E60;
+__osPiRelAccess = 0x800D3EA4;
+osGetThreadPri = 0x800D3ED0;
+__osDisableInt = 0x800D3EF0;
+__osRestoreInt = 0x800D3F10;
+osPiRawStartDma = 0x800D3F30;
+osEPiRawStartDma = 0x800D4010;
+__osDevMgrMain = 0x800D40F0;
+__osViInit = 0x800D44A0;
+alSynDelete = 0x800D45F0;
+__osDequeueThread = 0x800D4600;
+__osExceptionPreamble = 0x800D4640;
+__osException = 0x800D4650;
+send_mesg = 0x800D4B74;
+handle_CpU = 0x800D4C28;
+__osEnqueueAndYield = 0x800D4C5C;
+__osEnqueueThread = 0x800D4D5C;
+__osPopThread = 0x800D4DA4;
+__osDispatchThread = 0x800D4DB4;
+__osCleanupThread = 0x800D4F30;
+__osProbeTLB = 0x800D4F40;
+
+// __osAiDeviceBusy
+__osAiDeviceBusy = 0x800D5000;
+osJamMesg = 0x800D5030;
+osPiGetCmdQueue = 0x800D5180;
+alCopy = 0x800D51B0;
+_Printf = 0x800D58A0;
+__osSetSR = 0x800D5EF0;
+__osGetSR = 0x800D5F00;
+__osSetFpcCsr = 0x800D5F10;
+__osSiRawReadIo = 0x800D5F20;
+__osSiRawWriteIo = 0x800D5F70;
+osWritebackDCache = 0x800D5FC0;
+osInvalICache = 0x800D6040;
+osMapTLBRdb = 0x800D60C0;
+osPiRawReadIo = 0x800D6120;
+__osSetHWIntrRoutine = 0x800D6180;
+
+// guMtxUtil
+guMtxF2L = 0x800D61D0;
+guMtxIdentF = 0x800D62D0;
+guMtxIdent = 0x800D6358;
+guMtxL2F = 0x800D6388;
+
+// cosf
+cosf = 0x800D6440;
+
+// sinf
+sinf = 0x800D65B0;
+
+// osSetTimer
+osSetTimer = 0x800D6770;
+
+// osTimer
+__osTimerServicesInit = 0x800D6850;
+__osTimerInterrupt = 0x800D68DC;
+__osSetTimerIntr = 0x800D6A54;
+__osInsertTimer = 0x800D6AC8;
+
+// si
+__osSiDeviceBusy = 0x800D6C50;
+__osSumcalc = 0x800D6C80;
+__osIdCheckSum = 0x800D6CDC;
+__osRepairPackId = 0x800D6D44;
+__osCheckPackId = 0x800D715C;
+__osGetId = 0x800D72F4;
+__osCheckId = 0x800D7550;
+__osPfsRWInode = 0x800D764C;
+__osPfsSelectBank = 0x800D796C;
+
+// dp
+__osDpDeviceBusy = 0x800D79E0;
+__osViGetCurrentContext = 0x800D7A10;
+__osViSwapContext = 0x800D7A20;
+__osSpGetStatus = 0x800D7D80;
+__osSpSetPc = 0x800D7D90;
+__osSpRawStartDma = 0x800D7DD0;
+__osSpDeviceBusy = 0x800D7E60;
+__osResetGlobalIntMask = 0x800D7E90;
+osEPiRawWriteIo = 0x800D7EF0;
+osYieldThread = 0x800D7F40;
+osDestroyThread = 0x800D7F90;
+_Litob = 0x800D8090;
+_Genld = 0x800D8330;
+_Ldtob = 0x800D88A0;
+__osSetCompare = 0x800D8DF0;
+
+// ldiv
+lldiv = 0x800D8E00;
+ldiv = 0x800D8F00;
+
+// ucode_text
+aspMainTextStart = 0x800D8F90;
+rspF3DDKRBootStart = 0x800D9E50;
+rspF3DDKRDramStart = 0x800D9F20;
+rspF3DDKRFifoStart = 0x800DB120;
+rspF3DDKRXbusStart = 0x800DC300;
+rspUnknown2Start = 0x800DD500;
+
+// audio.c .data
+gMusicPlayer = 0x800DDFC0;
+
+
 
 gCurrentRNGSeed = 0x800DEDD4;
 sDebugVersionInfoString = 0x800E8C70; // type:asciz

@@ -262,8 +262,13 @@ segments:
       - [0xD99F0, hasm, lib/src/os/setcompare]
       - [0xD9A00, c, lib/src/libc/ldiv]
       # - [auto, c, memory_pool] #bss only file
-      - [0xD9B90, bin]
-      - [0xD9D00, data]
+      - [0xD9B90, textbin, ucode_audio]
+      - [0xDAA50, textbin, ucode_boot]
+      - [0xDAB20, textbin, ucode_f3ddkr_dram]
+      - [0xDBD20, textbin, ucode_f3ddkr_fifo]
+      - [0xDCF00, textbin, ucode_f3ddkr_xbus]
+      - [0xDE100, textbin, ucode_unknown_2]
+      - [0xDEBC0, data]
       - { start: 0xEE5D0, type: bss, vram: 0x800ED9D0 }
 
   - type: bin
