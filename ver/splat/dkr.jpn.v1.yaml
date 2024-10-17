@@ -106,7 +106,7 @@ segments:
       - [0xB8F20, c, waves]
       - [0xC1370, c, fade_transition]
       - [0xC3BF0, c, game_text]
-      - [0xC4E30, c, font] # +0x630
+      - [0xC4E30, c, font] # +0x630 - Last file diff
       - [0xC8590, c, lib/src/io/pimgr] # +0x1990
       - [0xC8700, c, gzip]
       - [0xC8E50, hasm, hasm/gzip_asm]
@@ -269,6 +269,15 @@ segments:
       - [0xDCF00, textbin, ucode_f3ddkr_xbus]
       - [0xDE100, textbin, ucode_unknown_2]
       - [0xDEBC0, data]
+      - [0xE70B0, rodata]
+      # lights - + 0x19A0
+      # rcp_dkr - + 0x19B0 
+      # From gTitleCinematicTextColourCount on in menu.c - + 0x1A60
+      # From gCheatsInCreditsArray on in menu.c - + 0x1A8C
+      # From dMenuHudSettings on in menu.c - + 0x1A90
+      # New D_800E4328_E4F28 pushes gWeatherPresets to be - +0x1AF0
+      # 4 More dDialogueBoxDrawModes vars pushes it to be - +0x1B00
+      # New D_800E5234_E5E34 pushes to -  +0x1B60
       - { start: 0xEE5D0, type: bss, vram: 0x800ED9D0 }
 
   - type: bin

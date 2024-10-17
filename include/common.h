@@ -24,10 +24,10 @@
 #define VERSION VERSION_77
 #define REGION REGION_PAL
 #elif defined(VERSION_jp_v1)
-#define Func80019808Checksum 0x0000
-#define ViewportFuncChecksum 0x0000
-#define TractionTableChecksum 0x0000
-#define ObjLoopGoldenBalloonChecksum 0xA597
+#define Func80019808Checksum 0x34EA6
+#define ViewportFuncChecksum 0x592D
+#define TractionTableChecksum 0x1C9EC
+#define ObjLoopGoldenBalloonChecksum 0xA7C5
 #define VERSION VERSION_79
 #define REGION REGION_JP
 #elif defined(VERSION_us_v2)

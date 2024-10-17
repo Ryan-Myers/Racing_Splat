@@ -49,7 +49,7 @@
 
 /************ .rodata ************/
 
-#if VERSION == VERSION_80
+#if VERSION >= VERSION_79
 UNUSED char *sDebugRomBuildInfo[] = { "1.1634", "17/10/97 11:19", "pmountain" };
 #elif VERSION == VERSION_77
 UNUSED char *sDebugRomBuildInfo[] = { "1.1605", "02/10/97 16:03", "pmountain" };
@@ -63,6 +63,8 @@ const char D_800E7134[] = "BBB\n"; // Functionally unused.
 
 #if VERSION == VERSION_80
 UNUSED char gBuildString[] = "Version 8.0 27/10/97 12.30 L.Schuneman";
+#elif VERSION == VERSION_79
+UNUSED char gBuildString[] = "Version 7.9 14/10/97 19.40 L.Schuneman";
 #elif VERSION == VERSION_77
 UNUSED char gBuildString[] = "Version 7.7 29/09/97 15.00 L.Schuneman";
 #endif

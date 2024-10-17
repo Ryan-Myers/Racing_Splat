@@ -2168,10 +2168,867 @@ rspUnknown2Start = 0x800DD500;
 
 // audio.c .data
 gMusicPlayer = 0x800DDFC0;
+gJinglePlayer = 0x800DDFC4;
+gMusicBaseVolume = 0x800DDFC8;
+sfxRelativeVolume = 0x800DDFCC;
+gCanPlayMusic = 0x800DDFD0;
+gCanPlayJingle = 0x800DDFD4;
+gBlockMusicChange = 0x800DDFD8;
+audioPrevCount = 0x800DDFDC;
+sMusicFadeVolume = 0x800DDFE0;
+gMusicSliderVolume = 0x800DDFE4;
+gDelayedSoundsCount = 0x800DDFE8;
+gMusicNextSeqID = 0x800DDFEC;
+gJingleNextSeqID = 0x800DDFF0;
+D_800DC664 = 0x800DDFF4;
+D_800DC668 = 0x800DDFF8;
+gGlobalMusicVolume = 0x800DDFFC;
+gBlockVoiceLimitChange = 0x800DE000;
 
+// audiomgr.c .data
+audFrameCt = 0x800DE010;
+nextDMA = 0x800DE014;
+curAcmdList = 0x800DE018;
+gAntiPiracyAudioFreq = 0x800DE01C;
+gFunc80019808Checksum = 0x800DE020;
+gFunc80019808Length = 0x800DE024;
 
+// audiosfx.c .data
+D_800DC6B0 = 0x800DE040;
+D_800DC6B4 = 0x800DE044;
+D_800DC6B8 = 0x800DE048;
+gAlSndPlayerPtr = 0x800DE04C;
+sfxVolumeSlider = 0x800DE050;
+D_800DC6C4 = 0x800DE054;
 
+// audio_vehicle.c .data
+gVehicleSounds = 0x800DE060;
+D_800DC6D4 = 0x800DE064;
+D_800DC6D8 = 0x800DE068;
+
+// audio_spatial.c .data
+gUsedMasks = 0x800DE070;
+
+// objects.c .data
+gTajChallengeTransition = 0x800DE080;
+gBalloonCutsceneTransition = 0x800DE088;
+D_800DC700 = 0x800DE090;
+D_800DC704 = 0x800DE094;
+D_800DC708 = 0x800DE098;
+D_800DC70C = 0x800DE09C;
+D_800DC710 = 0x800DE0A0;
+D_800DC714 = 0x800DE0A4;
+gGhostObjStaff = 0x800DE0A8;
+D_800DC71C = 0x800DE0AC;
+gObjectTexAnim = 0x800DE0B0;
+gTimeTrialTime = 0x800DE0B4;
+gTimeTrialVehicle = 0x800DE0B8;
+gTimeTrialCharacter = 0x800DE0BC;
+gHasGhostToSave = 0x800DE0C0;
+gTimeTrialStaffGhost = 0x800DE0C4;
+gBeatStaffGhost = 0x800DE0C8;
+D_800DC73C = 0x800DE0CC;
+D_800DC740 = 0x800DE0D0;
+gSwapLeadPlayer = 0x800DE0D4;
+D_800DC748 = 0x800DE0D8;
+D_800DC74C = 0x800DE0DC;
+D_800DC754 = 0x800DE0E4;
+gShieldEffectObject = 0x800DE0EC;
+D_800DC760 = 0x800DE0F0;
+gMagnetEffectObject = 0x800DE0F4;
+D_800DC768 = 0x800DE0F8;
+D_800DC76C = 0x800DE0FC;
+D_800DC7A8 = 0x800DE138;
+D_800DC7B8 = 0x800DE148;
+gBossVehicles = 0x800DE1B0;
+D_800DC834 = 0x800DE1C4;
+D_800DC840 = 0x800DE1D0;
+gNoBoundsCheck = 0x800DE1D8;
+gMagnetColours = 0x800DE1DC;
+gRaceEndFade = 0x800DE1E8;
+gRaceEndTransition = 0x800DE1F0;
+
+// tracks.c .data
+D_800DC870 = 0x800DE200;
+gFullFadeToBlack = 0x800DE204;
+gCircleFadeToBlack = 0x800DE20C;
+D_800DC884 = 0x800DE214;
+D_800DC8AC = 0x800DE23C;
+gCurrentLevelModel = 0x800DE2A8;
+gCurrentLevelHeader2 = 0x800DE2AC;
+D_800DC920 = 0x800DE2B0;
+D_800DC924 = 0x800DE2C4;
+D_800DC928 = 0x800DE2C8;
+D_800DC92C = 0x800DE2CC;
+
+// lights.c .data
+gActiveLights = 0x800DE2F0;
+D_800DC954 = 0x800DE2F4;
+gMaxLights = 0x800DE2F8;
+gNumActiveLights = 0x800DE2FC;
+D_800DC960 = 0x800DE300;
+D_800DC964 = 0x800DE304;
+D_800DC968 = 0x800DE308;
+
+// object_functions.c .data
+gTajTransformTransitionEnd = 0x800DE310;
+gTajTransition = 0x800DE318;
+gCharacterFlagVertices = 0x800DE320;
+D_800DC9A8 = 0x800DE348;
+D_800DC9CC = 0x800DE36C;
+D_800DC9D0 = 0x800DE370;
+D_800DCA50 = 0x800DE3F0;
+D_800DCA58 = 0x800DE3F8;
+D_800DCA64 = 0x800DE404;
+D_800DCA70 = 0x800DE410;
+D_800DCA7C = 0x800DE41C;
+D_800DCA88 = 0x800DE428;
+D_800DCA94 = 0x800DE434;
+D_800DCA9C = 0x800DE43C;
+D_800DCAA8 = 0x800DE448;
+D_800DCB28 = 0x800DE4C8;
+
+// racer.c .data
+gObjLoopGoldenBalloonLength = 0x800DE4F0;
+gAntiPiracyHeadroll = 0x800DE4F4;
+D_800DCB58 = 0x800DE4F8;
+D_800DCB5C = 0x800DE4FC;
+D_800DCB60 = 0x800DE500;
+gNumViewports = 0x800DE538;
+gSurfaceTractionTable = 0x800DE53C;
+D_800DCBE8 = 0x800DE588;
+gSurfaceBobbingTable = 0x800DE5D4;
+gSurfaceSoundTable = 0x800DE620;
+D_800DCCCC = 0x800DE66C;
+gSurfaceFlagTable = 0x800DE694;
+gSurfaceFlagTable4P = 0x800DE6E0;
+gRacerAIBalloonActionTable = 0x800DE730;
+D_800DCDA0 = 0x800DE740;
+D_800DCDA8 = 0x800DE748;
+D_800DCDB0 = 0x800DE750;
+gObjLoopGoldenBalloonChecksum = 0x800DE770;
+gDoorFadeTransition = 0x800DE774;
+
+// vehicle_tricky.c .data
+gTrickyVoiceTable = 0x800DE780;
+
+// vehicle_bluey.c .data
+gBlueyVoiceTable = 0x800DE7A0;
+
+// vehicle_smokey.c .data
+gSmokeyVoiceTable = 0x800DE7C0;
+
+// vehicle_bubbler.c .data
+gBubblerVoiceTable = 0x800DE7E0;
+
+// vehicle_wizpig.c .data
+gWizpigVoiceTable = 0x800DE800;
+
+// vehicle_rocket.c .data
+gRocketVoiceTable = 0x800DE820;
+
+// object_models.c .data
+gTractionTableChecksum = 0x800DE840;
+gTrackRenderFuncLength = 0x800DE844;
+
+// al/reverb.c .data
+alFXEnabled = 0x800DE850;
+
+// al/alSynStartVoiceParams .data
+gStereoPanMode = 0x800DE9F0;
+
+// camera.c .data
+gAntiPiracyViewport = 0x800DEA00;
+gScreenViewports = 0x800DEA04;
+gViewportWithBG = 0x800DEAD4;
+gVehiclePartVertex = 0x800DEAD8;
+gViewportStack = 0x800DEAE8;
+D_800DD288 = 0x800DEC28;
+D_800DD2A0 = 0x800DEC40;
+gOrthoMatrixF = 0x800DEC58;
+gCameraZoomLevels = 0x800DEC98;
+
+// controller.c .data
+sNoControllerPluggedIn = 0x800DECA0;
+gButtonMask = 0x800DECA4;
+
+// game.c .data
+gTempLevelNames = 0x800DECB0;
+gCurrentDefaultVehicle = 0x800DECB4;
+gTwoPlayerAdvRace = 0x800DECB8;
+gIsInRace = 0x800DECBC;
+gViewportFuncChecksum = 0x800DECC0;
+gViewportFuncLength = 0x800DECC4;
+gLevelPropertyStackPos = 0x800DECC8;
+D_800DD32C = 0x800DECCC;
+D_800DD330 = 0x800DECD0;
+
+// thread3_main.c .data
+sDebugRomBuildInfo = 0x800DECE0; // size:0xC
+gBuildString = 0x800DECEC; // type:asciz size:0x28
+sAntiPiracyTriggered = 0x800DED14; // type:s8
+D_800DD378 = 0x800DED18;
+gSaveDataFlags = 0x800DED1C;
+gScreenStatus = 0x800DED20;
+sControllerStatus = 0x800DED24;
+D_800DD388 = 0x800DED28;
+gSkipGfxTask = 0x800DED2C;
+gDrumstickSceneLoadTimer = 0x800DED30;
+gLevelLoadTimer = 0x800DED34;
+gPauseLockTimer = 0x800DED38;
+gFutureFunLandLevelTarget = 0x800DED3C;
+gDmemInvalid = 0x800DED40;
+D_800DD3A4 = 0x800DED44;
+D_800DD3A8 = 0x800DED48;
+D_800DD3AC = 0x800DED4C;
+gNumF3dCmdsPerPlayer = 0x800DED50; // size:0x10
+gNumHudVertsPerPlayer = 0x800DED60; // size:0x10
+gNumHudMatPerPlayer = 0x800DED70; // size:0x10
+gNumHudTrisPerPlayer = 0x800DED80; // size:0x10
+gDrawFrameTimer = 0x800DED90;
+D_800DD3F4 = 0x800DED94;
+D_800DD3FC = 0x800DED9C;
+sLogicUpdateRate = 0x800DEDA4;
+gDrumstickSceneTransition = 0x800DEDA8;
+D_800DD410 = 0x800DEDB0;
+gLevelFadeOutTransition = 0x800DEDBC;
+D_800DD424 = 0x800DEDC4;
+
+// math_util_data .data
+gIntDisFlag = 0x800DEDD0;
 gCurrentRNGSeed = 0x800DEDD4;
+gPrevRNGSeed = 0x800DEDD8;
+gSineTable = 0x800DEDDC;
+gArcTanTable = 0x800DF5DE;
+
+// save_data.c .data
+D_800DE440 = 0x800DFDE0;
+gN64FontCodes = 0x800DFDE4;
+sControllerPaksPresent = 0x800DFE28;
+gRumbleKillTimer = 0x800DFE2C;
+D_800DEA00_DF600 = 0x800DFE30;
+
+// rcp.c .data
+gGfxTaskMesgNums = 0x800DFE40;
+sBackgroundPrimColourR = 0x800DFE60;
+sBackgroundPrimColourG = 0x800DFE64;
+sBackgroundPrimColourB = 0x800DFE68;
+sBackgroundFillColour = 0x800DFE6C;
+gMosaicShiftX = 0x800DFE70;
+gMosaicTex1 = 0x800DFE74;
+gMosaicTex2 = 0x800DFE78;
+gChequerBGEnabled = 0x800DFE7C;
+gBackgroundDrawFunc = 0x800DFE80;
+gfxBufCounter = 0x800DFE84;
+gfxBufCounter2 = 0x800DFE88;
+gGfxTaskIsRunning = 0x800DFE8C;
+dRspInit = 0x800DFE90;
+dRdpInit = 0x800DFED0;
+dRaceFinishBackgroundSettings = 0x800DFF48;
+dChequerBGSettings = 0x800DFF90;
+dTextureRectangleModes = 0x800DFFD8;
+dScaledRectangleBaseModes = 0x800E0020;
+dTextureRectangleScaledOpa = 0x800E0058;
+dTextureRectangleScaledXlu = 0x800E0098;
+
+//sched.c .data
+D_800DE730 = 0x800E00E0;
+gBootBlackoutMesg = 0x800E00E8;
+gAudTaskTimer0 = 0x800E00F0;
+gAudTaskTimer1 = 0x800E00F4;
+gAudTaskTimer2 = 0x800E00F8;
+gAudTaskTimer3 = 0x800E00FC;
+gRetraceCounter32 = 0x800E0100;
+gCurRSPTaskCounter = 0x800E0104;
+gCurRDPTaskCounter = 0x800E0108;
+D_800DE75C = 0x800E010C;
+gRetraceCounter64 = 0x800E0110;
+
+// video.c .data
+gVideoDepthBuffer = 0x800E0120;
+D_800DE774 = 0x800E0124;
+D_800DE778 = 0x800E0128;
+gVideoModeResolutions = 0x800E012C;
+
+// textures_sprites.c .data
+gTexColourTag = 0x800E0170;
+gSpriteOpaque = 0x800E0174;
+dRenderSettingsVtxAlpha = 0x800E0178;
+dRenderSettingsSpriteCld = 0x800E01F8;
+dRenderSettingsSpriteXlu = 0x800E0218;
+dRenderSettingsCommon = 0x800E0298;
+dRenderSettingsCutout = 0x800E0698;
+dRenderSettingsDecal = 0x800E0798;
+dRenderSettingsSolidColourVtxAlpha = 0x800E0898;
+dRenderSettingsSolidColour = 0x800E08D8;
+dRenderSettingsPrimOverlay = 0x800E09D8;
+dRenderSettingsPrimCol = 0x800E0A58;
+dRenderSettingsBlinkingLights = 0x800E0B58;
+D_800DF3A8 = 0x800E0D58;
+D_800DF3D8 = 0x800E0D88;
+D_800DF410 = 0x800E0DC0;
+
+// screen_asset.c .data
+gRdpSetModeScreenAsset = 0x800E0DF0;
+
+// menu.c .data
+gInAdvModeTrophyRace = 0x800E0E00;
+gTrackSelectWoodFrameHeightScale = 0x800E0E04;
+gResetTitleScale = 0x800E0E08;
+gTitleScreenCurrentOption = 0x800E0E0C;
+gMenuCurIndex = 0x800E0E10;
+unused_800DF464 = 0x800E0E14;
+gMenuDisableObjAnim = 0x800E0E18;
+gMissingControllerDelay = 0x800E0E1C;
+gCurrentMenuId = 0x800E0E20;
+unused_800DF474 = 0x800E0E24;
+gTrackSpecifiedWithTrackIdToLoad = 0x800E0E28;
+gMenuDelay = 0x800E0E2C;
+gNumberOfReadyPlayers = 0x800E0E30;
+D_800DF484 = 0x800E0E34;
+gTitleScreenLoaded = 0x800E0E38;
+unused_800DF48C = 0x800E0E3C;
+unused_800DF490 = 0x800E0E40;
+gIsInAdventureTwo = 0x800E0E44;
+gPlayerHasSeenCautionMenu = 0x800E0E48;
+gMenuTextLangTable = 0x800E0E4C;
+gMenuText = 0x800E0E50;
+sMenuGuiColourR = 0x800E0E54;
+sMenuGuiColourG = 0x800E0E58;
+sMenuGuiColourB = 0x800E0E5C;
+sMenuGuiColourBlendFactor = 0x800E0E60;
+gMenuSpriteFlags = 0x800E0E64;
+gIsInTracksMode = 0x800E0E68;
+gNumberOfActivePlayers = 0x800E0E6C;
+gIsInTwoPlayerAdventure = 0x800E0E70;
+gTrackIdForPreview = 0x800E0E74;
+gTrackSelectRow = 0x800E0E78;
+gSaveFileIndex = 0x800E0E7C;
+unused_800DF4D0 = 0x800E0E80;
+gTrackIdToLoad = 0x800E0E84;
+unused_800DF4D8 = 0x800E0E88;
+gNextTajChallengeMenu = 0x800E0E8C;
+gNeedToCloseDialogueBox = 0x800E0E90;
+gDoneTalkingToNPC = 0x800E0E94;
+gDialogueOptionTangible = 0x800E0E9C;
+unused_800DF4F0 = 0x800E0EA0;
+sMenuImageProperties = 0x800E0EC0; // size:0x240
+gAssetsMenuElementIds = 0x800E1100;
+gMenuElementIdCount = 0x800E1104;
+gMenuObjectsCount = 0x800E1108;
+gMenuImages = 0x800E110C;
+sMenuMusicVolume = 0x800E1110;
+sMenuGuiOpacity = 0x800E1114;
+unused_800DF768 = 0x800E1118;
+sMenuTransitionFadeInFast = 0x800E111C;
+sMenuTransitionFadeIn = 0x800E1124;
+sMenuTransitionFadeOut = 0x800E112C;
+sMenuTransitionFadeInWhite = 0x800E1134;
+sMenuTransitionFadeOutWhite = 0x800E113C;
+gPostraceState = 0x800E1144;
+gTrophyRankingsMenuElements = 0x800E1148;
+gPostraceTextOffset = 0x800E114C;
+gPostraceTimestampOffset = 0x800E1150;
+gTitleMenuStrings = 0x800E1154;
+gVersionDisplayText = 0x800E1160;
+sGameTitleTileTextures = 0x800E1174; // size:0x18
+sGameTitleTileOffsets = 0x800E118C; // size:0x60
+gTitleCinematicText = 0x800E11EC;
+gTitleCinematicTextColourCount = 0x800E1454;
+gTitleCinematicTextColours = 0x800E1458;
+unused_800DFA0C = 0x800E146C;
+gOptionMenuStrings = 0x800E1470; // size:0x1C
+gOptionMenuTextures = 0x800E148C; // size:0x10
+gAudioMenuStrings = 0x800E149C; // size:0x80
+gMusicTestSongIndex = 0x800E151C;
+gSfxVolumeSliderValue = 0x800E1520;
+gMusicVolumeSliderValue = 0x800E1524;
+gAudioOutputType = 0x800E1528;
+gContPakSaveBgColours = 0x800E152C;
+gDeviceStatus = 0x800E153C;
+gControllerIndex = 0x800E1540;
+gContPakNotPresentStrings = 0x800E1544;
+gContPakCorruptDataRepairStrings = 0x800E155C;
+gContPakDamagedStrings = 0x800E1574;
+gContPakFullStrings = 0x800E158C;
+gContPakDiffContStrings = 0x800E15A0;
+gContPakNoRoomForGhostsStrings = 0x800E15BC;
+gContPakCorruptDataStrings = 0x800E15D4;
+gContPakRumbleDetectedStrings = 0x800E15EC;
+gContPakSwitchToRumbleStrings = 0x800E1604;
+gContPakNeed2ndAdvStrings = 0x800E161C;
+gContPakStrings = 0x800E163C;
+unused_800DFC08 = 0x800E1668;
+unused_800DFC0C = 0x800E166C;
+gDrawTexN64Icon = 0x800E1670;
+gDrawTexTTIcon = 0x800E1680;
+gDrawTexGhostIcon = 0x800E1690;
+gDrawTexFileIcon = 0x800E16A0;
+gDrawTexContPakIcon = 0x800E16B0;
+gDrawTexTrashIcon = 0x800E16C0;
+unused_800DFC70 = 0x800E16D0;
+gSaveMenuObjectIndices = 0x800E16D8;
+gSaveMenuImageIndices = 0x800E170C;
+gControllerPakMenuElement = 0x800E1714;
+gShowControllerPakMenu = 0x800E17F4;
+gActiveMagicCodes = 0x800E17F8;
+gUnlockedMagicCodes = 0x800E17FC;
+gMagicCodeMenuStrings = 0x800E1800;
+gCharacterVolumes = 0x800E1814;
+gCharSelectObjectIndices = 0x800E1828;
+gCharSelectImageIndices = 0x800E182C;
+gCharacterSelectBytesDefault = 0x800E1830;
+gCharacterSelectBytesDrumStick = 0x800E18A0;
+gCharacterSelectBytesTT = 0x800E1920;
+gCharacterSelectBytesComplete = 0x800E19A0;
+unused_800DFFCC = 0x800E1A2C;
+gEnteredCharSelectFrom = 0x800E1A30;
+unused_800DFFD4 = 0x800E1A34;
+gCautionMenuTextElements = 0x800E1A38; // size:0x1C0
+gGameSelectTextElemsNoAdv2 = 0x800E1BF8;
+gGameSelectTextElemsWithAdv2 = 0x800E1CD8;
+gFileSelectObjectIndices = 0x800E1DF8;
+gFileSelectImageIndices = 0x800E1E04;
+gFilenames = 0x800E1E10;
+unused_800E03BC = 0x800E1E1C;
+gFileSelectButtons = 0x800E1E2C;
+gFileSelectElementPos = 0x800E1E5C;
+gMultiplayerSelectedNumberOfRacers = 0x800E1E70;
+gTracksMenuTimeTrialHighlightIndex = 0x800E1E74;
+gTracksMenuAdventureHighlightIndex = 0x800E1E78;
+gMenuSelectionArrowUp = 0x800E1E7C;
+gMenuSelectionArrowLeft = 0x800E1E8C;
+gMenuSelectionArrowDown = 0x800E1E9C;
+gMenuSelectionArrowRight = 0x800E1EAC;
+gRaceSelectionCarTex = 0x800E1EBC;
+gRaceSelectionHoverTex = 0x800E1ED4;
+gRaceSelectionPlaneTex = 0x800E1EEC;
+gRaceSelectionTTOn = 0x800E1F04;
+gRaceSelectionTTOff = 0x800E1F1C;
+gRaceSelectionCarOptHighlight = 0x800E1F34;
+gRaceSelectionCarOpt = 0x800E1F44;
+gRaceSelectionHoverOptHighlight = 0x800E1F54;
+gRaceSelectionHoverOpt = 0x800E1F64;
+gRaceSelectionPlaneOptHighlight = 0x800E1F74;
+gRaceSelectionPlaneOpt = 0x800E1F84;
+gRaceSelectionTTOnOptHighlight = 0x800E1F94;
+gRaceSelectionTTOffOptHighlight = 0x800E1FA4;
+gRaceSelectionTTOnOpt = 0x800E1FB4;
+gRaceSelectionTTOffOpt = 0x800E1FC4;
+gRaceSelectionPlayer1Texture = 0x800E1FD4;
+gRaceSelectionPlayer2Texture = 0x800E1FE4;
+gRaceSelectionPlayer3Texture = 0x800E1FF4;
+gRaceSelectionPlayer4Texture = 0x800E2004;
+gRaceSelectionVehicleTitleTexture = 0x800E2014;
+gRaceSelectionTTTitleTexture = 0x800E2024;
+D_800E05D4 = 0x800E2034;
+D_800E05F4 = 0x800E2054;
+gRaceSelectionTTTexture = 0x800E2074;
+gRaceSelectionImages = 0x800E2084;
+gTrackSelectTTImage = 0x800E20A8;
+gTrackSelectPlayerImage = 0x800E20C0;
+gMenuSelectionArrows = 0x800E20D8;
+gTracksMenuPlayerNamePositions = 0x800E20E8;
+gTracksMenuVehicleNamePositions = 0x800E2110;
+gTracksMenuArrowPositionsNTSC = 0x800E2124;
+gTracksMenuArrowPositionsPAL = 0x800E2134;
+gTwoPlayerRacerCountMenu = 0x800E2144;
+gTracksMenuAdventureButton = 0x800E2160;
+gTracksMenuBgTextureIndices = 0x800E2170;
+gTracksMenuBgTextures = 0x800E2190;
+gTTVoiceLines = 0x800E21B8;
+gTrackSelectObjectIndices = 0x800E2224;
+gTrackSelectImageIndices = 0x800E2240;
+gTrackSelectPreviewObjectIndices = 0x800E2248;
+gTrackSelectPreviewImageIndices = 0x800E2290;
+gTrackSelectBgData = 0x800E22A0;
+gTrackSelectBgVertices = 0x800E23C8; // size:0x8
+gTrackSelectBgTriangles = 0x800E23D0; // size:0x8
+gQMarkPtr = 0x800E23D8;
+gIsInTracksMenu = 0x800E23DC;
+gTrackNameVoiceDelay = 0x800E23E0;
+gMenuOptionCap = 0x800E23E4;
+gMenuSubOption = 0x800E23E8;
+gLastPlayerWhoPaused = 0x800E23EC;
+gPlayerPauseBgColour = 0x800E23F0;
+gPlayerPauseOptionsTextColour = 0x800E2400;
+sBadControllerPakMenuText = 0x800E2410;
+sControllerPakFullMenuText = 0x800E2424;
+sNoControllerPakMenuText = 0x800E2438;
+sCorruptDataMenuText = 0x800E244C;
+D_800E09F8 = 0x800E2458;
+sInsertControllerPakMenuText = 0x800E2464;
+D_800E0A10 = 0x800E2470;
+sInsertRumblePakMenuText = 0x800E2474;
+gRaceResultsObjectIndices = 0x800E2484;
+gRaceResultsImageIndices = 0x800E24A0;
+gMenuPortraitKrunch = 0x800E24B0;
+gMenuPortraitDiddy = 0x800E24C0;
+gMenuPortraitDrumstick = 0x800E24D0;
+gMenuPortraitBumper = 0x800E24E0;
+gMenuPortraitBanjo = 0x800E24F0;
+gMenuPortraitConker = 0x800E2500;
+gMenuPortraitTiptup = 0x800E2510;
+gMenuPortraitTT = 0x800E2520;
+gMenuPortraitPipsy = 0x800E2530;
+gMenuPortraitTimber = 0x800E2540;
+gRacerPortraits = 0x800E2550;
+unused_800E0B18 = 0x800E2578;
+gFirstPlace = 0x800E260C;
+gSecondPlace = 0x800E2610;
+gThirdPlace = 0x800E2614;
+gFourthPlace = 0x800E2618;
+gFifthPlace = 0x800E261C;
+gSixthPlace = 0x800E2620;
+gSeventhPlace = 0x800E2624;
+gEighthPlace = 0x800E2628;
+gRacePlacementsArray = 0x800E262C;
+gRaceResultsMenuElements = 0x800E264C; // size:0x100
+gRaceOrderMenuElements = 0x800E274C; // size:0x160
+gRecordTimesMenuElements = 0x800E28AC; // size:0x120
+gFileNameValidChars = 0x800E29CC; // size:0x20
+gCurFilenameCharBeingDrawn = 0x800E29EC; // size:0x4
+gEnterInitalsY = 0x800E29F0;
+gFilenameX = 0x800E29F4;
+gFilenameY = 0x800E29F8;
+gFilenameFont = 0x800E29FC;
+gNameEntryLength = 0x800E2A00;
+D_800E0FA4 = 0x800E2A04;
+gCheckAdvEnterInitials = 0x800E2A08;
+D_800E0FAC = 0x800E2A0C;
+gIndexOfCurInputCharacter = 0x800E2A10;
+gAdvTrackInitObjectIndices = 0x800E2A14;
+gAdvTrackInitImageIndices = 0x800E2A38;
+gRankingPlayerCount = 0x800E2A44;
+gTrophyRaceWorldId = 0x800E2A48;
+gTrophyRaceRound = 0x800E2A4C;
+gPrevTrophyRaceRound = 0x800E2A50;
+unused_800E0FF4 = 0x800E2A54;
+gTrophyRacePointsArray = 0x800E2A64;
+gTrophyRankingsObjectIndices = 0x800E2A84;
+gTrophyRaceImageIndices = 0x800E2AA0;
+gTrophyRankingsTitle = 0x800E2AA8;
+gTrophyRankingsRacers = 0x800E2AE8;
+gTrophyRankingsRawIconPositions = 0x800E2E08;
+gTrophyRankingsIconPositions = 0x800E2F1C;
+gDrawTexDinoDomainGhostBg = 0x800E2F9C; // size:0x58
+gDrawTexSherbetIslandGhostBg = 0x800E2FF4; // size:0x58
+gDrawTexSnowflakeMountainGhostBg = 0x800E304C; // size:0x58
+gDrawTexDragonForestGhostBg = 0x800E30A4; // size:0x58
+gDrawTexFutureFunLandGhostBg = 0x800E30FC; // size:0x58
+gDrawTexWorldBgs = 0x800E3154; // size:0x14
+gGhostDataObjectIndices = 0x800E3168; // size:0x44
+gGhostDataImageIndices = 0x800E31AC; // size:0x8
+gGhostDataElementPositions = 0x800E31B4; // size:0x14
+gCinematicObjectIndices = 0x800E31C8; // size:0x18
+dCreditsFade = 0x800E31E0;
+gCreditsObjectIndices = 0x800E3238;
+gCreditsImageIndices = 0x800E3250;
+gCreditsControlData = 0x800E3254; // size:0x144
+gCreditsArray = 0x800E3398; // defined:true
+gCreditsBestTimesArray = 0x800E34F4; // defined:true
+gCreditsLastMessageArray = 0x800E3570; // defined:true
+gCheatsInCreditsArray = 0x800E3584;
+gViewingCreditsFromCheat = 0x800E35D8;
+gCreditsMenuElements = 0x800E35DC; // size:0x120
+dMenuHudSettings = 0x800E3700;
+dMenuHudDrawModes = 0x800E3730;
+gWoodPanelsIndices = 0x800E3760;
+gWoodPanelTexCoords = 0x800E3780;
+gWoodPanelVertCoords = 0x800E37BC;
+gWoodPanelVertColours = 0x800E380C;
+gWoodPanelVertices = 0x800E3834; // size:0x8
+gWoodPanelTriangles = 0x800E383C; // size:0x8
+gMenuTrisFlip = 0x800E3844;
+gWoodPanelCount = 0x800E3848;
+gWoodPanelAllocCount = 0x800E384C;
+gWoodPanelTexScaleU = 0x800E3850;
+gWoodPanelTexScaleV = 0x800E3854;
+D_800E1DC8 = 0x800E3858; // size:0x20
+gFadeLogoToTitleScreen = 0x800E3878;
+gRareCopyrightString = 0x800E3880;
+gFadeTitleScreenDemo = 0x800E3898;
+gConPakAdvSavePrefix = 0x800E38A0; // size:0xC
+gTrackSelectSound = 0x800E38AC;
+D_800E1E20 = 0x800E38B0;
+gGameStatusVisible = 0x800E38B8;
+D_800E1E2C = 0x800E38BC;
+D_800E1E40 = 0x800E38D0;
+
+// game_ui.c .data
+D_800E1E60 = 0x800E38F0;
+gHudElementBase = 0x800E38F4;
+D_800E25C4 = 0x800E4054;
+D_800E2684 = 0x800E4114;
+gHudAudioData = 0x800E4200;
+gShowCourseDirections = 0x800E4220;
+D_800E2794 = 0x800E4224;
+gHudToggleSettings = 0x800E4234;
+gPrevToggleSetting = 0x800E4238;
+gHudLapColours = 0x800E423C;
+gHudIndicatorTimer = 0x800E4248;
+gHudMinimapColours = 0x800E424C;
+gHudColour = 0x800E42C4;
+sRecordVel = 0x800E4314;
+D_800E283C = 0x800E4318;
+
+// weather.c .data
+gWeatherPresets = 0x800E4340;
+gSnowPhysics = 0x800E43C4;
+gSnowGfx = 0x800E43C8;
+gSnowVerts = 0x800E43F4;
+gSnowVertCount = 0x800E43F8;
+gSnowTriangles = 0x800E43FC;
+gSnowTriIndices = 0x800E4400;
+gSnowVertexData = 0x800E4404;
+gWeatherAssetTable = 0x800E440C;
+gWeatherAssetTableLength = 0x800E4410;
+dLensFlare = 0x800E4418;
+gLensPresetLarge = 0x800E4470;
+gLensPreset1 = 0x800E4490;
+gLensPreset2 = 0x800E44D0;
+gLensPreset3 = 0x800E4520;
+gLensFlare = 0x800E4570;
+gLensFlareOff = 0x800E4574;
+gLensFlareOverrideObjs = 0x800E4578;
+D_800E2A8C = 0x800E457C;
+D_800E2A90 = 0x800E4580;
+D_800E2A94 = 0x800E4584;
+D_800E2A98 = 0x800E4588;
+D_800E2A9C = 0x800E458C;
+D_800E2AA0 = 0x800E4590;
+D_800E2AA4 = 0x800E4594;
+D_800E2AA8 = 0x800E4598;
+gRainVertices = 0x800E459C;
+gRainSplashSegments = 0x800E463C;
+gRainGfx = 0x800E471C;
+gWeatherType = 0x800E474C;
+gLightningFrequency = 0x800E4750;
+gLightningFrequencyStep = 0x800E4754;
+gLightningFrequencyTarget = 0x800E4758;
+gRainOpacity = 0x800E475C;
+gRainOpacityStep = 0x800E4760;
+gRainOpacityTarget = 0x800E4764;
+gRainHiddenTimer = 0x800E4768;
+gLightningTimer = 0x800E476C;
+gThunderTimer = 0x800E4770;
+gRainSplashDelay = 0x800E4774;
+gRainOverlayUnusedValue = 0x800E4778;
+gRainSplashGfx = 0x800E477C;
+gRainVertexFlip = 0x800E4780;
+gWeatherSoundMask = 0x800E4784;
+gThunderTransition = 0x800E4788;
+
+// particles.c .data
+D_800E2CA0 = 0x800E4790;
+D_800E2CA4 = 0x800E4794;
+D_800E2CA8 = 0x800E4798;
+D_800E2CAC = 0x800E479C;
+D_800E2CB0 = 0x800E47A0;
+D_800E2CB4 = 0x800E47A4;
+D_800E2CB8 = 0x800E47A8;
+D_800E2CBC = 0x800E47AC;
+D_800E2CC0 = 0x800E47B0;
+D_800E2CC4 = 0x800E47B4;
+D_800E2CC8 = 0x800E47B8;
+D_800E2CCC = 0x800E47BC;
+D_800E2CD0 = 0x800E47C0;
+D_800E2CD4 = 0x800E47C4;
+D_800E2CD8 = 0x800E47C8;
+D_800E2CDC = 0x800E47CC;
+D_800E2CE0 = 0x800E47D0;
+D_800E2CE4 = 0x800E47D4;
+gParticlesAssetTableCount = 0x800E47D8;
+gParticlesAssets = 0x800E47DC;
+gParticlesAssetTable = 0x800E47E0;
+gParticleBehavioursAssetTableCount = 0x800E47E4;
+gParticleBehavioursAssets = 0x800E47E8;
+gParticleBehavioursAssetTable = 0x800E47EC;
+D_800E2D00 = 0x800E47F0;
+D_800E2D08 = 0x800E47F8;
+D_800E2D58 = 0x800E4848;
+D_800E2D78 = 0x800E4868;
+D_800E2DF8 = 0x800E48E8;
+D_800E2E28 = 0x800E4918;
+gParticleGravityTable = 0x800E491C;
+D_800E2E4C = 0x800E493C;
+D_800E2E50 = 0x800E4940;
+D_800E2E54 = 0x800E4944;
+D_800E2E58 = 0x800E4948;
+D_800E2E5C = 0x800E494C;
+D_800E2E60 = 0x800E4950;
+D_800E2E64 = 0x800E4954;
+gParticleCoordListTri = 0x800E4958;
+gParticleCoordListQuad = 0x800E4964;
+D_800E2E84 = 0x800E4974;
+D_800E2EC4 = 0x800E49B4;
+gParticleOpacity = 0x800E49DC;
+
+// printf.c .data
+D_800E2EF0 = 0x800E49E0;
+gDebugFontCoords = 0x800E49E4;
+dDebugFontSettings = 0x800E4AA8;
+
+// thread0_epc.c .data
+sLockupStatus = 0x800E4B10;
+sLockupPage = 0x800E4B14;
+sLockupDelay = 0x800E4B18;
+
+// waves.c .data
+D_800E3040 = 0x800E4B30;
+D_800E3044 = 0x800E4B34;
+D_800E3048 = 0x800E4B38;
+D_800E304C = 0x800E4B3C;
+D_800E3070 = 0x800E4B60;
+D_800E3078 = 0x800E4B68;
+D_800E3080 = 0x800E4B70;
+D_800E3090 = 0x800E4B80;
+D_800E30D0 = 0x800E4BC0;
+D_800E30D4 = 0x800E4BC4;
+D_800E30D8 = 0x800E4BC8;
+D_800E30DC = 0x800E4BCC;
+D_800E30E0 = 0x800E4BD0;
+D_800E30E4 = 0x800E4BD4;
+D_800E30E8 = 0x800E4BD8;
+D_800E30FC = 0x800E4BEC;
+D_800E3110 = 0x800E4C00;
+D_800E3144 = 0x800E4C34;
+D_800E3178 = 0x800E4C68;
+D_800E317C = 0x800E4C6C;
+D_800E3180 = 0x800E4C70;
+D_800E3184 = 0x800E4C74;
+D_800E3188 = 0x800E4C78;
+D_800E318C = 0x800E4C7C;
+D_800E3190 = 0x800E4C80;
+D_800E3194 = 0x800E4C84;
+gWaveGeneratorObj = 0x800E4C88;
+
+// fade_transition.c .data
+gTransitionsDisabled = 0x800E4C90;
+sLevelTransitionDelayTimer = 0x800E4C94;
+gTransitionInvert = 0x800E4C98;
+sTransitionStatus = 0x800E4C9C;
+sTransitionFadeTimer = 0x800E4CA0;
+gTransitionEndTimer = 0x800E4CA4;
+sTransitionFadeDuration = 0x800E4CA8;
+gTransitionFadeIn = 0x800E4CAC;
+sTransitionVtx = 0x800E4CB0;
+sTransitionTris = 0x800E4CB8;
+sTransitionTaskNum = 0x800E4CC0;
+dTransitionFadeSettings = 0x800E4CC8;
+gTransitionBarnHorizontalData = 0x800E4D20;
+gTransitionBarnVerticalData = 0x800E4D58;
+D_800E32A0 = 0x800E4D90;
+D_800E32AC = 0x800E4D9C;
+gTransitionBarnDoorTris = 0x800E4DA8;
+gTransitionBarnDoorAlpha = 0x800E4DC0;
+gTransitionBarnDiagData = 0x800E4DCC;
+D_800E330C = 0x800E4DFC;
+D_800E3318 = 0x800E4E08;
+gTransitionBarnDoorDiagTris = 0x800E4E14;
+gTransitionBarnDoorDiagAlpha = 0x800E4E28;
+gTransitionWaveData = 0x800E4E34;
+D_800E3440 = 0x800E4F30;
+D_800E349C = 0x800E4F8C;
+gTransitionWaveAlpha = 0x800E4FE8;
+gTransitionWaveTris = 0x800E5044;
+dTransitionShapeSettings = 0x800E5138;
+
+// game_text.c .data
+gTextTableExists = 0x800E5160;
+gTextDisplayNumber = 0x800E5164;
+gTextboxDelay = 0x800E5168;
+gDelayedTextID = 0x800E516C;
+gSubtitleSetting = 0x800E5170;
+
+// font.c .data
+dDialogueBoxBegin = 0x800E5180;
+dDialogueBoxDrawModes = 0x800E51B8;
+sDialogueBoxIsOpen = 0x800E51E8;
+gDescPowsOf10 = 0x800E51EC;
+sDialogueBoxDimensions = 0x800E5210;
+
+__osPiDevMgr = 0x800E52A0; // size:0x1C
+
+// gzip.c .data
+gHuftTable = 0x800E52C0;
+gAssetAddress = 0x800E52C4;
+gzip_inflate_input = 0x800E52C8;
+gzip_inflate_output = 0x800E52CC;
+
+// thread30_track_loading.c .data
+gThread30NeedToLoadLevel = 0x800E52D0;
+gThread30LevelIdToLoad = 0x800E52D4;
+gThread30CutsceneIdToLoad = 0x800E52D8;
+gThread30LoadDelay = 0x800E52DC;
+
+// al/sl.c .data
+alGlobals = 0x800E52E0;
+
+// osAiSetNextBuffer.c .data
+hdwrBugFlag = 0x800E52F0;
+
+// al/env .data
+
+// STATIC VAR
+eqpower = 0x800E5300; // size:0x100
+
+// osInitialize.c .data
+osClockRate = 0x800E5400;
+__osShutdown = 0x800E5408;
+__OSGlobalIntMask = 0x800E540C;
+gLeoFound = 0x800E5410;
+
+// controller.c .data
+__osContinitialized = 0x800E5420;
+
+// siacs.c .data
+__osSiAccessQueueEnabled = 0x800E5430;
+
+// osViMgr .data
+__osViDevMgr = 0x800E5440;
+
+// vitbl .data
+osViModeTable = 0x800E5460;
+osViModeNtscLpn1 = 0x800E6180;
+osViModePalLpn1 = 0x800E61D0;
+osViModeMpalLpn1 = 0x800E6220;
+osViModeNtscLan1 = 0x800E6270;
+osViModePalLan1 = 0x800E62C0;
+osViModeMpalLan1 = 0x800E6310;
+
+__osPiAccessQueueEnabled = 0x800E6360;
+
+// osSpTaskYielded .data
+vi = 0x800E6370;
+__osViCurr = 0x800E63D0;
+__osViNext = 0x800E63D4;
+osViClock = 0x800E63D8;
+
+// __osViSwapContext .data
+__osThreadTail = 0x800E63E0;
+__osRunQueue = 0x800E63E8;
+__osActiveQueue = 0x800E63EC;
+__osRunningThread = 0x800E63F0;
+__osFaultedThread = 0x800E63F4;
+
+__osHwIntTable = 0x800E6400;
+
+// xprintf.c 
+_spaces = 0x800E6420; // type:asciz
+_zeroes = 0x800E6444; // type:asciz
+
+// osTimer.c .data
+__osTimerList = 0x800E6470;
+
+// xlitob .data
+ldigs = 0x800E6480; // type:asciz
+udigs = 0x800E6494; // type:asciz
+
+// audio.c .rodata
+sAudioErrorString_01 = 0x800E64B0; // defined:true type:asciz
+
+
 sDebugVersionInfoString = 0x800E8C70; // type:asciz
 sDebugBuildDateString = 0x800E8C78; // type:asciz
 sDebugUsernameString = 0x800E8C88; // type:asciz

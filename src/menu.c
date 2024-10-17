@@ -466,7 +466,7 @@ MenuColour gTitleCinematicTextColours[4] = {
     { 0, 0, 255, 255, 51 }     // Blue
 };
 
-UNUSED u8 unused_800DFA10[4] = { 0, 0, 15, 120 };
+UNUSED u8 unused_800DFA0C[4] = { 0, 0, 15, 120 };
 
 char *gOptionMenuStrings[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
