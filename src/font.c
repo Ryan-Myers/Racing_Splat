@@ -1004,24 +1004,15 @@ void parse_string_with_number(char *input, char *output, s32 number) {
     *output = '\0'; // null terminator
 }
 
-#if REGION == REGION_JP
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C663C_C723C.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C67F4_C73F4.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6870_C7470.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7744_C8344.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7804_C8404.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7864_C8464.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C78E0_C84E0.s")
+#if 0
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C663C_C723C.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C67F4_C73F4.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6870_C7470.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7744_C8344.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7804_C8404.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7864_C8464.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C78E0_C84E0.s")
 #endif

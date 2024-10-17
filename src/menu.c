@@ -2514,8 +2514,8 @@ void draw_menu_elements(s32 state, MenuElement *elems, f32 scale) {
     sMenuGuiOpacity = 255;
 }
 
-#if REGION == REGION_JP
-#pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80082BC8_837C8.s")
+#if 0
+pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80082BC8_837C8.s")
 #endif
 
 /**

@@ -3514,6 +3514,12 @@ rspF3DDKRDataFifoStart = 0x800EBE10;
 rspF3DDKRDataXbusStart = 0x800EC610;
 rspUnknown2DataStart = 0x800ECE10;
 
+// Start of BSS
+gBssSectionStart = 0x800ED9D0; //TODO  Rename this?
+
+// End of BSS
+__osThreadSave = 0x8012ED20; // type:OSThread size:0x1B0
+gMainMemoryPool = 0x8012EED0; // type:MemoryPoolSlot size:0x14
 
 sDebugVersionInfoString = 0x800E8C70; // type:asciz
 sDebugBuildDateString = 0x800E8C78; // type:asciz
