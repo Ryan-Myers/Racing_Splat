@@ -4171,18 +4171,25 @@ gUsePrimColour = 0x80127E14;
 // menu .bss
 gCourseInitials = 0x80127E20;
 gFLapInitials = 0x80127E24;
-gAdventureSaveGhost = 0x80127E28;
-gPreviousMenuID = 0x80127E2C;
+gNumberOfCheats = 0x80127E28;
+gNameEntryStickX = 0x80127E2C;
 sMenuCurrDisplayList = 0x80127E30;
-gTTSaveGhostPakErrorText = 0x80127E34;
 sMenuCurrHudMat = 0x80127E38;
-sMenuCurrHudVerts = 0x80127E3C;
-sMenuCurrHudTris = 0x80127E40;
-gMenuSelectedCharacter = 0x80127E44;
-D_801263B8 = 0x80127E48;
-gOptionBlinkTimer = 0x80127E4C;
-gMenuCurrentCharacter = 0x80127E50;
-gIgnorePlayerInputTime = 0x80127E54;
+sMenuCurrHudVerts = 0x80127E40;
+sMenuCurrHudTris = 0x80127E48;
+gOptionBlinkTimer = 0x80127ECC;
+gIgnorePlayerInputTime = 0x80127ED0;
+sUnused_801263C8 = 0x80127EE0;
+gAdventureSaveGhost = 0x80127ED4;
+gPreviousMenuID = 0x80127ED8;
+sEepromSettings = 0x80127F00; // type:u64
+sUnused_80126470 = 0x80127F90;
+gSavefileData = 0x80127FD0; // size:0x10
+gAudioOutputStrings = 0x80128518; // size:0xC
+gMusicTestString = 0x80128528; // size:0x4
+gMenuGeometry = 0x80128774;
+gCheatsAssetData = 0x80128778;
+gMenuSoundMasks = 0x801282D8; // size:0x10
 
 
 // End of BSS
