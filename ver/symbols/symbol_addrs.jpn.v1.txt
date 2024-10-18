@@ -4082,6 +4082,107 @@ gDmaMesg = 0x80125C88;
 gDmaMesgQueue = 0x80125C90;
 gPIMesgBuf = 0x80125CA8;
 gPIMesgQueue = 0x80125CE8;
+gAssetsLookupTableMesgBuf = 0x80125D00; // NEW BSS
+gDmaMesgQueueV2 = 0x80125D08; // NEW BSS
+gAssetsLookupTable = 0x80125D20;
+
+// rcp .bss
+gDramStack = 0x80125D30;
+gGfxSPTaskYieldBuffer = 0x80126130;
+D_80125EA0 = 0x80127930;
+D_80125EB8 = 0x80127948;
+D_80125EC0 = 0x80127950;
+gGfxTaskMesgQueue = 0x80127968;
+D_80125EF0 = 0x80127980;
+gGfxTaskMesgBuf = 0x801279A0;
+gChequerBGColourR1 = 0x801279C0;
+gChequerBGColourG1 = 0x801279C1;
+gChequerBGColourB1 = 0x801279C2;
+gChequerBGColourA1 = 0x801279C3;
+gChequerBGColourR2 = 0x801279C4;
+gChequerBGColourG2 = 0x801279C5;
+gChequerBGColourB2 = 0x801279C6;
+gChequerBGColourA2 = 0x801279C7;
+gChequerBGWidth = 0x801279C8;
+gChequerBGHeight = 0x801279CC;
+gGfxTaskBuf = 0x801279D0;
+gGfxTaskBuf2 = 0x80127AB0;
+osScInterruptQ = 0x80127B90;
+
+// sc/sched .bss
+gCurRSPTaskIsSet = 0x80127BA0; // type:s32 size:0x4
+gCurRDPTaskIsSet = 0x80127BA4; // type:s32 size:0x4
+gYieldTime = 0x80127BA8; // type:u64 size:0x8
+gRSPAudTaskFlushTime = 0x80127BB0; // type:u32 size:0x4
+gRSPAudTaskDoneTime = 0x80127BB4; // type:u32 size:0x4
+D_80126128 = 0x80127BB8; // type:s32 size:0x48
+
+// video .bss
+gVideoRefreshRate = 0x80127C00;
+gVideoAspectRatio = 0x80127C04;
+gVideoHeightRatio = 0x80127C08;
+D_8012617C = 0x80127C0C;
+gVideoMesgBuf = 0x80127C10;
+gVideoMesgQueue = 0x80127C30;
+gTvViMode = 0x80127CF0;
+gVideoFbWidths = 0x80127D40;
+gVideoFbHeights = 0x80127D48;
+gVideoFramebuffers = 0x80127D50;
+gVideoCurrFbIndex = 0x80127D58;
+gVideoModeIndex = 0x80127D5C;
+sBlackScreenTimer = 0x80127D60;
+gVideoCurrFramebuffer = 0x80127D64;
+gVideoLastFramebuffer = 0x80127D68;
+gVideoCurrDepthBuffer = 0x80127D6C;
+gVideoLastDepthBuffer = 0x80127D70;
+D_801262E4 = 0x80127D74;
+D_801262E8 = 0x80127D78;
+gVideoDeltaCounter = 0x80127D98;
+gVideoDeltaTime = 0x80127D99;
+gVideoSched = 0x80127DA0;
+
+// textures_sprites .bss
+gTextureAssetTable = 0x80127DB0;
+gTextureCache = 0x80127DB8;
+gCiPalettes = 0x80127DBC;
+gNumberOfLoadedTextures = 0x80127DC0;
+D_80126334 = 0x80127DC4;
+gTextureAssetID = 0x80127DC8;
+gCiPalettesSize = 0x80127DD0;
+D_80126344 = 0x80127DD4;
+gSpriteOffsetTable = 0x80127DD8;
+gSpriteCache = 0x80127DDC;
+gCurrentSprite = 0x80127DE0;
+gSpriteTableNum = 0x80127DE4;
+D_80126358 = 0x80127DE8;
+D_8012635C = 0x80127DEC;
+D_80126360 = 0x80127DF0;
+D_80126364 = 0x80127DF4;
+D_80126368 = 0x80127DF8;
+gTempTextureHeader = 0x80127DFC;
+D_80126370 = 0x80127E00;
+gCurrentRenderFlags = 0x80127E04;
+gBlockedRenderFlags = 0x80127E08;
+gCurrentTextureHeader = 0x80127E0C;
+gUsingTexture = 0x80127E10;
+gForceFlags = 0x80127E12;
+gUsePrimColour = 0x80127E14;
+
+// menu .bss
+gCourseInitials = 0x80127E20;
+gFLapInitials = 0x80127E24;
+gAdventureSaveGhost = 0x80127E28;
+gPreviousMenuID = 0x80127E2C;
+sMenuCurrDisplayList = 0x80127E30;
+gTTSaveGhostPakErrorText = 0x80127E34;
+sMenuCurrHudMat = 0x80127E38;
+sMenuCurrHudVerts = 0x80127E3C;
+sMenuCurrHudTris = 0x80127E40;
+gMenuSelectedCharacter = 0x80127E44;
+D_801263B8 = 0x80127E48;
+gOptionBlinkTimer = 0x80127E4C;
+gMenuCurrentCharacter = 0x80127E50;
+gIgnorePlayerInputTime = 0x80127E54;
 
 
 // End of BSS

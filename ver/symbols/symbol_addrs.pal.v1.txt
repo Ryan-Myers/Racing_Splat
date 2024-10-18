@@ -3830,7 +3830,6 @@ D_801262E4 = 0x80126374;
 D_801262E8 = 0x80126378;
 gVideoDeltaCounter = 0x80126398;
 gVideoDeltaTime = 0x80126399;
-D_8012630C = 0x8012639C;
 gVideoSched = 0x801263A0;
 gTextureAssetTable = 0x801263B0;
 gTextureCache = 0x801263B8;

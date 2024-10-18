@@ -49,7 +49,6 @@ u8 D_801262E4;
 UNUSED OSMesg D_801262E8[8];
 u8 gVideoDeltaCounter;
 u8 gVideoDeltaTime;
-UNUSED s32 D_8012630C;
 OSScClient gVideoSched;
 
 /******************************/

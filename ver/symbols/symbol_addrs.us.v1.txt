@@ -4269,7 +4269,6 @@ D_801262E4 = 0x801262E4;
 D_801262E8 = 0x801262E8;
 gVideoDeltaCounter = 0x80126308;
 gVideoDeltaTime = 0x80126309;
-D_8012630C = 0x8012630C;
 gVideoSched = 0x80126310;
 
 // textures_sprites ,bss
