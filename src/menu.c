@@ -80,7 +80,7 @@ u8 gResultsPlayers[8];
 u8 gRankingsPlayers[8];
 u8 gResultsPlayerIDs[8];
 u8 gRankingsPlayerIDs[8]; // Contains the order of racer indices that tell you what place they are in.
-s8 D_80126438[16];
+s8 D_80126438[16]; // Could be 12 and not size 16
 
 // Eeeprom save data bits stored at address 0xF
 // bit 0      = Adventure Two is Unlocked
