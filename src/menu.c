@@ -45,7 +45,7 @@
 char gCourseInitials[4]; // course initials
 char gFLapInitials[4];   // flap initials
 s32 gAdventureSaveGhost;
-#if VERSION >= VERSION_79
+#if VERSION >= VERSION_80
 // For some reason these BSS vars swapped places in different versions
 Gfx *sMenuCurrDisplayList;
 s32 gPreviousMenuID;
@@ -127,9 +127,9 @@ UNUSED s8 D_801264E0;
 UNUSED s8 D_801264E1;
 s8 sCurrentMenuID;
 u8 gGhostCharacterIDsPak[4];
-s32 D_801264E8;
+UNUSED s32 D_801264E8;
 u8 gGhostVehicleIDsPak[4];
-s32 D_801264F0[2];
+UNUSED s32 D_801264F0[2];
 u16 gGhostChecksumIDsPak[6];
 s8 sDialogueOptionMax;
 u8 gGhostLevelIDsMenu[6];
