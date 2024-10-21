@@ -327,18 +327,63 @@ segments:
       - [0xE7020, data, lib/src/libc/xprintf]
       - [0xE7070, data, lib/src/os/timerintr]
       - [0xE7080, data, lib/src/libc/xlitob]
-      # lights - + 0x19A0
-      # rcp_dkr - + 0x19B0 
-      # From gTitleCinematicTextColourCount on in menu.c - + 0x1A60
-      # From gCheatsInCreditsArray on in menu.c - + 0x1A8C
-      # From dMenuHudSettings on in menu.c - + 0x1A90
-      # New D_800E4328_E4F28 pushes gWeatherPresets to be - +0x1AF0
-      # 4 More dDialogueBoxDrawModes vars pushes it to be - +0x1B00
-      # New D_800E5234_E5E34 pushes to -  +0x1B60
-      # Missing TT CAM rodata brings it back to - +0x1B58
-      # RODATA PADDING BEFORE D_800E5F60 TO - +0x1B60
-      # CREDITS DIFF TO - +0x1B10
-      - [0xE70B0, rodata]
+      - [0xE70B0, rodata, audio]
+      - [0xE7150, rodata, audiomgr]
+      - [0xE7310, rodata, audiosfx]
+      - [0xE7350, rodata, audio_vehicle]
+      - [0xE7460, rodata, audio_spatial]
+      - [0xE7690, rodata, lib/src/audio/mips1/seqplayer]
+      - [0xE76C0, rodata, objects]
+      - [0xE8550, rodata, tracks]
+      - [0xE86C0, rodata, hasm/collision]
+      - [0xE86E0, rodata, lights]
+      - [0xE8780, rodata, object_functions]
+      - [0xE89E0, rodata, racer]
+      - [0xE9170, rodata, vehicle_tricky]
+      - [0xE9190, rodata, vehicle_bluey]
+      - [0xE91B0, rodata, vehicle_smokey]
+      - [0xE91D0, rodata, vehicle_bubbler]
+      - [0xE9210, rodata, vehicle_wizpig]
+      - [0xE9260, rodata, vehicle_rocket]
+      - [0xE9280, rodata, object_models]
+      - [0xE9380, rodata, lib/src/audio/mips1/csplayer]
+      - [0xE95D0, rodata, lib/src/audio/mips1/reverb]
+      - [0xE9600, rodata, lib/src/audio/mips1/drvrnew]
+      - [0xE9620, rodata, lib/src/audio/mips1/synthesizer]
+      - [0xE9630, rodata, main]
+      - [0xE9660, rodata, camera]
+      - [0xE9870, rodata, thread3_main]
+      - [0xE9970, rodata, memory]
+      - [0xE9D90, rodata, save_data]
+      - [0xE9F60, rodata, lib/src/sc/sched]
+      - [0xEA0F0, rodata, video]
+      - [0xEA290, rodata, textures_sprites]
+      - [0xEA3F0, rodata, screen_asset]
+      - [0xEA410, rodata, menu]
+      - [0xEAD50, rodata, game_ui]
+      #- [0x, rodata, weather] # Looks like the only RODATA for this file isn't in this ROM
+      - [0xEAEF0, rodata, particles]
+      - [0xEB2B0, rodata, printf]
+      - [0xEB520, rodata, thread0_epc]
+      - [0xEB810, rodata, waves]
+      - [0xEB980, rodata, fade_transition]
+      - [0xEB9E0, rodata, game_text]
+      - [0xEBA10, rodata, font]
+      - [0xEBA30, rodata, hasm/gzip_asm]
+      - [0xEBB20, rodata, lib/src/audio/cseq]
+      - [0xEBB30, rodata, lib/src/audio/cents2ratio]
+      - [0xEBB40, rodata, lib/src/os/setintmask]
+      - [0xEBBC0, rodata, lib/src/libc/llcvt]
+      - [0xEBBD0, rodata, lib/src/audio/env]
+      - [0xEBCA0, rodata, lib/src/audio/resample]
+      - [0xEBCB0, rodata, lib/src/gu/perspective]
+      - [0xEBCC0, rodata, lib/src/io/devmgr]
+      - [0xEBCE0, rodata, lib/src/os/exceptasm]
+      - [0xEBD30, rodata, lib/src/libc/xprintf]
+      - [0xEBE30, rodata, lib/src/gu/cosf]
+      - [0xEBE80, rodata, lib/src/gu/sinf]
+      - [0xEBED0, rodata, lib/src/libc/xldtob]
+      - [0xEBF30, rodata, lib/src/gu/libm_vals]
       - { start: 0xEBF40, type: databin, name: data_audio,       linker_section_order: .rodata }
       - { start: 0xEC210, type: databin, name: data_f3ddkr_dram, linker_section_order: .rodata }
       - { start: 0xECA10, type: databin, name: data_f3ddkr_fifo, linker_section_order: .rodata }
