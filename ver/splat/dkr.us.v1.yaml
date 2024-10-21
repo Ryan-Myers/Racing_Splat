@@ -280,6 +280,7 @@ segments:
       - [0xDD750, .data, racer]
       - [0xDD9E0, .data, vehicle_tricky]
       - [0xDDA00, .data, vehicle_bluey]
+      - [0xDDA20, .data, vehicle_smokey]
       - [0xDDA40, .data, vehicle_bubbler]
       - [0xDDA60, .data, vehicle_wizpig]
       - [0xDDA80, .data, vehicle_rocket]
