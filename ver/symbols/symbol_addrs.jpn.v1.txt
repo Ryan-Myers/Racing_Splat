@@ -4463,8 +4463,207 @@ gLensFlareLarge = 0x801296DC;
 gLensFlarePos = 0x801296E0;
 gLensFlareSwitches = 0x801296F0;
 
+// particles .bss
+gParticleUpdateRate = 0x80129730;
+D_80127C84 = 0x80129734;
+D_80127C88 = 0x80129738;
 
-// End of BSS
+// printf
+gTexture = 0x80129750; //size:0xC
+gDebugTextX = 0x8012975C;
+gDebugTextY = 0x8012975E;
+D_80127CB0 = 0x80129760;
+D_80127CB2 = 0x80129762;
+D_80127CB4 = 0x80129764;
+gDebugTextOn = 0x80129768;
+gDebugBoundsX1 = 0x8012976C;
+gDebugBoundsX2 = 0x80129770;
+gDebugBoundsY1 = 0x80129774;
+gDebugBoundsY2 = 0x80129778;
+gDebugFontTexture = 0x8012977C;
+gDebugScreenWidth = 0x80129780;
+gDebugScreenHeight = 0x80129782;
+D_80127CD4 = 0x80129784;
+gDebugPrintBufferStart = 0x80129788;
+gDebugPrintBufferEnd = 0x8012A088;
+
+// thread0_epc
+gEPCStack = 0x8012A090;
+gEPCThread = 0x8012B090;
+D_80129790 = 0x8012B240;
+D_801297A8 = 0x8012B258;
+D_801297C8 = 0x8012B278;
+D_801297E8 = 0x8012B298;
+gEpcInfo = 0x8012B2B0; // size:0x1B0
+D_801299B0 = 0x8012B460; // size:0x100
+
+// stacks .bss
+D_80129AB0 = 0x8012B560; // size:0x100
+D_80129BB0 = 0x8012B660; // size:0x400
+gObjectStackTrace = 0x8012BA60; // size:0x10
+
+// waves .bss
+D_80129FC0 = 0x8012BA70;
+D_80129FC4 = 0x8012BA74;
+D_80129FC8 = 0x8012BA78; // size:0x50
+D_8012A018 = 0x8012BAC8;
+D_8012A01C = 0x8012BACC;
+D_8012A020 = 0x8012BAD0;
+D_8012A028 = 0x8012BAD8;
+D_8012A078 = 0x8012BB28;
+gWaveBatch = 0x8012BB2C;
+gWaveTexture = 0x8012BB30;
+D_8012A084 = 0x8012BB34;
+D_8012A088 = 0x8012BB38;
+D_8012A08C = 0x8012BB3C;
+D_8012A090 = 0x8012BB40;
+D_8012A094 = 0x8012BB44;
+D_8012A098 = 0x8012BB48;
+D_8012A09C = 0x8012BB4C;
+D_8012A0A0 = 0x8012BB50;
+D_8012A0A4 = 0x8012BB54;
+gWaveBoundingBoxDiffX = 0x8012BB58;
+gWaveBoundingBoxDiffZ = 0x8012BB5C;
+gWaveBoundingBoxX1 = 0x8012BB60;
+gWaveBoundingBoxZ1 = 0x8012BB64;
+D_8012A0B8 = 0x8012BB68;
+D_8012A0BC = 0x8012BB6C;
+D_8012A0C0 = 0x8012BB70;
+D_8012A0C4 = 0x8012BB74;
+D_8012A0C8 = 0x8012BB78;
+D_8012A0CC = 0x8012BB7C;
+D_8012A0D0 = 0x8012BB80;
+D_8012A0D4 = 0x8012BB84;
+D_8012A0D8 = 0x8012BB88;
+D_8012A0DC = 0x8012BB8C;
+D_8012A0E0 = 0x8012BB90;
+D_8012A0E8 = 0x8012BB98;
+D_8012A1E8 = 0x8012BC98;
+D_8012A5E8 = 0x8012C098;
+D_8012A5F4 = 0x8012C0A4;
+D_8012A5F8 = 0x8012C0A8;
+D_8012A5FC = 0x8012C0AC;
+D_8012A600 = 0x8012C0B0;
+gWavePowerBase = 0x8012C1D0;
+gWaveMagnitude = 0x8012C1D4;
+gWavePowerDivisor = 0x8012C1D8;
+
+// fade_transition
+gCurFadeTransition = 0x8012C1E0;
+gCurFadeRed = 0x8012C1E4;
+gCurFadeGreen = 0x8012C1E5;
+gCurFadeBlue = 0x8012C1E6;
+gCurFadeAlpha = 0x8012C1E7;
+gLastFadeRed = 0x8012C1E8;
+gLastFadeGreen = 0x8012C1EC;
+gLastFadeBlue = 0x8012C1F0;
+gLastFadeRedStep = 0x8012C1F4;
+gLastFadeGreenStep = 0x8012C1F8;
+gLastFadeBlueStep = 0x8012C1FC;
+sTransitionOpacity = 0x8012C200;
+gTransitionOpacityVel = 0x8012C204;
+D_8012A758 = 0x8012C208;
+D_8012A75C = 0x8012C20C;
+D_8012A760 = 0x8012C210;
+D_8012A764 = 0x8012C214;
+D_8012A768 = 0x8012C218;
+D_8012A76C = 0x8012C21C;
+gTransitionNextVtx = 0x8012C220;
+gTransitionVtxStep = 0x8012C224;
+gTransitionVertexTarget = 0x8012C228;
+gTransitionVertexCount = 0x8012C22C;
+
+// game_text .bss
+gGameTextTable = 0x8012C230;
+gCloseTextMessage = 0x8012C234;
+gTextCloseTimerFrames = 0x8012C235;
+gTextCloseTimerSeconds = 0x8012C236;
+D_8012A787 = 0x8012C237;
+D_8012A788 = 0x8012C238;
+gShowOnscreenMessage = 0x8012C239;
+D_8012A78A = 0x8012C23A;
+D_8012A78C = 0x8012C23C;
+D_8012A78E = 0x8012C23E;
+gTextTableEntries = 0x8012C240;
+D_8012A792 = 0x8012C242;
+gGameTextTableEntries = 0x8012C248;
+D_8012A7A0 = 0x8012C250;
+D_8012A7A4 = 0x8012C254;
+gDialogueAlpha = 0x8012C258;
+gTextAlphaVelocity = 0x8012C25A;
+gSubtitleTimer = 0x8012C25C;
+gDialogueXPos1 = 0x8012C25E;
+gDialogueYPos1 = 0x8012C260;
+gDialogueXPos2 = 0x8012C262;
+gDialogueYPos2 = 0x8012C264;
+gShowSubtitles = 0x8012C266;
+gSubtitleLineCount = 0x8012C268;
+gCurrentTextID = 0x8012C26A;
+D_8012A7BC = 0x8012C26C;
+gSubtitleProperties = 0x8012C270;
+gCurrentMessageText = 0x8012C278;
+gCurrentTextProperties = 0x8012C280;
+D_8012A7D4 = 0x8012C284;
+
+// font 
+gNumberOfFonts = 0x8012C290;
+gFonts = 0x8012C294;
+gDialogueBoxBackground = 0x8012C298;
+gDialogueText = 0x8012C29C;
+gCompactKerning = 0x8012C2A0;
+sDialogueBoxCloseTimer = 0x8012C2DC;
+
+
+// osCreatePiManager .bss
+piThread = 0x8012C2E0;
+piThreadStack = 0x8012C490;
+piEventQueue = 0x8012C590;
+piEventBuf = 0x8012C5A8;
+
+// gzip .bss
+gzip_bit_buffer = 0x8012C5B0;
+gzip_num_bits = 0x8012C5B4;
+gHuftTablePos = 0x8012C5B8;
+
+// thread30_track_loading .bss
+leoDiskStack = 0x8012C5C0;
+gThread30 = 0x8012C5D0;
+gThread30MesgQueue = 0x8012C780; // type:OSMesgQueue size:0x18
+gThread30Message = 0x8012C798; // type:OSMesg size:0x4
+gThread30Stack = 0x8012C7A0; // type:u64 size:0x2000
+__osFinalrom = 0x8012E7A0; // type:u32 size:0x4
+
+// osSetEventMesg .bss
+__osEventStateTab = 0x8012E7B0;
+
+// controller .bss
+__osContPifRam = 0x8012E830;
+__osContLastCmd = 0x8012E870;
+__osMaxControllers = 0x8012E871;
+__osEepromTimer = 0x8012E878;
+__osEepromTimerQ = 0x8012E898;
+__osEepromTimerMsg = 0x8012E8B0;
+__osPfsPifRam = 0x8012E8C0;
+
+// siacs .bss
+__osSiAccessQueue = 0x8012E908;
+__osEepPifRam = 0x8012E920;
+viThread = 0x8012E960;
+gViMgrStack = 0x8012EB10;
+viEventQueue = 0x8012EC10;
+viEventBuf = 0x8012EC28;
+viRetraceMsg = 0x8012EC40;
+viCounterMsg = 0x8012EC58;
+retrace = 0x8012EC70;
+tmp_task = 0x8012EC80;
+piAccessBuf = 0x8012ECC0;
+__osPiAccessQueue = 0x8012ECC8;
+__osBaseTimer = 0x8012ECE0; // type:OSTimer size:0x20
+__osCurrentTime = 0x8012ED00; // type:u64
+__osBaseCounter = 0x8012ED08;
+__osViIntrCount = 0x8012ED0C;
+__osTimerCounter = 0x8012ED10;
+D_8012D238 = 0x8012ED18;
 __osThreadSave = 0x8012ED20; // type:OSThread size:0x1B0
 gMainMemoryPool = 0x8012EED0; // type:MemoryPoolSlot size:0x14
 

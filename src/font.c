@@ -69,6 +69,22 @@ DialogueBoxBackground *gDialogueBoxBackground; // Official Name: Window
 DialogueTextElement *gDialogueText;            // Official Name: String
 s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be related to X placement of menus on the X
                      // Axis?
+
+#ifdef REGION == REGION_JP
+u32 *D_8012C2A4_12CEA4
+void *D_8012C2A8_12CEA8
+void *D_8012C2AC_12CEAC[3] // Could be 4?
+s32 D_8012C2B8_12CEB8;
+s32 D_8012C2BC_12CEBC;
+s32 D_8012C2C0_12CEC0;
+void *D_8012C2C4_12CEC4;
+s32 D_8012C2C8_12CEC8;
+s32 D_8012C2CC_12CECC;
+void *D_8012C2D0_12CED0;
+void *D_8012C2D4_12CED4;
+void *D_8012C2D8_12CED8;
+#endif
+
 s8 sDialogueBoxCloseTimer;
 
 /******************************/
@@ -1007,7 +1023,22 @@ void parse_string_with_number(char *input, char *output, s32 number) {
 #if 0
 pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
 pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C663C_C723C.s")
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C67F4_C73F4.s")
+
+void func_800C67F4_C73F4(void) {
+    if (D_8012C2D0_12CED0 != NULL) {
+        free_from_memory_pool(D_8012C2D0_12CED0);
+        D_8012C2D0_12CED0 = NULL;
+    }
+    if (D_8012C2D4_12CED4 != NULL) {
+        free_from_memory_pool(D_8012C2D4_12CED4);
+        D_8012C2D4_12CED4 = NULL;
+    }
+    if (D_8012C2D8_12CED8 != NULL) {
+        free_from_memory_pool(D_8012C2D8_12CED8);
+        D_8012C2D8_12CED8 = NULL;
+    }
+}
+
 pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6870_C7470.s")
 pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
 pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
