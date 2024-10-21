@@ -13,6 +13,7 @@
 #include "math_util.h"
 #include "objects.h"
 #include "PRinternal/viint.h"
+#include "common.h"
 
 #define WEATHER_OVERRIDE_COUNT 16
 
@@ -736,10 +737,13 @@ void lensflare_override_add(Object *obj) {
     if (gLensFlareOverrideObjs < WEATHER_OVERRIDE_COUNT) {
         gLensFlareSwitches[gLensFlareOverrideObjs] = obj;
         gLensFlareOverrideObjs++;
-    } else {
+    }
+#if REGION != REGION_JP
+    else {
         stubbed_printf("\nMaximum limit of %d lens flare switches, per level, has been exceeded.",
                        WEATHER_OVERRIDE_COUNT);
     }
+#endif
 }
 
 /**
