@@ -3904,6 +3904,7 @@ D_8011D5AF = 0x8011F01F;
 gRacerCurrentWave = 0x8011F020;
 D_8011D5B4 = 0x8011F024;
 D_8011D5B8 = 0x8011F028;
+
 // vehicle_tricky .bss
 gTrickyRacerPeakHeight = 0x8011F030;
 gTrickyCutsceneTimer = 0x8011F034;
@@ -4631,6 +4632,8 @@ gThread30 = 0x8012C5D0;
 gThread30MesgQueue = 0x8012C780; // type:OSMesgQueue size:0x18
 gThread30Message = 0x8012C798; // type:OSMesg size:0x4
 gThread30Stack = 0x8012C7A0; // type:u64 size:0x2000
+
+// initialize
 __osFinalrom = 0x8012E7A0; // type:u32 size:0x4
 
 // osSetEventMesg .bss
@@ -4643,11 +4646,17 @@ __osMaxControllers = 0x8012E871;
 __osEepromTimer = 0x8012E878;
 __osEepromTimerQ = 0x8012E898;
 __osEepromTimerMsg = 0x8012E8B0;
+
+// pfsisplug
 __osPfsPifRam = 0x8012E8C0;
 
 // siacs .bss
 __osSiAccessQueue = 0x8012E908;
+
+//conteepread
 __osEepPifRam = 0x8012E920;
+
+// vimgr
 viThread = 0x8012E960;
 gViMgrStack = 0x8012EB10;
 viEventQueue = 0x8012EC10;
@@ -4655,16 +4664,26 @@ viEventBuf = 0x8012EC28;
 viRetraceMsg = 0x8012EC40;
 viCounterMsg = 0x8012EC58;
 retrace = 0x8012EC70;
+
+// sptask
 tmp_task = 0x8012EC80;
+
+// piacs
 piAccessBuf = 0x8012ECC0;
 __osPiAccessQueue = 0x8012ECC8;
+
+// timerintr
 __osBaseTimer = 0x8012ECE0; // type:OSTimer size:0x20
 __osCurrentTime = 0x8012ED00; // type:u64
 __osBaseCounter = 0x8012ED08;
 __osViIntrCount = 0x8012ED0C;
 __osTimerCounter = 0x8012ED10;
 D_8012D238 = 0x8012ED18;
+
+// exceptasm
 __osThreadSave = 0x8012ED20; // type:OSThread size:0x1B0
+
+// memory_pool
 gMainMemoryPool = 0x8012EED0; // type:MemoryPoolSlot size:0x14
 
 sDebugVersionInfoString = 0x800E8C70; // type:asciz
