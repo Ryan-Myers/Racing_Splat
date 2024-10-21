@@ -4440,6 +4440,30 @@ gStopwatchErrorY = 0x80128C40;
 D_80127194 = 0x80128C44;
 D_80127198 = 0x80128C48;
 
+// os_yield_data .bss
+gGfxTaskYieldData = 0x80128C60; //size:0xA00
+
+// weather .bss
+gSnowDensity = 0x80129660;
+gSnowParticleCount = 0x80129664;
+gWeather = 0x80129668;
+gSnowPlane = 0x801296A8;
+gSnowVertOffset = 0x801296B0;
+gSnowTriCount = 0x801296B4;
+gSnowVertexFlip = 0x801296B8;
+gCurrWeatherDisplayList = 0x801296BC;
+gCurrWeatherMatrix = 0x801296C0;
+gCurrWeatherVertexList = 0x801296C4;
+gCurrWeatherTriList = 0x801296C8;
+gWeatherCamera = 0x801296CC;
+gWeatherCameraMatrix = 0x801296D0;
+gLensFlareSet1 = 0x801296D4;
+gLensFlareSet2 = 0x801296D8;
+gLensFlareLarge = 0x801296DC;
+gLensFlarePos = 0x801296E0;
+gLensFlareSwitches = 0x801296F0;
+
+
 // End of BSS
 __osThreadSave = 0x8012ED20; // type:OSThread size:0x1B0
 gMainMemoryPool = 0x8012EED0; // type:MemoryPoolSlot size:0x14
