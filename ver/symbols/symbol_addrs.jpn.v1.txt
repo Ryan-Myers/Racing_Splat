@@ -1140,6 +1140,7 @@ osMotorInit = 0x800721BC;
 
 // save_data.c .text
 input_get_id = 0x80072330;
+func_800724D8_730D8 = 0x80072378;
 rumble_init = 0x80072384;
 rumble_exists = 0x800723D4;
 rumble_set = 0x80072434;

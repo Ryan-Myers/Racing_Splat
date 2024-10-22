@@ -1487,11 +1487,22 @@ char *gCreditsArray[87] = {
     "M.Fukuda", "K.Lobb", "M.Kelbaugh", "A.Williams", "R.Johnson", "M.Forrest",
     "P.Sandhop", "H.Sterchi", "T.Hertzog", "D.Bridgham", "G.Richardson", "B.Smith",
     "NOA Thanks To",
-    "NOA Tree House", "NOA Tree Branch", 
+#if REGION == REGION_JP
+    "Tree House", "Tree Branch",
+#else
+    "NOA Tree House", "NOA Tree Branch",
+#endif
     "NCL Thank You's",
-    "K.Terasaki", "M.Goto", "H.Yamada", "Mario Club",
+    "K.Terasaki", "M.Goto", "H.Yamada",
+#if REGION == REGION_JP
+    "Y.Sakai",
+    "NCL Thank You's",
+    "Super", "Mario Club",
+#else
+    "Mario Club",
     "NOE Thank You's",
     "J.Kraft", "J.Bardakoff",
+#endif
     "Special Thanks To",
     "J.Hochberg", "H.Lincoln", "M.Arakawa",
     "Game Director",
@@ -2578,8 +2589,23 @@ void draw_menu_elements(s32 state, MenuElement *elems, f32 scale) {
     sMenuGuiOpacity = 255;
 }
 
-#if 0
-pragma GLOBAL_ASM("asm/nonmatchings/menu/func_80082BC8_837C8.s")
+#if REGION == REGION_JP
+void func_80082BC8_837C8(s32 dialogueBoxID, s32 xPos1, s32 yPos1, s32 xPos2, s32 yPos2, char *text, AlignmentFlags alignment, s32 textColour, s32 alpha) {
+    s32 opacity;
+    opacity = textColour & 0xFF;
+
+    if (dialogueBoxID < 0) {
+        set_text_colour(0, 0, 0, 255, opacity >> 1);
+        draw_text(&sMenuCurrDisplayList, xPos1 + xPos2, yPos1 + yPos2, text, alignment);
+        set_text_colour((textColour >> 24) & 0xFF, (textColour >> 16) & 0xFF, (textColour >> 8) & 0xFF, alpha, opacity);
+        draw_text(&sMenuCurrDisplayList, xPos1, yPos1, text, alignment);
+    } else {
+        set_current_text_colour(dialogueBoxID, 0, 0, 0, 255, opacity >> 1);
+        draw_dialogue_text_pos_unused(&sMenuCurrDisplayList, dialogueBoxID, xPos1 + xPos2, yPos1 + yPos2, text, alignment);
+        set_current_text_colour(dialogueBoxID, (textColour >> 24) & 0xFF, (textColour >> 16) & 0xFF, (textColour >> 8) & 0xFF, alpha, opacity);
+        draw_dialogue_text_pos_unused(&sMenuCurrDisplayList, dialogueBoxID, xPos1, yPos1, text, alignment);
+    }
+}
 #endif
 
 /**
@@ -2860,7 +2886,9 @@ void menu_title_screen_init(void) {
     music_voicelimit_set(27);
     func_800660C0();
     set_text_font(ASSET_FONTS_FUNFONT);
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     sound_volume_reset(FALSE);
     set_time_trial_enabled(FALSE);
     gTitleDemoIndex = 0;
@@ -3075,7 +3103,11 @@ s32 menu_title_screen_loop(s32 updateRate) {
             menu_init(MENU_CHARACTER_SELECT);
             return MENU_RESULT_CONTINUE;
         }
+#if REGION == REGION_JP
+        gMenuCurIndex = 1;
+#else
         gMenuCurIndex = 0;
+#endif
         load_level_for_menu(ASSET_LEVEL_OPTIONSBACKGROUND, -1, 0);
         menu_init(MENU_OPTIONS);
         return MENU_RESULT_CONTINUE;
@@ -3091,7 +3123,9 @@ void titlescreen_free(void) {
     menu_assetgroup_free(sGameTitleTileTextures);
     music_voicelimit_set(16);
     func_800660D0();
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
     sound_volume_reset(TRUE);
 }
 
@@ -3103,7 +3137,9 @@ void menu_options_init(void) {
     gOptionBlinkTimer = 0;
     gMenuDelay = 0;
     transition_begin(&sMenuTransitionFadeOut);
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     set_text_font(ASSET_FONTS_BIGFONT);
     music_voicelimit_set(24);
     music_play(SEQUENCE_MAIN_MENU);
@@ -3127,8 +3163,13 @@ void optionscreen_render(UNUSED s32 updateRate) {
     draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, 32, gMenuText[ASSET_MENU_TEXT_OPTIONS],
               ALIGN_MIDDLE_CENTER); // OPTIONS
 
+#if REGION == REGION_JP
+    optionMenuTextIndex = 1;
+    yPos = 88;
+#else
     optionMenuTextIndex = 0;
     yPos = 76;
+#endif
 
     set_text_font(ASSET_FONTS_FUNFONT);
 
@@ -3160,6 +3201,9 @@ s32 menu_options_loop(s32 updateRate) {
     s32 analogueX;
     s32 analogueY;
     UNUSED s32 pad1;
+#if REGION == REGION_JP
+    UNUSED s32 langVal;
+#endif
 
     gOptionBlinkTimer = (gOptionBlinkTimer + updateRate) & 0x3F;
     if (gMenuDelay != 0) {
@@ -3193,7 +3237,7 @@ s32 menu_options_loop(s32 updateRate) {
         // Go to a sub-menu
         gMenuDelay = 31;
         sound_play(SOUND_SELECT2, NULL);
-
+#if REGION != REGION_JP
     } else if (gMenuCurIndex == 0 && analogueX != 0) {
         s32 langVal = get_language();
 #if REGION == REGION_PAL
@@ -3225,6 +3269,7 @@ s32 menu_options_loop(s32 updateRate) {
         }
 #endif
         sound_play(SOUND_MENU_PICK2, NULL);
+#endif
     } else if (gMenuCurIndex == 1 && analogueX != 0) {
         if (sEepromSettings & 0x2000000) {
             // 0x2000000 SUBTITLES ENABLED?
@@ -3248,9 +3293,15 @@ s32 menu_options_loop(s32 updateRate) {
         }
         if (analogueY > 0) {
             gMenuCurIndex--;
+#if REGION == REGION_JP
+            if (gMenuCurIndex <= 0) {
+                gMenuCurIndex = 1;
+            }
+#else
             if (gMenuCurIndex < 0) {
                 gMenuCurIndex = 0;
             }
+#endif
         }
         if (prevOption != gMenuCurIndex) {
             sound_play(SOUND_MENU_PICK2, NULL);
@@ -3287,7 +3338,9 @@ s32 menu_options_loop(s32 updateRate) {
  * Unloads all assets associated with the options menu.
  */
 void optionscreen_free(void) {
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -3318,7 +3371,9 @@ void menu_audio_options_init(void) {
         gAudioMenuStrings[3].unk2 = 192;
         gMenuStage = 4;
     }
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 // Probably soundoption_render
@@ -3485,7 +3540,9 @@ void soundoptions_free(void) {
         music_change_off();
     }
     menu_assetgroup_free(gOptionMenuTextures);
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -3514,7 +3571,9 @@ void menu_save_options_init(void) {
     menu_assetgroup_load(gSaveMenuObjectIndices);
     menu_imagegroup_load(gSaveMenuImageIndices);
     func_8007FFEC(10);
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     gDrawTexN64Icon[0].texture = gMenuAssets[TEXTURE_ICON_SAVE_N64];
     gDrawTexTTIcon[0].texture = gMenuAssets[TEXTURE_ICON_SAVE_TT];
     gDrawTexGhostIcon[0].texture = gMenuAssets[TEXTURE_ICON_SAVE_GHOSTS];
@@ -3524,8 +3583,11 @@ void menu_save_options_init(void) {
     menu_init_arrow_textures();
     mark_read_all_save_files();
     transition_begin(&sMenuTransitionFadeOut);
+#if REGION == REGION_JP
+    func_800C663C_C723C();
+#endif
 #if VERSION >= VERSION_79
-    func_800724D8_730D8(0);
+    func_800724D8_730D8(FALSE);
 #endif
 }
 
@@ -3596,12 +3658,34 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
             }
             break;
         case SAVE_FILE_TYPE_CPAK_TIMES:
+#if REGION == REGION_JP
+            drawTexture = gDrawTexTTIcon;
+            text2 =  gMenuText[ASSET_MENU_TEXT_TIMES];
+            texture = gMenuAssets[TEXTURE_UNK_44];
+            colour = gContPakSaveBgColours[file->controllerIndex];
+            for (i = 0; text2[i] != 0; i++) {
+                buffer[i] =  text2[ASSET_MENU_TEXT_TIMES + i];
+            }
+            for (i = 0; file->saveFileExt[i] != 0 && file->saveFileExt[i] != 0x2E; i++) {}
+            buffer[i] = '.';
+            if (file->saveFileExt[i] != '\n') {
+                buffer[i - 1] = file->saveFileExt[i + 1];
+            } else {
+                buffer[i] = 'A';
+            }
+            buffer[i + 1] = '\n';
+            text2 = buffer;
+            text = gMenuText[ASSET_MENU_TEXT_CONTPAK1 + file->controllerIndex];
+            firstDigit = i;
+            break;
+#else
             drawTexture = gDrawTexTTIcon;
             texture = gMenuAssets[TEXTURE_UNK_44];
             colour = gContPakSaveBgColours[file->controllerIndex];
             text2 = file->saveFileExt;
             text = gMenuText[ASSET_MENU_TEXT_CONTPAK1 + file->controllerIndex];
             break;
+#endif
         case SAVE_FILE_TYPE_CPAK_GHOST:
             drawTexture = gDrawTexGhostIcon;
             texture = gMenuAssets[TEXTURE_UNK_44];
@@ -3645,7 +3729,26 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
             text = NULL;
             break;
     }
-    func_80080580(&sMenuCurrDisplayList, x - 160, 120 - y, 160, 64, 4, 4, colour, texture);
+#if VERSION == VERSION_79
+        #define SAVE_MENU_TEXT_FONT     ASSET_FONTS_SUBTITLEFONT
+        #define SAVE_MENU_TEXT_WIDTH    208
+        #define SAVE_MENU_SPRITE_OFFSET 8
+        #define SAVE_MENU_TEXT_OFFSET_1 24
+        #define SAVE_MENU_TEXT_OFFSET_2 25
+#elif VERSION == VERSION_80
+        #define SAVE_MENU_TEXT_FONT     ASSET_FONTS_SMALLFONT
+        #define SAVE_MENU_SPRITE_OFFSET 0
+        #define SAVE_MENU_TEXT_WIDTH    160
+        #define SAVE_MENU_TEXT_OFFSET_1 0
+        #define SAVE_MENU_TEXT_OFFSET_2 1
+#else
+        #define SAVE_MENU_TEXT_FONT     ASSET_FONTS_SMALLFONT
+        #define SAVE_MENU_SPRITE_OFFSET 0
+        #define SAVE_MENU_TEXT_WIDTH    160
+        #define SAVE_MENU_TEXT_OFFSET_1 0
+        #define SAVE_MENU_TEXT_OFFSET_2 0
+#endif
+    func_80080580(&sMenuCurrDisplayList, x - 160, 120 - y, SAVE_MENU_TEXT_WIDTH, 64, 4, 4, colour, texture);
     if (osTvType == OS_TV_TYPE_PAL) {
         y += 12;
     }
@@ -3661,38 +3764,33 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
         gMenuImages[2].y = offsetY - 49;
         gMenuImages[spriteID].y = offsetY - 24;
         sprite_opaque(0);
-        gMenuImages[2].x = x - 133;
+        gMenuImages[2].x = x - (133 - SAVE_MENU_SPRITE_OFFSET);
         gMenuImages[2].spriteOffset = firstDigit;
         menu_element_render(2);
-        gMenuImages[2].x = x - 125;
+        gMenuImages[2].x = x - (125 - SAVE_MENU_SPRITE_OFFSET);
         gMenuImages[2].spriteOffset = secondDigit;
         menu_element_render(2);
         sprite_opaque(1);
-        gMenuImages[spriteID].x = x - 128;
+        gMenuImages[spriteID].x = x - (128 - SAVE_MENU_SPRITE_OFFSET);
         menu_element_render(spriteID);
         sprite_anim_off(FALSE);
     }
     if (drawTexture != NULL) {
-        render_textured_rectangle(&sMenuCurrDisplayList, drawTexture, x + 60, y + 6, 255, 255, 255, 255);
+        render_textured_rectangle(&sMenuCurrDisplayList, drawTexture, x + (60 + SAVE_MENU_TEXT_OFFSET_1), y + 6, 255, 255, 255, 255);
     }
     if (text != NULL) {
-        set_text_font(0);
+        set_text_font(ASSET_FONTS_FUNFONT);
         set_text_colour(0, 0, 0, 255, 128);
-        draw_text(&sMenuCurrDisplayList, x + 81, y + 1, text, ALIGN_MIDDLE_CENTER);
+        draw_text(&sMenuCurrDisplayList, x + (81 + SAVE_MENU_TEXT_OFFSET_1), y + 1, text, ALIGN_MIDDLE_CENTER);
         set_text_colour(255, 64, 255, 64, 255);
-        draw_text(&sMenuCurrDisplayList, x + 79, y - 1, text, ALIGN_MIDDLE_CENTER);
+        draw_text(&sMenuCurrDisplayList, x + (79 + SAVE_MENU_TEXT_OFFSET_1), y - 1, text, ALIGN_MIDDLE_CENTER);
     }
     if (text2 != NULL) {
-        set_text_font(1);
+        set_text_font(SAVE_MENU_TEXT_FONT);
         set_text_colour(0, 0, 0, 255, 160);
-#if VERSION >= VERSION_79
-        #define SAVEMENUTEXTOFFSET 1
-#else
-        #define SAVEMENUTEXTOFFSET 0
-#endif
-        draw_text(&sMenuCurrDisplayList, x + 80 + SAVEMENUTEXTOFFSET, y + 48, text2, ALIGN_TOP_CENTER);
+        draw_text(&sMenuCurrDisplayList, x + (80 + SAVE_MENU_TEXT_OFFSET_2), y + 48, text2, ALIGN_TOP_CENTER);
         set_text_colour(255, 255, 255, 255, 255);
-        draw_text(&sMenuCurrDisplayList, x + 79 + SAVEMENUTEXTOFFSET, y + 47, text2, ALIGN_TOP_CENTER);
+        draw_text(&sMenuCurrDisplayList, x + (79 + SAVE_MENU_TEXT_OFFSET_2), y + 47, text2, ALIGN_TOP_CENTER);
     }
 }
 
@@ -3751,7 +3849,7 @@ void savemenu_render(UNUSED s32 updateRate) {
     }
     set_ortho_matrix_view(&sMenuCurrDisplayList, &sMenuCurrHudMat);
     set_text_background_colour(0, 0, 0, 0);
-    set_text_font(2);
+    set_text_font(ASSET_FONTS_BIGFONT);
     set_text_colour(0, 0, 0, 255, 128);
     draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF + 1, 35, gMenuText[ASSET_MENU_TEXT_SAVEOPTIONS],
               ALIGN_MIDDLE_CENTER);
@@ -3807,7 +3905,7 @@ void savemenu_render(UNUSED s32 updateRate) {
         }
     }
 
-    set_text_font(2);
+    set_text_font(ASSET_FONTS_BIGFONT);
     set_text_colour(255, 255, 255, 0, 255);
     if (drawOk) {
         draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, 128, "OK?", ALIGN_MIDDLE_CENTER);
@@ -8802,7 +8900,7 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
                                                       SCREEN_HEIGHT - 36, yOffset + 122, 255, 255, 255,
                                                       sMenuGuiOpacity);
                         }
-                        set_text_font(0);
+                        set_text_font(ASSET_FONTS_FUNFONT);
                         set_text_colour(255, 64, 64, 96, 255);
 #if VERSION >= VERSION_79
                         draw_text(&sMenuCurrDisplayList, 56, yOffset + 72, gMenuText[ASSET_MENU_TEXT_BESTTIME],
@@ -10157,7 +10255,7 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
         opacity = 1.0f;
     }
     sMenuGuiOpacity = (1 - opacity) * 255;
-    set_text_font(2);
+    set_text_font(ASSET_FONTS_BIGFONT);
     set_text_background_colour(0, 0, 0, 0);
     set_text_colour(255, 255, 255, 0, sMenuGuiOpacity);
     draw_text(&sMenuCurrDisplayList, POS_CENTRED, 34, gMenuText[ASSET_MENU_TEXT_RANKINGS], ALIGN_MIDDLE_CENTER);

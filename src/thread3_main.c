@@ -46,6 +46,7 @@
 #include "math_util.h"
 #include "controller_dkr.h"
 #include "PRinternal/viint.h"
+#include "font.h"
 
 /************ .rodata ************/
 
@@ -361,6 +362,9 @@ void main_game_loop(void) {
     if (tempLogicUpdateRate > tempLogicUpdateRateMax) {
         sLogicUpdateRate = tempLogicUpdateRateMax;
     }
+#if REGION == REGION_JP
+    func_800C78E0_C84E0();
+#endif
 }
 
 /**
