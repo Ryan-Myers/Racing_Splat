@@ -3596,6 +3596,7 @@ void menu_save_options_init(void) {
  * This has the file name, and then a background and icon based on kind of file it is.
  * DKR save files will display the balloon count and adventure type.
  */
+#if REGION != REGION_JP
 void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
     s32 i;
     s32 firstDigit;
@@ -3793,6 +3794,9 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
         draw_text(&sMenuCurrDisplayList, x + (79 + SAVE_MENU_TEXT_OFFSET_2), y + 47, text2, ALIGN_TOP_CENTER);
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/savemenu_render_element.s")
+#endif
 
 /**
  * Render all of the save option elements onscreen.
@@ -4683,12 +4687,17 @@ s32 menu_save_options_loop(s32 updateRate) {
  * Free the assets associated with the save options menu.
  */
 void savemenu_free(void) {
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
     menu_button_free();
     menu_assetgroup_free(gSaveMenuObjectIndices);
     dialogue_clear(7);
     free_from_memory_pool((void *) gSaveMenuFilesSource);
     free_from_memory_pool((void *) D_80126A64);
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#endif
 #if VERSION >= VERSION_79
     func_800724D8_730D8(1);
 #endif
@@ -4994,8 +5003,8 @@ void bootscreen_init_cpak(void) {
     gBootPakData[0] = allocate_from_main_pool_safe(SAVE_SIZE, COLOUR_TAG_WHITE);
 
     // Fills in the table.
-    for (i = 1; i < 16; i++) {
-        gBootPakData[i] = (char *) (((u32) gBootPakData[0]) + (i * 0x20));
+    for (i = 1; i < ARRAY_COUNT(gBootPakData); i++) {
+        gBootPakData[i] = (char *) (((u32) gBootPakData[0]) + (i * (SAVE_SIZE / ARRAY_COUNT(gBootPakData))));
     }
 
     for (i = 0; i < 1; i++) {
@@ -5024,7 +5033,11 @@ void bootscreen_init_cpak(void) {
     } else {
         sControllerPakMenuNumberOfRows = 7;
     }
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#else
     load_font(ASSET_FONTS_BIGFONT);
+#endif
 #if VERSION >= VERSION_79
     func_800724D8_730D8(0);
 #endif
@@ -5036,6 +5049,7 @@ void bootscreen_init_cpak(void) {
  * Also draws the confirmation box.
  * Visual Aid : https://i.imgur.com/7T2Scdr.png
  */
+#if REGION != REGION_JP
 void pakmenu_render(UNUSED s32 updateRate) {
     s32 highlight;
     s32 i;
@@ -5184,6 +5198,9 @@ void pakmenu_render(UNUSED s32 updateRate) {
         }
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/pakmenu_render.s")
+#endif
 
 /**
  * Handles the controller pak menu accessed from the boot screen.
@@ -5358,7 +5375,11 @@ s32 menu_controller_pak_loop(s32 updateRate) {
 void pakmenu_free(void) {
     menu_asset_free(63);
     free_from_memory_pool(gBootPakData[0]);
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#else
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 #if VERSION >= VERSION_79
     func_800724D8_730D8(1);
 #endif
@@ -5380,10 +5401,18 @@ void menu_magic_codes_init(void) {
     gOpacityDecayTimer = 0;
     gMenuStage = CHEATMENU_CHOOSE;
     transition_begin(&sMenuTransitionFadeOut);
+#if REGION == REGION_JP
+    set_current_dialogue_box_coords(7, 50, 50, 270, 134);
+#else
     set_current_dialogue_box_coords(7, 50, 50, 270, 132);
+#endif
     set_current_dialogue_background_colour(7, 0, 0, 0, 128);
     dialogue_clear(7);
+#if REGION == REGION_JP
+    func_800C663C_C723C();
+#else
     load_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -5397,8 +5426,8 @@ void cheatmenu_render(UNUSED s32 updateRate) {
     s32 xPos, yPos;
     char displayChar[2];
     s32 chr;
-    UNUSED s32 offsetY;
     UNUSED s32 pad1;
+    s32 offsetY;
 
     set_text_background_colour(0, 0, 0, 0);
     render_dialogue_box(&sMenuCurrDisplayList, NULL, NULL, 7);
@@ -5410,11 +5439,19 @@ void cheatmenu_render(UNUSED s32 updateRate) {
     draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, 32, gMenuText[ASSET_MENU_TEXT_MAGICCODES],
               ALIGN_MIDDLE_CENTER); // "MAGIC CODES"
     chr = 'A';
+#if REGION == REGION_JP
+    set_text_font(ASSET_FONTS_SMALLFONT);
+#else
     set_text_font(ASSET_FONTS_FUNFONT);
     set_text_colour(255, 255, 255, 0, 255);
+#endif
     // Draw the input table
     for (i = 0, yPos = 60; i < 4; i++, yPos += 22) {
         for (j = 0, xPos = 64; j < 7; j++, xPos += 32) {
+#if REGION == REGION_JP
+            s32 addColourVal = 63;
+            set_text_colour((j << 5) + addColourVal, 255, (i << 6) + addColourVal, 255, 255);
+#endif
             if (gOptionsMenuItemIndex == 5 && j == gCheatInputCurrentColumn && i == gCheatInputCurrentRow) {
                 highlight = gOptionBlinkTimer * 8;
                 if (highlight >= 256) {
@@ -5422,7 +5459,11 @@ void cheatmenu_render(UNUSED s32 updateRate) {
                 }
                 highlight >>= 1;
                 highlight += 128;
+#if REGION == REGION_JP
+                set_text_colour(255,  addColourVal,  addColourVal, highlight, 255);
+#else
                 set_text_colour(128, 255, 192, highlight, 255);
+#endif
             }
             if (chr <= 'Z') {
                 displayChar[0] = chr;
@@ -5473,8 +5514,13 @@ void cheatmenu_render(UNUSED s32 updateRate) {
         } else {
             // Draw cheat code name.
             cheatData = (*gCheatsAssetData) + 1;
+#if REGION == REGION_JP
+            draw_text(&sMenuCurrDisplayList, POS_CENTRED, 144,
+                      &((char *) (*gCheatsAssetData))[cheatData[gNewCheatID + 2]], ALIGN_MIDDLE_CENTER);
+#else
             draw_text(&sMenuCurrDisplayList, POS_CENTRED, 144,
                       &((char *) (*gCheatsAssetData))[cheatData[gNewCheatID + 1]], ALIGN_MIDDLE_CENTER);
+#endif
         }
     } else if (5 == gOptionsMenuItemIndex) {
         draw_text(&sMenuCurrDisplayList, POS_CENTRED, 144, gCheatInput, ALIGN_MIDDLE_CENTER);
@@ -5490,7 +5536,11 @@ void cheatmenu_render(UNUSED s32 updateRate) {
         }
         dialogue_clear(6);
         set_dialogue_font(6, ASSET_FONTS_FUNFONT);
+#if REGION == REGION_JP
+        set_current_dialogue_box_coords(6, 44, offsetY - 28, 276, offsetY + 28);
+#else
         set_current_dialogue_box_coords(6, 76, offsetY - 28, 244, offsetY + 28);
+#endif
         set_current_dialogue_background_colour(6, 0, 0, 0, 160);
         offsetY = 4;
         for (i = 0; i < 3; i++) {

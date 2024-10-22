@@ -103,7 +103,7 @@ XGCC     = mips64-elf-gcc
 #Options
 CC       = $(RECOMP_DIR)/cc
 SPLAT    ?= $(PYTHON) -m splat split
-CRC      = $(V)$(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64 $(COLORIZE)
+CRC      = $(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64 $(COLORIZE)
 
 OPT_FLAGS      = -O2
 
@@ -200,7 +200,7 @@ dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(HASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
 
 verify: $(TARGET).z64
-	@$(CRC)
+	$(V)$(CRC)
 ifeq ($(NON_MATCHING),0)
 	@(sha1sum -c --quiet ver/verification/$(BASENAME).$(REGION).$(VERSION).sha1 \
 	&& $(PRINT) "$(GREEN)Verify:$(NO_COL)\

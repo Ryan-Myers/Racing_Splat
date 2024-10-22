@@ -5,6 +5,7 @@
 #include "structs.h"
 #include "PR/os_pfs.h"
 #include "PR/os_cont.h"
+#include "common.h"
 
 #define GAMD 0x47414D44 // 'GAMD' ASCII - Game Data?
 #define TIMD 0x54494D44 // 'TIMD' ASCII - Time Data?
@@ -30,7 +31,12 @@
 #define EEP_COURSE_TIME_OFFSET (0x140 / sizeof(u64))
 #define EEP_FLAP_SIZE (0xC0  / sizeof(u64))
 #define EEP_COURSE_RECORD_SIZE (0xC0  / sizeof(u64))
+
+#if REGION == REGION_JP
+#define SAVE_SIZE 0x400
+#else
 #define SAVE_SIZE 0x200
+#endif
 
 #define GHSS_SIZE 0x100
 #define AS_BYTES(ptr) ((u8 *) ptr)
