@@ -2066,7 +2066,7 @@ char *font_codes_to_string(char *inString, char *outString, s32 stringLength) {
             *outString = gN64FontCodes[index];
             outString++;
         } else {
-#ifdef REGION == REGION_JP
+#if REGION == REGION_JP
             *outString++ = 0x80;
             *outString++ = *inString;
 #else

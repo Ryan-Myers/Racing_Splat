@@ -33,6 +33,7 @@
 #include "controller_dkr.h"
 #include "printf.h"
 #include "PRinternal/viint.h"
+#include "common.h"
 
 /************ .data ************/
 
