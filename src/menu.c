@@ -6762,8 +6762,10 @@ void menu_game_select_init(void) {
     set_ghost_none();
     gOpacityDecayTimer = 1;
     menu_asset_load(67);
-    func_8007FFEC(3);
+    func_8007FFEC(3);    
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     music_play(SEQUENCE_CHOOSE_YOUR_RACER);
 
     for (i = 0; i < NUM_CHARACTERS; i++) {
@@ -6787,6 +6789,9 @@ void menu_game_select_init(void) {
         // Fakematch? What's the (i ^ 0)?
         gGameSelectElements[((i ^ 0) * 2) + 2].t.texture = gMenuAssets[TEXTURE_SURFACE_BUTTON_WOOD];
     }
+#if REGION == REGION_JP
+    func_800C663C_C723C();
+#endif
 }
 
 /**
@@ -6927,9 +6932,14 @@ s32 menu_game_select_loop(s32 updateRate) {
  * Free the assets associated with the game select menu.
  */
 void gameselect_free(void) {
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
     menu_button_free();
     menu_asset_free(67);
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#endif
 }
 
 /**
@@ -6955,7 +6965,9 @@ void menu_file_select_init(void) {
     gFileErase = FALSE;
     gFileNew = FALSE;
     transition_begin(&sMenuTransitionFadeOut);
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     music_play(SEQUENCE_CHOOSE_YOUR_RACER);
     for (i = 0; i < NUM_CHARACTERS; i++) {
         if (i != gMenuSelectedCharacter.channelIndex) {
@@ -6965,6 +6977,9 @@ void menu_file_select_init(void) {
     }
     music_channel_off(6);
     music_change_off();
+#if REGION == REGION_JP
+    func_800C663C_C723C();
+#endif
 }
 
 /**
@@ -7567,7 +7582,11 @@ s32 menu_file_select_loop(s32 updateRate) {
 void fileselect_free(void) {
     menu_assetgroup_free(gFileSelectObjectIndices);
     menu_button_free();
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#else
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -7978,12 +7997,17 @@ void menu_track_select_unload(void) {
             menu_asset_free(gTracksMenuBgTextureIndices[i + 1]);
         }
     }
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
     menu_button_free();
     music_change_on();
     music_voicelimit_change_on();
     music_stop();
     set_gIntDisFlag(FALSE);
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#endif
 }
 
 #ifdef NON_EQUIVALENT
@@ -8143,6 +8167,10 @@ void trackmenu_render_2D(s32 x, s32 y, char *hubName, char *trackName, s32 rectO
         gTrackMenuHubName = hubName;
         set_kerning(0);
     }
+#if REGION == REGION_JP    
+    set_text_colour(0, 0, 0, 255, opacity / 2);
+    draw_text(&sMenuCurrDisplayList, xTemp + 1, sp6C + yTemp + 91, trackName, ALIGN_MIDDLE_CENTER);
+#endif
     set_text_colour(255, 255, 255, 0, opacity);
     draw_text(&sMenuCurrDisplayList, xTemp, sp6C + yTemp + 88, trackName, ALIGN_MIDDLE_CENTER);
     if (rectOpacity > 0) {
