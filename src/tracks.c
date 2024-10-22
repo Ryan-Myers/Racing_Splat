@@ -24,6 +24,7 @@
 #include "printf.h"
 #include "collision.h"
 #include "PRinternal/viint.h"
+#include "common.h"
 
 // Maximum size for a level model is 522.5 KiB
 #define LEVEL_MODEL_MAX_SIZE 0x82A00
@@ -108,6 +109,9 @@ s32 D_8011C3B8[320];
 s32 D_8011C8B8[512];
 s32 D_8011D0B8;
 Vec4f *D_8011D0BC;
+#ifdef REGION == REGION_JP
+s32 D_8011EB28_F05E8;
+#endif
 TextureHeader *D_8011D0C0;
 Object *D_8011D0C4;
 f32 D_8011D0C8;

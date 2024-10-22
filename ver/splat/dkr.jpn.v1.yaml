@@ -13,10 +13,10 @@ options:
   symbol_addrs_path: ver/symbols/symbol_addrs.jpn.v1.txt
   symbol_name_format: $VRAM_$ROM
   ld_script_path: ver/dkr.jpn.v1.ld
-  asm_path: asm_jpn_v1
-  src_path: src_jpn_v1
-  build_path: build_jpn_v1
-  asset_path: assets_jpn_v1
+  asm_path: asm
+  src_path: src
+  build_path: build
+  asset_path: assets
   section_order: [".text", ".data", ".rodata", ".bss"]
   migrate_rodata_to_functions: True
   hasm_in_src_path: True
@@ -95,7 +95,7 @@ segments:
       - [0x80550, c, screen_asset]
       - [0x80810, c, menu] #SO MANY DIFFS!
       - [0x9FEB0, c, game_ui] # +0x5C0
-      #- [auto, c, os_yield_data] #bss only file
+      - [auto, c, os_yield_data] #bss only file
       - [0xAC3F0, c, weather] # +0x600
       - [0xAF470, c, particles]
       - [0xB5910, c, unused_string]
@@ -261,7 +261,7 @@ segments:
       - [0xD8F30, c, ../libultra/src/libc/xldtob]
       - [0xD99F0, hasm, ../libultra/src/os/setcompare]
       - [0xD9A00, c, ../libultra/src/libc/ldiv]
-      # - [auto, c, memory_pool] #bss only file
+      - [auto, c, memory_pool] #bss only file
       - [0xD9B90, textbin, ucode_audio]
       - [0xDAA50, textbin, ucode_boot]
       - [0xDAB20, textbin, ucode_f3ddkr_dram]
