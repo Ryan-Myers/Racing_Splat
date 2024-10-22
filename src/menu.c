@@ -5846,7 +5846,11 @@ s32 menu_magic_codes_loop(s32 updateRate) {
  * Free all assets associated with the cheat code menu.
  */
 void cheatmenu_free(void) {
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#else
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -5858,7 +5862,11 @@ void menu_magic_codes_list_init(void) {
     gMenuDelay = 0;
     gMenuStage = 0;
     gOptionsMenuItemIndex = 0;
+#if REGION == REGION_JP
+    func_800C663C_C723C();
+#else
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     menu_asset_load(63);
     menu_init_arrow_textures();
     transition_begin(&sMenuTransitionFadeOut);
@@ -6078,7 +6086,11 @@ s32 menu_magic_codes_list_loop(s32 updateRate) {
  */
 void cheatlist_free(void) {
     menu_asset_free(63);
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#else
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -6238,7 +6250,9 @@ void menu_character_select_init(void) {
     menu_assetgroup_load(gCharSelectObjectIndices);
     menu_imagegroup_load(gCharSelectImageIndices);
     transition_begin(&sMenuTransitionFadeOut);
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -6262,7 +6276,12 @@ void charselect_render_text(UNUSED s32 arg0) {
             if (osTvType == OS_TV_TYPE_PAL) {
                 yPos = 234;
             }
+#if REGION == REGION_JP
+            func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, yPos, 1, 3, "OK?", ALIGN_MIDDLE_CENTER,
+                COLOUR_RGBA32(255, 255, 255, 255), 0);
+#else
             draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, yPos, "OK?", ALIGN_MIDDLE_CENTER);
+#endif
         }
         reset_render_settings(&sMenuCurrDisplayList);
         update_camera_fov(40.0f);
@@ -6617,7 +6636,9 @@ void charselect_move(s32 playerID, s8 *direction, s32 bounds, u16 menuPickSoundI
 void charselect_free(void) {
     menu_assetgroup_free(gCharSelectObjectIndices);
     set_free_queue_state(0);
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
     set_free_queue_state(2);
     gEnteredCharSelectFrom = 0;
 }
@@ -6678,9 +6699,14 @@ void charselect_music_channels(s32 updateRate) {
 void menu_caution_init(void) {
     gIgnorePlayerInputTime = 60;
     gMenuDelay = 0;
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     transition_begin(&sMenuTransitionFadeOut);
     gPlayerHasSeenCautionMenu = 1;
+#if REGION == REGION_JP
+    func_800C663C_C723C();
+#endif
 }
 
 /**
@@ -6713,7 +6739,11 @@ s32 menu_caution_loop(s32 updateRate) {
  * Unloads all assets associated with the caution screen.
  */
 void caution_free(void) {
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#else
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
