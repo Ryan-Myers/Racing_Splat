@@ -2190,6 +2190,21 @@ void render_wrong_way_text(Object_Racer *obj, s32 updateRate) {
  */
 void hud_draw_finish_misc(Object_Racer *racer) {
     s32 racerCount;
+#if VERSION == VERSION_80
+    static char sDidNotFinish[] = "DID NOT FINISH";
+    #define FINISH_TEXT_OFFSET 40
+    #define FINISH_TIME_OFFSET 0
+#elif VERSION == VERSION_79
+    static char sDidNotFinish[] = { 0x80, 0xEB, 0x80, 0xB9,
+                                    0x80, 0xD1, 0x80, 0xB9,
+                                    0x80, 0xF3, 0x80, 0xC5,
+                                    0x80, 0xC9, 0x80, 0x34 };
+    #define FINISH_TEXT_OFFSET 48
+    #define FINISH_TIME_OFFSET 2
+#else
+    #define FINISH_TEXT_OFFSET 40
+    #define FINISH_TIME_OFFSET 0
+#endif
 
     func_800AA600(&gHUDCurrDisplayList, &gHUDCurrMatrix, &gHUDCurrVertex, &gCurrentHud->challengeFinishPosition1);
     func_800AA600(&gHUDCurrDisplayList, &gHUDCurrMatrix, &gHUDCurrVertex, &gCurrentHud->challengeFinishPosition2);
@@ -2200,22 +2215,21 @@ void hud_draw_finish_misc(Object_Racer *racer) {
             set_text_font(FONT_COLOURFUL);
             if (racerCount != racer->finishPosition) {
                 set_text_colour(255, 255, 255, 0, 255);
-                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 40.0f, gCurrentHud->raceTimeNumber.y,
+                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - FINISH_TEXT_OFFSET, gCurrentHud->raceTimeNumber.y,
                           "RACE", ALIGN_TOP_LEFT);
-                render_timer(gCurrentHud->raceTimeNumber.x, gCurrentHud->raceTimeNumber.y,
+                render_timer(gCurrentHud->raceTimeNumber.x + FINISH_TIME_OFFSET, gCurrentHud->raceTimeNumber.y,
                              gCurrentHud->raceTimeNumber.unk1A, gCurrentHud->raceTimeNumber.unk1B,
                              gCurrentHud->raceTimeNumber.unk1C, 1);
-                draw_text(&gHUDCurrDisplayList, gCurrentHud->lapTimeText.x - 40.0f, gCurrentHud->lapTimeText.y, "LAP",
+                draw_text(&gHUDCurrDisplayList, gCurrentHud->lapTimeText.x - FINISH_TEXT_OFFSET, gCurrentHud->lapTimeText.y, "LAP",
                           ALIGN_TOP_LEFT);
-                render_timer(gCurrentHud->lapTimeText.x, gCurrentHud->lapTimeText.y, gCurrentHud->lapTimeText.unk1A,
+                render_timer(gCurrentHud->lapTimeText.x + FINISH_TIME_OFFSET, gCurrentHud->lapTimeText.y, gCurrentHud->lapTimeText.unk1A,
                              gCurrentHud->lapTimeText.unk1B, gCurrentHud->lapTimeText.unk1C, 1);
             } else {
 #if VERSION >= VERSION_79
-                static char sDidNotFinish[] = "DID NOT FINISH";
-                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35.0f, gCurrentHud->raceTimeNumber.y,
+                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35, gCurrentHud->raceTimeNumber.y,
                           &sDidNotFinish, ALIGN_TOP_LEFT);
 #else
-                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35.0f, gCurrentHud->raceTimeNumber.y,
+                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35, gCurrentHud->raceTimeNumber.y,
                           "DID NOT FINISH", ALIGN_TOP_LEFT);
 #endif
             }

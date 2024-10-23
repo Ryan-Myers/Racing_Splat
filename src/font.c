@@ -9,6 +9,13 @@
 
 /************ .data ************/
 
+// extern Gfx dDialogueBoxBegin[];
+// extern Gfx dDialogueBoxDrawModes[][3];
+// extern s8 sDialogueBoxIsOpen;
+// extern s32 gDescPowsOf10[9];
+// extern s8 sDialogueBoxDimensions[48];
+// extern u8 D_800E5234_E5E34[];
+
 Gfx dDialogueBoxBegin[] = {
     gsDPPipeSync(),
     gsDPSetTextureLOD(G_TL_TILE),
@@ -29,6 +36,12 @@ Gfx dDialogueBoxDrawModes[][2] = {
         gsDPSetOtherMode(DKR_OMH_1CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_XLU_SURF | G_RM_XLU_SURF2),
     },
 };
+#if REGION == REGION_JP
+// This is more GFX data like above. Likley even within that array.
+s32 D_800E51D8_E5DD8[] = {
+        0xFC5627FF, 0x1FFCFE38, 0xEF100C0F, 0x00104240
+    };
+#endif
 
 s8 sDialogueBoxIsOpen = FALSE;
 
@@ -71,8 +84,6 @@ u8 D_800E5234_E5E34[] = {
     0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3,
     0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB,
     0xAC, 0xAD, 0xAE, 0x03, 0x0F, 0x04, 0x0E, 0x0F,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00
 };
 #endif
 
@@ -171,8 +182,12 @@ void load_fonts(void) {
         gDialogueText[i].textBGColourA = 0;
         gDialogueText[i].nextBox = NULL;
     }
+#if REGION == REGION_JP
+    func_800C6464_C7064();
+#else
     load_font(ASSET_FONTS_FUNFONT);
     load_font(ASSET_FONTS_SMALLFONT);
+#endif
     gCompactKerning = FALSE;
 }
 
@@ -184,6 +199,7 @@ void set_kerning(s32 setting) {
     gCompactKerning = setting;
 }
 
+#if REGION != REGION_JP
 /**
  * Load the texture assets of the given font into RAM.
  * This is required before any text using this font can be displayed in a scene.
@@ -222,14 +238,19 @@ void unload_font(s32 fontID) {
         }
     }
 }
+#endif
 
 /**
  * Set the font of the current dialogue box's text.
  */
 void set_text_font(s32 fontID) {
+#if REGION == REGION_JP
+    gDialogueBoxBackground[0].font = D_8012C2B8_EE5F8 = fontID;
+#else
     if (fontID < gNumberOfFonts) {
         gDialogueBoxBackground[0].font = fontID;
     }
+#endif
 }
 
 /**
@@ -237,6 +258,9 @@ void set_text_font(s32 fontID) {
  * Goes unused.
  */
 UNUSED TextureHeader *get_loaded_font(s32 font, u8 index) {
+#if REGION == REGION_JP
+    return NULL;
+#else
     FontData *fontData;
     u8 pointerIndex;
 
@@ -254,6 +278,7 @@ UNUSED TextureHeader *get_loaded_font(s32 font, u8 index) {
     //!@bug: No return statement. The function will return whatever happens to be in v0 before this function was called.
 #ifdef AVOID_UB
     return NULL;
+#endif
 #endif
 }
 
@@ -326,6 +351,7 @@ UNUSED void draw_dialogue_text_pos_unused(Gfx **displayList, s32 dialogueBoxID, 
  * Loops through a string, then draws each character onscreen.
  * Will also draw a fillrect if text backgrounds are enabled.
  */
+#if REGION != REGION_JP
 void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, AlignmentFlags alignmentFlags,
                         f32 scisScale) {
     s32 scisOffset;
@@ -476,12 +502,16 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, Ali
         gDPPipeSync((*dList)++);
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/font/render_text_string.s")
+#endif
 
 /**
  * Start from the beginning of the line then add to an offset from the starting position.
  * Returns the width of the string.
  * Official Name: fontStringWidth
  */
+#if REGION != REGION_JP
 s32 get_text_width(char *text, s32 x, s32 font) {
     s32 diffX, thisDiffX;
     FontData *fontData;
@@ -522,6 +552,9 @@ s32 get_text_width(char *text, s32 x, s32 font) {
     }
     return diffX - x;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/font/get_text_width.s")
+#endif
 
 /**
  * Sets the position and size of the current dialogue box.
@@ -556,12 +589,16 @@ void set_current_dialogue_box_coords(s32 dialogueBoxID, s32 x1, s32 y1, s32 x2, 
  * Official Name: fontWindowUseFont
  */
 void set_dialogue_font(s32 dialogueBoxID, s32 font) {
+#if REGION == REGION_JP
+    gDialogueBoxBackground[dialogueBoxID].font = font;
+#else
     if (dialogueBoxID >= 0 && dialogueBoxID < DIALOGUEBOXBACKGROUND_COUNT) {
         DialogueBoxBackground *temp = &gDialogueBoxBackground[dialogueBoxID];
         if (font < gNumberOfFonts) {
             temp->font = font;
         }
     }
+#endif
 }
 
 /**
@@ -1025,6 +1062,7 @@ void render_dialogue_box(Gfx **dlist, MatrixS **mat, Vertex **verts, s32 dialogu
  * Takes in a string and a number, and replaces each instance of the
  * character '~' with the number.
  */
+#if REGION != REGION_JP
 void parse_string_with_number(char *input, char *output, s32 number) {
     while (*input != '\0') {
         if ('~' == *input) { // ~ is equivalent to a %d.
@@ -1039,11 +1077,14 @@ void parse_string_with_number(char *input, char *output, s32 number) {
     }
     *output = '\0'; // null terminator
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/font/parse_string_with_number.s")
+#endif
 
 #if REGION == REGION_JP
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C663C_C723C.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C663C_C723C.s")
 
 void func_800C67F4_C73F4(void) {
     if (D_8012C2D0_EE610 != NULL) {
@@ -1060,17 +1101,17 @@ void func_800C67F4_C73F4(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6870_C7470.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6870_C7470.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7744_C8344.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7744_C8344.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7804_C8404.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7804_C8404.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7864_C8464.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7864_C8464.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C78E0_C84E0.s")
+pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C78E0_C84E0.s")
 #endif

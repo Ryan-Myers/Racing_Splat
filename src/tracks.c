@@ -49,6 +49,12 @@ LevelModel *gCurrentLevelModel = NULL; // Official Name: track
 LevelHeader *gCurrentLevelHeader2 = NULL;
 
 s32 D_800DC920 = -1;
+#if REGION == REGION_JP
+char D_800DE2B4_DEEB4[] = { 0x80, 0x2D, 0x80, 0x3C,
+                            0x80, 0x2D, 0x80, 0x3C,
+                            0x80, 0x55, 0x80, 0x71,
+                            0x80, 0x76, 0x00, 0x00 };
+#endif
 s32 *D_800DC924 = NULL;
 s32 D_800DC928 = 0; // Currently unknown, might be a different type.
 

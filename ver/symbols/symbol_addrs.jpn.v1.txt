@@ -675,7 +675,7 @@ obj_loop_frog = 0x800422F0;
 obj_loop_pigrocketeer = 0x80042998;
 obj_init_levelname = 0x80042A1C;
 obj_loop_levelname = 0x80042A90;
-obj_loop_wizghosts = 0x80042CD0;
+obj_loop_wizghosts = 0x80042CD4;
 
 // racer.c .text
 func_80042D20 = 0x80042D20;

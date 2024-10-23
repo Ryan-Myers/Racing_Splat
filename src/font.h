@@ -182,8 +182,9 @@ s32 get_text_width(char *text, s32 x, s32 font);
 void *render_dialogue_text(s32 dialogueBoxID, s32 posX, s32 posY, char *text, s32 number, s32 flags);
 
 // Japanese Region exclusives
-void func_800C78E0_C84E0(void);
+void func_800C6464_C7064(void);
 void func_800C663C_C723C(void);
 void func_800C67F4_C73F4(void);
+void func_800C78E0_C84E0(void);
 
 #endif
