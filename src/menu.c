@@ -8620,7 +8620,11 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
             menu_geometry_end();
             set_text_font(ASSET_FONTS_FUNFONT);
             for (temp = 0, temp2 = 0,
+#if REGION == REGION_JP
+                y = gTracksMenuAdventureButton.colourMax + gTracksMenuAdventureButton.y + regionOffset - 1;
+#else
                 y = gTracksMenuAdventureButton.colourMax + gTracksMenuAdventureButton.y + regionOffset + 1;
+#endif
                  temp2 < 2; temp2++, temp++, y += 16) {
                 for (j = 0, i = y; j < 4; j += 2, i -= 2) {
                     if (j == 0) {
@@ -8641,17 +8645,32 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
         if (gTrackSelectCursorX < 4) {
             set_text_font(ASSET_FONTS_FUNFONT);
             set_text_colour(255, 64, 64, 96, sMenuGuiOpacity);
+#if REGION == REGION_JP
+            draw_text(&sMenuCurrDisplayList, 51, 69 + regionOffset, gMenuText[ASSET_MENU_TEXT_BESTTIME],
+                      ALIGN_MIDDLE_LEFT); // "BEST TIME"
+            draw_text(&sMenuCurrDisplayList, 51, 89 + regionOffset, gMenuText[ASSET_MENU_TEXT_BESTLAP],
+                      ALIGN_MIDDLE_LEFT); // "BEST LAP"
+#else
             draw_text(&sMenuCurrDisplayList, 56, 72 + regionOffset, gMenuText[ASSET_MENU_TEXT_BESTTIME],
                       ALIGN_MIDDLE_LEFT); // "BEST TIME"
             draw_text(&sMenuCurrDisplayList, 56, 92 + regionOffset, gMenuText[ASSET_MENU_TEXT_BESTLAP],
                       ALIGN_MIDDLE_LEFT); // "BEST LAP"
+#endif
             set_text_colour(255, 128, 255, 96, sMenuGuiOpacity);
             filename_decompress(settings->courseInitialsPtr[gPlayerSelectVehicle[0]][gTrackIdForPreview],
                                 filename.buffer, 3);
+#if REGION == REGION_JP
+            draw_text(&sMenuCurrDisplayList, 249, regionOffset + 70, filename.buffer, ALIGN_MIDDLE_CENTER);
+#else
             draw_text(&sMenuCurrDisplayList, 250, regionOffset + 72, filename.buffer, ALIGN_MIDDLE_CENTER);
+#endif
             filename_decompress(settings->flapInitialsPtr[gPlayerSelectVehicle[0]][gTrackIdForPreview], filename.buffer,
                                 3);
+#if REGION == REGION_JP
+            draw_text(&sMenuCurrDisplayList, 249, regionOffset + 89, filename.buffer, ALIGN_MIDDLE_CENTER);
+#else
             draw_text(&sMenuCurrDisplayList, 250, regionOffset + 92, filename.buffer, ALIGN_MIDDLE_CENTER);
+#endif
             menu_timestamp_render(settings->courseTimesPtr[gPlayerSelectVehicle[PLAYER_ONE]][gTrackIdForPreview], 22,
                                   53, 128, 255, 255, FONT_COLOURFUL);
             menu_timestamp_render(settings->flapTimesPtr[gPlayerSelectVehicle[PLAYER_ONE]][gTrackIdForPreview], 22, 33,
@@ -8857,7 +8876,11 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
                 if (gTrackSelectCursorX >= 4) {
                     regionOffset += 24;
                 }
+#if REGION == REGION_JP
+                func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, regionOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER, -1, 0);
+#else
                 draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, regionOffset + 172, "OK?", ALIGN_MIDDLE_CENTER);
+#endif
             }
         }
         sMenuGuiOpacity = 255;
@@ -8954,7 +8977,11 @@ void menu_adventure_track_init(void) {
         gOptionBlinkTimer = 0;
         gMenuDelay = 0;
         gTrackNameVoiceDelay = 30;
+#if REGION == REGION_JP
+        func_800C663C_C723C();
+#else
         load_font(ASSET_FONTS_BIGFONT);
+#endif
         load_level_for_menu(mapId, -1, 1);
     }
     dialogue_clear(7);
@@ -9010,51 +9037,51 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
                         }
                         set_text_font(ASSET_FONTS_FUNFONT);
                         set_text_colour(255, 64, 64, 96, 255);
-#if VERSION >= VERSION_79
-                        draw_text(&sMenuCurrDisplayList, 56, yOffset + 72, gMenuText[ASSET_MENU_TEXT_BESTTIME],
-                                  ALIGN_MIDDLE_LEFT);
-                        draw_text(&sMenuCurrDisplayList, 56, yOffset + 92, gMenuText[ASSET_MENU_TEXT_BESTLAP],
-                                  ALIGN_MIDDLE_LEFT);
-                        set_text_colour(255, 128, 255, 96, 255);
-                        filename_decompress(settings->courseInitialsPtr[gPlayerSelectVehicle[0]][mapID],
-                                            (char *) &filename, 3);
-                        draw_text(&sMenuCurrDisplayList, 250, yOffset + 72, (char *) &filename, ALIGN_MIDDLE_CENTER);
-                        filename_decompress(settings->flapInitialsPtr[gPlayerSelectVehicle[0]][mapID],
-                                            (char *) &filename, 3);
-                        draw_text(&sMenuCurrDisplayList, 250, yOffset + 92, (char *) &filename, ALIGN_MIDDLE_CENTER);
-                        menu_timestamp_render(
-                            settings
-                                ->courseTimesPtr[gPlayerSelectVehicle[0]]
-                                                [mapID],
-                            22, 53, 128, 255, 255, 0);
-                        menu_timestamp_render(
-                            settings
-                                ->flapTimesPtr[gPlayerSelectVehicle[0]]
-                                              [mapID],
-                            22, 33, 255, 192, 255, 0);
+#if VERSION == VERSION_80
+    #define ADVENTURETRACK_XPOS1 56
+    #define ADVENTURETRACK_XPOS2 250
+    #define ADVENTURETRACK_YPOS1 72
+    #define ADVENTURETRACK_YPOS2 92
+    #define ADVENTURETRACK_YPOS3 72
+    #define ADVENTURETRACK_RED   22
+    #define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_LEFT
+    #define ADVENTURETRACK_MAP_ID mapID
+#elif VERSION == VERSION_79
+    #define ADVENTURETRACK_XPOS1 51
+    #define ADVENTURETRACK_XPOS2 249
+    #define ADVENTURETRACK_YPOS1 69
+    #define ADVENTURETRACK_YPOS2 89
+    #define ADVENTURETRACK_YPOS3 70
+    #define ADVENTURETRACK_RED   22
+    #define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_LEFT
+    #define ADVENTURETRACK_MAPID mapID
 #else
-                        draw_text(&sMenuCurrDisplayList, 88, yOffset + 72, gMenuText[ASSET_MENU_TEXT_BESTTIME],
-                                  ALIGN_MIDDLE_CENTER);
-                        draw_text(&sMenuCurrDisplayList, 88, yOffset + 92, gMenuText[ASSET_MENU_TEXT_BESTLAP],
-                                  ALIGN_MIDDLE_CENTER);
+    #define ADVENTURETRACK_XPOS1 88
+    #define ADVENTURETRACK_XPOS2 258
+    #define ADVENTURETRACK_YPOS1 72
+    #define ADVENTURETRACK_YPOS2 92
+    #define ADVENTURETRACK_YPOS3 72
+    #define ADVENTURETRACK_RED   26
+    #define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_CENTER
+    #define ADVENTURETRACK_MAPID ((Settings4C *) ((u8 *) settings->unk4C + gTrackIdForPreview))->mapID
+#endif
+                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS1, yOffset + ADVENTURETRACK_YPOS1, gMenuText[ASSET_MENU_TEXT_BESTTIME],
+                                  ADVENTURETRACK_ALIGN);
+                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS1, yOffset + ADVENTURETRACK_YPOS2, gMenuText[ASSET_MENU_TEXT_BESTLAP],
+                                  ADVENTURETRACK_ALIGN);
                         set_text_colour(255, 128, 255, 96, 255);
                         filename_decompress(settings->courseInitialsPtr[gPlayerSelectVehicle[0]][mapID],
                                             (char *) &filename, 3);
-                        draw_text(&sMenuCurrDisplayList, 258, yOffset + 72, (char *) &filename, ALIGN_MIDDLE_CENTER);
+                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS2, yOffset + ADVENTURETRACK_YPOS3, (char *) &filename, ALIGN_MIDDLE_CENTER);
                         filename_decompress(settings->flapInitialsPtr[gPlayerSelectVehicle[0]][mapID],
                                             (char *) &filename, 3);
-                        draw_text(&sMenuCurrDisplayList, 258, yOffset + 92, (char *) &filename, ALIGN_MIDDLE_CENTER);
+                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS2, yOffset + ADVENTURETRACK_YPOS2, (char *) &filename, ALIGN_MIDDLE_CENTER);
                         menu_timestamp_render(
-                            settings
-                                ->courseTimesPtr[gPlayerSelectVehicle[0]]
-                                                [((Settings4C *) ((u8 *) settings->unk4C + gTrackIdForPreview))->mapID],
-                            26, 53, 128, 255, 255, 0);
+                            settings->courseTimesPtr[gPlayerSelectVehicle[0]][ADVENTURETRACK_MAPID],
+                            ADVENTURETRACK_RED, 53, 128, 255, 255, 0);
                         menu_timestamp_render(
-                            settings
-                                ->flapTimesPtr[gPlayerSelectVehicle[0]]
-                                              [((Settings4C *) ((u8 *) settings->unk4C + gTrackIdForPreview))->mapID],
-                            26, 33, 255, 192, 255, 0);
-#endif
+                            settings ->flapTimesPtr[gPlayerSelectVehicle[0]][ADVENTURETRACK_MAPID],
+                            ADVENTURETRACK_RED, 33, 255, 192, 255, 0);
                     }
                     greenAmount = gOptionBlinkTimer * 8;
                     if (greenAmount > 255) {
@@ -9098,7 +9125,11 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
                         set_text_background_colour(0, 0, 0, 0);
 #endif
                         set_text_colour(255, 255, 255, 0, 255);
+#if REGION == REGION_JP
+                        func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, yOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER, -1, 0);
+#else
                         draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, yOffset + 172, "OK?", ALIGN_MIDDLE_CENTER);
+#endif
                     }
                 } else {
                     set_text_font(FONT_LARGE);
