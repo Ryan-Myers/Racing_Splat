@@ -1692,6 +1692,7 @@ SIDeviceStatus reformat_controller_pak(s32 controllerIndex) {
 }
 
 /* Official Name: packDirectory */
+#if REGION != REGION_JP
 s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, char **fileNames, char **fileExtensions,
                                  u32 *fileSizes, u8 *fileTypes) {
     OSPfsState state;
@@ -1729,7 +1730,7 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
         free_from_memory_pool(D_800DE440);
     }
 
-    files_used = maxNumOfFilesOnCpak * 24;
+    files_used = maxNumOfFilesOnCpak * SAVE_FILE_BYTES;
     D_800DE440 = allocate_from_main_pool_safe(files_used, COLOUR_TAG_BLACK);
     bzero(D_800DE440, files_used);
     temp_D_800DE440 = D_800DE440;
@@ -1737,11 +1738,20 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
     // TODO: There's probably an unidentified struct here
     for (i = 0; i < maxNumOfFilesOnCpak; i++) {
         fileNames[i] = (char *) temp_D_800DE440;
+#if REGION == REGION_JP
+        // Could be doubled because file names bytes are doubled in JP?
+        temp_D_800DE440 += 0x24;
+#else
         temp_D_800DE440 += 0x12;
+#endif
         fileExtensions[i] = (char *) temp_D_800DE440;
         fileSizes[i] = 0;
         fileTypes[i] = SAVE_FILE_TYPE_UNSET;
+#if REGION == REGION_JP
+        temp_D_800DE440 += 12;
+#else
         temp_D_800DE440 += 6;
+#endif
     }
 
     while (i < maxNumOfFilesToGet) {
@@ -1777,6 +1787,9 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
     start_reading_controller_data(controllerIndex);
     return CONTROLLER_PAK_GOOD;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_controller_pak_file_list.s")
+#endif
 
 // Free D_800DE440
 void packDirectoryFree(void) {

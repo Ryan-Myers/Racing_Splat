@@ -42,6 +42,231 @@
 // The bss section needs to stay above the data section!
 // Otherwise the bss variables will get reordered, which is bad.
 
+// A huge unfortunate issue has occurred which seems to have reordered the BSS for JP... Not sure why.
+#if REGION == REGION+JP
+//START OF JPN BSS ORDER
+
+char gCourseInitials[4]; // course initials
+char gFLapInitials[4];   // flap initials
+s32 gNumberOfCheats;
+s32 gNameEntryStickX;
+Gfx *sMenuCurrDisplayList;
+s16 gCheatInputCurrentRow;
+MatrixS *sMenuCurrHudMat;
+s16 gCheatInputCurrentColumn;
+Vertex *sMenuCurrHudVerts;
+s16 gCheatInputStringLength;
+TriangleList *sMenuCurrHudTris;
+s16 gOptionsMenuItemIndex;
+s32 gNameSelectionDone;
+s16 gNewCheatID;
+f32 gNameEntryOffsetX;
+UNUSED s32 D_80127E5F_128A5F;
+char gCheatInput[20];
+s32 *gNameEntryTargetX;
+s32 gNumOnscreenMagicCodes;
+char *gNameEntryString;
+s32 gNameEntryAllowedLength;
+unk80126C54 gPostRace;
+s16 gUnlockedCheatIDs[32];
+s32 gFileNew;
+s32 gOptionBlinkTimer;
+s32 gIgnorePlayerInputTime;  // A set amount of time to ignore player input.
+s32 gAdventureSaveGhost;
+s32 gPreviousMenuID;
+char **gTTSaveGhostPakErrorText;
+UNUSED s32 sUnused_801263C8; // Set to 0 in menu_init, and never again.
+s32 gTrackmenuLoadedLevel;              // Compared for equality to gTrackIdForPreview
+s32 gOpacityDecayTimer;
+s32 gMenuStage;
+unk801263C0 gMenuSelectedCharacter;
+unk801263C0 D_801263B8;
+unk801263C0 gMenuCurrentCharacter;
+
+// Eeeprom save data bits stored at address 0xF
+// bit 0      = Adventure Two is Unlocked
+// bit 1      = Used to set the CHEAT_CONTROL_DRUMSTICK magic code flag. Drumstick is unlocked flag?
+// bits 2-3   = Current language value
+// bits 4-23  = Used to set the CHEAT_CONTROL_TT magic code flag. Could be tracks where TT has been beat?
+// bit 24     = Unknown, but it's set as a default high bit.
+// bit 25     = Seems to be a flag for whether subtitles are enabled or not.
+// bits 26-55 = Unknown, but it could be a set of flags for unlocked tracks
+// bits 56-63 = Checksum bits. These are calculated from the previous bits,
+//              and validated using calculate_eeprom_settings_checksum.
+//              If the checksum fails, the settings are reset to just
+//              bits 24/25 being high.
+u64 sEepromSettings;
+f32 sBootScreenTimer;
+CharacterSelectData (*gCurrCharacterSelectData)[10];
+s8 gActivePlayersArray[MAXCONTROLLERS]; // Boolean value for each controller if it's active with a player.
+s8 gCharselectStatus[MAXCONTROLLERS];
+s8 gPlayersCharacterArray[8]; // -1 = Non active player, or character id if >= 0
+s8 gCharacterIdSlots[8];
+s32 gRankingsPoints[8];
+u8 gResultsPlayers[8];
+u8 gRankingsPlayers[8];
+u8 gResultsPlayerIDs[8];
+u8 gRankingsPlayerIDs[8]; // Contains the order of racer indices that tell you what place they are in.
+s8 gControllersXAxisDelay[4];
+UNUSED s32 D_80127F6C_EE71C;
+s8 D_80126438[12]; // Could be 12 and not size 16
+s8 gControllersYAxisDelay[4];
+s8 gControllersXAxisDirection[4]; // X axis (-1 = left, 1 = right) for controller
+s8 gControllersYAxisDirection[4]; // Y axis (-1 = down, 1 = up) for controller
+s8 gControllersXAxis[4];
+s8 gControllersYAxis[4];
+s32 sUnused_80126470; // Set to 0 in the magic codes menu and 0xD000 elsewhere, otherwise unused.
+s32 gTrackSelectViewPortHalfX;
+s32 gTrackSelectViewPortHalfY;
+s32 gTrackSelectViewPortX;
+s32 gTrackSelectViewportY;
+MenuElement *gGameSelectElements;
+s8 gDialogueSubmenu;
+s8 sCurrentMenuID;
+s32 gFileCopy;
+s32 gFileErase;
+s8 sDialogueOptionMax;
+s32 gSaveFileIndex3;
+s8 gDialogueOptionYOffset;
+s32 gSaveFileIndex2;
+s8 gDialogueItemSelection;
+s32 gFileConfirm;
+Settings *gSavefileData[4];
+s32 gGhostMenuOption;
+UNUSED s32 D_80127FE4_EE794;
+SavefileInfo gSavefileInfo[4];
+s32 gCpakGhostData;
+s32 gGhostMenuTotal;
+u8 gGhostLevelIDsPak[4];
+UNUSED s32 D_80128024_EE7D4;
+u8 gGhostCharacterIDsPak[4];
+void *gMenuAssets[128]; // lookup table? Contains Textures, Objects, and Sprites. Need to change name and type.
+u8 gGhostVehicleIDsPak[4];
+u8 gMenuAssetActive[128];
+u16 gGhostChecksumIDsPak[6];
+u8 gGhostLevelIDsMenu[6];
+u8 gGhostCharacterIDsMenu[6];
+UNUSED s32 D_801282D2_EEA82;
+SoundMask *gMenuSoundMasks[MAXCONTROLLERS]; // Soundmask values
+u8 gGhostVehicleIDsMenu[6];
+UNUSED s8 sUnused_80126828; // Set to 0 in menu_init, and never used again.
+u16 gGhostChecksumIDsMenu[6];
+u8 gGhostWorldIDs[6];
+s32 gMultiplayerSelectedNumberOfRacersCopy; // Saved version gMultiplayerSelectedNumberOfRacers?
+s32 gTrackmenuType;
+s32 *D_80126850; // Never set, but it's read? Is it part of a larger struct being set?
+s32 gMenuButtons[5]; // Buttons pressed per player plus an an extra containing each collective input.
+s8 *gCinematicParams;
+s32 gMenuElementScaleTimer;
+s32 buttonsPressed[5];
+s8 *gCinematicPortraits;
+s32 gPostraceScaleIn;
+s16 gMenuStickX[5];
+UNUSED s16 D_8012835A_EEB0A;
+s32 gCinematicEnd;
+s32 gPostraceScaleMiddle;
+s16 gMenuStickY[5];
+s16 D_8012683A;
+s32 gCinematicSkipA;
+s32 gPostraceScaleOut;
+SoundMask *gTrackTTSoundMask;
+s32 gCinematicSkipB;
+SoundMask *D_80126848;
+s32 gCinematicMusicChangeOff;
+s32 gTitleDemoIndex;
+s32 gTitleRevealTimer;
+f32 gTitleAudioCounter;
+s8 *sTitleScreenDemoIds; // Misc Asset 66 - title_screen_demo_ids.bin - 12 or 13 values.
+s16 gTitleDemoTimer;
+unk80126878 D_80126878[8];
+u8 D_80126E78[0x20]; // NEW BSS, or BIGGER D_80126878?
+f32 D_801268D8;
+UNUSED s32 D_801268DC; // Set to 0 during the title screen, never read.
+s32 gOpeningNameID;
+s16 gTrackSelectIDs[4][6]; // Track Select values?
+s16 gFFLUnlocked;
+UNUSED s32 D_80128464;
+UNUSED s32 D_80128468;
+s32 gTrackSelectVertsFlip;
+UNUSED s32 D_80126928; // Set to 64, but never used.
+UNUSED s32 D_8012692C; // Set to 32, but never used.
+TrackRenderDetails gTrackSelectRenderDetails[9];
+s8 gPlayerSelectVehicle[4];
+s8 gPlayerSelectConfirm[4];
+s32 gTrackSelectCursorX;
+s32 gTrackSelectCursorY;
+char *gAudioOutputStrings[3];
+f32 gTrackSelectX;
+char *gMusicTestString;
+f32 gTrackSelectY;
+f32 gTrackSelectTargetX;
+f32 gTrackSelectTargetY;
+char *gTrackMenuHubName;
+s32 gSelectedTrackX;
+s32 gSelectedTrackY;
+SoundMask *gSoundOptionMask;
+s32 gSaveMenuOptionCountLower;
+SaveFileData *gSaveMenuFilesDest;
+s32 gSaveMenuOptionCountUpper;
+SaveFileData *gSaveMenuFilesSource;
+s32 gSaveMenuRumbleNag;
+s32 gSaveMenuRumbleConnected;
+s32 gSaveMenuSourceState;
+s32 gSaveMenuDestState;
+s32 sControllerPakNotesFree[MAXCONTROLLERS]; // Looks to be an array for number notes free in each controller memory pak
+u8 sControllerPakIssueNotFound[MAXCONTROLLERS];   // Flag to see if there's no known issues for the given controller pak
+u8 sControllerPakFatalErrorFound[MAXCONTROLLERS]; // Flag to see if there's a fatal error for the given controller pak
+u8 sControllerPakNoFreeSpace[MAXCONTROLLERS];     // Flag to see if there's no free space for the given controller pak
+u8 sControllerPakBadData[MAXCONTROLLERS];         // Flag to see if there's bad data for the given controller pak
+char *gMenuOptionText[8];                         // Menu Text
+u8 sControllerPakDataPresent[MAXCONTROLLERS];     // Flag to see if there's data present for the given controller pak?
+char *D_80126A64;
+s32 gMenuOption;
+s32 gSaveMenuRumbleNagSet;
+char **gDeviceStatusStrings;
+s32 gSaveMenuMessageLines;
+s32 gSaveMenuMessageOption;
+unk80126A80 *gSaveMenuText[4];
+s32 gPostRace1Player;
+s32 gPostRaceTimer;
+s32 gTracksSaveGhost;
+char *gBootPakData[16];                         // Text to render
+u8 *sCurrentControllerPakAllFileNames[16];      // Every file name on the controller pak
+u8 *sCurrentControllerPakAllFileExtensions[16]; // Every file extension on the controller pak
+u8 sCurrentControllerPakAllFileTypes[16];       // File type of all files on controller pak
+u32 sCurrentControllerPakAllFileSizes[16];      // File size of all files on controller pak
+u32 sCurrentControllerPakFreeSpace;             // Space available in current controller pak
+s32 sControllerPakMenuNumberOfRows;             // 8 if PAL, 7 if not
+TextureHeader *gMenuMosaic1;
+TextureHeader *gMenuMosaic2;
+s32 gMenuMosaicShift;
+s32 D_80126BC4;               // gCreditsControlData - CurIndex?
+PakError sControllerPakError; // 0 = no error, 1 = fatal error, 2 = no free space, 3 = bad data
+s32 D_80126BCC;
+UNUSED s32 D_80126BD0; // Set to zero, never read.
+s32 gSaveMenuOptionSource;
+s32 D_80126BD8;
+f32 gSaveMenuScrollSource;
+s32 D_80126BE0;
+s32 gSaveMenuOptionDest;
+s32 D_80126BE8;
+f32 gSaveMenuScrollDest;
+char *gResultOptionText[8];
+s32 gCpakWriteTimer;
+s32 gResultOptionCount;
+s32 gBootMenuTimer;
+char **gPostRaceMessage;
+s32 gBootMenuPhase;
+s32 gPostRaceLineCount;
+s8 gPostraceFinishState;
+unk80080BC8 (*gMenuGeometry)[2];
+u16 (*gCheatsAssetData)[30]; // Cheat table.
+s32 gNameEntryStickHeld;
+
+//END OF JPN BSS ORDER
+#else
+// START OF US/PAL BSS ORDER
+
 char gCourseInitials[4]; // course initials
 char gFLapInitials[4];   // flap initials
 s32 gAdventureSaveGhost;
@@ -286,6 +511,9 @@ char *gNameEntryString;
 s32 gNameEntryAllowedLength;
 s16 gUnlockedCheatIDs[32];
 s32 gFileNew;
+
+// END OF US/PAL BSS ORDER
+#endif
 
 /******************************/
 
@@ -3886,21 +4114,31 @@ void savemenu_render(UNUSED s32 updateRate) {
         }
     }
 
+#if REGION == REGION_JP
+    #define SAVEMENU_ELEMENT_SIZE 212
+    #define SAVEMENU_OFFSET_X 56
+    #define SAVEMENU_OFFSET_SCROLL 212.0f
+#else
+    #define SAVEMENU_ELEMENT_SIZE 164
+    #define SAVEMENU_OFFSET_X 80
+    #define SAVEMENU_OFFSET_SCROLL 164.0f
+#endif
+
     if (drawUpperElements) {
         scroll = (s32) gSaveMenuScrollSource;
         temp = scroll;
-        offsetX = 80 - (s32) ((gSaveMenuScrollSource - scroll) * 164.0f);
+        offsetX = SAVEMENU_OFFSET_X - (s32) ((gSaveMenuScrollSource - scroll) * SAVEMENU_OFFSET_SCROLL);
         x = offsetX;
         while (x < videoWidth && temp < gSaveMenuOptionCountUpper) {
             savemenu_render_element(&gSaveMenuFilesSource[temp], x, 64);
-            x += 164;
+            x += SAVEMENU_ELEMENT_SIZE;
             temp++;
         }
         temp = scroll;
         x = offsetX;
         while ((x > 0) && (temp > 0)) {
             temp--;
-            x -= 164;
+            x -= SAVEMENU_ELEMENT_SIZE;
             savemenu_render_element(&gSaveMenuFilesSource[temp], x, 64);
         }
     }
@@ -3908,18 +4146,18 @@ void savemenu_render(UNUSED s32 updateRate) {
     if (drawLowerElements) {
         scroll = (s32) gSaveMenuScrollDest;
         temp = scroll;
-        offsetX = 80 - (s32) ((gSaveMenuScrollDest - (f32) scroll) * 164.0f);
+        offsetX = SAVEMENU_OFFSET_X - (s32) ((gSaveMenuScrollDest - (f32) scroll) * SAVEMENU_OFFSET_SCROLL);
         x = offsetX;
         while (x < videoWidth && temp < gSaveMenuOptionCountLower) {
             savemenu_render_element(&gSaveMenuFilesDest[temp], x, 144);
-            x += 164;
+            x += SAVEMENU_ELEMENT_SIZE;
             temp++;
         }
         temp = scroll;
         x = offsetX;
         while (x > 0 && temp > 0) {
             temp--;
-            x -= 164;
+            x -= SAVEMENU_ELEMENT_SIZE;
             savemenu_render_element(&gSaveMenuFilesDest[temp], x, 144);
         }
     }
@@ -4360,8 +4598,13 @@ void savemenu_render_error(SIDeviceStatus deviceStatus) {
     gSaveMenuMessageOption = gSaveMenuMessageLines - 1;
 
     dialogue_clear(7);
+#if REGION == REGION_JP
+    set_current_dialogue_box_coords(7, 28, SCREEN_HEIGHT_HALF - (((k * 16) + 44) >> 1), 292,
+                                    (((k * 16) + 44) >> 1) + SCREEN_HEIGHT_HALF + 3);
+#else
     set_current_dialogue_box_coords(7, 40, SCREEN_HEIGHT_HALF - (((k * 16) + 44) >> 1), 280,
                                     (((k * 16) + 44) >> 1) + SCREEN_HEIGHT_HALF);
+#endif
     set_current_dialogue_background_colour(7, 0, 0, 0, 160);
     set_current_text_background_colour(7, 0, 0, 0, 0);
     set_dialogue_font(7, 2);
@@ -5015,11 +5258,11 @@ void bootscreen_init_cpak(void) {
     s32 i;
 
     // Starting point
-    gBootPakData[0] = allocate_from_main_pool_safe(SAVE_SIZE, COLOUR_TAG_WHITE);
+    gBootPakData[0] = allocate_from_main_pool_safe(SAVE_SIZE_MENU, COLOUR_TAG_WHITE);
 
     // Fills in the table.
     for (i = 1; i < ARRAY_COUNT(gBootPakData); i++) {
-        gBootPakData[i] = (char *) (((u32) gBootPakData[0]) + (i * (SAVE_SIZE / ARRAY_COUNT(gBootPakData))));
+        gBootPakData[i] = (char *) (((u32) gBootPakData[0]) + (i * (SAVE_SIZE_MENU / ARRAY_COUNT(gBootPakData))));
     }
 
     for (i = 0; i < 1; i++) {
@@ -5049,7 +5292,7 @@ void bootscreen_init_cpak(void) {
         sControllerPakMenuNumberOfRows = 7;
     }
 #if REGION == REGION_JP
-    func_800C67F4_C73F4();
+    func_800C663C_C723C();
 #else
     load_font(ASSET_FONTS_BIGFONT);
 #endif
@@ -5936,7 +6179,9 @@ void cheatlist_render(UNUSED s32 updateRate) {
             set_text_colour(255, 255, 255, alpha, 255);
         }
         draw_text(&sMenuCurrDisplayList, 48, yPos,
-#if VERSION >= VERSION_79
+#if VERSION == VERSION_79
+                  (char *) (*gCheatsAssetData) + cheatData[(gUnlockedCheatIDs[i] * 3) + 2], ALIGN_TOP_LEFT);
+#elif VERSION == VERSION_80
                   (char *) (*gCheatsAssetData) + cheatData[(gUnlockedCheatIDs[i] * 3) + 1], ALIGN_TOP_LEFT);
 #else
                   (char *) (*gCheatsAssetData) + cheatData[(gUnlockedCheatIDs[i] * 2) + 1], ALIGN_TOP_LEFT);
@@ -13256,7 +13501,11 @@ s32 taj_menu_loop(void) {
         sCurrentMenuID = DIALOGUEPAGE_TAJ_ROOT;
     }
     if (sCurrentMenuID >= DIALOGUEPAGE_TAJ_ROOT && sCurrentMenuID <= DIALOGUEPAGE_TAJ_CHALLENGES) {
+#if REGION == REGION_JP
+        set_current_dialogue_box_coords(1, 22, 16, 210, 124);
+#else
         set_current_dialogue_box_coords(1, 24, 16, 184, 124);
+#endif
         set_dialogue_font(1, ASSET_FONTS_FUNFONT);
     }
     dialogueResult = 0;

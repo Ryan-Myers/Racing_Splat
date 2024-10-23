@@ -33,9 +33,14 @@
 #define EEP_COURSE_RECORD_SIZE (0xC0  / sizeof(u64))
 
 #if REGION == REGION_JP
-#define SAVE_SIZE 0x400
-#else
+// The Save size constant seems to change depending on the file being compiled in JP?
+#define SAVE_SIZE_MENU 0x400
 #define SAVE_SIZE 0x200
+#define SAVE_FILE_BYTES 48
+#else
+#define SAVE_SIZE_MENU 0x200
+#define SAVE_SIZE 0x200
+#define SAVE_FILE_BYTES 24
 #endif
 
 #define GHSS_SIZE 0x100

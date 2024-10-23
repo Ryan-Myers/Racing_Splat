@@ -104,7 +104,7 @@ s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be relat
 #if REGION == REGION_JP
 u32 *D_8012C2A4_EE5E4;
 void *D_8012C2A8_EE5E8;
-void *D_8012C2AC_EE5EC[3]; // Could be 4?
+void *D_8012C2AC_EE5EC[2]; // Could be 4?
 s32 D_8012C2B8_EE5F8;
 s32 D_8012C2BC_EE5FC;
 s32 D_8012C2C0_EE600;
