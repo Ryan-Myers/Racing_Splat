@@ -9,83 +9,75 @@
 
 /************ .data ************/
 
-extern Gfx dDialogueBoxBegin[];
-extern Gfx dDialogueBoxDrawModes[][3];
-extern s8 sDialogueBoxIsOpen;
-extern s32 gDescPowsOf10[9];
-extern s8 sDialogueBoxDimensions[48];
-extern u8 D_800E5234_E5E34[];
+Gfx dDialogueBoxBegin[] = {
+    gsDPPipeSync(),
+    gsDPSetTextureLOD(G_TL_TILE),
+    gsDPSetTextureLUT(G_TT_NONE),
+    gsDPSetAlphaCompare(G_AC_NONE),
+    gsSPClearGeometryMode(G_ZBUFFER | G_FOG),
+    gsDPPipeSync(),
+    gsSPEndDisplayList(),
+};
 
-// Gfx dDialogueBoxBegin[] = {
-//     gsDPPipeSync(),
-//     gsDPSetTextureLOD(G_TL_TILE),
-//     gsDPSetTextureLUT(G_TT_NONE),
-//     gsDPSetAlphaCompare(G_AC_NONE),
-//     gsSPClearGeometryMode(G_ZBUFFER | G_FOG),
-//     gsDPPipeSync(),
-//     gsSPEndDisplayList(),
-// };
+Gfx dDialogueBoxDrawModes[][2] = {
+    {
+        gsDPSetCombineMode(DKR_CC_UNK11, DKR_CC_UNK11),
+        gsDPSetOtherMode(DKR_OMH_1CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_XLU_SURF | G_RM_XLU_SURF2),
+    },
+    {
+        gsDPSetCombineMode(DKR_CC_ENVIRONMENT, DKR_CC_ENVIRONMENT),
+        gsDPSetOtherMode(DKR_OMH_1CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_XLU_SURF | G_RM_XLU_SURF2),
+    },
+};
+#if REGION == REGION_JP
+// This is more GFX data like above. Likley even within that array.
+s32 D_800E51D8_E5DD8[] = {
+        0xFC5627FF, 0x1FFCFE38, 0xEF100C0F, 0x00104240
+    };
+#endif
 
-// Gfx dDialogueBoxDrawModes[][2] = {
-//     {
-//         gsDPSetCombineMode(DKR_CC_UNK11, DKR_CC_UNK11),
-//         gsDPSetOtherMode(DKR_OMH_1CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_XLU_SURF | G_RM_XLU_SURF2),
-//     },
-//     {
-//         gsDPSetCombineMode(DKR_CC_ENVIRONMENT, DKR_CC_ENVIRONMENT),
-//         gsDPSetOtherMode(DKR_OMH_1CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_XLU_SURF | G_RM_XLU_SURF2),
-//     },
-// };
-// #if REGION == REGION_JP
-// // This is more GFX data like above. Likley even within that array.
-// s32 D_800E51D8_E5DD8[] = {
-//         0xFC5627FF, 0x1FFCFE38, 0xEF100C0F, 0x00104240
-//     };
-// #endif
+s8 sDialogueBoxIsOpen = FALSE;
 
-// s8 sDialogueBoxIsOpen = FALSE;
+// Descending powers of 10
+s32 gDescPowsOf10[9] = {
+    1000000000, 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10,
+};
 
-// // Descending powers of 10
-// s32 gDescPowsOf10[9] = {
-//     1000000000, 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10,
-// };
+// The dialogue box will draw in pieces, using properties from each line. It starts with a box
+// and goes inwards or outwards depending on the direction, set by the define.
 
-// // The dialogue box will draw in pieces, using properties from each line. It starts with a box
-// // and goes inwards or outwards depending on the direction, set by the define.
+#define INWARDS 0
+#define OUTWARDS 1
 
-// #define INWARDS 0
-// #define OUTWARDS 1
+// clang-format off
+s8 sDialogueBoxDimensions[] = {
+    /*X Offset*/ 4,  INWARDS,  /*Y Start*/  0,  INWARDS,  /*Y end*/  1,
+    /*X Offset*/ 2,  INWARDS,  /*Y Start*/  1,  INWARDS,  /*Y end*/  2,
+    /*X Offset*/ 1,  INWARDS,  /*Y Start*/  2,  INWARDS,  /*Y end*/  4,
+    /*X Offset*/ 0,  INWARDS,  /*Y Start*/  4,  OUTWARDS, /*Y end*/ -4,
+    /*X Offset*/ 1,  OUTWARDS, /*Y Start*/ -4,  OUTWARDS, /*Y end*/ -2,
+    /*X Offset*/ 2,  OUTWARDS, /*Y Start*/ -2,  OUTWARDS, /*Y end*/ -1,
+    /*X Offset*/ 4,  OUTWARDS, /*Y Start*/ -1,  OUTWARDS,  0,
+    /*X Offset*/ -1, // End of Data
+};
+// clang-format on
 
-// // clang-format off
-// s8 sDialogueBoxDimensions[48] = {
-//     /*X Offset*/ 4,  INWARDS,  /*Y Start*/  0,  INWARDS,  /*Y end*/  1,
-//     /*X Offset*/ 2,  INWARDS,  /*Y Start*/  1,  INWARDS,  /*Y end*/  2,
-//     /*X Offset*/ 1,  INWARDS,  /*Y Start*/  2,  INWARDS,  /*Y end*/  4,
-//     /*X Offset*/ 0,  INWARDS,  /*Y Start*/  4,  OUTWARDS, /*Y end*/ -4,
-//     /*X Offset*/ 1,  OUTWARDS, /*Y Start*/ -4,  OUTWARDS, /*Y end*/ -2,
-//     /*X Offset*/ 2,  OUTWARDS, /*Y Start*/ -2,  OUTWARDS, /*Y end*/ -1,
-//     /*X Offset*/ 4,  OUTWARDS, /*Y Start*/ -1,  OUTWARDS,  0,
-//     /*X Offset*/ -1, 0, 0, 0, 0, // End of Data
-//     /*X Offset*/ 0, 0, 0, 0, 0, 0, 0, 0,
-// };
-// // clang-format on
-
-// #if REGION == REGION_JP
-// u8 D_800E5234_E5E34[] = {
-//     0x0F, 0x34, 0x0A, 0x36, 0x02, 0x06, 0x0D, 0x37,
-//     0x03, 0x04, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D,
-//     0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
-//     0x18, 0x19, 0x3E, 0x05, 0x0B, 0x3F, 0x0C, 0x40,
-//     0x41, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20,
-//     0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28,
-//     0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30,
-//     0x31, 0x32, 0x33, 0x07, 0x0F, 0x08, 0x0F, 0x0F,
-//     0x09, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A, 0x9B,
-//     0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3,
-//     0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB,
-//     0xAC, 0xAD, 0xAE, 0x03, 0x0F, 0x04, 0x0E, 0x0F,
-// };
-// #endif
+#if REGION == REGION_JP
+u8 D_800E5234_E5E34[] = {
+    0x0F, 0x34, 0x0A, 0x36, 0x02, 0x06, 0x0D, 0x37,
+    0x03, 0x04, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D,
+    0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
+    0x18, 0x19, 0x3E, 0x05, 0x0B, 0x3F, 0x0C, 0x40,
+    0x41, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20,
+    0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28,
+    0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30,
+    0x31, 0x32, 0x33, 0x07, 0x0F, 0x08, 0x0F, 0x0F,
+    0x09, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A, 0x9B,
+    0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3,
+    0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB,
+    0xAC, 0xAD, 0xAE, 0x03, 0x0F, 0x04, 0x0E, 0x0F,
+};
+#endif
 
 #undef INWARDS
 #undef OUTWARDS

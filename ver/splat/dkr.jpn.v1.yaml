@@ -308,7 +308,7 @@ segments:
       - [0xE5730, .data, waves]
       - [0xE5890, .data, fade_transition]
       - [0xE5D60, .data, game_text]
-      - [0xE5D80, data, font]
+      - [0xE5D80, .data, font]
       - [0xE5EA0, .data, ../libultra/src/io/pimgr]
       - [0xE5EC0, .data, gzip]
       - [0xE5ED0, .data, thread30_track_loading]
