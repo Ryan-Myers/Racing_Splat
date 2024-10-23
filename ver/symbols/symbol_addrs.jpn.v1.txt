@@ -2947,7 +2947,7 @@ gSubtitleSetting = 0x800E5170;
 
 // font.c .data
 dDialogueBoxBegin = 0x800E5180;
-dDialogueBoxDrawModes = 0x800E51B8;
+dDialogueBoxDrawModes = 0x800E51B8; // size:0x30
 sDialogueBoxIsOpen = 0x800E51E8;
 gDescPowsOf10 = 0x800E51EC;
 sDialogueBoxDimensions = 0x800E5210;
@@ -4614,6 +4614,7 @@ gFonts = 0x8012C294;
 gDialogueBoxBackground = 0x8012C298;
 gDialogueText = 0x8012C29C;
 gCompactKerning = 0x8012C2A0;
+D_8012C2A8_EE5E8 = 0x8012C2A8; // size:0x10
 sDialogueBoxCloseTimer = 0x8012C2DC;
 
 

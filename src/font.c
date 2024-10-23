@@ -103,8 +103,7 @@ s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be relat
 
 #if REGION == REGION_JP
 u32 *D_8012C2A4_EE5E4;
-void *D_8012C2A8_EE5E8;
-void *D_8012C2AC_EE5EC[2]; // Could be 4?
+s32 *D_8012C2A8_EE5E8[4];
 s32 D_8012C2B8_EE5F8;
 s32 D_8012C2BC_EE5FC;
 s32 D_8012C2C0_EE600;
@@ -998,7 +997,11 @@ void render_dialogue_box(Gfx **dlist, MatrixS **mat, Vertex **verts, s32 dialogu
     // Render dialogue box background.
     if (dialogueBox->backgroundColourA != 0) {
         gSPDisplayList((*dlist)++, dDialogueBoxBegin);
+#if REGION == REGION_JP
+        gDkrDmaDisplayList((*dlist)++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[0][2]), 2);
+#else
         gDkrDmaDisplayList((*dlist)++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[1]), 2);
+#endif
         gDPSetEnvColor((*dlist)++, 0, 0, 0, 0);
         if (dialogueBox->x2 - dialogueBox->x1 < 10 || dialogueBox->y2 - dialogueBox->y1 < 10) {
             render_fill_rectangle(dlist, dialogueBox->x1 - 2, dialogueBox->y1 - 2, dialogueBox->x2 + 2,

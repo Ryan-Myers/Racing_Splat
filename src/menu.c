@@ -649,10 +649,17 @@ char *gTitleMenuStrings[3] = { 0, 0, 0 };
 char gVersionDisplayText[20] = "VERSION XXXXXXXX";
 
 // "Diddy Kong Racing" logo texture indices
+#if REGION == REGION_JP
+s16 sGameTitleTileTextures[12] = { TEXTURE_UNK_5B, TEXTURE_UNK_5C, TEXTURE_UNK_5D,
+                                   TEXTURE_ICON_TT_HEAD, TEXTURE_UNK_5F, TEXTURE_UNK_60,
+                                   TEXTURE_UNK_61, TEXTURE_UNK_62, TEXTURE_UNK_63,
+                                   TEXTURE_UNK_64, TEXTURE_UNK_65, -1 };
+#else
 s16 sGameTitleTileTextures[12] = { TEXTURE_TITLE_SEGMENT_01, TEXTURE_TITLE_SEGMENT_02, TEXTURE_TITLE_SEGMENT_03,
                                    TEXTURE_TITLE_SEGMENT_04, TEXTURE_TITLE_SEGMENT_05, TEXTURE_TITLE_SEGMENT_06,
                                    TEXTURE_TITLE_SEGMENT_07, TEXTURE_TITLE_SEGMENT_08, TEXTURE_TITLE_SEGMENT_09,
                                    TEXTURE_TITLE_SEGMENT_10, TEXTURE_TITLE_SEGMENT_11, -1 };
+#endif
 
 DrawTexture sGameTitleTileOffsets[12] = { { NULL, -75, -32 }, { NULL, -60, -32 }, { NULL, -45, -32 },
                                           { NULL, -30, -32 }, { NULL, -15, -32 }, { NULL, 0, -32 },
@@ -979,17 +986,17 @@ MenuElement gCautionMenuTextElements[14] = {
     { SCREEN_WIDTH_HALF + 1, 35, SCREEN_WIDTH_HALF + 1, 35, SCREEN_WIDTH_HALF + 1, 35, 0, 0, 0, 255, 128, ASSET_FONTS_BIGFONT, 12,0, { NULL }, { { 0, 0, 0, 0 } } },
     { SCREEN_WIDTH_HALF, 32, SCREEN_WIDTH_HALF, 32, SCREEN_WIDTH_HALF, 32, 255, 255, 255, 0, 255, ASSET_FONTS_BIGFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
 #if REGION == REGION_JP
-    { SCREEN_WIDTH_HALF, 72, SCREEN_WIDTH_HALF, 68, SCREEN_WIDTH_HALF, 72, 160, 16, 128, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 86, SCREEN_WIDTH_HALF, 82, SCREEN_WIDTH_HALF, 86, 160, 16, 132, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 100, SCREEN_WIDTH_HALF, 96, SCREEN_WIDTH_HALF, 100, 160, 16, 136, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 114, SCREEN_WIDTH_HALF, 110, SCREEN_WIDTH_HALF, 114, 160, 16, 140, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 128, SCREEN_WIDTH_HALF, 124, SCREEN_WIDTH_HALF, 128, 160, 16, 144, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 142, SCREEN_WIDTH_HALF, 138, SCREEN_WIDTH_HALF, 142, 160, 16, 148, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 156, SCREEN_WIDTH_HALF, 152, SCREEN_WIDTH_HALF, 156, 160, 16, 152, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 156, SCREEN_WIDTH_HALF, 166, SCREEN_WIDTH_HALF, 156, 160, 16, 156, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 186, SCREEN_WIDTH_HALF, 180, SCREEN_WIDTH_HALF, 186, 160, 16, 160, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 200, SCREEN_WIDTH_HALF, 194, SCREEN_WIDTH_HALF, 200, 160, 16, 164, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
-    { SCREEN_WIDTH_HALF, 200, SCREEN_WIDTH_HALF, 208, SCREEN_WIDTH_HALF, 200, 160, 16, 168, 255, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 72, SCREEN_WIDTH_HALF, 68, SCREEN_WIDTH_HALF, 72, 160, 16, 128, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 86, SCREEN_WIDTH_HALF, 82, SCREEN_WIDTH_HALF, 86, 160, 16, 132, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 100, SCREEN_WIDTH_HALF, 96, SCREEN_WIDTH_HALF, 100, 160, 16, 136, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 114, SCREEN_WIDTH_HALF, 110, SCREEN_WIDTH_HALF, 114, 160, 16, 140, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 128, SCREEN_WIDTH_HALF, 124, SCREEN_WIDTH_HALF, 128, 160, 16, 144, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 142, SCREEN_WIDTH_HALF, 138, SCREEN_WIDTH_HALF, 142, 160, 16, 148, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 156, SCREEN_WIDTH_HALF, 152, SCREEN_WIDTH_HALF, 156, 160, 16, 152, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 156, SCREEN_WIDTH_HALF, 166, SCREEN_WIDTH_HALF, 156, 160, 16, 156, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 186, SCREEN_WIDTH_HALF, 180, SCREEN_WIDTH_HALF, 186, 160, 16, 160, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 200, SCREEN_WIDTH_HALF, 194, SCREEN_WIDTH_HALF, 200, 160, 16, 164, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
+    { SCREEN_WIDTH_HALF, 200, SCREEN_WIDTH_HALF, 208, SCREEN_WIDTH_HALF, 200, 160, 16, 168, 255, 255, ASSET_FONTS_SMALLFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
 #else
     { SCREEN_WIDTH_HALF, 72, SCREEN_WIDTH_HALF, 68, SCREEN_WIDTH_HALF, 72, 255, 255, 255, 0, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
     { SCREEN_WIDTH_HALF, 86, SCREEN_WIDTH_HALF, 82, SCREEN_WIDTH_HALF, 86, 255, 255, 255, 0, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
@@ -1344,6 +1351,16 @@ s16 unused_800E0B18[74] = { 0x0140, 0x017C, 0x01B8, 0x01F4, 0x0230, 0x026C, 0x02
                             0x0006, 0xFFE4, 0x0018, 0x0050, 0x0008, 0x0000, 0x0078, 0x0000, 0x003C, 0x0000, 0x001E,
                             0x0000, 0x0384, 0x0000, 0x001E, 0x0000, 0x001E, 0x0000, 0x0384 };
 
+#if REGION == REGION_JP
+char gFirstPlace[4] = "1st";
+char gSecondPlace[4] = "2nd";
+char gThirdPlace[4] = "3rd";
+char gFourthPlace[4] = "4th";
+char gFifthPlace[4] = "5th";
+char gSixthPlace[4] = "6th";
+char gSeventhPlace[4] = "7th";
+char gEighthPlace[4] = "8th";
+#else
 char gFirstPlace[4] = "1ST";
 char gSecondPlace[4] = "2ND";
 char gThirdPlace[4] = "3RD";
@@ -1352,6 +1369,7 @@ char gFifthPlace[4] = "5TH";
 char gSixthPlace[4] = "6TH";
 char gSeventhPlace[4] = "7TH";
 char gEighthPlace[4] = "8TH";
+#endif
 
 char *gRacePlacementsArray[8] = { gFirstPlace, gSecondPlace, gThirdPlace,   gFourthPlace,
                                   gFifthPlace, gSixthPlace,  gSeventhPlace, gEighthPlace };
@@ -1386,10 +1404,18 @@ MenuElement gRecordTimesMenuElements[9] = {
     { 481, 174, 161, 174, -159, 174, 0, 0, 0, 255, 128, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
     { 479, 172, 159, 172, -161, 172, 255, 255, 255, 0, 255, ASSET_FONTS_FUNFONT, 12, 0, { NULL }, { { 0, 0, 0, 0 } } },
     { 368, 192, 48, 192, -272, 192, 255, 64, 64, 96, 255, ASSET_FONTS_FUNFONT, 8, 0, { NULL }, { { 0, 0, 0, 0 } } },
+#if REGION == REGION_JP
+    { 506, 189, 186, 189, -134, 189, 255, 192, 255, 0, 255, ASSET_FONTS_FUNFONT, 0, 1, { NULL }, { { 0, 0, 0, 0 } } },
+#else
     { 506, 187, 186, 187, -134, 187, 255, 192, 255, 0, 255, ASSET_FONTS_FUNFONT, 0, 1, { NULL }, { { 0, 0, 0, 0 } } },
+#endif
     { 578, 192, 258, 192, -62, 192, 255, 128, 255, 96, 255, ASSET_FONTS_FUNFONT, 12, 0, { &gCourseInitials }, { { 0, 0, 0, 0 } } },
     { 368, 212, 48, 212, -272, 212, 255, 64, 64, 96, 255, ASSET_FONTS_FUNFONT, 8, 0, { NULL }, { { 0, 0, 0, 0 } } },
+#if REGION == REGION_JP
+    { 506, 209, 186, 209, -134, 209, 128, 255, 255, 0, 255, ASSET_FONTS_FUNFONT, 0, 1, { NULL }, { { 0, 0, 0, 0 } } },
+#else
     { 506, 207, 186, 207, -134, 207, 128, 255, 255, 0, 255, ASSET_FONTS_FUNFONT, 0, 1, { NULL }, { { 0, 0, 0, 0 } } },
+#endif
     { 578, 212, 258, 212, -62, 212, 255, 128, 255, 96, 255, ASSET_FONTS_FUNFONT, 12, 0, { &gFLapInitials }, { { 0, 0, 0, 0 } } }, {NULL}
 };
 
@@ -1463,6 +1489,21 @@ MenuElement gTrophyRankingsRacers[] = {
     { 286, 434, 286, 194, 286, -46, 255, 64, 255, 0, 255, ASSET_FONTS_FUNFONT, 4, 2, { &gTrophyRacePointsArray[7] }, { { 0, 0, 0, 0 } } },
     {NULL}
 };
+
+#if REGION == REGION_JP
+s16 gTrophyRankingsRawIconPositions[] = {
+    0x0048, 0x0020, 0x008A, 0x0048, 0x0020, 0x008A, 0x0048, 0x0020, 0x008A, 0x0048, 0x0020, 0x008A, 0x00DC, 0x00B4,
+    0x011E, 0x00DC, 0x00B4, 0x011E, 0x00DC, 0x00B4, 0x011E, 0x00DC, 0x00B4, 0x011E, 0x0030, 0x0030, 0x0044, 0x005A,
+    0x005A, 0x006E, 0x0084, 0x0084, 0x0098, 0x00AE, 0x00AE, 0x00C2, 0x0030, 0x0030, 0x0044, 0x005A, 0x005A, 0x006E,
+    0x0084, 0x0084, 0x0098, 0x00AE, 0x00AE, 0x00C2, 0x0038, 0x0038, 0x0040, 0x006A, 0x006A, 0x0072, 0x009C, 0x009C,
+    0x00A4, 0x00CE, 0x00CE, 0x00D6, 0x0038, 0x0038, 0x0040, 0x006A, 0x006A, 0x0072, 0x009C, 0x009C, 0x00A4, 0x00CE,
+    0x00CE, 0x00D6, 0x0048, 0x0020, 0x0082, 0x0048, 0x0020, 0x0082, 0x0048, 0x0020, 0x0082, 0x00DC, 0x00B4, 0x011E,
+    0x00DC, 0x00B4, 0x011E, 0x00DC, 0x00B4, 0x011E, 0x0034, 0x0034, 0x0048, 0x006F, 0x006F, 0x0083, 0x00AA, 0x00AA,
+    0x00BE, 0x0034, 0x0034, 0x0048, 0x006F, 0x006F, 0x0083, 0x00AA, 0x00AA, 0x00BE, 0x004C, 0x004C, 0x0054, 0x007E,
+    0x007E, 0x0086, 0x00B0, 0x00B0, 0x00B8, 0x004C, 0x004C, 0x0054, 0x007E, 0x007E, 0x0086, 0x00B0, 0x00B0, 0x00B8,
+    0x0090, 0x0068, 0x00D2, 0x0090, 0x0068, 0x00D2, 0x0090, 0x0068, 0x00D2, 0x0090, 0x0068, 0x00D2
+};
+#else
 s16 gTrophyRankingsRawIconPositions[] = {
     0x0040, 0x0020, 0x0082, 0x0040, 0x0020, 0x0082, 0x0040, 0x0020, 0x0082, 0x0040, 0x0020, 0x0082, 0x00DC, 0x00BC,
     0x011E, 0x00DC, 0x00BC, 0x011E, 0x00DC, 0x00BC, 0x011E, 0x00DC, 0x00BC, 0x011E, 0x0030, 0x0030, 0x0044, 0x005A,
@@ -1475,6 +1516,7 @@ s16 gTrophyRankingsRawIconPositions[] = {
     0x007E, 0x0086, 0x00B0, 0x00B0, 0x00B8, 0x004C, 0x004C, 0x0054, 0x007E, 0x007E, 0x0086, 0x00B0, 0x00B0, 0x00B8,
     0x008C, 0x006C, 0x00CE, 0x008C, 0x006C, 0x00CE, 0x008C, 0x006C, 0x00CE, 0x008C, 0x006C, 0x00CE
 };
+#endif
 
 s16 *gTrophyRankingsIconPositions[32] = { NULL,
                                           NULL,
