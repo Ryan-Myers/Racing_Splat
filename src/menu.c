@@ -8877,7 +8877,7 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
                     regionOffset += 24;
                 }
 #if REGION == REGION_JP
-                func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, regionOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER, -1, 0);
+                func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, regionOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER, COLOUR_RGBA32(255, 255, 255, 255), 0);
 #else
                 draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, regionOffset + 172, "OK?", ALIGN_MIDDLE_CENTER);
 #endif
@@ -9126,7 +9126,7 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
 #endif
                         set_text_colour(255, 255, 255, 0, 255);
 #if REGION == REGION_JP
-                        func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, yOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER, -1, 0);
+                        func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, yOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER, COLOUR_RGBA32(255, 255, 255, 255), 0);
 #else
                         draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, yOffset + 172, "OK?", ALIGN_MIDDLE_CENTER);
 #endif
@@ -9278,7 +9278,11 @@ s32 menu_adventure_track_loop(s32 updateRate) {
  */
 void adventuretrack_free(void) {
     menu_assetgroup_free((s16 *) &gAdvTrackInitObjectIndices);
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#else
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
     music_change_on();
 }
 
@@ -9362,6 +9366,11 @@ void pausemenu_render(UNUSED s32 updateRate) {
             x = textWidth;
         }
     }
+#if REGION == REGION_JP
+    if (gMenuSubOption != 0 && gTrophyRaceWorldId != 0 && x < 232) {
+        x = 232;
+    }
+#endif
     temp = (gMenuOptionCap * 16) + 28;
     if (osTvType == OS_TV_TYPE_PAL) {
         y = SCREEN_HEIGHT_HALF_PAL;
@@ -10353,7 +10362,9 @@ void menu_results_init(void) {
     menu_assetgroup_load(gRaceResultsObjectIndices);
     menu_imagegroup_load(gRaceResultsImageIndices);
     menu_racer_portraits();
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     transition_begin(&sMenuTransitionFadeOut);
     music_voicelimit_set(24);
     music_play(SEQUENCE_MAIN_MENU);
@@ -10364,6 +10375,8 @@ void menu_results_init(void) {
  * Draw the portraits of the four player onscreen, then draw the scoreboard below.
  * After, draw the text options at the bottom.
  */
+#if REGION != REGION_JP
+// NON_EQUIVALENT IN JP - Too lazy to fix it right now, there's so many others to worry about.
 void results_render(UNUSED s32 updateRate, f32 opacity) {
     s32 x2;
     s32 y2;
@@ -10402,7 +10415,11 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
 #if VERSION >= VERSION_79
     offsetX2 = 64;
     if (gNumberOfActivePlayers == 4) {
+#if REGION == REGION_JP
+        offsetX2 = 52;
+#else
         offsetX2 = 56;
+#endif
     }
     offsetX = 160 - ((gNumberOfActivePlayers - 1) * (offsetX2 >> 1));
 #else
@@ -10439,10 +10456,15 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
     for (spA0 = 0; spA0 < 4; spA0++) {
 #endif
         time = offsetX;
+#if REGION == REGION_JP
+        func_80082BC8_837C8(-1, time - 40, y2 + offsetY + 2, 2, 2, gRacePlacementsArray[spA0], ALIGN_MIDDLE_CENTER,
+            COLOUR_RGBA32(255, 255, 255, 255), 0);
+#else
         set_text_colour(0, 0, 0, 255, 255);
         draw_text(&sMenuCurrDisplayList, time - 32, y2 + offsetY + 4, gRacePlacementsArray[spA0], ALIGN_MIDDLE_CENTER);
         set_text_colour(255, 255, 192, 96, 255);
         draw_text(&sMenuCurrDisplayList, time - 34, y2 + offsetY + 2, gRacePlacementsArray[spA0], ALIGN_MIDDLE_CENTER);
+#endif
         reset_render_settings(&sMenuCurrDisplayList);
         sprite_anim_off(TRUE);
         sprite_opaque(FALSE);
@@ -10487,7 +10509,7 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
             gMenuImages[0].spriteOffset = time;
             menu_element_render(0);
         }
-        y2 = y2 + 17;
+        y2 += 17;
         sprite_anim_off(FALSE);
         sprite_opaque(TRUE);
         sMenuGuiColourG = 255;
@@ -10538,6 +10560,9 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
         open_dialogue_box(7);
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/menu/results_render.s")
+#endif
 
 /**
  * When someone presses A, decide whether to play the stage again,
@@ -10660,7 +10685,9 @@ s32 menu_results_loop(s32 updateRate) {
  */
 void results_free(void) {
     menu_assetgroup_free(gRaceResultsObjectIndices);
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -10780,7 +10807,9 @@ void filename_init(s32 titleY, s32 x, s32 y, s32 font, s32 *targetX, char *fileN
     gNameSelectionDone = FALSE;
     gNameEntryStickX = 0;
     gNameEntryStickHeld = 0;
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -11018,7 +11047,9 @@ s32 filename_enter(s32 updateRate) {
  * Explicitly says to unload the ASSET_FONTS_BIGFONT type.
  */
 void menu_unload_bigfont(void) {
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -11072,7 +11103,11 @@ void menu_trophy_race_round_init(void) {
 
     gMenuDelay = 0;
     gTrackNameVoiceDelay = 10;
+#if REGION == REGION_JP
+    func_800C663C_C723C();
+#else
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     music_voicelimit_set(24);
     music_play(SEQUENCE_MAIN_MENU);
     music_fade(256);
@@ -11164,7 +11199,11 @@ s32 menu_trophy_race_round_loop(s32 updateRate) {
  * Free any assets associated with the trophy race intro menu.
  */
 void trophyround_free(void) {
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#else
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 void func_80098774(s32 isRankings) {
@@ -11333,7 +11372,9 @@ void menu_trophy_race_rankings_init(void) {
             gRankingsPlayers[i] = FALSE;
         }
     }
+#if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     music_voicelimit_set(24);
     music_play(SEQUENCE_MAIN_MENU);
     music_fade(256);
@@ -11532,7 +11573,9 @@ s32 menu_trophy_race_rankings_loop(s32 updateRate) {
  */
 void rankings_free(void) {
     menu_assetgroup_free(gTrophyRankingsObjectIndices);
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
@@ -11744,12 +11787,19 @@ void ghostmenu_render(UNUSED s32 updateRate) {
             currentWorldId = 0;
         }
         levelName = get_level_name(gGhostLevelIDsMenu[scroll]);
+#if REGION == REGION_JP
+        for (i = 0; levelName[i] != '\0'; i+=2) {
+            textBuffer[i] = levelName[i];
+            textBuffer[i + 1] = levelName[i + 1];
+        }
+#else
         for (i = 0; levelName[i] != '\0' && i < 63; i++) {
             textBuffer[i] = levelName[i];
             if (textBuffer[i] >= 'a' && textBuffer[i] <= 'z') {
                 textBuffer[i] ^= 0x20; // Force uppercase.
             }
         }
+#endif
         textBuffer[i] = '\0'; // Set NULL terminator
         render_texture_rectangle_scaled(&sMenuCurrDisplayList, gDrawTexWorldBgs[currentWorldId], x, y, 0.75f, 0.8125f,
                                         COLOUR_RGBA32(255, 255, 255, 255), 0);
@@ -11759,11 +11809,16 @@ void ghostmenu_render(UNUSED s32 updateRate) {
         }
         set_text_colour(0, 0, 0, 255, 255);
         for (i = 0; i < 4; i++) {
-            draw_text(&sMenuCurrDisplayList, gGhostDataElementPositions[0] + 40 + D_800E1E20[(i << 1)],
+#if REGION == REGION_JP
+    #define GHOSTMENU_TEXT_OFFSET 38
+#else
+    #define GHOSTMENU_TEXT_OFFSET 40
+#endif
+            draw_text(&sMenuCurrDisplayList, gGhostDataElementPositions[0] + GHOSTMENU_TEXT_OFFSET + D_800E1E20[(i << 1)],
                       y + gGhostDataElementPositions[1] + D_800E1E20[(i << 1) + 1], textBuffer, ALIGN_MIDDLE_CENTER);
         }
         set_text_colour(200, 228, 80, 255, 255);
-        draw_text(&sMenuCurrDisplayList, gGhostDataElementPositions[0] + 40, gGhostDataElementPositions[1] + y,
+        draw_text(&sMenuCurrDisplayList, gGhostDataElementPositions[0] + GHOSTMENU_TEXT_OFFSET, gGhostDataElementPositions[1] + y,
                   textBuffer, ALIGN_MIDDLE_CENTER);
         render_textured_rectangle(&sMenuCurrDisplayList, gRacerPortraits[gGhostCharacterIDsMenu[scroll]],
                                   gGhostDataElementPositions[2] + 40, gGhostDataElementPositions[3] + y, 255, 255, 255,
@@ -11804,7 +11859,7 @@ void ghostmenu_render(UNUSED s32 updateRate) {
     if (gMenuStage > GHOSTMENU_CHOOSE) {
         clear_dialogue_box_open_flag(7);
         dialogue_clear(7);
-#if VERSION >= VERSION_79
+#if VERSION == VERSION_80
         set_current_dialogue_box_coords(7, 92, 102, 228, 138);
 #else
         set_current_dialogue_box_coords(7, 104, 102, 216, 138);
@@ -11961,7 +12016,9 @@ s32 menu_ghost_data_loop(s32 updateRate) {
  */
 void ghostmenu_free(void) {
     menu_assetgroup_free(gGhostDataObjectIndices);
+#if REGION != REGION_JP
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
 }
 
 /**
