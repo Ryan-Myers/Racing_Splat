@@ -5485,7 +5485,11 @@ void cheatmenu_render(UNUSED s32 updateRate) {
                 displayChar[1] = '\0';
                 draw_text(&sMenuCurrDisplayList, xPos, yPos, displayChar, ALIGN_MIDDLE_CENTER); // Draw the character
             } else if (j == 5) {
+#if REGION == REGION_JP
+                draw_text(&sMenuCurrDisplayList, xPos, yPos, "BS", ALIGN_MIDDLE_CENTER);
+#else
                 draw_text(&sMenuCurrDisplayList, xPos, yPos, "DEL", ALIGN_MIDDLE_CENTER);
+#endif
             } else {
                 draw_text(&sMenuCurrDisplayList, xPos, yPos, "OK", ALIGN_MIDDLE_CENTER);
             }
@@ -10896,7 +10900,11 @@ void filename_render(UNUSED s32 updateRate) {
                 if (charIndex == 28) {
                     draw_text(&sMenuCurrDisplayList, x, y, "SP", ALIGN_MIDDLE_CENTER);
                 } else if (charIndex == 29) {
+#if REGION == REGION_JP
+                    draw_text(&sMenuCurrDisplayList, x, y, "BS", ALIGN_MIDDLE_CENTER);
+#else
                     draw_text(&sMenuCurrDisplayList, x, y, "DEL", ALIGN_MIDDLE_CENTER);
+#endif
                 } else {
                     draw_text(&sMenuCurrDisplayList, x, y, "OK", ALIGN_MIDDLE_CENTER);
                 }

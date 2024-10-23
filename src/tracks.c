@@ -50,10 +50,10 @@ LevelHeader *gCurrentLevelHeader2 = NULL;
 
 s32 D_800DC920 = -1;
 #if REGION == REGION_JP
-char D_800DE2B4_DEEB4[] = { 0x80, 0x2D, 0x80, 0x3C,
-                            0x80, 0x2D, 0x80, 0x3C,
-                            0x80, 0x55, 0x80, 0x71,
-                            0x80, 0x76, 0x00, 0x00 };
+char gJpnTTCam[] = { 0x80, 0x2D, 0x80, 0x3C,
+                     0x80, 0x2D, 0x80, 0x3C,
+                     0x80, 0x55, 0x80, 0x71,
+                     0x80, 0x76, 0x00, 0x00 };
 #endif
 s32 *D_800DC924 = NULL;
 s32 D_800DC928 = 0; // Currently unknown, might be a different type.
@@ -115,9 +115,6 @@ s32 D_8011C3B8[320];
 s32 D_8011C8B8[512];
 s32 D_8011D0B8;
 Vec4f *D_8011D0BC;
-#if REGION == REGION_JP
-s32 D_8011EB28_F05E8;
-#endif
 TextureHeader *D_8011D0C0;
 Object *D_8011D0C4;
 f32 D_8011D0C8;
@@ -436,7 +433,11 @@ void render_scene(Gfx **dList, MatrixS **mtx, Vertex **vtx, TriangleList **tris,
                 posX = SCREEN_WIDTH_HALF + 10;
                 posY = SCREEN_HEIGHT_HALF + 5;
             }
+#if REGION == REGION_JP
+            draw_text(&gSceneCurrDisplayList, posX, posY, gJpnTTCam, ALIGN_TOP_LEFT);
+#else
             draw_text(&gSceneCurrDisplayList, posX, posY, "TT CAM", ALIGN_TOP_LEFT);
+#endif
         } else {
             set_active_camera(PLAYER_FOUR);
             func_800278E8(updateRate);

@@ -3429,7 +3429,6 @@ D_800E86E0 = 0x800EA198; // type:f64 function_owner:func_8009F034
 D_800E86E8 = 0x800EA1A0; // type:f64 function_owner:func_8009F034
 D_800E86F0 = 0x800EA1A8; // type:f64 function_owner:func_8009F034
 D_800E8718 = 0x800EA1D0;
-D_800E871C = 0x800EA1D4; // type:s32 padding
 D_800E8720 = 0x800EA1D8;
 D_800E8728 = 0x800EA1E0;
 D_800E8730 = 0x800EA1E8;
@@ -3441,8 +3440,7 @@ D_800E87A8 = 0x800EA260; // type:f32 force_migration:True
 D_800E87B0 = 0x800EA268; // force_migration:True type:f64 size:8
 D_800E87B8 = 0x800EA270; // force_migration:True type:f64 size:8
 D_800E87D8 = 0x800EA290;
-D_800E87E0 = 0x800EA298;
-D_800EA29C_EAE9C = 0x800EA29C; // force_migration:True type:f64 size:8
+D_800E87E0 = 0x800EA298; // force_migration:True type:f64 size:8
 
 // particles.c .rodata size:0x3C0
 D_800E8840 = 0x800EA2F0;
@@ -3772,7 +3770,7 @@ D_8011C234 = 0x8011DCA4;
 D_8011C238 = 0x8011DCA8;
 D_8011C3B8 = 0x8011DE28;
 D_8011C8B8 = 0x8011E328;
-D_8011EB28_F05E8 = 0x8011EB28;
+D_8011D0B8 = 0x8011EB28;
 D_8011D0BC = 0x8011EB2C;
 D_8011D0C0 = 0x8011EB30;
 D_8011D0C4 = 0x8011EB34;

@@ -308,7 +308,7 @@ segments:
       - [0xE5730, .data, waves]
       - [0xE5890, .data, fade_transition]
       - [0xE5D60, .data, game_text]
-      - [0xE5D80, .data, font]
+      - [0xE5D80, data, font]
       - [0xE5EA0, .data, ../libultra/src/io/pimgr]
       - [0xE5EC0, .data, gzip]
       - [0xE5ED0, .data, thread30_track_loading]
@@ -361,7 +361,7 @@ segments:
       - [0xEA3F0, .rodata, screen_asset]
       - [0xEA410, .rodata, menu]
       - [0xEAD50, .rodata, game_ui]
-      #- [0x, rodata, weather] # Looks like the only RODATA for this file isn't in this ROM
+      - [0xEAEA0, .rodata, weather]
       - [0xEAEF0, .rodata, particles]
       - [0xEB2B0, .rodata, printf]
       - [0xEB520, .rodata, thread0_epc]
