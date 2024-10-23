@@ -11807,13 +11807,13 @@ void ghostmenu_render(UNUSED s32 updateRate) {
         if (scroll == gGhostMenuOption) {
             func_80080E90(&sMenuCurrDisplayList, 40, y, 240, 52, 4, 4, highlight, highlight, highlight, highlight);
         }
-        set_text_colour(0, 0, 0, 255, 255);
-        for (i = 0; i < 4; i++) {
 #if REGION == REGION_JP
     #define GHOSTMENU_TEXT_OFFSET 38
 #else
     #define GHOSTMENU_TEXT_OFFSET 40
 #endif
+        set_text_colour(0, 0, 0, 255, 255);
+        for (i = 0; i < 4; i++) {
             draw_text(&sMenuCurrDisplayList, gGhostDataElementPositions[0] + GHOSTMENU_TEXT_OFFSET + D_800E1E20[(i << 1)],
                       y + gGhostDataElementPositions[1] + D_800E1E20[(i << 1) + 1], textBuffer, ALIGN_MIDDLE_CENTER);
         }
@@ -12151,7 +12151,11 @@ void menu_credits_init(void) {
     menu_assetgroup_load(gCreditsObjectIndices);
     menu_imagegroup_load(gCreditsImageIndices);
     menu_racer_portraits();
+#if REGION == REGION_JP
+    func_800C663C_C723C();
+#else
     load_font(ASSET_FONTS_BIGFONT);
+#endif
     music_voicelimit_set(24);
     gCreditsControlData[130] = CREDITS_END; // DONT show developer times
     if (gViewingCreditsFromCheat) {
@@ -12181,13 +12185,18 @@ void menu_credits_init(void) {
         // The first u16 of gCheatsAssetData is the total number of cheats.
         // After that is the offsets to the cheat strings.
         cheatOffsets = *gCheatsAssetData + 1;
-#if VERSION >= VERSION_79
+#if VERSION == VERSION_79
+    #define CHEATINDEXADD  2
+    #define CHEATINDEXMULT 3
+#elif VERSION == VERSION_80
+    #define CHEATINDEXADD  1
     #define CHEATINDEXMULT 3
 #else
+    #define CHEATINDEXADD  1
     #define CHEATINDEXMULT 2
 #endif
-        gCreditsArray[85] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT) + 1]; // Cheat name
-        gCreditsArray[86] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT)];     // Cheat code
+        gCreditsArray[85] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT) + CHEATINDEXADD]; // Cheat name
+        gCreditsArray[86] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT)];                 // Cheat code
     }
     music_change_off();
     enable_new_screen_transitions();
@@ -12492,7 +12501,11 @@ void credits_free(void) {
     camDisableUserView(0, FALSE);
     set_viewport_properties(0, VIEWPORT_AUTO, VIEWPORT_AUTO, VIEWPORT_AUTO, VIEWPORT_AUTO);
     menu_assetgroup_free(gCreditsObjectIndices);
+#if REGION == REGION_JP
+    func_800C67F4_C73F4();
+#else
     unload_font(ASSET_FONTS_BIGFONT);
+#endif
     set_gIntDisFlag(FALSE);
 }
 
@@ -13448,12 +13461,21 @@ s32 tt_menu_loop(void) {
     if (!(settings->cutsceneFlags & CUTSCENE_TT_HELP)) {
         sCurrentMenuID = TT_MENU_INTRODUCTION;
     }
+#if REGION == REGION_JP
+    if ((sCurrentMenuID == TT_MENU_CONT_PAK_ERROR_1) || (sCurrentMenuID == TT_MENU_INSERT_CONT_PAK) || (sCurrentMenuID == TT_MENU_INSERT_RUMBLE_PAK)) {
+        set_current_dialogue_box_coords(1, 22, 16, 218, 136);
+    } else 
+#endif 
     if ((sCurrentMenuID != TT_MENU_GAME_STATUS) && (sCurrentMenuID != TT_MENU_INTRODUCTION)) {
         currentOption = 120;
         if (has_ghost_to_save()) {
             currentOption = 136;
         }
         set_current_dialogue_box_coords(1, 24, 16, 192, currentOption);
+#if REGION == REGION_JP
+    } else if (sCurrentMenuID == TT_MENU_INTRODUCTION) {
+        set_current_dialogue_box_coords(1, 24, 16, 200, 204);
+#endif
     } else {
         set_current_dialogue_box_coords(1, 24, 16, 184, 220);
     }
@@ -13892,6 +13914,9 @@ u64 get_eeprom_settings(void) {
  * Official Name: frontGetLanguage
  */
 s32 get_language(void) {
+#if REGION == REGION_JP
+    return LANGUAGE_JAPANESE;
+#else
     s32 language = LANGUAGE_ENGLISH;
     switch (sEepromSettings & 0xC) {
         case 4:
@@ -13905,6 +13930,7 @@ s32 get_language(void) {
             break;
     }
     return language;
+#endif
 }
 
 /**
@@ -13913,6 +13939,7 @@ s32 get_language(void) {
  * tried to switch to it, all you would see is the word "Japanese" used everywhere as a placeholder.
  */
 void set_language(s32 language) {
+#if REGION != REGION_JP
     u64 langFlag = 0; // English
 
     switch (language) {
@@ -13932,6 +13959,7 @@ void set_language(s32 language) {
 
     load_menu_text(language);
     mark_write_eeprom_settings();
+#endif
 }
 
 /**
