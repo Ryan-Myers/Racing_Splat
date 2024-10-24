@@ -43,7 +43,7 @@
 // Otherwise the bss variables will get reordered, which is bad.
 
 // A huge unfortunate issue has occurred which seems to have reordered the BSS for JP... Not sure why.
-#if REGION == REGION+JP
+#if REGION == REGION_JP
 //START OF JPN BSS ORDER
 
 char gCourseInitials[4]; // course initials
