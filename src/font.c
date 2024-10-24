@@ -1077,8 +1077,10 @@ void parse_string_with_number(char *input, char *output, s32 number) {
 #endif
 
 #if REGION == REGION_JP
+void func_800C6464_C7064(void);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
 
+void func_800C663C_C723C(void);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C663C_C723C.s")
 
 void func_800C67F4_C73F4(void) {
@@ -1096,17 +1098,26 @@ void func_800C67F4_C73F4(void) {
     }
 }
 
+void func_800C6870_C7470(void);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6870_C7470.s")
 
+s32 func_800C68CC_C74CC(s16 arg0);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
 
+void func_800C6DD4_C79D4(Gfx *dlist, void *arg1, s32 arg2, s32 arg3);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
 
+//gSPDisplayList
+s32 func_800C7744_C8344(Gfx **dlist, s16 arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7744_C8344.s")
 
+void func_800C7804_C8404(s32 arg0);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7804_C8404.s")
 
+void func_800C7864_C8464(u8 *arg0, u8 *arg1);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7864_C8464.s")
 
+void func_800C78E0_C84E0(void);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C78E0_C84E0.s")
+
 #endif

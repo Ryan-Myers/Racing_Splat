@@ -3872,7 +3872,7 @@ void menu_save_options_init(void) {
     func_800C663C_C723C();
 #endif
 #if VERSION >= VERSION_79
-    func_800724D8_730D8(FALSE);
+    rumble_enable(FALSE);
 #endif
 }
 
@@ -4999,7 +4999,7 @@ void savemenu_free(void) {
     func_800C67F4_C73F4();
 #endif
 #if VERSION >= VERSION_79
-    func_800724D8_730D8(1);
+    rumble_enable(TRUE);
 #endif
 }
 
@@ -5339,7 +5339,7 @@ void bootscreen_init_cpak(void) {
     load_font(ASSET_FONTS_BIGFONT);
 #endif
 #if VERSION >= VERSION_79
-    func_800724D8_730D8(0);
+    rumble_enable(FALSE);
 #endif
 }
 
@@ -5673,7 +5673,7 @@ s32 menu_controller_pak_loop(s32 updateRate) {
  * Free all assets associated with the boot sequence controller pak menu.
  */
 void pakmenu_free(void) {
-    menu_asset_free(63);
+    menu_asset_free(TEXTURE_ICON_ARROW_DOWN);
     free_from_memory_pool(gBootPakData[0]);
 #if REGION == REGION_JP
     func_800C67F4_C73F4();
@@ -5681,7 +5681,7 @@ void pakmenu_free(void) {
     unload_font(ASSET_FONTS_BIGFONT);
 #endif
 #if VERSION >= VERSION_79
-    func_800724D8_730D8(1);
+    rumble_enable(TRUE);
 #endif
 }
 
@@ -6391,7 +6391,7 @@ s32 menu_magic_codes_list_loop(s32 updateRate) {
  * Free the assets associated with the cheat code list.
  */
 void cheatlist_free(void) {
-    menu_asset_free(63);
+    menu_asset_free(TEXTURE_ICON_ARROW_DOWN);
 #if REGION == REGION_JP
     func_800C67F4_C73F4();
 #else
@@ -7242,7 +7242,7 @@ void gameselect_free(void) {
     unload_font(ASSET_FONTS_BIGFONT);
 #endif
     menu_button_free();
-    menu_asset_free(67);
+    menu_asset_free(TEXTURE_SURFACE_BUTTON_WOOD);
 #if REGION == REGION_JP
     func_800C67F4_C73F4();
 #endif

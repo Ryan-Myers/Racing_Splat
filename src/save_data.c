@@ -27,7 +27,7 @@ u8 sControllerPaksPresent = 0; // Bits 0, 1, 2, and 3 of the bit pattern corresp
 s32 gRumbleKillTimer = 0;
 
 #if VERSION >= VERSION_79
-s32 D_800DEA00_DF600 = 1;
+s32 gRumbleEnable = TRUE;
 #endif
 
 /*******************************/
@@ -76,8 +76,11 @@ u8 input_get_id(s32 controllerIndex) {
 }
 
 #if VERSION >= VERSION_79
-void func_800724D8_730D8(s32 arg0) {
-    D_800DEA00_DF600 = arg0;
+/**
+ * Set a global flag that can enable or disable the rumble temporarily.
+ */
+void rumble_enable(s32 enable) {
+    gRumbleEnable = enable;
 }
 #endif
 
@@ -213,7 +216,7 @@ void rumble_update(s32 updateRate) {
 
     if (
 #if VERSION >= VERSION_79
-        (D_800DEA00_DF600 != 0) &&
+        (gRumbleEnable) &&
 #endif
     (gRumbleIdle != 0 || gRumbleKillTimer != 0)) {
         gRumbleDetectionTimer += updateRate;
