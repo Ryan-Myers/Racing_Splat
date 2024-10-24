@@ -13,7 +13,7 @@ RECOMP_DIR := ido-recomp/$(DETECTED_OS)
 
 default: all
 
-all: n64cc recomp requirements
+all: n64cc recomp
 
 n64cc:
 	@$(CC) n64crc.c -o n64crc
