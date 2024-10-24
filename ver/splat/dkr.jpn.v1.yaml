@@ -55,15 +55,15 @@ segments:
       - [0x31D30, hasm, hasm/collision]
       - [0x32760, c, lights]
       - [0x348C0, c, object_functions]
-      - [0x43920, c, racer] #func_80059208 is first diff from usv1
-      - [0x5CF20, c, vehicle_tricky] # + 0x30
+      - [0x43920, c, racer]
+      - [0x5CF20, c, vehicle_tricky]
       - [0x5DD00, c, vehicle_bluey]
       - [0x5E450, c, vehicle_smokey]
       - [0x5F0F0, c, vehicle_bubbler]
       - [0x5F6C0, c, vehicle_wizpig]
       - [0x5FF40, c, vehicle_rocket]
-      - [0x60480, c, object_models] #diffs object_model_init
-      - [0x62A00, hasm, hasm/unknown_062930] # + 0xD0
+      - [0x60480, c, object_models]
+      - [0x62A00, hasm, hasm/unknown_062930]
       - [0x62F60, c, ../libultra/src/audio/mips1/csplayer]
       - [0x64760, c, ../libultra/src/audio/mips1/unknown_064690]
       - [0x647C0, c, ../libultra/src/audio/mips1/seqchannel]
@@ -80,23 +80,23 @@ segments:
       - [0x66B70, c, camera]
       - [0x6ADD0, c, controller_dkr]
       - [0x6B380, c, game]
-      - [0x6D000, c, thread3_main] #diffs main_game_loop
-      - [0x701F0, hasm, hasm/math_util] # + 0xE0
+      - [0x6D000, c, thread3_main]
+      - [0x701F0, hasm, hasm/math_util]
       - [0x71810, c, memory]
       - [0x72A10, c, ../libultra/src/io/motor]
-      - [0x72F30, c, save_data] #new func func_80072378_72F78
-      - [0x778C0, c, asset_loading] # +0x120
-      - [0x77F60, c, borders] # +0x310
+      - [0x72F30, c, save_data]
+      - [0x778C0, c, asset_loading]
+      - [0x77F60, c, borders]
       - [0x78360, c, rcp_dkr]
       - [0x7A260, c, ../libultra/src/sc/sched]
       - [0x7B1E0, c, set_rsp_segment]
       - [0x7B220, c, video]
       - [0x7BB80, c, textures_sprites]
       - [0x80550, c, screen_asset]
-      - [0x80810, c, menu] #SO MANY DIFFS!
-      - [0x9FEB0, c, game_ui] # +0x5C0
+      - [0x80810, c, menu]
+      - [0x9FEB0, c, game_ui]
       - [auto, c, os_yield_data] #bss only file
-      - [0xAC3F0, c, weather] # +0x600
+      - [0xAC3F0, c, weather]
       - [0xAF470, c, particles]
       - [0xB5910, c, unused_string]
       - [0xB5B40, c, printf]
@@ -106,8 +106,8 @@ segments:
       - [0xB8F20, c, waves]
       - [0xC1370, c, fade_transition]
       - [0xC3BF0, c, game_text]
-      - [0xC4E30, c, font] # +0x630 - Last file diff
-      - [0xC8590, c, ../libultra/src/io/pimgr] # +0x1990
+      - [0xC4E30, c, font]
+      - [0xC8590, c, ../libultra/src/io/pimgr]
       - [0xC8700, c, gzip]
       - [0xC8E50, hasm, hasm/gzip_asm]
       - [0xC98D0, c, ../libultra/src/io/leointerrupt]
@@ -261,7 +261,6 @@ segments:
       - [0xD8F30, c, ../libultra/src/libc/xldtob]
       - [0xD99F0, hasm, ../libultra/src/os/setcompare]
       - [0xD9A00, c, ../libultra/src/libc/ldiv]
-      - [auto, c, memory_pool] #bss only file
       - [0xD9B90, textbin, ucode_audio]
       - [0xDAA50, textbin, ucode_boot]
       - [0xDAB20, textbin, ucode_f3ddkr_dram]
@@ -389,7 +388,6 @@ segments:
       - { start: 0xECA10, type: databin, name: data_f3ddkr_fifo, linker_section_order: .rodata }
       - { start: 0xED210, type: databin, name: data_f3ddkr_xbus, linker_section_order: .rodata }
       - { start: 0xEDA10, type: databin, name: data_unknown_2,   linker_section_order: .rodata }
-      - [0xEE5D0, bin, assets]
       - { start: auto, type: .bss, vram: 0x800ED9D0, name: audio }
       - { start: auto, type: .bss, vram: 0x80117A00, name: audiomgr }
       - { start: auto, type: .bss, vram: 0x8011B640, name: audiosfx }
@@ -446,9 +444,10 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012ECC0, name: ../libultra/src/io/piacs }
       - { start: auto, type: .bss, vram: 0x8012ECE0, name: ../libultra/src/os/timerintr }
       - { start: auto, type: .bss, vram: 0x8012ED20, name: ../libultra/src/os/exceptasm }
-      - { start: auto, type: .bss, vram: 0x8012EED0, name: memory_pool }
 
-  - type: bin
+  - name: assets
+    type: bin
     start: 0xEE5D0
     follows_vram: main
+  - [0xB8E4E0, bin, assets_end]
   - [0xC00000]

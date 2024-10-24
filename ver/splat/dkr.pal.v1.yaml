@@ -261,7 +261,6 @@ segments:
       - [0xD7630, c, ../libultra/src/libc/xldtob]
       - [0xD80F0, hasm, ../libultra/src/os/setcompare]
       - [0xD8100, c, ../libultra/src/libc/ldiv]
-      - [auto, c, memory_pool] #bss only file
       - [0xD8290, textbin, ucode_audio]
       - [0xD9150, textbin, ucode_boot]
       - [0xD9220, textbin, ucode_f3ddkr_dram]
@@ -389,7 +388,6 @@ segments:
       - { start: 0xEB030, type: databin, name: data_f3ddkr_fifo, linker_section_order: .rodata }
       - { start: 0xEB830, type: databin, name: data_f3ddkr_xbus, linker_section_order: .rodata }
       - { start: 0xEC030, type: databin, name: data_unknown_2,   linker_section_order: .rodata }
-      - [0xECBF0, bin, assets]
       - { start: auto, type: .bss, vram: 0x800EBFF0, name: audio }
       - { start: auto, type: .bss, vram: 0x80116020, name: audiomgr }
       - { start: auto, type: .bss, vram: 0x80119C60, name: audiosfx }
@@ -446,9 +444,10 @@ segments:
       - { start: auto, type: .bss, vram: 0x8012D270, name: ../libultra/src/io/piacs }
       - { start: auto, type: .bss, vram: 0x8012D290, name: ../libultra/src/os/timerintr }
       - { start: auto, type: .bss, vram: 0x8012D2D0, name: ../libultra/src/os/exceptasm }
-      - { start: auto, type: .bss, vram: 0x8012D480, name: memory_pool }
 
-  - type: bin
+  - name: assets
+    type: bin
     start: 0xECBF0
     follows_vram: main
+  - [0xAC96C0, bin, assets_end]
   - [0xC00000]

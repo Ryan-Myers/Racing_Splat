@@ -1,5 +1,5 @@
 BASENAME  = dkr
-REGION  := jpn
+REGION  := us
 VERSION  := v1
 NON_MATCHING ?= 0
 

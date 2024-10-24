@@ -70,6 +70,9 @@ typedef struct unk800B7D10 {
     s32 unk14;
 } unk800B7D10;
 
+// This variable doesn't truly exist in memory.
+// It's just defined as the end of BSS, and it's 
+// symbol needs to be in the undefined syms place.
 extern MemoryPoolSlot gMainMemoryPool;
 
 void init_main_memory_pool(void);
