@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "textures_sprites.h"
 #include "camera.h"
+#include "common.h"
 
 /************ .data ************/
 
@@ -28,6 +29,12 @@ Gfx dDialogueBoxDrawModes[][2] = {
         gsDPSetOtherMode(DKR_OMH_1CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_XLU_SURF | G_RM_XLU_SURF2),
     },
 };
+#if REGION == REGION_JP
+// This is more GFX data like above. Likley even within that array.
+s32 D_800E51D8_E5DD8[] = {
+        0xFC5627FF, 0x1FFCFE38, 0xEF100C0F, 0x00104240
+    };
+#endif
 
 s8 sDialogueBoxIsOpen = FALSE;
 
@@ -43,7 +50,7 @@ s32 gDescPowsOf10[9] = {
 #define OUTWARDS 1
 
 // clang-format off
-s8 sDialogueBoxDimensions[48] = {
+s8 sDialogueBoxDimensions[] = {
     /*X Offset*/ 4,  INWARDS,  /*Y Start*/  0,  INWARDS,  /*Y end*/  1,
     /*X Offset*/ 2,  INWARDS,  /*Y Start*/  1,  INWARDS,  /*Y end*/  2,
     /*X Offset*/ 1,  INWARDS,  /*Y Start*/  2,  INWARDS,  /*Y end*/  4,
@@ -51,10 +58,26 @@ s8 sDialogueBoxDimensions[48] = {
     /*X Offset*/ 1,  OUTWARDS, /*Y Start*/ -4,  OUTWARDS, /*Y end*/ -2,
     /*X Offset*/ 2,  OUTWARDS, /*Y Start*/ -2,  OUTWARDS, /*Y end*/ -1,
     /*X Offset*/ 4,  OUTWARDS, /*Y Start*/ -1,  OUTWARDS,  0,
-    /*X Offset*/ -1, 0, 0, 0, 0, // End of Data
-    /*X Offset*/ 0, 0, 0, 0, 0, 0, 0, 0,
+    /*X Offset*/ -1, // End of Data
 };
 // clang-format on
+
+#if REGION == REGION_JP
+u8 D_800E5234_E5E34[] = {
+    0x0F, 0x34, 0x0A, 0x36, 0x02, 0x06, 0x0D, 0x37,
+    0x03, 0x04, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D,
+    0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
+    0x18, 0x19, 0x3E, 0x05, 0x0B, 0x3F, 0x0C, 0x40,
+    0x41, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20,
+    0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28,
+    0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30,
+    0x31, 0x32, 0x33, 0x07, 0x0F, 0x08, 0x0F, 0x0F,
+    0x09, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A, 0x9B,
+    0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3,
+    0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB,
+    0xAC, 0xAD, 0xAE, 0x03, 0x0F, 0x04, 0x0E, 0x0F,
+};
+#endif
 
 #undef INWARDS
 #undef OUTWARDS
@@ -70,19 +93,18 @@ DialogueTextElement *gDialogueText;            // Official Name: String
 s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be related to X placement of menus on the X
                      // Axis?
 
-#ifdef REGION == REGION_JP
-u32 *D_8012C2A4_12CEA4
-void *D_8012C2A8_12CEA8
-void *D_8012C2AC_12CEAC[3] // Could be 4?
-s32 D_8012C2B8_12CEB8;
-s32 D_8012C2BC_12CEBC;
-s32 D_8012C2C0_12CEC0;
-void *D_8012C2C4_12CEC4;
-s32 D_8012C2C8_12CEC8;
-s32 D_8012C2CC_12CECC;
-void *D_8012C2D0_12CED0;
-void *D_8012C2D4_12CED4;
-void *D_8012C2D8_12CED8;
+#if REGION == REGION_JP
+u32 *D_8012C2A4_EE5E4;
+s32 *D_8012C2A8_EE5E8[4];
+s32 D_8012C2B8_EE5F8;
+s32 D_8012C2BC_EE5FC;
+s32 D_8012C2C0_EE600;
+void *D_8012C2C4_EE604;
+s32 D_8012C2C8_EE608;
+s32 D_8012C2CC_EE60C;
+void *D_8012C2D0_EE610;
+void *D_8012C2D4_EE614;
+void *D_8012C2D8_EE618;
 #endif
 
 s8 sDialogueBoxCloseTimer;
@@ -151,8 +173,12 @@ void load_fonts(void) {
         gDialogueText[i].textBGColourA = 0;
         gDialogueText[i].nextBox = NULL;
     }
+#if REGION == REGION_JP
+    func_800C6464_C7064();
+#else
     load_font(ASSET_FONTS_FUNFONT);
     load_font(ASSET_FONTS_SMALLFONT);
+#endif
     gCompactKerning = FALSE;
 }
 
@@ -164,6 +190,7 @@ void set_kerning(s32 setting) {
     gCompactKerning = setting;
 }
 
+#if REGION != REGION_JP
 /**
  * Load the texture assets of the given font into RAM.
  * This is required before any text using this font can be displayed in a scene.
@@ -202,14 +229,19 @@ void unload_font(s32 fontID) {
         }
     }
 }
+#endif
 
 /**
  * Set the font of the current dialogue box's text.
  */
 void set_text_font(s32 fontID) {
+#if REGION == REGION_JP
+    gDialogueBoxBackground[0].font = D_8012C2B8_EE5F8 = fontID;
+#else
     if (fontID < gNumberOfFonts) {
         gDialogueBoxBackground[0].font = fontID;
     }
+#endif
 }
 
 /**
@@ -217,6 +249,9 @@ void set_text_font(s32 fontID) {
  * Goes unused.
  */
 UNUSED TextureHeader *get_loaded_font(s32 font, u8 index) {
+#if REGION == REGION_JP
+    return NULL;
+#else
     FontData *fontData;
     u8 pointerIndex;
 
@@ -234,6 +269,7 @@ UNUSED TextureHeader *get_loaded_font(s32 font, u8 index) {
     //!@bug: No return statement. The function will return whatever happens to be in v0 before this function was called.
 #ifdef AVOID_UB
     return NULL;
+#endif
 #endif
 }
 
@@ -306,6 +342,7 @@ UNUSED void draw_dialogue_text_pos_unused(Gfx **displayList, s32 dialogueBoxID, 
  * Loops through a string, then draws each character onscreen.
  * Will also draw a fillrect if text backgrounds are enabled.
  */
+#if REGION != REGION_JP
 void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, AlignmentFlags alignmentFlags,
                         f32 scisScale) {
     s32 scisOffset;
@@ -456,12 +493,16 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, Ali
         gDPPipeSync((*dList)++);
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/font/render_text_string.s")
+#endif
 
 /**
  * Start from the beginning of the line then add to an offset from the starting position.
  * Returns the width of the string.
  * Official Name: fontStringWidth
  */
+#if REGION != REGION_JP
 s32 get_text_width(char *text, s32 x, s32 font) {
     s32 diffX, thisDiffX;
     FontData *fontData;
@@ -502,6 +543,9 @@ s32 get_text_width(char *text, s32 x, s32 font) {
     }
     return diffX - x;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/font/get_text_width.s")
+#endif
 
 /**
  * Sets the position and size of the current dialogue box.
@@ -536,12 +580,16 @@ void set_current_dialogue_box_coords(s32 dialogueBoxID, s32 x1, s32 y1, s32 x2, 
  * Official Name: fontWindowUseFont
  */
 void set_dialogue_font(s32 dialogueBoxID, s32 font) {
+#if REGION == REGION_JP
+    gDialogueBoxBackground[dialogueBoxID].font = font;
+#else
     if (dialogueBoxID >= 0 && dialogueBoxID < DIALOGUEBOXBACKGROUND_COUNT) {
         DialogueBoxBackground *temp = &gDialogueBoxBackground[dialogueBoxID];
         if (font < gNumberOfFonts) {
             temp->font = font;
         }
     }
+#endif
 }
 
 /**
@@ -941,7 +989,11 @@ void render_dialogue_box(Gfx **dlist, MatrixS **mat, Vertex **verts, s32 dialogu
     // Render dialogue box background.
     if (dialogueBox->backgroundColourA != 0) {
         gSPDisplayList((*dlist)++, dDialogueBoxBegin);
+#if REGION == REGION_JP
+        gDkrDmaDisplayList((*dlist)++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[0][2]), 2);
+#else
         gDkrDmaDisplayList((*dlist)++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[1]), 2);
+#endif
         gDPSetEnvColor((*dlist)++, 0, 0, 0, 0);
         if (dialogueBox->x2 - dialogueBox->x1 < 10 || dialogueBox->y2 - dialogueBox->y1 < 10) {
             render_fill_rectangle(dlist, dialogueBox->x1 - 2, dialogueBox->y1 - 2, dialogueBox->x2 + 2,
@@ -1005,6 +1057,7 @@ void render_dialogue_box(Gfx **dlist, MatrixS **mat, Vertex **verts, s32 dialogu
  * Takes in a string and a number, and replaces each instance of the
  * character '~' with the number.
  */
+#if REGION != REGION_JP
 void parse_string_with_number(char *input, char *output, s32 number) {
     while (*input != '\0') {
         if ('~' == *input) { // ~ is equivalent to a %d.
@@ -1019,31 +1072,41 @@ void parse_string_with_number(char *input, char *output, s32 number) {
     }
     *output = '\0'; // null terminator
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/font/parse_string_with_number.s")
+#endif
 
-#if 0
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C663C_C723C.s")
+#if REGION == REGION_JP
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C663C_C723C.s")
 
 void func_800C67F4_C73F4(void) {
-    if (D_8012C2D0_12CED0 != NULL) {
-        free_from_memory_pool(D_8012C2D0_12CED0);
-        D_8012C2D0_12CED0 = NULL;
+    if (D_8012C2D0_EE610 != NULL) {
+        free_from_memory_pool(D_8012C2D0_EE610);
+        D_8012C2D0_EE610 = NULL;
     }
-    if (D_8012C2D4_12CED4 != NULL) {
-        free_from_memory_pool(D_8012C2D4_12CED4);
-        D_8012C2D4_12CED4 = NULL;
+    if (D_8012C2D4_EE614 != NULL) {
+        free_from_memory_pool(D_8012C2D4_EE614);
+        D_8012C2D4_EE614 = NULL;
     }
-    if (D_8012C2D8_12CED8 != NULL) {
-        free_from_memory_pool(D_8012C2D8_12CED8);
-        D_8012C2D8_12CED8 = NULL;
+    if (D_8012C2D8_EE618 != NULL) {
+        free_from_memory_pool(D_8012C2D8_EE618);
+        D_8012C2D8_EE618 = NULL;
     }
 }
 
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6870_C7470.s")
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7744_C8344.s")
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7804_C8404.s")
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7864_C8464.s")
-pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C78E0_C84E0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6870_C7470.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7744_C8344.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7804_C8404.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7864_C8464.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C78E0_C84E0.s")
 #endif

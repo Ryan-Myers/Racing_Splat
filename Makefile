@@ -1,5 +1,5 @@
 BASENAME  = dkr
-REGION  := us
+REGION  := jpn
 VERSION  := v1
 NON_MATCHING ?= 0
 
@@ -38,28 +38,6 @@ define print
 endef
 
 # Directories
-
-ifeq ($(REGION)$(VERSION),jpnv1)
-BIN_DIRS  = assets_$(REGION)_$(VERSION)
-BUILD_DIR = build_$(REGION)_$(VERSION)
-SRC_DIR   = src_$(REGION)_$(VERSION)
-LIBULTRA_DIR = $(SRC_DIR)/lib
-ASM_DIR = asm_$(REGION)_$(VERSION)
-ASM_DIRS   = $(ASM_DIR) $(ASM_DIR)/data $(ASM_DIR)/nonmatchings $(ASM_DIR)/data/lib $(ASM_DIR)/data/hasm
-ASM_DIRS  += $(ASM_DIR)/data/lib/src $(ASM_DIR)/data/lib/src/audio $(ASM_DIR)/data/lib/src/audio/mips1 
-ASM_DIRS  += $(ASM_DIR)/data/lib/src/gu $(ASM_DIR)/data/lib/src/sc $(ASM_DIR)/data/lib/src/io $(ASM_DIR)/data/lib/src/os
-ASM_DIRS  += $(ASM_DIR)/data/lib/src/libc $(ASM_DIR)/hasm $(ASM_DIR)/lib/src/os
-ASM_DIRS  += $(ASM_DIR)/lib/src/io $(ASM_DIR)/lib/src/sc $(ASM_DIR)/lib/src/debug $(ASM_DIR)/lib/src/audio
-ASM_DIRS  += $(ASM_DIR)/lib/src/gu $(ASM_DIR)/lib/src/libc
-HASM_DIRS = $(SRC_DIR)/hasm $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/libc
-LIBULTRA_SRC_DIRS  = $(LIBULTRA_DIR) $(LIBULTRA_DIR)/src $(LIBULTRA_DIR)/src/audio $(LIBULTRA_DIR)/src/audio/mips1 $(SRC_DIR)/lib/src/audio/mips1
-LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/debug $(LIBULTRA_DIR)/src/gu $(LIBULTRA_DIR)/src/io
-LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/libc $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/sc
-
-# Files requiring pre/post-processing
-GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
-GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
-else
 BIN_DIRS  = assets
 BUILD_DIR = build
 SRC_DIR   = src
@@ -73,7 +51,6 @@ LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/libc $(LIBULTRA_DIR)/src/os $(LIBULTRA_
 # Files requiring pre/post-processing
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) $(LIBULTRA_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
-endif
 
 SRC_DIRS = $(SRC_DIR) $(LIBULTRA_SRC_DIRS)
 SYMBOLS_DIR = ver/symbols
@@ -126,7 +103,7 @@ XGCC     = mips64-elf-gcc
 #Options
 CC       = $(RECOMP_DIR)/cc
 SPLAT    ?= $(PYTHON) -m splat split
-CRC      = $(V)$(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64 $(COLORIZE)
+CRC      = $(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64 $(COLORIZE)
 
 OPT_FLAGS      = -O2
 
@@ -181,59 +158,22 @@ ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py
 ####################### LIBULTRA #########################
 
 $(BUILD_DIR)/$(LIBULTRA_DIR)/%.c.o: OPT_FLAGS := -O2
-ifeq ($(REGION)$(VERSION),usv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
-else ifeq ($(REGION)$(VERSION),palv1)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
-else ifeq ($(REGION)$(VERSION),usv2)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
-else ifeq ($(REGION)$(VERSION),palv2)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/%.c.o: OPT_FLAGS := -O3
-endif
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/mips1/%.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/os/%.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/io/%.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/io/vimgr.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/io/pimgr.c.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/io/motor.c.o: OPT_FLAGS := -O2
-ifeq ($(REGION)$(VERSION),usv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xprintf.c.o : OPT_FLAGS := -O3
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/env.c.o: OPT_FLAGS := -g
-else ifeq ($(REGION)$(VERSION),palv1)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xprintf.c.o : OPT_FLAGS := -O3
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/env.c.o: OPT_FLAGS := -g
-else ifeq ($(REGION)$(VERSION),usv2)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xprintf.c.o : OPT_FLAGS := -O3
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/env.c.o: OPT_FLAGS := -g
-else ifeq ($(REGION)$(VERSION),palv2)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xprintf.c.o : OPT_FLAGS := -O3
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/env.c.o: OPT_FLAGS := -g
-else
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/audio/env.c.o: OPT_FLAGS := -O2
-endif
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/llcvt.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/llcvt.c.o: MIPSISET := -mips3 -32
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ll.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ll.c.o: MIPSISET := -mips3 -32
-ifeq ($(REGION)$(VERSION),usv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ldiv.c.o: OPT_FLAGS := -O3
-else ifeq ($(REGION)$(VERSION),palv1)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ldiv.c.o: OPT_FLAGS := -O3
-else ifeq ($(REGION)$(VERSION),usv2)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ldiv.c.o: OPT_FLAGS := -O3
-else ifeq ($(REGION)$(VERSION),palv2)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ldiv.c.o: OPT_FLAGS := -O3
-endif
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ldiv.c.o: MIPSISET := -mips2
-ifeq ($(REGION)$(VERSION),usv1)
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xldtob.c.o: OPT_FLAGS := -O3
-else ifeq ($(REGION)$(VERSION),palv1)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xldtob.c.o: OPT_FLAGS := -O3
-else ifeq ($(REGION)$(VERSION),usv2)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xldtob.c.o: OPT_FLAGS := -O3
-else ifeq ($(REGION)$(VERSION),palv2)
-$(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xldtob.c.o: OPT_FLAGS := -O3
-endif
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/xldtob.c.o: MIPSISET := -mips2
 
 $(BUILD_DIR)/$(LIBULTRA_DIR)/%.c.o: MIPSISET := -mips2
@@ -260,7 +200,7 @@ dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(HASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
 
 verify: $(TARGET).z64
-	@$(CRC)
+	$(V)$(CRC)
 ifeq ($(NON_MATCHING),0)
 	@(sha1sum -c --quiet ver/verification/$(BASENAME).$(REGION).$(VERSION).sha1 \
 	&& $(PRINT) "$(GREEN)Verify:$(NO_COL)\
@@ -292,7 +232,6 @@ clean:
 	
 cleanall:
 	rm -rf build
-	rm -rf build_jpn_v1
 
 distclean: clean
 	rm -rf $(ASM_DIRS)
@@ -302,9 +241,7 @@ distclean: clean
 
 distcleanall: cleanall
 	rm -rf asm
-	rm -rf asm_jpn_v1
 	rm -rf assets
-	rm -rf assets_jpn_v1
 	rm -f $(SYMBOLS_DIR)/*auto.*.txt
 	rm -f ver/dkr.us.v1.ld
 	rm -f ver/dkr.us.v2.ld

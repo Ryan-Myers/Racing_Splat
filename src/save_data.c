@@ -1089,7 +1089,11 @@ s32 read_eeprom_settings(u64 *eepromSettings) {
     if (sp20 != temp) {
         // bit 24 = Unknown
         // bit 25 = Seems to be a flag for whether subtitles are enabled or not.
+#if REGION == REGION_JP
+        *eepromSettings = 0x300000C;
+#else
         *eepromSettings = 0x3000000; // Sets bits 24 and 25 high
+#endif
         *eepromSettings <<= 8;
         *eepromSettings >>= 8;
         *eepromSettings |= (u64) calculate_eeprom_settings_checksum(*eepromSettings) << 56;
@@ -1688,6 +1692,7 @@ SIDeviceStatus reformat_controller_pak(s32 controllerIndex) {
 }
 
 /* Official Name: packDirectory */
+#if REGION != REGION_JP
 s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, char **fileNames, char **fileExtensions,
                                  u32 *fileSizes, u8 *fileTypes) {
     OSPfsState state;
@@ -1725,7 +1730,7 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
         free_from_memory_pool(D_800DE440);
     }
 
-    files_used = maxNumOfFilesOnCpak * 24;
+    files_used = maxNumOfFilesOnCpak * SAVE_FILE_BYTES;
     D_800DE440 = allocate_from_main_pool_safe(files_used, COLOUR_TAG_BLACK);
     bzero(D_800DE440, files_used);
     temp_D_800DE440 = D_800DE440;
@@ -1733,11 +1738,20 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
     // TODO: There's probably an unidentified struct here
     for (i = 0; i < maxNumOfFilesOnCpak; i++) {
         fileNames[i] = (char *) temp_D_800DE440;
+#if REGION == REGION_JP
+        // Could be doubled because file names bytes are doubled in JP?
+        temp_D_800DE440 += 0x24;
+#else
         temp_D_800DE440 += 0x12;
+#endif
         fileExtensions[i] = (char *) temp_D_800DE440;
         fileSizes[i] = 0;
         fileTypes[i] = SAVE_FILE_TYPE_UNSET;
+#if REGION == REGION_JP
+        temp_D_800DE440 += 12;
+#else
         temp_D_800DE440 += 6;
+#endif
     }
 
     while (i < maxNumOfFilesToGet) {
@@ -1773,6 +1787,9 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
     start_reading_controller_data(controllerIndex);
     return CONTROLLER_PAK_GOOD;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/save_data/get_controller_pak_file_list.s")
+#endif
 
 // Free D_800DE440
 void packDirectoryFree(void) {
@@ -2062,9 +2079,13 @@ char *font_codes_to_string(char *inString, char *outString, s32 stringLength) {
             *outString = gN64FontCodes[index];
             outString++;
         } else {
+#if REGION == REGION_JP
+            *outString++ = 0x80;
+            *outString++ = *inString;
+#else
             // Replace invalid characters with a hyphen
-            *outString = '-';
-            outString++;
+            *outString++ = '-';
+#endif
         }
 
         inString++;
@@ -2092,16 +2113,28 @@ char *string_to_font_codes(char *inString, char *outString, s32 stringLength) {
     char *ret = outString;
 
     while (*inString != 0 && stringLength != 0) {
-        *outString = 0;
+        *outString = 0;        
+#if REGION == REGION_JP
+        if (*inString & 0x80) {
+            *outString++ = inString[1];
+            inString += 2;
+        } else {
+            for (i = 0; i < 65; i++) {
+                if (*inString == gN64FontCodes[i]) {
+                    *outString++ = i;
+                    break;
+                }
+            }
+        }
+#else
         for (i = 0; i < 65; i++) {
             currentChar = *inString;
             if (currentChar == gN64FontCodes[i]) {
-                *outString = i;
-                outString++;
+                *outString++ = i;
                 break;
             }
         }
-
+#endif
         inString++;
         stringLength--;
     }

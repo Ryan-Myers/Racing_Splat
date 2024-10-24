@@ -13,6 +13,7 @@
 #include "math_util.h"
 #include "objects.h"
 #include "PRinternal/viint.h"
+#include "common.h"
 
 #define WEATHER_OVERRIDE_COUNT 16
 

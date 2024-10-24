@@ -24,6 +24,7 @@
 #include "printf.h"
 #include "collision.h"
 #include "PRinternal/viint.h"
+#include "common.h"
 
 // Maximum size for a level model is 522.5 KiB
 #define LEVEL_MODEL_MAX_SIZE 0x82A00
@@ -48,6 +49,12 @@ LevelModel *gCurrentLevelModel = NULL; // Official Name: track
 LevelHeader *gCurrentLevelHeader2 = NULL;
 
 s32 D_800DC920 = -1;
+#if REGION == REGION_JP
+char gJpnTTCam[] = { 0x80, 0x2D, 0x80, 0x3C,
+                     0x80, 0x2D, 0x80, 0x3C,
+                     0x80, 0x55, 0x80, 0x71,
+                     0x80, 0x76, 0x00, 0x00 };
+#endif
 s32 *D_800DC924 = NULL;
 s32 D_800DC928 = 0; // Currently unknown, might be a different type.
 
@@ -426,7 +433,11 @@ void render_scene(Gfx **dList, MatrixS **mtx, Vertex **vtx, TriangleList **tris,
                 posX = SCREEN_WIDTH_HALF + 10;
                 posY = SCREEN_HEIGHT_HALF + 5;
             }
+#if REGION == REGION_JP
+            draw_text(&gSceneCurrDisplayList, posX, posY, gJpnTTCam, ALIGN_TOP_LEFT);
+#else
             draw_text(&gSceneCurrDisplayList, posX, posY, "TT CAM", ALIGN_TOP_LEFT);
+#endif
         } else {
             set_active_camera(PLAYER_FOUR);
             func_800278E8(updateRate);

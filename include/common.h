@@ -23,7 +23,7 @@
 #define ObjLoopGoldenBalloonChecksum 0xA6FF
 #define VERSION VERSION_77
 #define REGION REGION_PAL
-#elif defined(VERSION_jp_v1)
+#elif defined(VERSION_jpn_v1)
 #define Func80019808Checksum 0x34EA6
 #define ViewportFuncChecksum 0x592D
 #define TractionTableChecksum 0x1C9EC

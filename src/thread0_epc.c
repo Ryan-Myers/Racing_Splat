@@ -64,7 +64,7 @@ void thread0_Main(UNUSED void *unused) {
 
     while (1) {
         osRecvMesg(&D_80129790, (OSMesg) &sp34, OS_MESG_BLOCK);
-#if VERSION == VERSION_77
+#if VERSION < VERSION_80
         if (!(get_filtered_cheats() & CHEAT_EPC_LOCK_UP_DISPLAY)) {
             continue;
         }
