@@ -9351,7 +9351,7 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
     #define ADVENTURETRACK_YPOS3 72
     #define ADVENTURETRACK_RED   22
     #define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_LEFT
-    #define ADVENTURETRACK_MAP_ID mapID
+    #define ADVENTURETRACK_MAPID mapID
 #elif VERSION == VERSION_79
     #define ADVENTURETRACK_XPOS1 51
     #define ADVENTURETRACK_XPOS2 249
