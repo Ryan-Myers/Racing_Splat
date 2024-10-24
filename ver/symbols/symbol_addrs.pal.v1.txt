@@ -1,3 +1,13 @@
+osTvType = 0x80000300;
+osRomType = 0x80000304;
+osRomBase = 0x80000308;
+osResetType = 0x8000030C;
+osCicId = 0x80000310;
+osVersion = 0x80000314;
+osMemSize = 0x80000318;
+osAppNMIBuffer = 0x8000031C;
+entrypoint = 0x80000400;
+
 // audio.c .text
 audio_init = 0x80000450;
 sound_volume_reset = 0x80000890;
@@ -2121,8 +2131,8 @@ gMagnetEffectObject = 0x800DC7F4;
 D_800DC768 = 0x800DC7F8;
 D_800DC76C = 0x800DC7FC;
 D_800DC7A8 = 0x800DC838;
-D_800DC7B8 = 0x800DC848;
-gBossVehicles = 0x800DC8B0;
+D_800DC7B8 = 0x800DC848; // type:s16 size:0x66
+gBossVehicles = 0x800DC8B0; // size:0x14
 D_800DC834 = 0x800DC8C4;
 D_800DC840 = 0x800DC8D0;
 gNoBoundsCheck = 0x800DC8D8;

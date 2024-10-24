@@ -11,6 +11,9 @@ osMemSize = 0x80000318;
 osAppNMIBuffer = 0x8000031C;
 entrypoint = 0x80000400;
 
+D_B0000574 = 0xB0000574;
+D_B0000578 = 0xB0000578;
+
 gMainMemoryPool = main_BSS_END;
 __BSS_SECTION_SIZE = main_BSS_SIZE;
 __ASSETS_LUT_START = main_ROM_END;
