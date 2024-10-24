@@ -1,5 +1,4 @@
 CC   = gcc
-PYTHON   = python3
 
 UNAME_S := $(shell uname -s)
 ifeq ($(OS),Windows_NT)
@@ -18,9 +17,6 @@ all: n64cc recomp requirements
 
 n64cc:
 	@$(CC) n64crc.c -o n64crc
-
-requirements:
-	$(PYTHON) -m pip install -U -r requirements.txt
 
 recomp:
 	@echo "Fetching Recomp..."
