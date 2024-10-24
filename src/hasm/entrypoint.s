@@ -9,9 +9,9 @@
 
 /* Handwritten function */
 glabel entrypoint
-lui        $t0, %hi(gBssSectionStart)
-lui        $t1, %hi(__BSS_SECTION_SIZE )
-addiu      $t0, $t0, %lo(gBssSectionStart)
+lui        $t0, %hi(__BSS_SECTION_START)
+lui        $t1, %hi(__BSS_SECTION_SIZE)
+addiu      $t0, $t0, %lo(__BSS_SECTION_START)
 ori        $t1, $t1, %lo(__BSS_SECTION_SIZE)
 .L80000410:
 addi       $t1, $t1, -0x8

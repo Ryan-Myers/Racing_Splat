@@ -3512,7 +3512,7 @@ rspF3DDKRDataXbusStart = 0x800EC610;
 rspUnknown2DataStart = 0x800ECE10;
 
 // Start of BSS
-gBssSectionStart = 0x800ED9D0; // size:0x29D88
+gAudioHeapStack = 0x800ED9D0; // size:0x29D88
 gALHeap = 0x80117758;
 gSequenceTable = 0x80117768;
 gMusicSequenceData = 0x8011776C;
