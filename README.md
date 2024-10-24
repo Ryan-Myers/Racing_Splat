@@ -12,9 +12,7 @@ git submodule update --init --recursive
 
 Install Dependencies
 ```sh
-sudo apt install build-essential pkg-config git python3 wget libcapstone-dev python3-pip binutils-mips-linux-gnu
-python3 -m pip install --user colorama watchdog levenshtein cxxfilt
-python3 -m pip install --upgrade pycparser
+sudo apt install build-essential pkg-config git python3 wget python3-pip binutils-mips-linux-gnu python3.10-venv
 ```
 
 ```sh

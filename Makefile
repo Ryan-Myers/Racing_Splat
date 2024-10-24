@@ -95,7 +95,8 @@ AS       = $(CROSS)as
 CPP      = cpp
 LD       = $(CROSS)ld
 OBJCOPY  = $(CROSS)objcopy
-PYTHON   = python3
+VENV     = .venv
+PYTHON   = $(VENV)/bin/python3
 GCC      = gcc
 
 XGCC     = mips64-elf-gcc
@@ -213,7 +214,7 @@ endif
 no_verify: $(TARGET).z64
 	$(V)$(PRINT) "$(GREEN)Build Complete!$(NO_COL)\n"
 
-extract: tools
+extract:
 	$(SPLAT) ver/splat/$(BASENAME).$(REGION).$(VERSION).yaml
 #hacky workaround to fix font.c since there's extra unmatched functions in there that aren't other versions
 ifneq ($(REGION)$(VERSION),jpnv1)
@@ -229,16 +230,19 @@ ifneq ($(REGION)$(VERSION),jpnv1)
 	@touch asm/nonmatchings/font/func_800C78E0_C84E0.s
 endif
 
-extractall: tools
+extractall:
 	$(SPLAT) ver/splat/$(BASENAME).us.v1.yaml
 	$(SPLAT) ver/splat/$(BASENAME).pal.v1.yaml
 	$(SPLAT) ver/splat/$(BASENAME).jpn.v1.yaml
 	$(SPLAT) ver/splat/$(BASENAME).us.v2.yaml
 	$(SPLAT) ver/splat/$(BASENAME).pal.v2.yaml
 
-dependencies: tools
+dependencies:
 	$(V)make -C $(TOOLS_DIR)
-	$(V)$(PYTHON) -m pip install -r requirements.txt #Installing the splat dependencies
+#Set up a python venv so we don't get warnings about breaking system packages.
+	$(V)python3 -m venv $(VENV)
+#Installing the splat dependencies
+	$(V)$(PYTHON) -m pip install -r requirements.txt
 
 clean:
 	rm -rf $(BUILD_DIR)
