@@ -14,24 +14,32 @@ sins_2 = coss_2 + 0x4;
 
 D_B0000574 = 0xB0000574;
 D_B0000578 = 0xB0000578;
-D_E1CA0 = 0xE1CA0;
-D_E1CB0 = 0xE1CB0;
-D_E1CC0 = 0xE1CC0;
-D_E1D30 = 0xE1D30;
-D_E1D40 = 0xE1D40;
-D_E1D50 = 0xE1D50;
-D_E2220 = 0xE2220;
-D_E2230 = 0xE2230;
-D_E2240 = 0xE2240;
-D_E22B0 = 0xE22B0;
-D_E22C0 = 0xE22C0;
-D_E22D0 = 0xE22D0;
-D_E3730 = 0xE3730;
-D_E3740 = 0xE3740;
-D_E3750 = 0xE3750;
-D_E51B8 = 0xE51B8;
-D_E51C8 = 0xE51C8;
-D_E51D8 = 0xE51D8;
+
+/* The symbols below are GFX commands where it uses OS_K0_TO_PHYSICAL */
+
+/* US V1 */
+D_E1CA0 = dMenuHudDrawModes - 0x80000000;
+D_E1CB0 = D_E1CA0 + 0x10;
+D_E1CC0 = D_E1CB0 + 0x10;
+/* PAL V1 */
+D_E1D30 = dMenuHudDrawModes - 0x80000000;
+D_E1D40 = D_E1D30 + 0x10;
+D_E1D50 = D_E1D40 + 0x10;
+/* US V2 */
+D_E2220 = dMenuHudDrawModes - 0x80000000;
+D_E2230 = D_E2220 + 0x10;
+D_E2240 = D_E2230 + 0x10;
+/* PAL V2 */
+D_E22B0 = dMenuHudDrawModes - 0x80000000;
+D_E22C0 = D_E22B0 + 0x10;
+D_E22D0 = D_E22C0 + 0x10;
+/* JPN V1 */
+D_E3730 = dMenuHudDrawModes - 0x80000000;
+D_E3740 = D_E3730 + 0x10;
+D_E3750 = D_E3740 + 0x10;
+D_E51B8 = dDialogueBoxDrawModes - 0x80000000;
+D_E51C8 = D_E51B8 + 0x10;
+D_E51D8 = D_E51C8 + 0x10;
 
 /* Symbols related to the end of the ROM */
 

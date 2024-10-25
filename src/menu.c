@@ -1880,7 +1880,7 @@ Gfx dMenuHudSettings[] = {
     gsSPEndDisplayList(),
 };
 
-UNUSED Gfx dMenuHudDrawModes[][2] = {
+Gfx dMenuHudDrawModes[][2] = {
     {
         gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
         gsDPSetOtherMode(DKR_OMH_1CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_XLU_SURF | G_RM_XLU_SURF2),
