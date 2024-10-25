@@ -105,6 +105,7 @@ XGCC     = mips64-elf-gcc
 CC       = $(RECOMP_DIR)/cc
 SPLAT    ?= $(PYTHON) -m splat split
 CRC      = $(TOOLS_DIR)/n64crc $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION).z64 $(COLORIZE)
+FIXCHECKSUMS = $(PYTHON) $(TOOLS_DIR)/calc_func_checksums.py $(REGION) $(VERSION)
 
 OPT_FLAGS      = -O2
 
@@ -200,6 +201,7 @@ dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(HASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
 
 verify: $(TARGET).z64
+	$(V)$(FIXCHECKSUMS)
 	$(V)$(CRC)
 ifeq ($(NON_MATCHING),0)
 	@(sha1sum -c --quiet ver/verification/$(BASENAME).$(REGION).$(VERSION).sha1 \
