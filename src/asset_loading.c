@@ -27,7 +27,7 @@ u32 *gAssetsLookupTable;
 /*******************************/
 
 // These are both defined in the generated dkr.ld file.
-extern u8 __ASSETS_LUT_START[], __ASSETS_LUT_END[]; // __ASSETS_LUT_START = 0xECB60, _END = 0xECC30
+extern u8 __ASSETS_LUT_START[], __ASSETS_LUT_END[];
 
 /**
  * Set up the peripheral interface message queues and scheduling.
