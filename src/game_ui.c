@@ -148,33 +148,40 @@ ByteColour gHudMinimapColours[40] = {
 u32 gHudColour = COLOUR_RGBA32(255, 255, 255, 254);
 
 #if REGION == REGION_JP
+// ゴースト  -  Ghost
 char D_800E42C8_E4EC8[] = { 0x80, 0x80, 0x80, 0x3B,
                             0x80, 0x5C, 0x80, 0x63,
-                            0x00, 0x00, 0x00, 0x00 };
+                            0x00, 0x00 };
 
+// セーブ  -  Save
 char D_800E42D4_E4ED4[] = { 0x80, 0x5D, 0x80, 0x3B,
-                            0x80, 0x8D, 0x00, 0x00 };
+                            0x80, 0x8D };
 
+// ふかのう - Impossible
 char D_800E42DC_E4EDC[] = { 0x80, 0xD5, 0x80, 0xBF,
                             0x80, 0xD2, 0x80, 0xBC,
-                            0x00, 0x00, 0x00, 0x00 };
+                            0x00, 0x00 };
 
 char D_800E42E8_E4EE8[] = { 0x00, 0x00, 0x00, 0x00 };
 
+// パック  -  Pak
 char D_800E42EC_E4EEC[] = { 0x80, 0x90, 0x80, 0x4A,
-                            0x80, 0x57, 0x00, 0x00 };
+                            0x80, 0x57 };
 
+// フル  -  Full
 char D_800E42F4_E4EF4[] = { 0x80, 0x6B, 0x80, 0x78,
-                            0x00, 0x00, 0x00, 0x00 };
+                            0x00, 0x00 };
 
 char D_800E42FC_E4EFC[] = { 0x00, 0x00, 0x00, 0x00 };
 
+// パック  -  Pak
 char D_800E4300_E4F00[] = { 0x80, 0x90, 0x80, 0x4A,
-                            0x80, 0x57, 0x00, 0x00 };
+                            0x80, 0x57 };
 
+// ふりょう  - Defective 
 char D_800E4308_E4F08[] = { 0x80, 0xD5, 0x80, 0xE1,
                             0x80, 0xB7, 0x80, 0xBC,
-                            0x00, 0x00, 0x00, 0x00 };
+                            0x00, 0x00 };
 #endif
 
 UNUSED f32 sRecordVel = 0.0f; // Set to whatever the highest velocity recorded is, but never actually used.
@@ -1390,17 +1397,17 @@ void func_800A277C(s32 arg0, Object *playerRacerObj, s32 updateRate) {
         render_speedometer(playerRacerObj, updateRate);
         if (get_contpak_error() > 0) {
             switch (get_contpak_error()) {
-                case 1:
+                case CONTPAK_ERROR_UNKNOWN:
                     SWMessage[0] = "CAN'T";
                     SWMessage[1] = "SAVE";
                     SWMessage[2] = "GHOST";
                     break;
-                case 2:
+                case CONTPAK_ERROR_FULL:
                     SWMessage[0] = " CONTROLLER";
                     SWMessage[1] = "PAK";
                     SWMessage[2] = "FULL";
                     break;
-                case 3:
+                case CONTPAK_ERROR_DAMAGED:
                     SWMessage[0] = " CONTROLLER";
                     SWMessage[1] = "PAK";
                     SWMessage[2] = "DAMAGED";
@@ -2192,6 +2199,7 @@ void hud_draw_finish_misc(Object_Racer *racer) {
     s32 racerCount;
 #if VERSION == VERSION_80
     static char sDidNotFinish[] = "DID NOT FINISH";
+    #define DID_NOT_FINISH &sDidNotFinish
     #define FINISH_TEXT_OFFSET 40
     #define FINISH_TIME_OFFSET 0
 #elif VERSION == VERSION_79
@@ -2199,16 +2207,18 @@ void hud_draw_finish_misc(Object_Racer *racer) {
                                     0x80, 0xD1, 0x80, 0xB9,
                                     0x80, 0xF3, 0x80, 0xC5,
                                     0x80, 0xC9, 0x80, 0x34 };
+    #define DID_NOT_FINISH &sDidNotFinish
     #define FINISH_TEXT_OFFSET 48
     #define FINISH_TIME_OFFSET 2
 #else
+    #define DID_NOT_FINISH "DID NOT FINISH"
     #define FINISH_TEXT_OFFSET 40
     #define FINISH_TIME_OFFSET 0
 #endif
 
     func_800AA600(&gHUDCurrDisplayList, &gHUDCurrMatrix, &gHUDCurrVertex, &gCurrentHud->challengeFinishPosition1);
     func_800AA600(&gHUDCurrDisplayList, &gHUDCurrMatrix, &gHUDCurrVertex, &gCurrentHud->challengeFinishPosition2);
-    if (!(get_current_level_race_type() & RACETYPE_CHALLENGE_BATTLE) && (is_in_two_player_adventure() == 0)) {
+    if (!(get_current_level_race_type() & RACETYPE_CHALLENGE_BATTLE) && (!is_in_two_player_adventure())) {
         get_racer_objects(&racerCount);
         if (gNumActivePlayers >= 2 &&
             (is_in_two_player_adventure() == FALSE || is_postrace_viewport_active() == FALSE)) {
@@ -2225,13 +2235,8 @@ void hud_draw_finish_misc(Object_Racer *racer) {
                 render_timer(gCurrentHud->lapTimeText.x + FINISH_TIME_OFFSET, gCurrentHud->lapTimeText.y, gCurrentHud->lapTimeText.unk1A,
                              gCurrentHud->lapTimeText.unk1B, gCurrentHud->lapTimeText.unk1C, 1);
             } else {
-#if VERSION >= VERSION_79
                 draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35, gCurrentHud->raceTimeNumber.y,
-                          &sDidNotFinish, ALIGN_TOP_LEFT);
-#else
-                draw_text(&gHUDCurrDisplayList, gCurrentHud->raceTimeNumber.x - 35, gCurrentHud->raceTimeNumber.y,
-                          "DID NOT FINISH", ALIGN_TOP_LEFT);
-#endif
+                          DID_NOT_FINISH, ALIGN_TOP_LEFT);
             }
         }
     }

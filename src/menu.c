@@ -1818,8 +1818,8 @@ char D_800E3550_E4150[] = { 0x80, 0xD8, 0x80, 0xF0,
                             0x80, 0xC1, 0x80, 0x75,
                             0x00 };
 char D_800E3560_E4160[] = "THE END";
-char D_800E3568_E4168[] = { 0x80, 0x0F, 0x00, 0x00 };
-char D_800E356C_E416C[] = { 0x80, 0x0F, 0x00, 0x00 };
+char D_800E3568_E4168[] = { 0x80, 0x0F };
+char D_800E356C_E416C[] = { 0x80, 0x0F };
 char *gCreditsLastMessageArray[] = {
     D_800E3544_E4144, D_800E3550_E4150, // Appears after beating the first wizpig race.
     D_800E3560_E4160,                    // Appears after beating the second wizpig race.

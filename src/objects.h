@@ -184,7 +184,7 @@ enum ObjectSpawnFlags {
 enum ContPakErrors {
     CONTPAK_ERROR_MISSING = -1,
     CONTPAK_ERROR_NONE,
-    CONTPAK_ERROR_UNKNOWN,
+    CONTPAK_ERROR_UNKNOWN, //Time trial ghost has reached its size limit?
     CONTPAK_ERROR_FULL,
     CONTPAK_ERROR_DAMAGED
 };
