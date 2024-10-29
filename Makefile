@@ -221,7 +221,6 @@ extract:
 ifneq ($(REGION)$(VERSION),jpnv1)
 	@$(PRINT) "Creating fake files for non-japan matching\n"
 	@touch asm/nonmatchings/font/func_800C6464_C7064.s
-	@touch asm/nonmatchings/font/func_800C663C_C723C.s
 	@touch asm/nonmatchings/font/func_800C68CC_C74CC.s
 	@touch asm/nonmatchings/font/func_800C6DD4_C79D4.s
 	@touch asm/nonmatchings/font/func_800C7744_C8344.s

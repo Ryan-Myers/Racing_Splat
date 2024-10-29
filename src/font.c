@@ -77,6 +77,10 @@ s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be relat
                      // Axis?
 
 #if REGION == REGION_JP
+typedef struct Unk8012C2D4_JP {
+    s8 unk0;
+    void *unk4;
+} Unk8012C2D4_JP;
 u32 *D_8012C2A4_EE5E4;
 s32 *D_8012C2A8_EE5E8[4];
 s32 D_8012C2B8_EE5F8;
@@ -85,9 +89,9 @@ s32 D_8012C2C0_EE600;
 void *D_8012C2C4_EE604;
 char *D_8012C2C8_EE608;
 s32 D_8012C2CC_EE60C;
-void *D_8012C2D0_EE610;
-void *D_8012C2D4_EE614;
-void *D_8012C2D8_EE618;
+Unk8012C2D4_JP *D_8012C2D0_EE610;
+Unk8012C2D4_JP *D_8012C2D4_EE614;
+s32 *D_8012C2D8_EE618;
 #endif
 
 s8 sDialogueBoxCloseTimer;
@@ -1085,8 +1089,29 @@ void parse_string_with_number(char *input, char *output, s32 number) {
 void func_800C6464_C7064(void);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
 
-void func_800C663C_C723C(void);
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C663C_C723C.s")
+void func_800C663C_C723C(void) {
+    s32 i;
+    s32 var_v0;
+
+    func_800C67F4_C73F4();
+    D_8012C2D0_EE610 = allocate_from_main_pool_safe(0x6C00, COLOUR_TAG_RED);
+    D_8012C2D4_EE614 = allocate_from_main_pool_safe(0x400, COLOUR_TAG_RED);
+    D_8012C2D8_EE618 = allocate_from_main_pool_safe(0x9000, COLOUR_TAG_RED);
+    if (D_8012C2D0_EE610 == NULL || D_8012C2D4_EE614 == NULL || D_8012C2D8_EE618 == NULL) {
+        func_800C67F4_C73F4();
+        return;
+    }
+    var_v0 = 0;
+    for (i = 0; i < 0x80; i++) {
+        D_8012C2D4_EE614[i].unk0 = 0;
+        D_8012C2D4_EE614[i].unk4 = &D_8012C2D0_EE610[var_v0];
+        if (i & 1) {
+            var_v0 += 10;
+        } else {
+            var_v0 += 17;
+        }
+    }
+}
 
 void func_800C67F4_C73F4(void) {
     if (D_8012C2D0_EE610 != NULL) {
