@@ -30,7 +30,7 @@ Gfx dDialogueBoxDrawModes[][2] = {
     },
 };
 #if REGION == REGION_JP
-// This is more GFX data like above. Likley even within that array.
+// This is more GFX data like above. Likely even within that array.
 s32 D_800E51D8_E5DD8[] = {
         0xFC5627FF, 0x1FFCFE38, 0xEF100C0F, 0x00104240
     };
@@ -1040,23 +1040,45 @@ void render_dialogue_box(Gfx **dlist, MatrixS **mat, Vertex **verts, s32 dialogu
  * Takes in a string and a number, and replaces each instance of the
  * character '~' with the number.
  */
-#if REGION != REGION_JP
+#if REGION == REGION_JP
 void parse_string_with_number(char *input, char *output, s32 number) {
-    while (*input != '\0') {
-        if ('~' == *input) { // ~ is equivalent to a %d.
+    char currentChar;
+
+    currentChar = *input++;
+    while (currentChar) {
+        if (currentChar & 0x80) {
+            char nextChar = *input++;
+            if (nextChar == 0xE) {
+                s32_to_string(&output, number);
+            } else {
+                *output++ = currentChar;
+                *output++ = nextChar;
+            }
+        } else if (currentChar == '~') { // ~ is equivalent to a %d.
+            s32_to_string(&output, number);
+        } else {
+            *output++ = currentChar;
+        }
+        currentChar = *input;
+        input++;
+    }
+    *output = '\0'; // null terminator
+}
+#else
+void parse_string_with_number(char *input, char *output, s32 number) {
+    while (*input) {
+        if (*input == '~') { // ~ is equivalent to a %d.
             // output the number as part of the string
             s32_to_string(&output, number);
             input++;
         } else {
-            *output = (signed char) *input; // It's either this cast, or change the function signature
+            *output = *input;
             input++;
             output++;
         }
     }
     *output = '\0'; // null terminator
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/font/parse_string_with_number.s")
 #endif
 
 #if REGION == REGION_JP
