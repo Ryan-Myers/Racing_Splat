@@ -80,10 +80,10 @@ s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be relat
 u32 *D_8012C2A4_EE5E4;
 s32 *D_8012C2A8_EE5E8[4];
 s32 D_8012C2B8_EE5F8;
-s32 D_8012C2BC_EE5FC;
+char *D_8012C2BC_EE5FC;
 s32 D_8012C2C0_EE600;
 void *D_8012C2C4_EE604;
-s32 D_8012C2C8_EE608;
+char *D_8012C2C8_EE608;
 s32 D_8012C2CC_EE60C;
 void *D_8012C2D0_EE610;
 void *D_8012C2D4_EE614;
@@ -1154,7 +1154,19 @@ void func_800C7864_C8464(char *inString, char *outString) {
     *outString = '\0';
 }
 
-void func_800C78E0_C84E0(void);
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C78E0_C84E0.s")
+void func_800C78E0_C84E0(void) {
+    s32 i;
+
+    D_8012C2BC_EE5FC = D_8012C2C8_EE608;
+    D_8012C2C0_EE600 = D_8012C2CC_EE60C;
+    do {
+        for (i = 0; i < 0x400; i +=8) {
+            if (D_8012C2BC_EE5FC[i]) {
+                D_8012C2BC_EE5FC[i]--;
+            }
+        }
+        func_800C6870_C7470();
+    } while (D_8012C2C0_EE600 != D_8012C2CC_EE60C);
+}
 
 #endif
