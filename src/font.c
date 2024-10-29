@@ -77,22 +77,29 @@ s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be relat
                      // Axis?
 
 #if REGION == REGION_JP
+typedef struct Asset45 {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+} Asset45;
+#define JP_FONT_ARRAY_SIZE 128
 typedef struct Unk8012C2D4_JP {
     char unk0;
     char unk1;
     void *unk4;
 } Unk8012C2D4_JP;
-u32 *D_8012C2A4_EE5E4;
-s32 *D_8012C2A8_EE5E8[4];
+Asset45 *D_8012C2A4_EE5E4;
+u8 *D_8012C2A8_EE5E8[4];
 s32 D_8012C2B8_EE5F8;
-Unk8012C2D4_JP *D_8012C2BC_EE5FC;
-s32 D_8012C2C0_EE600;
-void *D_8012C2C4_EE604;
+Unk8012C2D4_JP (*D_8012C2BC_EE5FC)[JP_FONT_ARRAY_SIZE];
+Unk8012C2D4_JP *D_8012C2C0_EE600;
+Unk8012C2D4_JP *D_8012C2C4_EE604;
 Unk8012C2D4_JP *D_8012C2C8_EE608;
-s32 D_8012C2CC_EE60C;
+Unk8012C2D4_JP *D_8012C2CC_EE60C;
 Unk8012C2D4_JP *D_8012C2D0_EE610;
 Unk8012C2D4_JP *D_8012C2D4_EE614;
-s32 *D_8012C2D8_EE618;
+Unk8012C2D4_JP *D_8012C2D8_EE618;
 #endif
 
 s8 sDialogueBoxCloseTimer;
@@ -1087,8 +1094,52 @@ void parse_string_with_number(char *input, char *output, s32 number) {
 #endif
 
 #if REGION == REGION_JP
-void func_800C6464_C7064(void);
+
+#ifdef NON_EQUIVALENT
+void func_800C6464_C7064(void) {
+    s32 i;
+    s32 var_s0;
+    s32 **var_s3;
+    u8 *asset46;
+    Asset45 *temp_s1;
+
+    D_8012C2C4_EE604 = allocate_from_main_pool_safe(0x6C00, COLOUR_TAG_RED);
+    D_8012C2C8_EE608 = allocate_from_main_pool_safe(0x400, COLOUR_TAG_RED);
+    D_8012C2CC_EE60C = allocate_from_main_pool_safe(0x9000, COLOUR_TAG_RED);
+    var_s0 = 0;
+    for (i = 0; i < 0x80; i++) {
+        D_8012C2C8_EE608[i].unk0 = 0;
+        D_8012C2C8_EE608[i].unk4 = &D_8012C2C4_EE604[var_s0];
+        if (i & 1) {
+            var_s0 += 10;
+        } else {
+            var_s0 += 17;
+        }
+    }
+
+    D_8012C2A4_EE5E4 = load_asset_section_from_rom(ASSET_BINARY_45);
+    D_8012C2A8_EE5E8[0] = allocate_from_main_pool_safe(0x400, COLOUR_TAG_RED);
+    var_s3 = &D_8012C2A8_EE5E8[1];
+    for (i = 0x100; i < 0x400; i += 0x100) {
+        var_s3[0] = &D_8012C2A8_EE5E8[0][i];
+        var_s3++;
+    }
+
+    asset46 = allocate_from_main_pool_safe(0x40, COLOUR_TAG_RED);
+    for (i = 0; i < 4; i++) {
+        temp_s1 = &D_8012C2A4_EE5E4[i];
+        for (var_s0 = 0; var_s0 < 0x100; var_s0++) {
+            load_asset_to_address(ASSET_BINARY_46, (u32) asset46, temp_s1->unk8 + (var_s0 * temp_s1->unkC), 0x40);
+            D_8012C2A8_EE5E8[i][var_s0] = asset46[0xE];
+        }
+    }
+    
+    free_from_memory_pool(asset46);
+    D_8012C2B8_EE5F8 = 0;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
+#endif
 
 void func_800C663C_C723C(void) {
     s32 i;
@@ -1152,8 +1203,8 @@ s32 func_800C7744_C8344(Gfx **dlist, s16 arg1, s32 *arg2, s32 *arg3, s32 *arg4, 
 void func_800C7804_C8404(s32 arg0) {
     s32 i;
 
-    for (i = 0; i < D_8012C2BC_EE5FC[arg0].unk1; i++) {
-        D_8012C2BC_EE5FC[arg0 + i].unk0 = 2;
+    for (i = 0; i < (*D_8012C2BC_EE5FC)[arg0].unk1; i++) {
+        (*D_8012C2BC_EE5FC)[arg0 + i].unk0 = 2;
     }
 }
 
@@ -1198,9 +1249,9 @@ void func_800C78E0_C84E0(void) {
     D_8012C2BC_EE5FC = D_8012C2C8_EE608;
     D_8012C2C0_EE600 = D_8012C2CC_EE60C;
     do {
-        for (i = 0; i < 0x80; i++) {
-            if (D_8012C2BC_EE5FC[i].unk0) {
-                D_8012C2BC_EE5FC[i].unk0--;
+        for (i = 0; i < JP_FONT_ARRAY_SIZE; i++) {
+            if ((*D_8012C2BC_EE5FC)[i].unk0) {
+                (*D_8012C2BC_EE5FC)[i].unk0--;
             }
         }
         func_800C6870_C7470();
