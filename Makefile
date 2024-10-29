@@ -224,7 +224,6 @@ ifneq ($(REGION)$(VERSION),jpnv1)
 	@touch asm/nonmatchings/font/func_800C68CC_C74CC.s
 	@touch asm/nonmatchings/font/func_800C6DD4_C79D4.s
 	@touch asm/nonmatchings/font/func_800C7744_C8344.s
-	@touch asm/nonmatchings/font/func_800C7804_C8404.s
 endif
 
 extractall:

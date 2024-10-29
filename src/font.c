@@ -78,16 +78,17 @@ s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be relat
 
 #if REGION == REGION_JP
 typedef struct Unk8012C2D4_JP {
-    s8 unk0;
+    char unk0;
+    char unk1;
     void *unk4;
 } Unk8012C2D4_JP;
 u32 *D_8012C2A4_EE5E4;
 s32 *D_8012C2A8_EE5E8[4];
 s32 D_8012C2B8_EE5F8;
-char *D_8012C2BC_EE5FC;
+Unk8012C2D4_JP *D_8012C2BC_EE5FC;
 s32 D_8012C2C0_EE600;
 void *D_8012C2C4_EE604;
-char *D_8012C2C8_EE608;
+Unk8012C2D4_JP *D_8012C2C8_EE608;
 s32 D_8012C2CC_EE60C;
 Unk8012C2D4_JP *D_8012C2D0_EE610;
 Unk8012C2D4_JP *D_8012C2D4_EE614;
@@ -1129,7 +1130,7 @@ void func_800C67F4_C73F4(void) {
 }
 
 void func_800C6870_C7470(void) {
-    if ((D_8012C2C0_EE600 == D_8012C2CC_EE60C) && (D_8012C2D8_EE618 != NULL)) {
+    if (D_8012C2C0_EE600 == D_8012C2CC_EE60C && D_8012C2D8_EE618 != NULL) {
         D_8012C2BC_EE5FC = D_8012C2D4_EE614;
         D_8012C2C0_EE600 = D_8012C2D8_EE618;
     } else {
@@ -1148,22 +1149,13 @@ void func_800C6DD4_C79D4(Gfx *dlist, void *arg1, s32 arg2, s32 arg3);
 s32 func_800C7744_C8344(Gfx **dlist, s16 arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7744_C8344.s")
 
-#if 0
 void func_800C7804_C8404(s32 arg0) {
-    s32 temp_a1;
-    s32 var_a2;
-    s32 var_t8;
     s32 i;
 
-    var_a2 = 0;
-    for (i = 0; i < *(D_8012C2BC_EE5FC + 1 + (arg0 * 8)); i++) {
-        *(D_8012C2BC_EE5FC + var_a2 + (arg0 * 8)) = 2;
-        var_a2 += 8;
+    for (i = 0; i < D_8012C2BC_EE5FC[arg0].unk1; i++) {
+        D_8012C2BC_EE5FC[arg0 + i].unk0 = 2;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7804_C8404.s")
-#endif
 
 u8 D_800E5234_E5E34[] = {
     0x0F, 0x34, 0x0A, 0x36, 0x02, 0x06, 0x0D, 0x37,
@@ -1206,9 +1198,9 @@ void func_800C78E0_C84E0(void) {
     D_8012C2BC_EE5FC = D_8012C2C8_EE608;
     D_8012C2C0_EE600 = D_8012C2CC_EE60C;
     do {
-        for (i = 0; i < 0x400; i += 8) {
-            if (D_8012C2BC_EE5FC[i]) {
-                D_8012C2BC_EE5FC[i]--;
+        for (i = 0; i < 0x80; i++) {
+            if (D_8012C2BC_EE5FC[i].unk0) {
+                D_8012C2BC_EE5FC[i].unk0--;
             }
         }
         func_800C6870_C7470();
