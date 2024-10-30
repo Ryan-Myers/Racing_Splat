@@ -78,7 +78,10 @@ s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be relat
 
 #if REGION == REGION_JP
 typedef struct Asset45 {
-    s32 unk0;
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
     s32 unk4;
     s32 unk8;
     s32 unkC;
@@ -87,7 +90,8 @@ typedef struct Asset45 {
 typedef struct Unk8012C2D4_JP {
     char unk0;
     char unk1;
-    void *unk4;
+    u16 unk2;
+    Gfx *unk4;
 } Unk8012C2D4_JP;
 Asset45 *D_8012C2A4_EE5E4;
 u8 *D_8012C2A8_EE5E8[4];
@@ -1190,8 +1194,79 @@ void func_800C6870_C7470(void) {
     }
 }
 
-s32 func_800C68CC_C74CC(s16 arg0);
+#ifdef NON_EQUIVALENT
+s32 func_800C68CC_C74CC(u16 arg0) {
+    s32 temp_a3;
+    s32 var_a2;
+    s32 var_a3;
+    s32 var_s0;
+    s32 var_t0;
+    s32 var_t9;
+    s32 var_v1;
+    u16 var_t2;
+    void *temp_a1;
+
+    var_t2 = ((D_8012C2B8_EE5F8 << 12) | (arg0 & 0xFFF));
+    var_a3 = (D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unkC + 0x11F) / 0x120;
+    D_8012C2BC_EE5FC = D_8012C2C8_EE608;
+    D_8012C2C0_EE600 = D_8012C2CC_EE60C;
+    var_s0 = -1;
+    do {
+        for (var_a2 = 0; var_a2 <= JP_FONT_ARRAY_SIZE && var_s0 < 0; var_a2 += var_a3) {
+            if ((*D_8012C2BC_EE5FC)[var_a2].unk0 != 0 && (*D_8012C2BC_EE5FC)[var_a2].unk2 == var_t2) {
+                var_s0 = var_a2;
+            }
+        }
+        if (var_s0 < 0) {
+            func_800C6870_C7470();
+        }
+    } while ((D_8012C2CC_EE60C != D_8012C2C0_EE600) && (var_s0 < 0));
+
+    if (var_s0 < 0) {
+        D_8012C2BC_EE5FC = D_8012C2C8_EE608;
+        D_8012C2C0_EE600 = D_8012C2CC_EE60C;
+        do {
+            var_a2 = 0;
+            if (var_a3 <= JP_FONT_ARRAY_SIZE && var_s0 < 0) {
+                var_t0 = var_a3;
+                do {
+                    if (((*D_8012C2BC_EE5FC)[var_a2].unk0) == 0) {
+                        var_s0 = var_a2;
+                        for (var_v1 = 1; var_v1 < var_a3; var_v1++) {
+                            if ((*D_8012C2BC_EE5FC)[var_a2 + var_v1].unk0 != 0) {
+                                var_s0 = -1;
+                            }
+                        }
+                    }
+                    var_a2 = var_t0;
+                    var_t0 += var_a3;
+                } while (var_t0 <= JP_FONT_ARRAY_SIZE && var_s0 < 0);
+            }
+            if (var_s0 < 0) {
+                func_800C6870_C7470();
+            }
+        } while ((D_8012C2CC_EE60C != D_8012C2C0_EE600) && (var_s0 < 0));
+        if (var_s0 >= 0) {
+            for (var_v1 = 0; var_v1 < var_a3; var_v1++) {
+                (*D_8012C2BC_EE5FC)[var_s0 + var_v1].unk1 = var_a3;
+                if (var_v1 == 0) {
+                    (*D_8012C2BC_EE5FC)[var_s0 + var_v1].unk2 = var_t2;
+                } else {
+                    (*D_8012C2BC_EE5FC)[var_s0 + var_v1].unk2 = -1;
+                }
+            }
+            temp_a1 = (var_s0 * 0x120) + D_8012C2C0_EE600;
+            temp_a3 = D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unkC;
+            load_asset_to_address(ASSET_BINARY_46, (u32) temp_a1, (temp_a3 * arg0) + D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk8, temp_a3);
+            func_800C6DD4_C79D4((*D_8012C2BC_EE5FC)[var_s0].unk4, temp_a1, 
+                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk1, D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk2);
+        }
+    }
+    return var_s0;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
+#endif
 
 void func_800C6DD4_C79D4(Gfx *dlist, void *arg1, s32 arg2, s32 arg3);
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
