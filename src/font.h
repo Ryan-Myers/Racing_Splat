@@ -188,7 +188,7 @@ void func_800C6870_C7470(void);
 void func_800C67F4_C73F4(void);
 s32 func_800C68CC_C74CC(u16 arg0);
 void func_800C6DD4_C79D4(Gfx *dlist, void *arg1, s32 arg2, s32 arg3);
-s32 func_800C7744_C8344(Gfx **dlist, s16 arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5);
+s32 func_800C7744_C8344(Gfx **dlist, u16 arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5);
 void func_800C7804_C8404(s32 arg0);
 void func_800C7864_C8464(char *inString, char *outString);
 void func_800C78E0_C84E0(void);
