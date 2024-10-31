@@ -1276,8 +1276,118 @@ s32 func_800C68CC_C74CC(u16 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
 #endif
 
-void func_800C6DD4_C79D4(Gfx *dlist, void *arg1, s32 arg2, s32 arg3);
+#ifdef NON_EQUIVALENT
+typedef struct Asset46Texture {
+    s32 unk0; // Texture ID?
+} Asset46Texture;
+typedef struct Asset46 {
+    Asset46Texture *unk0;    
+    Asset46Texture *unk4;
+    s32 unk8;
+} Asset46;
+void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
+    if (asset->unk0->unk0 != -1) {
+        asset->unk0 = (asset + 1);
+    } else {
+        asset->unk0 = NULL;
+    }
+    if (asset->unk4->unk0 != -1) {
+        asset->unk4 = (asset + 2);
+    } else {
+        asset->unk4 = NULL;
+    }
+    if (asset->unk4 != NULL) {
+        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height, 
+        0, //palette
+        G_TX_NOMIRROR | G_TX_WRAP, //cms
+        G_TX_NOMIRROR | G_TX_WRAP, //cmt
+        8, //masks
+        8, //maskt
+        G_TX_NOLOD, //shifts
+        G_TX_NOLOD); //shiftt
+
+        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk4), G_IM_FMT_I, G_IM_SIZ_4b, width, height, 
+        0, //palette
+        G_TX_NOMIRROR | G_TX_WRAP, //cms
+        G_TX_NOMIRROR | G_TX_WRAP, //cmt
+        8, //masks
+        8, //maskt
+        G_TX_NOLOD, //shifts
+        G_TX_NOLOD); //shiftt
+        
+        gDkrDmaDisplayList(dlist++, OS_PHYSICAL_TO_K0(&dDialogueBoxDrawModes[5][2]),
+                            numberOfGfxCommands(dDialogueBoxDrawModes[1]));
+    } else {
+        switch (asset->unk8) {
+        case 0:
+            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_32b, width, height, 
+            0, //palette
+            G_TX_NOMIRROR | G_TX_WRAP, //cms
+            G_TX_NOMIRROR | G_TX_WRAP, //cmt
+            8, //masks
+            8, //maskt
+            G_TX_NOLOD, //shifts
+            G_TX_NOLOD); //shiftt
+            break;
+        case 1:
+            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height, 
+            0, //palette
+            G_TX_NOMIRROR | G_TX_WRAP, //cms
+            G_TX_NOMIRROR | G_TX_WRAP, //cmt
+            8, //masks
+            8, //maskt
+            G_TX_NOLOD, //shifts
+            G_TX_NOLOD); //shiftt
+            break;
+        case 5:
+            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 
+            0, //palette
+            G_TX_NOMIRROR | G_TX_WRAP, //cms
+            G_TX_NOMIRROR | G_TX_WRAP, //cmt
+            8, //masks
+            8, //maskt
+            G_TX_NOLOD, //shifts
+            G_TX_NOLOD); //shiftt
+            break;
+        case 6:
+            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_4b, width, height, 
+            0, //palette
+            G_TX_NOMIRROR | G_TX_WRAP, //cms
+            G_TX_NOMIRROR | G_TX_WRAP, //cmt
+            8, //masks
+            8, //maskt
+            G_TX_NOLOD, //shifts
+            G_TX_NOLOD); //shiftt
+            break;
+        case 3:
+            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_4b, width, height, 
+            0, //palette
+            G_TX_NOMIRROR | G_TX_WRAP, //cms
+            G_TX_NOMIRROR | G_TX_WRAP, //cmt
+            8, //masks
+            8, //maskt
+            G_TX_NOLOD, //shifts
+            G_TX_NOLOD); //shiftt
+            break;
+        case 2:
+            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_8b, width, height, 
+            0, //palette
+            G_TX_NOMIRROR | G_TX_WRAP, //cms
+            G_TX_NOMIRROR | G_TX_WRAP, //cmt
+            8, //masks
+            8, //maskt
+            G_TX_NOLOD, //shifts
+            G_TX_NOLOD); //shiftt
+            break;
+        }
+        gDkrDmaDisplayList(dlist++, OS_PHYSICAL_TO_K0(&dDialogueBoxDrawModes[3][2]),
+                            numberOfGfxCommands(dDialogueBoxDrawModes[1]));
+    }
+    gSPEndDisplayList(dlist++);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
+#endif
 
 #ifdef NON_EQUIVALENT
 s32 func_800C7744_C8344(Gfx **dlist, u16 arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5) {
