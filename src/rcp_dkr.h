@@ -71,7 +71,7 @@ void set_background_fill_colour(s32 red, s32 green, s32 blue);
 void init_rdp_and_framebuffer(Gfx **dList);
 void init_rsp(Gfx **dList);
 void setup_gfx_mesg_queues(OSSched *sc);
-void mosaic_init(TextureHeader *arg0, TextureHeader *arg1, u32 arg2);
+void mosaic_init(TextureHeader *tex1, TextureHeader *tex2, u32 shiftX);
 s32 setup_ostask_xbus(Gfx* dlBegin, Gfx* dlEnd, s32 recvMesg);
 void setup_ostask_fifo(Gfx* dlBegin, Gfx* dlEnd, s32 recvMesg);
 void render_textured_rectangle(Gfx **dList, DrawTexture *element, s32 xPos, s32 yPos, u8 red, u8 green, u8 blue,

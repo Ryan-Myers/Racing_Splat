@@ -218,7 +218,7 @@ void rumble_update(s32 updateRate) {
 #if VERSION >= VERSION_79
         (gRumbleEnable) &&
 #endif
-    (gRumbleIdle != 0 || gRumbleKillTimer != 0)) {
+        (gRumbleIdle != 0 || gRumbleKillTimer != 0)) {
         gRumbleDetectionTimer += updateRate;
         if (gRumbleDetectionTimer > 120) {
             gRumbleDetectionTimer = 0;
@@ -2116,7 +2116,7 @@ char *string_to_font_codes(char *inString, char *outString, s32 stringLength) {
     char *ret = outString;
 
     while (*inString != 0 && stringLength != 0) {
-        *outString = 0;        
+        *outString = 0;
 #if REGION == REGION_JP
         if (*inString & 0x80) {
             *outString++ = inString[1];

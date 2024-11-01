@@ -44,7 +44,7 @@
 
 // A huge unfortunate issue has occurred which seems to have reordered the BSS for JP... Not sure why.
 #if REGION == REGION_JP
-//START OF JPN BSS ORDER
+// START OF JPN BSS ORDER
 
 char gCourseInitials[4]; // course initials
 char gFLapInitials[4];   // flap initials
@@ -71,12 +71,12 @@ unk80126C54 gPostRace;
 s16 gUnlockedCheatIDs[32];
 s32 gFileNew;
 s32 gOptionBlinkTimer;
-s32 gIgnorePlayerInputTime;  // A set amount of time to ignore player input.
+s32 gIgnorePlayerInputTime; // A set amount of time to ignore player input.
 s32 gAdventureSaveGhost;
 s32 gPreviousMenuID;
 char **gTTSaveGhostPakErrorText;
 UNUSED s32 sUnused_801263C8; // Set to 0 in menu_init, and never again.
-s32 gTrackmenuLoadedLevel;              // Compared for equality to gTrackIdForPreview
+s32 gTrackmenuLoadedLevel;   // Compared for equality to gTrackIdForPreview
 s32 gOpacityDecayTimer;
 s32 gMenuStage;
 unk801263C0 gMenuSelectedCharacter;
@@ -154,7 +154,7 @@ u16 gGhostChecksumIDsMenu[6];
 u8 gGhostWorldIDs[6];
 s32 gMultiplayerSelectedNumberOfRacersCopy; // Saved version gMultiplayerSelectedNumberOfRacers?
 s32 gTrackmenuType;
-s32 *D_80126850; // Never set, but it's read? Is it part of a larger struct being set?
+s32 *D_80126850;     // Never set, but it's read? Is it part of a larger struct being set?
 s32 gMenuButtons[5]; // Buttons pressed per player plus an an extra containing each collective input.
 s8 *gCinematicParams;
 s32 gMenuElementScaleTimer;
@@ -263,7 +263,7 @@ unk80080BC8 (*gMenuGeometry)[2];
 u16 (*gCheatsAssetData)[30]; // Cheat table.
 s32 gNameEntryStickHeld;
 
-//END OF JPN BSS ORDER
+// END OF JPN BSS ORDER
 #else
 // START OF US/PAL BSS ORDER
 
@@ -305,7 +305,7 @@ u8 gResultsPlayers[8];
 u8 gRankingsPlayers[8];
 u8 gResultsPlayerIDs[8];
 u8 gRankingsPlayerIDs[8]; // Contains the order of racer indices that tell you what place they are in.
-s8 D_80126438[16]; // Could be 12 and not size 16
+s8 D_80126438[16];        // Could be 12 and not size 16
 
 // Eeeprom save data bits stored at address 0xF
 // bit 0      = Adventure Two is Unlocked
@@ -495,7 +495,7 @@ s32 gNameSelectionDone;
 s16 gNewCheatID;
 f32 gNameEntryOffsetX;
 #if VERSION >= VERSION_79
-//Created a replacement for this var in v2?
+// Created a replacement for this var in v2?
 unk80126C54 gPostRaceOld;
 #else
 unk80126C54 gPostRace;
@@ -503,7 +503,7 @@ unk80126C54 gPostRace;
 char gCheatInput[20];
 s32 *gNameEntryTargetX;
 #if VERSION >= VERSION_79
-//Created a replacement for this var in v2?
+// Created a replacement for this var in v2?
 unk80126C54 gPostRace;
 #endif
 s32 gNumOnscreenMagicCodes;
@@ -650,10 +650,9 @@ char gVersionDisplayText[20] = "VERSION XXXXXXXX";
 
 // "Diddy Kong Racing" logo texture indices
 #if REGION == REGION_JP
-s16 sGameTitleTileTextures[12] = { TEXTURE_UNK_5B, TEXTURE_UNK_5C, TEXTURE_UNK_5D,
-                                   TEXTURE_ICON_TT_HEAD, TEXTURE_UNK_5F, TEXTURE_UNK_60,
-                                   TEXTURE_UNK_61, TEXTURE_UNK_62, TEXTURE_UNK_63,
-                                   TEXTURE_UNK_64, TEXTURE_UNK_65, -1 };
+s16 sGameTitleTileTextures[12] = { TEXTURE_UNK_5B, TEXTURE_UNK_5C, TEXTURE_UNK_5D, TEXTURE_ICON_TT_HEAD,
+                                   TEXTURE_UNK_5F, TEXTURE_UNK_60, TEXTURE_UNK_61, TEXTURE_UNK_62,
+                                   TEXTURE_UNK_63, TEXTURE_UNK_64, TEXTURE_UNK_65, -1 };
 #else
 s16 sGameTitleTileTextures[12] = { TEXTURE_TITLE_SEGMENT_01, TEXTURE_TITLE_SEGMENT_02, TEXTURE_TITLE_SEGMENT_03,
                                    TEXTURE_TITLE_SEGMENT_04, TEXTURE_TITLE_SEGMENT_05, TEXTURE_TITLE_SEGMENT_06,
@@ -691,52 +690,27 @@ unk800DF83C gTitleCinematicText[10] = {
 };
 
 #if REGION == REGION_JP
-char D_800E13A4_E1FA4[] = {
-    0x80, 0x62, 0x80, 0x46, 0x80, 0x4F, 0x80, 0x8B, 0x80, 0x3B, 0x00, 0x00
-};
+char D_800E13A4_E1FA4[] = { 0x80, 0x62, 0x80, 0x46, 0x80, 0x4F, 0x80, 0x8B, 0x80, 0x3B, 0x00, 0x00 };
 
-char D_800E13B0_E1FB0[] = {
-    0x80, 0x8B, 0x80, 0x4F, 0x80, 0x90, 0x80, 0x3B, 0x00, 0x00, 0x00, 0x00
-};
-char D_800E13BC_E1FBC[] = {
-    0x80, 0x59, 0x80, 0x4F, 0x80, 0x55, 0x80, 0x3B, 0x00, 0x00, 0x00, 0x00
-};
+char D_800E13B0_E1FB0[] = { 0x80, 0x8B, 0x80, 0x4F, 0x80, 0x90, 0x80, 0x3B, 0x00, 0x00, 0x00, 0x00 };
+char D_800E13BC_E1FBC[] = { 0x80, 0x59, 0x80, 0x4F, 0x80, 0x55, 0x80, 0x3B, 0x00, 0x00, 0x00, 0x00 };
 
-char D_800E13C8_E1FC8[] = {
-    0x80, 0x62, 0x80, 0x46, 0x80, 0x4A, 0x80, 0x92, 0x80, 0x5F, 0x80, 0x4A, 0x80, 0x92, 0x00, 0x00
-};
-char D_800E13D8_E1FD8[] = {
-    0x80, 0x8A, 0x80, 0x76, 0x80, 0x70, 0x80, 0x5C, 0x80, 0x62, 0x80, 0x46, 0x80, 0x4A, 0x80, 0x57, 0x00, 0x00, 0x00, 0x00
-};
+char D_800E13C8_E1FC8[] = { 0x80, 0x62, 0x80, 0x46, 0x80, 0x4A, 0x80, 0x92,
+                            0x80, 0x5F, 0x80, 0x4A, 0x80, 0x92, 0x00, 0x00 };
+char D_800E13D8_E1FD8[] = { 0x80, 0x8A, 0x80, 0x76, 0x80, 0x70, 0x80, 0x5C, 0x80, 0x62,
+                            0x80, 0x46, 0x80, 0x4A, 0x80, 0x57, 0x00, 0x00, 0x00, 0x00 };
 
-char D_800E13EC_E1FEC[] = {
-    0x80, 0x91, 0x80, 0x92, 0x80, 0x5B, 0x80, 0x3B, 0x00, 0x00, 0x00, 0x00
-};
-char D_800E13F8_E1FF8[] = {
-    0x80, 0x8B, 0x80, 0x4F, 0x80, 0x82, 0x80, 0x4D, 0x80, 0x3B, 0x00, 0x00
-};
+char D_800E13EC_E1FEC[] = { 0x80, 0x91, 0x80, 0x92, 0x80, 0x5B, 0x80, 0x3B, 0x00, 0x00, 0x00, 0x00 };
+char D_800E13F8_E1FF8[] = { 0x80, 0x8B, 0x80, 0x4F, 0x80, 0x82, 0x80, 0x4D, 0x80, 0x3B, 0x00, 0x00 };
 
-char D_800E1404_E2004[] = {
-    0x80, 0x57, 0x80, 0x76, 0x80, 0x4F, 0x80, 0x60, 0x00, 0x00, 0x00, 0x00
-};
-char D_800E1410_E2010[] = {
-    0x80, 0x52, 0x80, 0x46, 0x80, 0x83, 0x80, 0x91, 0x80, 0x4A, 0x80, 0x7E, 0x00, 0x00, 0x00, 0x00
-};
+char D_800E1404_E2004[] = { 0x80, 0x57, 0x80, 0x76, 0x80, 0x4F, 0x80, 0x60, 0x00, 0x00, 0x00, 0x00 };
+char D_800E1410_E2010[] = { 0x80, 0x52, 0x80, 0x46, 0x80, 0x83, 0x80, 0x91,
+                            0x80, 0x4A, 0x80, 0x7E, 0x00, 0x00, 0x00, 0x00 };
 
-char D_800E1420_E2020[] = {
-    0x80, 0x89, 0x80, 0x46, 0x80, 0x89, 0x80, 0x46, 0x80, 0x3B, 0x00, 0x00
-};
+char D_800E1420_E2020[] = { 0x80, 0x89, 0x80, 0x46, 0x80, 0x89, 0x80, 0x46, 0x80, 0x3B, 0x00, 0x00 };
 
-char *D_800E142C_E202C[] = {  D_800E13A4_E1FA4,
-                              D_800E13B0_E1FB0,
-                              D_800E13BC_E1FBC,
-                              D_800E13C8_E1FC8,
-                              D_800E13D8_E1FD8,
-                              D_800E13EC_E1FEC,
-                              D_800E13F8_E1FF8,
-                              D_800E1404_E2004,
-                              D_800E1410_E2010,
-                              D_800E1420_E2020 };
+char *D_800E142C_E202C[] = { D_800E13A4_E1FA4, D_800E13B0_E1FB0, D_800E13BC_E1FBC, D_800E13C8_E1FC8, D_800E13D8_E1FD8,
+                             D_800E13EC_E1FEC, D_800E13F8_E1FF8, D_800E1404_E2004, D_800E1410_E2010, D_800E1420_E2020 };
 #endif
 
 // Number of active colours used in the title screen cinematic.
@@ -2875,7 +2849,8 @@ void draw_menu_elements(s32 state, MenuElement *elems, f32 scale) {
 }
 
 #if REGION == REGION_JP
-void func_80082BC8_837C8(s32 dialogueBoxID, s32 xPos1, s32 yPos1, s32 xPos2, s32 yPos2, char *text, AlignmentFlags alignment, s32 textColour, s32 alpha) {
+void func_80082BC8_837C8(s32 dialogueBoxID, s32 xPos1, s32 yPos1, s32 xPos2, s32 yPos2, char *text,
+                         AlignmentFlags alignment, s32 textColour, s32 alpha) {
     s32 opacity;
     opacity = textColour & 0xFF;
 
@@ -2886,8 +2861,10 @@ void func_80082BC8_837C8(s32 dialogueBoxID, s32 xPos1, s32 yPos1, s32 xPos2, s32
         draw_text(&sMenuCurrDisplayList, xPos1, yPos1, text, alignment);
     } else {
         set_current_text_colour(dialogueBoxID, 0, 0, 0, 255, opacity >> 1);
-        draw_dialogue_text_pos_unused(&sMenuCurrDisplayList, dialogueBoxID, xPos1 + xPos2, yPos1 + yPos2, text, alignment);
-        set_current_text_colour(dialogueBoxID, (textColour >> 24) & 0xFF, (textColour >> 16) & 0xFF, (textColour >> 8) & 0xFF, alpha, opacity);
+        draw_dialogue_text_pos_unused(&sMenuCurrDisplayList, dialogueBoxID, xPos1 + xPos2, yPos1 + yPos2, text,
+                                      alignment);
+        set_current_text_colour(dialogueBoxID, (textColour >> 24) & 0xFF, (textColour >> 16) & 0xFF,
+                                (textColour >> 8) & 0xFF, alpha, opacity);
         draw_dialogue_text_pos_unused(&sMenuCurrDisplayList, dialogueBoxID, xPos1, yPos1, text, alignment);
     }
 }
@@ -3529,7 +3506,7 @@ s32 menu_options_loop(s32 updateRate) {
         if (analogueX < 0) {
             if ((u64) langVal == LANGUAGE_ENGLISH) {
                 set_language(LANGUAGE_GERMAN);
-            } else if ((u64)langVal == LANGUAGE_FRENCH) {
+            } else if ((u64) langVal == LANGUAGE_FRENCH) {
                 set_language(LANGUAGE_ENGLISH);
             } else {
                 set_language(LANGUAGE_FRENCH);
@@ -3537,11 +3514,11 @@ s32 menu_options_loop(s32 updateRate) {
         } else {
             if ((u64) langVal == LANGUAGE_ENGLISH) {
                 set_language(LANGUAGE_FRENCH);
-            } else if ((u64)langVal == LANGUAGE_FRENCH) {
+            } else if ((u64) langVal == LANGUAGE_FRENCH) {
                 set_language(LANGUAGE_GERMAN);
             } else {
                 set_language(LANGUAGE_ENGLISH);
-            }         
+            }
         }
 #else
         switch ((u64) langVal) {
@@ -3946,11 +3923,11 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
         case SAVE_FILE_TYPE_CPAK_TIMES:
 #if REGION == REGION_JP
             drawTexture = gDrawTexTTIcon;
-            text2 =  gMenuText[ASSET_MENU_TEXT_TIMES];
+            text2 = gMenuText[ASSET_MENU_TEXT_TIMES];
             texture = gMenuAssets[TEXTURE_UNK_44];
             colour = gContPakSaveBgColours[file->controllerIndex];
             for (i = 0; text2[i] != 0; i++) {
-                buffer[i] =  text2[ASSET_MENU_TEXT_TIMES + i];
+                buffer[i] = text2[ASSET_MENU_TEXT_TIMES + i];
             }
             for (i = 0; file->saveFileExt[i] != 0 && file->saveFileExt[i] != 0x2E; i++) {}
             buffer[i] = '.';
@@ -3963,15 +3940,14 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
             text2 = buffer;
             text = gMenuText[ASSET_MENU_TEXT_CONTPAK1 + file->controllerIndex];
             firstDigit = i;
-            break;
 #else
             drawTexture = gDrawTexTTIcon;
             texture = gMenuAssets[TEXTURE_UNK_44];
             colour = gContPakSaveBgColours[file->controllerIndex];
             text2 = file->saveFileExt;
             text = gMenuText[ASSET_MENU_TEXT_CONTPAK1 + file->controllerIndex];
-            break;
 #endif
+            break;
         case SAVE_FILE_TYPE_CPAK_GHOST:
             drawTexture = gDrawTexGhostIcon;
             texture = gMenuAssets[TEXTURE_UNK_44];
@@ -4016,23 +3992,23 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
             break;
     }
 #if VERSION == VERSION_79
-        #define SAVE_MENU_TEXT_FONT     ASSET_FONTS_SUBTITLEFONT
-        #define SAVE_MENU_TEXT_WIDTH    208
-        #define SAVE_MENU_SPRITE_OFFSET 8
-        #define SAVE_MENU_TEXT_OFFSET_1 24
-        #define SAVE_MENU_TEXT_OFFSET_2 25
+#define SAVE_MENU_TEXT_FONT ASSET_FONTS_SUBTITLEFONT
+#define SAVE_MENU_TEXT_WIDTH 208
+#define SAVE_MENU_SPRITE_OFFSET 8
+#define SAVE_MENU_TEXT_OFFSET_1 24
+#define SAVE_MENU_TEXT_OFFSET_2 25
 #elif VERSION == VERSION_80
-        #define SAVE_MENU_TEXT_FONT     ASSET_FONTS_SMALLFONT
-        #define SAVE_MENU_SPRITE_OFFSET 0
-        #define SAVE_MENU_TEXT_WIDTH    160
-        #define SAVE_MENU_TEXT_OFFSET_1 0
-        #define SAVE_MENU_TEXT_OFFSET_2 1
+#define SAVE_MENU_TEXT_FONT ASSET_FONTS_SMALLFONT
+#define SAVE_MENU_SPRITE_OFFSET 0
+#define SAVE_MENU_TEXT_WIDTH 160
+#define SAVE_MENU_TEXT_OFFSET_1 0
+#define SAVE_MENU_TEXT_OFFSET_2 1
 #else
-        #define SAVE_MENU_TEXT_FONT     ASSET_FONTS_SMALLFONT
-        #define SAVE_MENU_SPRITE_OFFSET 0
-        #define SAVE_MENU_TEXT_WIDTH    160
-        #define SAVE_MENU_TEXT_OFFSET_1 0
-        #define SAVE_MENU_TEXT_OFFSET_2 0
+#define SAVE_MENU_TEXT_FONT ASSET_FONTS_SMALLFONT
+#define SAVE_MENU_SPRITE_OFFSET 0
+#define SAVE_MENU_TEXT_WIDTH 160
+#define SAVE_MENU_TEXT_OFFSET_1 0
+#define SAVE_MENU_TEXT_OFFSET_2 0
 #endif
     func_80080580(&sMenuCurrDisplayList, x - 160, 120 - y, SAVE_MENU_TEXT_WIDTH, 64, 4, 4, colour, texture);
     if (osTvType == OS_TV_TYPE_PAL) {
@@ -4062,7 +4038,8 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
         sprite_anim_off(FALSE);
     }
     if (drawTexture != NULL) {
-        render_textured_rectangle(&sMenuCurrDisplayList, drawTexture, x + (60 + SAVE_MENU_TEXT_OFFSET_1), y + 6, 255, 255, 255, 255);
+        render_textured_rectangle(&sMenuCurrDisplayList, drawTexture, x + (60 + SAVE_MENU_TEXT_OFFSET_1), y + 6, 255,
+                                  255, 255, 255);
     }
     if (text != NULL) {
         set_text_font(ASSET_FONTS_FUNFONT);
@@ -4157,13 +4134,13 @@ void savemenu_render(UNUSED s32 updateRate) {
     }
 
 #if REGION == REGION_JP
-    #define SAVEMENU_ELEMENT_SIZE 212
-    #define SAVEMENU_OFFSET_X 56
-    #define SAVEMENU_OFFSET_SCROLL 212.0f
+#define SAVEMENU_ELEMENT_SIZE 212
+#define SAVEMENU_OFFSET_X 56
+#define SAVEMENU_OFFSET_SCROLL 212.0f
 #else
-    #define SAVEMENU_ELEMENT_SIZE 164
-    #define SAVEMENU_OFFSET_X 80
-    #define SAVEMENU_OFFSET_SCROLL 164.0f
+#define SAVEMENU_ELEMENT_SIZE 164
+#define SAVEMENU_OFFSET_X 80
+#define SAVEMENU_OFFSET_SCROLL 164.0f
 #endif
 
     if (drawUpperElements) {
@@ -5760,7 +5737,7 @@ void cheatmenu_render(UNUSED s32 updateRate) {
                 highlight >>= 1;
                 highlight += 128;
 #if REGION == REGION_JP
-                set_text_colour(255,  addColourVal,  addColourVal, highlight, 255);
+                set_text_colour(255, addColourVal, addColourVal, highlight, 255);
 #else
                 set_text_colour(128, 255, 192, highlight, 255);
 #endif
@@ -6584,7 +6561,7 @@ void charselect_render_text(UNUSED s32 arg0) {
             }
 #if REGION == REGION_JP
             func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, yPos, 1, 3, "OK?", ALIGN_MIDDLE_CENTER,
-                COLOUR_RGBA32(255, 255, 255, 255), 0);
+                                COLOUR_RGBA32(255, 255, 255, 255), 0);
 #else
             draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, yPos, "OK?", ALIGN_MIDDLE_CENTER);
 #endif
@@ -7068,7 +7045,7 @@ void menu_game_select_init(void) {
     set_ghost_none();
     gOpacityDecayTimer = 1;
     menu_asset_load(67);
-    func_8007FFEC(3);    
+    func_8007FFEC(3);
 #if REGION != REGION_JP
     load_font(ASSET_FONTS_BIGFONT);
 #endif
@@ -7426,7 +7403,7 @@ void fileselect_render(UNUSED s32 updateRate) {
     set_text_colour(0, 0, 0, 255, 128);
 #if VERSION >= VERSION_79
     // Did the enum for ASSET_MENU_TEXT_GAMESELECT change?
-    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF + 1, 19, gMenuText[ASSET_MENU_TEXT_GAMESELECT+112],
+    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF + 1, 19, gMenuText[ASSET_MENU_TEXT_GAMESELECT + 112],
               ALIGN_TOP_CENTER);
 #else
     draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF + 1, 19, gMenuText[ASSET_MENU_TEXT_GAMESELECT],
@@ -7435,7 +7412,8 @@ void fileselect_render(UNUSED s32 updateRate) {
     set_text_colour(255, 255, 255, 0, 255);
 #if VERSION >= VERSION_79
     // Did the enum for ASSET_MENU_TEXT_GAMESELECT change?
-    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, 16, gMenuText[ASSET_MENU_TEXT_GAMESELECT+112], ALIGN_TOP_CENTER);
+    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, 16, gMenuText[ASSET_MENU_TEXT_GAMESELECT + 112],
+              ALIGN_TOP_CENTER);
 #else
     draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, 16, gMenuText[ASSET_MENU_TEXT_GAMESELECT], ALIGN_TOP_CENTER);
 #endif
@@ -8473,7 +8451,7 @@ void trackmenu_render_2D(s32 x, s32 y, char *hubName, char *trackName, s32 rectO
         gTrackMenuHubName = hubName;
         set_kerning(0);
     }
-#if REGION == REGION_JP    
+#if REGION == REGION_JP
     set_text_colour(0, 0, 0, 255, opacity / 2);
     draw_text(&sMenuCurrDisplayList, xTemp + 1, sp6C + yTemp + 91, trackName, ALIGN_MIDDLE_CENTER);
 #endif
@@ -9183,7 +9161,8 @@ void trackmenu_setup_render(UNUSED s32 updateRate) {
                     regionOffset += 24;
                 }
 #if REGION == REGION_JP
-                func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, regionOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER, COLOUR_RGBA32(255, 255, 255, 255), 0);
+                func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, regionOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER,
+                                    COLOUR_RGBA32(255, 255, 255, 255), 0);
 #else
                 draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, regionOffset + 172, "OK?", ALIGN_MIDDLE_CENTER);
 #endif
@@ -9344,50 +9323,50 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
                         set_text_font(ASSET_FONTS_FUNFONT);
                         set_text_colour(255, 64, 64, 96, 255);
 #if VERSION == VERSION_80
-    #define ADVENTURETRACK_XPOS1 56
-    #define ADVENTURETRACK_XPOS2 250
-    #define ADVENTURETRACK_YPOS1 72
-    #define ADVENTURETRACK_YPOS2 92
-    #define ADVENTURETRACK_YPOS3 72
-    #define ADVENTURETRACK_RED   22
-    #define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_LEFT
-    #define ADVENTURETRACK_MAPID mapID
+#define ADVENTURETRACK_XPOS1 56
+#define ADVENTURETRACK_XPOS2 250
+#define ADVENTURETRACK_YPOS1 72
+#define ADVENTURETRACK_YPOS2 92
+#define ADVENTURETRACK_YPOS3 72
+#define ADVENTURETRACK_RED 22
+#define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_LEFT
+#define ADVENTURETRACK_MAPID mapID
 #elif VERSION == VERSION_79
-    #define ADVENTURETRACK_XPOS1 51
-    #define ADVENTURETRACK_XPOS2 249
-    #define ADVENTURETRACK_YPOS1 69
-    #define ADVENTURETRACK_YPOS2 89
-    #define ADVENTURETRACK_YPOS3 70
-    #define ADVENTURETRACK_RED   22
-    #define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_LEFT
-    #define ADVENTURETRACK_MAPID mapID
+#define ADVENTURETRACK_XPOS1 51
+#define ADVENTURETRACK_XPOS2 249
+#define ADVENTURETRACK_YPOS1 69
+#define ADVENTURETRACK_YPOS2 89
+#define ADVENTURETRACK_YPOS3 70
+#define ADVENTURETRACK_RED 22
+#define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_LEFT
+#define ADVENTURETRACK_MAPID mapID
 #else
-    #define ADVENTURETRACK_XPOS1 88
-    #define ADVENTURETRACK_XPOS2 258
-    #define ADVENTURETRACK_YPOS1 72
-    #define ADVENTURETRACK_YPOS2 92
-    #define ADVENTURETRACK_YPOS3 72
-    #define ADVENTURETRACK_RED   26
-    #define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_CENTER
-    #define ADVENTURETRACK_MAPID ((Settings4C *) ((u8 *) settings->unk4C + gTrackIdForPreview))->mapID
+#define ADVENTURETRACK_XPOS1 88
+#define ADVENTURETRACK_XPOS2 258
+#define ADVENTURETRACK_YPOS1 72
+#define ADVENTURETRACK_YPOS2 92
+#define ADVENTURETRACK_YPOS3 72
+#define ADVENTURETRACK_RED 26
+#define ADVENTURETRACK_ALIGN ALIGN_MIDDLE_CENTER
+#define ADVENTURETRACK_MAPID ((Settings4C *) ((u8 *) settings->unk4C + gTrackIdForPreview))->mapID
 #endif
-                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS1, yOffset + ADVENTURETRACK_YPOS1, gMenuText[ASSET_MENU_TEXT_BESTTIME],
-                                  ADVENTURETRACK_ALIGN);
-                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS1, yOffset + ADVENTURETRACK_YPOS2, gMenuText[ASSET_MENU_TEXT_BESTLAP],
-                                  ADVENTURETRACK_ALIGN);
+                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS1, yOffset + ADVENTURETRACK_YPOS1,
+                                  gMenuText[ASSET_MENU_TEXT_BESTTIME], ADVENTURETRACK_ALIGN);
+                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS1, yOffset + ADVENTURETRACK_YPOS2,
+                                  gMenuText[ASSET_MENU_TEXT_BESTLAP], ADVENTURETRACK_ALIGN);
                         set_text_colour(255, 128, 255, 96, 255);
                         filename_decompress(settings->courseInitialsPtr[gPlayerSelectVehicle[0]][mapID],
                                             (char *) &filename, 3);
-                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS2, yOffset + ADVENTURETRACK_YPOS3, (char *) &filename, ALIGN_MIDDLE_CENTER);
+                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS2, yOffset + ADVENTURETRACK_YPOS3,
+                                  (char *) &filename, ALIGN_MIDDLE_CENTER);
                         filename_decompress(settings->flapInitialsPtr[gPlayerSelectVehicle[0]][mapID],
                                             (char *) &filename, 3);
-                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS2, yOffset + ADVENTURETRACK_YPOS2, (char *) &filename, ALIGN_MIDDLE_CENTER);
-                        menu_timestamp_render(
-                            settings->courseTimesPtr[gPlayerSelectVehicle[0]][ADVENTURETRACK_MAPID],
-                            ADVENTURETRACK_RED, 53, 128, 255, 255, 0);
-                        menu_timestamp_render(
-                            settings ->flapTimesPtr[gPlayerSelectVehicle[0]][ADVENTURETRACK_MAPID],
-                            ADVENTURETRACK_RED, 33, 255, 192, 255, 0);
+                        draw_text(&sMenuCurrDisplayList, ADVENTURETRACK_XPOS2, yOffset + ADVENTURETRACK_YPOS2,
+                                  (char *) &filename, ALIGN_MIDDLE_CENTER);
+                        menu_timestamp_render(settings->courseTimesPtr[gPlayerSelectVehicle[0]][ADVENTURETRACK_MAPID],
+                                              ADVENTURETRACK_RED, 53, 128, 255, 255, 0);
+                        menu_timestamp_render(settings->flapTimesPtr[gPlayerSelectVehicle[0]][ADVENTURETRACK_MAPID],
+                                              ADVENTURETRACK_RED, 33, 255, 192, 255, 0);
                     }
                     greenAmount = gOptionBlinkTimer * 8;
                     if (greenAmount > 255) {
@@ -9432,7 +9411,8 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
 #endif
                         set_text_colour(255, 255, 255, 0, 255);
 #if REGION == REGION_JP
-                        func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, yOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER, COLOUR_RGBA32(255, 255, 255, 255), 0);
+                        func_80082BC8_837C8(-1, SCREEN_WIDTH_HALF, yOffset + 172, 1, 3, "OK?", ALIGN_MIDDLE_CENTER,
+                                            COLOUR_RGBA32(255, 255, 255, 255), 0);
 #else
                         draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, yOffset + 172, "OK?", ALIGN_MIDDLE_CENTER);
 #endif
@@ -9446,17 +9426,20 @@ void adventuretrack_render(UNUSED s32 updateRate, s32 arg1, s32 arg2) {
 #if VERSION >= VERSION_79
                         draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[191], ALIGN_MIDDLE_CENTER);
 #else
-                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[ASSET_MENU_TEXT_CHALLENGE], ALIGN_MIDDLE_CENTER);
+                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[ASSET_MENU_TEXT_CHALLENGE],
+                                  ALIGN_MIDDLE_CENTER);
 #endif
                         y += 32;
                     }
-                    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[ASSET_MENU_TEXT_SILVERCOIN], ALIGN_MIDDLE_CENTER);
+                    draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[ASSET_MENU_TEXT_SILVERCOIN],
+                              ALIGN_MIDDLE_CENTER);
                     y += 32;
                     if (get_language() != LANGUAGE_FRENCH) {
 #if VERSION >= VERSION_79
                         draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[191], ALIGN_MIDDLE_CENTER);
 #else
-                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[ASSET_MENU_TEXT_CHALLENGE], ALIGN_MIDDLE_CENTER);
+                        draw_text(&sMenuCurrDisplayList, SCREEN_WIDTH_HALF, y, gMenuText[ASSET_MENU_TEXT_CHALLENGE],
+                                  ALIGN_MIDDLE_CENTER);
 #endif
                     }
                 }
@@ -10764,7 +10747,7 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
         time = offsetX;
 #if REGION == REGION_JP
         func_80082BC8_837C8(-1, time - 40, y2 + offsetY + 2, 2, 2, gRacePlacementsArray[spA0], ALIGN_MIDDLE_CENTER,
-            COLOUR_RGBA32(255, 255, 255, 255), 0);
+                            COLOUR_RGBA32(255, 255, 255, 255), 0);
 #else
         set_text_colour(0, 0, 0, 255, 255);
         draw_text(&sMenuCurrDisplayList, time - 32, y2 + offsetY + 4, gRacePlacementsArray[spA0], ALIGN_MIDDLE_CENTER);
@@ -12098,7 +12081,7 @@ void ghostmenu_render(UNUSED s32 updateRate) {
         }
         levelName = get_level_name(gGhostLevelIDsMenu[scroll]);
 #if REGION == REGION_JP
-        for (i = 0; levelName[i] != '\0'; i+=2) {
+        for (i = 0; levelName[i] != '\0'; i += 2) {
             textBuffer[i] = levelName[i];
             textBuffer[i + 1] = levelName[i + 1];
         }
@@ -12118,18 +12101,19 @@ void ghostmenu_render(UNUSED s32 updateRate) {
             func_80080E90(&sMenuCurrDisplayList, 40, y, 240, 52, 4, 4, highlight, highlight, highlight, highlight);
         }
 #if REGION == REGION_JP
-    #define GHOSTMENU_TEXT_OFFSET 38
+#define GHOSTMENU_TEXT_OFFSET 38
 #else
-    #define GHOSTMENU_TEXT_OFFSET 40
+#define GHOSTMENU_TEXT_OFFSET 40
 #endif
         set_text_colour(0, 0, 0, 255, 255);
         for (i = 0; i < 4; i++) {
-            draw_text(&sMenuCurrDisplayList, gGhostDataElementPositions[0] + GHOSTMENU_TEXT_OFFSET + D_800E1E20[(i << 1)],
+            draw_text(&sMenuCurrDisplayList,
+                      gGhostDataElementPositions[0] + GHOSTMENU_TEXT_OFFSET + D_800E1E20[(i << 1)],
                       y + gGhostDataElementPositions[1] + D_800E1E20[(i << 1) + 1], textBuffer, ALIGN_MIDDLE_CENTER);
         }
         set_text_colour(200, 228, 80, 255, 255);
-        draw_text(&sMenuCurrDisplayList, gGhostDataElementPositions[0] + GHOSTMENU_TEXT_OFFSET, gGhostDataElementPositions[1] + y,
-                  textBuffer, ALIGN_MIDDLE_CENTER);
+        draw_text(&sMenuCurrDisplayList, gGhostDataElementPositions[0] + GHOSTMENU_TEXT_OFFSET,
+                  gGhostDataElementPositions[1] + y, textBuffer, ALIGN_MIDDLE_CENTER);
         render_textured_rectangle(&sMenuCurrDisplayList, gRacerPortraits[gGhostCharacterIDsMenu[scroll]],
                                   gGhostDataElementPositions[2] + 40, gGhostDataElementPositions[3] + y, 255, 255, 255,
                                   255);
@@ -12496,17 +12480,18 @@ void menu_credits_init(void) {
         // After that is the offsets to the cheat strings.
         cheatOffsets = *gCheatsAssetData + 1;
 #if VERSION == VERSION_79
-    #define CHEATINDEXADD  2
-    #define CHEATINDEXMULT 3
+#define CHEATINDEXADD 2
+#define CHEATINDEXMULT 3
 #elif VERSION == VERSION_80
-    #define CHEATINDEXADD  1
-    #define CHEATINDEXMULT 3
+#define CHEATINDEXADD 1
+#define CHEATINDEXMULT 3
 #else
-    #define CHEATINDEXADD  1
-    #define CHEATINDEXMULT 2
+#define CHEATINDEXADD 1
+#define CHEATINDEXMULT 2
 #endif
-        gCreditsArray[85] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT) + CHEATINDEXADD]; // Cheat name
-        gCreditsArray[86] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT)];                 // Cheat code
+        gCreditsArray[85] =
+            (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT) + CHEATINDEXADD]; // Cheat name
+        gCreditsArray[86] = (char *) (*gCheatsAssetData) + (cheatOffsets)[(cheatIndex * CHEATINDEXMULT)]; // Cheat code
     }
     music_change_off();
     enable_new_screen_transitions();
@@ -12599,7 +12584,8 @@ s32 menu_credits_loop(s32 updateRate) {
         temp_s4 = (var_s4 * 5) + 72;
         temp_s2 = (get_video_width_and_height_as_s32() >> 17) & 0x7FFF; // Truncated video height? Height / 2?
         for (i = 0; i < ARRAY_COUNT(gRacerPortraits); i++) {
-            render_textured_rectangle(&sMenuCurrDisplayList, gRacerPortraits[i], ((sins_1(var_s5) * temp_s4) >> 16) + 140,
+            render_textured_rectangle(&sMenuCurrDisplayList, gRacerPortraits[i],
+                                      ((sins_1(var_s5) * temp_s4) >> 16) + 140,
                                       ((coss_1(var_s5) * temp_s4) >> 16) + (temp_s2 - 20), 255, 255, 255, 255);
             var_s5 += 0x1999;
         }
@@ -13776,11 +13762,12 @@ s32 tt_menu_loop(void) {
         sCurrentMenuID = TT_MENU_INTRODUCTION;
     }
 #if REGION == REGION_JP
-    if ((sCurrentMenuID == TT_MENU_CONT_PAK_ERROR_1) || (sCurrentMenuID == TT_MENU_INSERT_CONT_PAK) || (sCurrentMenuID == TT_MENU_INSERT_RUMBLE_PAK)) {
+    if ((sCurrentMenuID == TT_MENU_CONT_PAK_ERROR_1) || (sCurrentMenuID == TT_MENU_INSERT_CONT_PAK) ||
+        (sCurrentMenuID == TT_MENU_INSERT_RUMBLE_PAK)) {
         set_current_dialogue_box_coords(1, 22, 16, 218, 136);
-    } else 
-#endif 
-    if ((sCurrentMenuID != TT_MENU_GAME_STATUS) && (sCurrentMenuID != TT_MENU_INTRODUCTION)) {
+    } else
+#endif
+        if ((sCurrentMenuID != TT_MENU_GAME_STATUS) && (sCurrentMenuID != TT_MENU_INTRODUCTION)) {
         currentOption = 120;
         if (has_ghost_to_save()) {
             currentOption = 136;
@@ -13804,10 +13791,10 @@ s32 tt_menu_loop(void) {
 #if VERSION >= VERSION_79
             // ASSET_MENU_TEXT_OPTIONS must have changed
             render_dialogue_text(1, POS_CENTRED, 6, gMenuText[189], 1,
-                                 HORZ_ALIGN_CENTER);                          // OPTIONS
+                                 HORZ_ALIGN_CENTER); // OPTIONS
 #else
             render_dialogue_text(1, POS_CENTRED, 6, gMenuText[ASSET_MENU_TEXT_OPTIONS], 1,
-                                 HORZ_ALIGN_CENTER);                          // OPTIONS
+                                 HORZ_ALIGN_CENTER); // OPTIONS
 #endif
             render_dialogue_option(gMenuText[ASSET_MENU_TEXT_STATUS], 20, 3); // STATUS
             if (!is_in_two_player_adventure()) {

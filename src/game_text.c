@@ -110,9 +110,9 @@ void render_subtitles(void) {
     s32 textFlags;
     char **textData;
 #if VERSION == VERSION_79
-    #define SUBTITLE_Y_OFFSET 18
+#define SUBTITLE_Y_OFFSET 18
 #else
-    #define SUBTITLE_Y_OFFSET 14
+#define SUBTITLE_Y_OFFSET 14
 #endif
 
     dialogue_clear(6);
@@ -126,7 +126,7 @@ void render_subtitles(void) {
     set_current_text_background_colour(6, 0, 0, 0, 0);
 #if REGION == REGION_JP
     textY = ((((gDialogueYPos2 - gDialogueYPos1) - (gSubtitleLineCount * 16)) - (gSubtitleLineCount * 2)) + 2) >> 1;
-#else    
+#else
     textY = ((((gDialogueYPos2 - gDialogueYPos1) - (gSubtitleLineCount * 12)) - (gSubtitleLineCount * 2)) + 2) >> 1;
 #endif
 

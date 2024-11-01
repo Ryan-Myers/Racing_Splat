@@ -31,9 +31,7 @@ Gfx dDialogueBoxDrawModes[][2] = {
 };
 #if REGION == REGION_JP
 // This is more GFX data like above. Likely even within that array.
-s32 D_800E51D8_E5DD8[] = {
-        0xFC5627FF, 0x1FFCFE38, 0xEF100C0F, 0x00104240
-    };
+s32 D_800E51D8_E5DD8[] = { 0xFC5627FF, 0x1FFCFE38, 0xEF100C0F, 0x00104240 };
 #endif
 
 s8 sDialogueBoxIsOpen = FALSE;
@@ -1137,7 +1135,7 @@ void func_800C6464_C7064(void) {
             D_8012C2A8_EE5E8[i][var_s0] = asset46[0xE];
         }
     }
-    
+
     free_from_memory_pool(asset46);
     D_8012C2B8_EE5F8 = 0;
 }
@@ -1264,9 +1262,10 @@ s32 func_800C68CC_C74CC(u16 arg0) {
             }
             asset = &D_8012C2C0_EE600[var_s0 * 0x24];
             assetSize = D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unkC;
-            load_asset_to_address(ASSET_BINARY_46, (u32) asset, (assetSize * arg0) + D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk8, assetSize);
-            func_800C6DD4_C79D4((*D_8012C2BC_EE5FC)[var_s0].unk4, asset, 
-                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk1, D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk2);
+            load_asset_to_address(ASSET_BINARY_46, (u32) asset,
+                                  (assetSize * arg0) + D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk8, assetSize);
+            func_800C6DD4_C79D4((*D_8012C2BC_EE5FC)[var_s0].unk4, asset, D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk1,
+                                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk2);
         }
 
         return var_s0;
@@ -1281,7 +1280,7 @@ typedef struct Asset46Texture {
     s32 unk0; // Texture ID?
 } Asset46Texture;
 typedef struct Asset46 {
-    Asset46Texture *unk0;    
+    Asset46Texture *unk0;
     Asset46Texture *unk4;
     s32 unk8;
 } Asset46;
@@ -1297,91 +1296,93 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
         asset->unk4 = NULL;
     }
     if (asset->unk4 != NULL) {
-        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height, 
-        0, //palette
-        G_TX_NOMIRROR | G_TX_WRAP, //cms
-        G_TX_NOMIRROR | G_TX_WRAP, //cmt
-        8, //masks
-        8, //maskt
-        G_TX_NOLOD, //shifts
-        G_TX_NOLOD); //shiftt
+        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height,
+                             0,                         // palette
+                             G_TX_NOMIRROR | G_TX_WRAP, // cms
+                             G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                             8,                         // masks
+                             8,                         // maskt
+                             G_TX_NOLOD,                // shifts
+                             G_TX_NOLOD);               // shiftt
 
-        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk4), G_IM_FMT_I, G_IM_SIZ_4b, width, height, 
-        0, //palette
-        G_TX_NOMIRROR | G_TX_WRAP, //cms
-        G_TX_NOMIRROR | G_TX_WRAP, //cmt
-        8, //masks
-        8, //maskt
-        G_TX_NOLOD, //shifts
-        G_TX_NOLOD); //shiftt
-        
+        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk4), G_IM_FMT_I, G_IM_SIZ_4b, width, height,
+                             0,                         // palette
+                             G_TX_NOMIRROR | G_TX_WRAP, // cms
+                             G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                             8,                         // masks
+                             8,                         // maskt
+                             G_TX_NOLOD,                // shifts
+                             G_TX_NOLOD);               // shiftt
+
         gDkrDmaDisplayList(dlist++, OS_PHYSICAL_TO_K0(&dDialogueBoxDrawModes[5][2]),
-                            numberOfGfxCommands(dDialogueBoxDrawModes[1]));
+                           numberOfGfxCommands(dDialogueBoxDrawModes[1]));
     } else {
         switch (asset->unk8) {
-        case 0:
-            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_32b, width, height, 
-            0, //palette
-            G_TX_NOMIRROR | G_TX_WRAP, //cms
-            G_TX_NOMIRROR | G_TX_WRAP, //cmt
-            8, //masks
-            8, //maskt
-            G_TX_NOLOD, //shifts
-            G_TX_NOLOD); //shiftt
-            break;
-        case 1:
-            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height, 
-            0, //palette
-            G_TX_NOMIRROR | G_TX_WRAP, //cms
-            G_TX_NOMIRROR | G_TX_WRAP, //cmt
-            8, //masks
-            8, //maskt
-            G_TX_NOLOD, //shifts
-            G_TX_NOLOD); //shiftt
-            break;
-        case 5:
-            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_8b, width, height, 
-            0, //palette
-            G_TX_NOMIRROR | G_TX_WRAP, //cms
-            G_TX_NOMIRROR | G_TX_WRAP, //cmt
-            8, //masks
-            8, //maskt
-            G_TX_NOLOD, //shifts
-            G_TX_NOLOD); //shiftt
-            break;
-        case 6:
-            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_4b, width, height, 
-            0, //palette
-            G_TX_NOMIRROR | G_TX_WRAP, //cms
-            G_TX_NOMIRROR | G_TX_WRAP, //cmt
-            8, //masks
-            8, //maskt
-            G_TX_NOLOD, //shifts
-            G_TX_NOLOD); //shiftt
-            break;
-        case 3:
-            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_4b, width, height, 
-            0, //palette
-            G_TX_NOMIRROR | G_TX_WRAP, //cms
-            G_TX_NOMIRROR | G_TX_WRAP, //cmt
-            8, //masks
-            8, //maskt
-            G_TX_NOLOD, //shifts
-            G_TX_NOLOD); //shiftt
-            break;
-        case 2:
-            gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_8b, width, height, 
-            0, //palette
-            G_TX_NOMIRROR | G_TX_WRAP, //cms
-            G_TX_NOMIRROR | G_TX_WRAP, //cmt
-            8, //masks
-            8, //maskt
-            G_TX_NOLOD, //shifts
-            G_TX_NOLOD); //shiftt
-            break;
+            case 0:
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_32b, width,
+                                     height,
+                                     0,                         // palette
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cms
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                                     8,                         // masks
+                                     8,                         // maskt
+                                     G_TX_NOLOD,                // shifts
+                                     G_TX_NOLOD);               // shiftt
+                break;
+            case 1:
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width,
+                                     height,
+                                     0,                         // palette
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cms
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                                     8,                         // masks
+                                     8,                         // maskt
+                                     G_TX_NOLOD,                // shifts
+                                     G_TX_NOLOD);               // shiftt
+                break;
+            case 5:
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_8b, width, height,
+                                     0,                         // palette
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cms
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                                     8,                         // masks
+                                     8,                         // maskt
+                                     G_TX_NOLOD,                // shifts
+                                     G_TX_NOLOD);               // shiftt
+                break;
+            case 6:
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_4b, width, height,
+                                     0,                         // palette
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cms
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                                     8,                         // masks
+                                     8,                         // maskt
+                                     G_TX_NOLOD,                // shifts
+                                     G_TX_NOLOD);               // shiftt
+                break;
+            case 3:
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_4b, width, height,
+                                     0,                         // palette
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cms
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                                     8,                         // masks
+                                     8,                         // maskt
+                                     G_TX_NOLOD,                // shifts
+                                     G_TX_NOLOD);               // shiftt
+                break;
+            case 2:
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_8b, width, height,
+                                     0,                         // palette
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cms
+                                     G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                                     8,                         // masks
+                                     8,                         // maskt
+                                     G_TX_NOLOD,                // shifts
+                                     G_TX_NOLOD);               // shiftt
+                break;
         }
         gDkrDmaDisplayList(dlist++, OS_PHYSICAL_TO_K0(&dDialogueBoxDrawModes[3][2]),
-                            numberOfGfxCommands(dDialogueBoxDrawModes[1]));
+                           numberOfGfxCommands(dDialogueBoxDrawModes[1]));
     }
     gSPEndDisplayList(dlist++);
 }
@@ -1418,18 +1419,12 @@ void func_800C7804_C8404(s32 arg0) {
 }
 
 u8 D_800E5234_E5E34[] = {
-    0x0F, 0x34, 0x0A, 0x36, 0x02, 0x06, 0x0D, 0x37,
-    0x03, 0x04, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D,
-    0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
-    0x18, 0x19, 0x3E, 0x05, 0x0B, 0x3F, 0x0C, 0x40,
-    0x41, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20,
-    0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28,
-    0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30,
-    0x31, 0x32, 0x33, 0x07, 0x0F, 0x08, 0x0F, 0x0F,
-    0x09, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A, 0x9B,
-    0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3,
-    0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB,
-    0xAC, 0xAD, 0xAE, 0x03, 0x0F, 0x04, 0x0E, 0x0F,
+    0x0F, 0x34, 0x0A, 0x36, 0x02, 0x06, 0x0D, 0x37, 0x03, 0x04, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D,
+    0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x3E, 0x05, 0x0B, 0x3F, 0x0C, 0x40,
+    0x41, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28,
+    0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x07, 0x0F, 0x08, 0x0F, 0x0F,
+    0x09, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A, 0x9B, 0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3,
+    0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0x03, 0x0F, 0x04, 0x0E, 0x0F,
 };
 
 void func_800C7864_C8464(char *inString, char *outString) {
@@ -1444,7 +1439,7 @@ void func_800C7864_C8464(char *inString, char *outString) {
             *outString++ = currentChar;
         } else {
             *outString++ = 0x80;
-            *outString++ = D_800E5234_E5E34[currentChar-32];
+            *outString++ = D_800E5234_E5E34[currentChar - 32];
         }
         currentChar = *inString;
         inString++;
