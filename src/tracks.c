@@ -2522,30 +2522,24 @@ void func_8002E234(Object *obj, s32 bool) {
 
 #ifdef NON_EQUIVALENT
 void func_8002F2AC(void) {
-    f32 temp_f10;
     f32 temp_f12;
     f32 temp_f16;
-    f32 temp_f8;
     unk8011B120_unkC *var_v0;
     s32 i, j;
 
     for (i = 0; i < D_8011B118; i++) {
         var_v0 = D_8011B120[i].unkC;
         temp_f16 = D_8011B120[i].x * var_v0->unk0;
-        temp_f10 = var_v0->unkC;
-        temp_f8 = var_v0->unk4;
         temp_f12 = D_8011B120[i].z * var_v0->unk8;
-        D_8011B120[i].y = (f32) (-(temp_f16 + temp_f12 + temp_f10) / temp_f8);
+        D_8011B120[i].y = (f32) (-(temp_f16 + temp_f12 + var_v0->unkC) / var_v0->unk4);
     }
 
-    for (i = 0; D_8011B320[i] > 0; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_8011B320); i++) {
         for (j = 0; j < D_8011B320[i]; j++) {
-            var_v0 = D_8011B330[i].unkC;
-            temp_f16 = D_8011B330[i].x * var_v0->unk0;
-            temp_f10 = var_v0->unkC;
-            temp_f8 = var_v0->unk4;
-            temp_f12 = D_8011B330[i].z * var_v0->unk8;
-            D_8011B330[i].z = (f32) (-(temp_f16 + temp_f12 + temp_f10) / temp_f8);
+            var_v0 = D_8011B330[j + i].unkC;
+            temp_f16 = D_8011B330[j + i].x * var_v0->unk0;
+            temp_f12 = D_8011B330[j + i].z * var_v0->unk8;
+            D_8011B330[j + i].y = (f32) (-(temp_f16 + temp_f12 + var_v0->unkC) / var_v0->unk4);
         }
     }
 }
