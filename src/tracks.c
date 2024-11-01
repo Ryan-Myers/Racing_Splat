@@ -2409,20 +2409,18 @@ void func_8002DE30(Object *obj) {
 }
 
 // Generate shadow
-#ifdef NON_EQUIVALENT
 void func_8002E234(Object *obj, s32 bool) {
-    s32 *inSegs;
+    f32 var_f2;
+    s32 yPos;
     f32 xPos;
     f32 zPos;
     s32 *new_var;
-    f32 character_scale;
-    f32 var_f2;
-    s32 yPos;
     s32 cheats;
+    s32 inSegs[28];
     s32 i;
-    s32 test;
-    f32 temp;
     s32 segs;
+    f32 character_scale;
+    s32 test;
 
     yPos = obj->segment.trans.y_position;
     character_scale = 1.0f;
@@ -2437,7 +2435,6 @@ void func_8002E234(Object *obj, s32 bool) {
 
     D_8011D0C4 = obj;
     D_8011D0C8 = 2.0f;
-    if (D_8011D0C4) {} // fakematch
 
     if (bool) {
         D_8011D0B8 = 0;
@@ -2480,17 +2477,11 @@ void func_8002E234(Object *obj, s32 bool) {
             D_8011D0F0 = -D_8011D0F0;
         }
         D_8011D0F4 = (7.0f * D_8011D0F0);
-        if (1) {}
-        if (1) {}
-        if (1) {}
-        if (1) {}
-        if (1) {}
-        if (1) {}
         D_8011D0D0 = -0x8000;
     }
     D_8011D0D8 = 144.0f / D_8011D0D8;
-    xPos = obj->segment.trans.x_position;
-    zPos = obj->segment.trans.z_position;
+    xPos = D_8011D0C4->segment.trans.x_position;
+    zPos = D_8011D0C4->segment.trans.z_position;
     segs = get_inside_segment_count_xyz(inSegs, (xPos - D_8011D0DC), D_8011D0CC, (zPos - D_8011D0E0),
                                         (xPos + D_8011D0DC), D_8011D0CE, (zPos + D_8011D0E0));
     D_8011C230 = 0;
@@ -2498,21 +2489,20 @@ void func_8002E234(Object *obj, s32 bool) {
     for (i = 0; i < ARRAY_COUNT(D_8011B320); i++) {
         D_8011B320[i] = 0;
     }
-    new_var = inSegs; // fake?
     D_8011D0E8 = -1;
     D_8011D0EC = -1;
     for (i = 0; i < segs; i++) {
-        if (new_var[i] >= 0) {
+        if (inSegs[i] >= 0) {
             if (bool && (gCurrentLevelModel->segments[inSegs[i]].hasWaves != 0) && (gWaveBlockCount != 0)) {
-                func_8002EEEC();
+                func_8002EEEC(inSegs[i]);
             } else {
-                test = func_800314DC(&gCurrentLevelModel->segmentsBoundingBoxes[new_var[i]],
+                test = func_800314DC(&gCurrentLevelModel->segmentsBoundingBoxes[inSegs[i]],
                                      (obj->segment.trans.x_position - D_8011D0DC), // x1
                                      (obj->segment.trans.z_position - D_8011D0E0), // z1
                                      (obj->segment.trans.x_position + D_8011D0DC), // x2
                                      (obj->segment.trans.z_position + D_8011D0E0)  // z2
                 );
-                func_8002E904(&gCurrentLevelModel->segments[new_var[i]], test, bool);
+                func_8002E904(&gCurrentLevelModel->segments[inSegs[i]], test, bool);
             }
         }
     }
@@ -2529,9 +2519,6 @@ void func_8002E234(Object *obj, s32 bool) {
         obj->waterEffect->meshEnd = D_8011D364;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002E234.s")
-#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002E904.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_8002EEEC.s")
