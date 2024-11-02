@@ -673,7 +673,100 @@ void func_80026C14(s16 arg0, s16 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80026E54.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80027184.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80027568.s")
+
+#ifdef NON_EQUIVALENT
+void func_800278E8(s32 updateRate) {
+    Object *lastObject;
+    Object *objectFirstPlace;
+    Object_Racer *racerFirstPlace;
+    s32 numRacers;
+    s32 cameraId;
+    Object **racerGroup;
+    Object *camera;
+    Object *thisObject;
+    ObjectSegment *segment;
+    Object_Racer *currentRacer;
+    Object_Racer *thisRacer;
+    Object_Racer *lastRacer;
+    f32 xzSqr;
+    f32 zDelta;
+    f32 yDelta;
+    f32 xDelta;
+    s16 angleDiff;
+    s32 i;
+
+    racerGroup = get_racer_objects(&numRacers);
+    lastRacer = NULL;
+    for (i = 0; i < numRacers; i++) {
+        if (racerGroup[i] != NULL) {
+            currentRacer = racerGroup[i]->unk64;
+            cameraId = currentRacer->unk1FD;
+            spectate_nearest(racerGroup[i], &cameraId);
+            currentRacer->unk1FD = cameraId;
+            if (currentRacer->raceFinished) {
+                if (currentRacer->finishPosition == 1) {
+                    racerFirstPlace = currentRacer;
+                    objectFirstPlace = racerGroup[i];
+                }
+            } else if (lastRacer == NULL) {
+                lastRacer = currentRacer;
+                lastObject = racerGroup[i];
+            } else if (currentRacer->racePosition < lastRacer->racePosition) {
+                lastRacer = currentRacer;
+                lastObject = racerGroup[i];
+            }
+        }
+    }
+    thisRacer = racerFirstPlace;
+    if (lastRacer != NULL) {
+        thisObject = lastObject;
+        thisRacer = lastRacer;
+    } else {
+        thisObject = objectFirstPlace;
+    }
+    camera = spectate_object(thisRacer->unk1FD);
+    if (D_8011B104 != thisRacer->unk1FD) {
+        D_8011B108 = 0;
+    } else if (D_8011B100 != thisRacer->playerIndex) {
+        D_8011B108 = 180;
+        D_8011B100 = thisRacer->playerIndex;
+    }
+    if (camera != NULL) {
+        segment = get_active_camera_segment_no_cutscenes();
+        segment->trans.x_position = camera->segment.trans.x_position;
+        segment->trans.y_position = camera->segment.trans.y_position;
+        segment->trans.z_position = camera->segment.trans.z_position;
+        xDelta = segment->trans.x_position - thisObject->segment.trans.x_position;
+        yDelta = segment->trans.y_position - thisObject->segment.trans.y_position;
+        zDelta = segment->trans.z_position - thisObject->segment.trans.z_position;
+        xzSqr = sqrtf((xDelta * xDelta) + (zDelta * zDelta));
+        if (D_8011B108 != 0) {
+            angleDiff = (-atan2s(xDelta, zDelta) - segment->trans.y_rotation) + 0x8000;
+            if (angleDiff > 0x8000) {
+                angleDiff = -0xFFFF - -angleDiff;
+            }
+            segment->trans.y_rotation += (s32) (angleDiff / (16.0f * (D_8011B108 / 180.0f)));
+            angleDiff = atan2s(yDelta, xzSqr) - segment->trans.x_rotation;
+            if (angleDiff > 0x8000) {
+                angleDiff = -0xFFFF - -angleDiff;
+            }
+            segment->trans.x_rotation += (s32) (angleDiff / (16.0f * (D_8011B108 / 180.0f)));
+            D_8011B108 -= updateRate;
+            if (D_8011B108 < 0) {
+                D_8011B108 = 0;
+            }
+        } else {
+            segment->trans.y_rotation = 0x8000 - atan2s(xDelta, zDelta);
+            segment->trans.x_rotation = atan2s(yDelta, xzSqr);
+        }
+        segment->trans.z_rotation = 0;
+        segment->object.cameraSegmentID = get_level_segment_index_from_position(segment->trans.x_position, thisRacer->oy1, segment->trans.z_position);
+        D_8011B104 = thisRacer->unk1FD;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_800278E8.s")
+#endif
 
 /**
  * Handle the flipbook effect for level geometry textures.
