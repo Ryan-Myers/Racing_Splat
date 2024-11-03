@@ -2119,7 +2119,7 @@ void obj_init_racer(Object *obj, LevelObjectEntry_Racer *racer) {
     tempRacer->racePosition = 1;
     tempRacer->miscAnimCounter = tempRacer->playerIndex * 5;
     tempRacer->checkpoint_distance = 1.0f;
-    tempRacer->unk1FD = 0;
+    tempRacer->cameraIndex = 0;
     tempRacer->magnetSoundMask = NULL;
     tempRacer->shieldSoundMask = NULL;
     tempRacer->bananaSoundMask = NULL;

@@ -696,12 +696,12 @@ void func_800278E8(s32 updateRate) {
     racerGroup = get_racer_objects(&numRacers);
     lastRacer = NULL;
     for (i = 0; i < numRacers; i++) {
-        if (1) { } // fake
+        if (1) {} // fake
         if (racerGroup[i] != NULL) {
             currentRacer = &racerGroup[i]->unk64->racer;
-            cameraId = currentRacer->unk1FD;
+            cameraId = currentRacer->cameraIndex;
             spectate_nearest(racerGroup[i], &cameraId);
-            currentRacer->unk1FD = cameraId;
+            currentRacer->cameraIndex = cameraId;
             if (currentRacer->raceFinished) {
                 if (currentRacer->finishPosition == 1) {
                     racerFirstPlace = currentRacer;
@@ -723,8 +723,8 @@ void func_800278E8(s32 updateRate) {
         currentRacer = racerFirstPlace;
         thisObject = objectFirstPlace;
     }
-    camera = spectate_object(currentRacer->unk1FD);
-    if (D_8011B104 != currentRacer->unk1FD) {
+    camera = spectate_object(currentRacer->cameraIndex);
+    if (D_8011B104 != currentRacer->cameraIndex) {
         D_8011B108 = 0;
     } else if (D_8011B100 != currentRacer->playerIndex) {
         D_8011B108 = 180;
@@ -741,13 +741,15 @@ void func_800278E8(s32 updateRate) {
         xzSqr = sqrtf((xDelta * xDelta) + (zDelta * zDelta));
         if (D_8011B108 != 0) {
             angleDiff = ((s32) (-atan2s(xDelta, zDelta) - segment->trans.y_rotation) + 0x8000);
+            //!@bug Never true, since angleDiff is signed. Should be >=.
             if (angleDiff > 0x8000) {
-                angleDiff = -0xFFFF - -angleDiff;
+                angleDiff = -(0xFFFF - angleDiff);
             }
             segment->trans.y_rotation += ((s32) (angleDiff / (16.0f * (D_8011B108 / 180.0f)))) & 0xFFFF;
             angleDiff = atan2s(yDelta, xzSqr) - segment->trans.x_rotation;
+            //!@bug Never true, since angleDiff is signed. Should be >=.
             if (angleDiff > 0x8000) {
-                angleDiff = -0xFFFF - -angleDiff;
+                angleDiff = -(0xFFFF - angleDiff);
             }
             segment->trans.x_rotation += ((s32) (angleDiff / (16.0f * (D_8011B108 / 180.0f)))) & 0xFFFF;
             D_8011B108 -= updateRate;
@@ -759,8 +761,9 @@ void func_800278E8(s32 updateRate) {
             segment->trans.x_rotation = atan2s(yDelta, xzSqr);
         }
         segment->trans.z_rotation = 0;
-        segment->object.cameraSegmentID = get_level_segment_index_from_position(segment->trans.x_position, currentRacer->oy1, segment->trans.z_position);
-        D_8011B104 = currentRacer->unk1FD;
+        segment->object.cameraSegmentID = get_level_segment_index_from_position(
+            segment->trans.x_position, currentRacer->oy1, segment->trans.z_position);
+        D_8011B104 = currentRacer->cameraIndex;
     }
 }
 
