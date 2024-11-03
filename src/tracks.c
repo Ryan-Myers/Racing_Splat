@@ -676,31 +676,34 @@ void func_80026C14(s16 arg0, s16 arg1, s32 arg2) {
 
 #ifdef NON_EQUIVALENT
 void func_800278E8(s32 updateRate) {
+    s16 angleDiff;
+    f32 xDelta;
+    f32 yDelta;
+    f32 zDelta;
+    f32 xzSqr;
+    ObjectSegment *segment;
+    Object *thisObject;
+    Object **racerGroup;
     Object *lastObject;
     Object *objectFirstPlace;
-    Object_Racer *racerFirstPlace;
-    s32 numRacers;
-    s32 cameraId;
-    Object **racerGroup;
-    Object *camera;
-    Object *thisObject;
-    ObjectSegment *segment;
+    s32 i;
     Object_Racer *currentRacer;
     Object_Racer *thisRacer;
+    s32 numRacers;
     Object_Racer *lastRacer;
-    f32 xzSqr;
-    f32 zDelta;
-    f32 yDelta;
-    f32 xDelta;
-    s16 angleDiff;
-    s32 i;
+    s32 cameraId;
+    Object_Racer *racerFirstPlace;
+    Object *camera;
 
     racerGroup = get_racer_objects(&numRacers);
     lastRacer = NULL;
+    if (1) { } // fake
     for (i = 0; i < numRacers; i++) {
         if (racerGroup[i] != NULL) {
             currentRacer = racerGroup[i]->unk64;
+            if (thisRacer) { } // fake
             cameraId = currentRacer->unk1FD;
+            if (1) { } // fake
             spectate_nearest(racerGroup[i], &cameraId);
             currentRacer->unk1FD = cameraId;
             if (currentRacer->raceFinished) {
@@ -717,11 +720,11 @@ void func_800278E8(s32 updateRate) {
             }
         }
     }
-    thisRacer = racerFirstPlace;
     if (lastRacer != NULL) {
-        thisObject = lastObject;
         thisRacer = lastRacer;
+        thisObject = lastObject;
     } else {
+        thisRacer = racerFirstPlace;
         thisObject = objectFirstPlace;
     }
     camera = spectate_object(thisRacer->unk1FD);
@@ -741,16 +744,16 @@ void func_800278E8(s32 updateRate) {
         zDelta = segment->trans.z_position - thisObject->segment.trans.z_position;
         xzSqr = sqrtf((xDelta * xDelta) + (zDelta * zDelta));
         if (D_8011B108 != 0) {
-            angleDiff = (-atan2s(xDelta, zDelta) - segment->trans.y_rotation) + 0x8000;
+            angleDiff = ((s32) (-atan2s(xDelta, zDelta) - segment->trans.y_rotation) + 0x8000);
             if (angleDiff > 0x8000) {
                 angleDiff = -0xFFFF - -angleDiff;
             }
-            segment->trans.y_rotation += (s32) (angleDiff / (16.0f * (D_8011B108 / 180.0f)));
+            segment->trans.y_rotation += ((s32) (angleDiff / (16.0f * (D_8011B108 / 180.0f)))) & 0xFFFF;
             angleDiff = atan2s(yDelta, xzSqr) - segment->trans.x_rotation;
             if (angleDiff > 0x8000) {
                 angleDiff = -0xFFFF - -angleDiff;
             }
-            segment->trans.x_rotation += (s32) (angleDiff / (16.0f * (D_8011B108 / 180.0f)));
+            segment->trans.x_rotation += ((s32) (angleDiff / (16.0f * (D_8011B108 / 180.0f)))) & 0xFFFF;
             D_8011B108 -= updateRate;
             if (D_8011B108 < 0) {
                 D_8011B108 = 0;
