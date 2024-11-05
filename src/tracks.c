@@ -151,7 +151,7 @@ DrawTexture *gCurrentShadowTexture;
 s32 D_8011D364;
 s32 D_8011D368; // xOffset?
 s32 D_8011D36C; // yOffset?
-s32 *D_8011D370;
+u16 **D_8011D370; // Allocated 0x7D0
 s32 *D_8011D374;
 s32 D_8011D378;
 s32 gScenePlayerViewports;
@@ -672,7 +672,117 @@ void func_80026C14(s16 arg0, s16 arg1, s32 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80026E54.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80027184.s")
+
+#ifdef NON_EQUIVALENT
+typedef struct Unk80027568_2 {
+    s32 unk0;
+    u16 unk4;
+} Unk80027568_2;
+
+typedef struct Unk80027568_1 {
+    u8 unk0[0x18];
+    Vec4f *unk18;
+} Unk80027568_1;
+
+s32 func_80027568(void) {
+    f32 camXPos;
+    f32 camYPos;
+    f32 camZPos;
+    f32 projectedRacerPos;
+    f32 projectedCamPos;
+    f32 racerXPos;
+    f32 racerYPos;
+    f32 racerZPos;
+    f32 temp_f18_2;
+    f32 var_f16;
+    f32 scalingFactor;
+    s32 curViewport;
+    s32 isNegative;
+    s32 var_a1;
+    s32 ret;
+    s32 var_t4;
+    s32 i;
+    s32 var_v0_1;
+    u16 var_v0;
+    Vec4f *vector;
+    Object **racerGroup;
+    s32 numRacers;
+    Unk80027568_1 *var_ra;
+    Object *currentObjRacer;
+
+    racerGroup = get_racer_objects(&numRacers);
+    if (numRacers == 0) {
+        return FALSE;
+    }
+    if ((check_if_showing_cutscene_camera() != 0) || (gSceneActiveCamera->object.unk36 >= 5) || (gSceneActiveCamera->object.unk36 == 3)) {
+        return FALSE;
+    }
+    curViewport = get_current_viewport();
+    currentObjRacer = NULL;    
+    for  (i = 0; i < numRacers; i++) {
+        if (curViewport == racerGroup[i]->unk64->racer.playerIndex) {
+            currentObjRacer = racerGroup[i];
+            i = numRacers; // Come on! Just use break!
+        }
+    }
+    if (currentObjRacer == NULL) {
+        return FALSE;
+    }
+    func_80031130(1, &currentObjRacer->segment.trans.x_position, &gSceneActiveCamera->trans.x_position, -1);
+    ret = FALSE;
+    // bug? var_ra can be undefined?
+    for (var_t4 = 0; var_t4 < D_8011D378 && ret == FALSE; var_t4++) {
+        var_v0_1 = D_8011D370[var_t4];
+        if (var_v0_1 > 0) {
+            var_ra = (void *) PHYS_TO_K0(var_v0_1);
+        } else {
+            ret = TRUE;
+            vector = &var_ra->unk18[var_v0_1];
+            camXPos = gSceneActiveCamera->trans.x_position;
+            camYPos = gSceneActiveCamera->trans.y_position;
+            camZPos = gSceneActiveCamera->trans.z_position;
+            projectedCamPos = (((vector->x * camXPos) + (vector->y * camYPos) + (vector->z * camZPos) + vector->w) - 14.0);
+            if (projectedCamPos < -0.1) {
+                racerXPos = currentObjRacer->segment.trans.x_position;
+                racerYPos = currentObjRacer->segment.trans.y_position;
+                racerZPos = currentObjRacer->segment.trans.z_position;
+                projectedRacerPos = (vector->x * racerXPos) + (vector->y * racerYPos) + (vector->z * racerZPos) + vector->w;
+                if (projectedRacerPos >= -0.1) {
+                    if (projectedRacerPos != projectedCamPos) {
+                        scalingFactor = projectedRacerPos / (projectedRacerPos - projectedCamPos);
+                    } else {
+                        scalingFactor = 0.0f;
+                    }
+                    for (var_a1 = 1; var_a1 < 3 && ret == TRUE; var_a1++) {
+                        var_v0 = D_8011D370[var_t4][var_a1 + 1];
+                        isNegative = FALSE;
+                        if (var_v0 & 0x8000) {
+                            var_v0 &= 0x7FFF;
+                            isNegative = TRUE;
+                        }
+                        vector = &var_ra->unk18[var_v0];
+                        temp_f18_2 = 
+                            (vector->x * (racerXPos + ((camXPos - racerXPos) * scalingFactor))) +
+                            (vector->y * (racerYPos + ((camYPos - racerYPos) * scalingFactor))) +
+                            (vector->z * (racerZPos + ((camZPos - racerZPos) * scalingFactor))) +
+                            vector->w;
+                        var_f16 = temp_f18_2;
+                        if (isNegative) {
+                            var_f16 = -temp_f18_2;
+                        }
+                        if (var_f16 > 4.0f) {
+                            ret = FALSE;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return ret;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80027568.s")
+#endif
 
 void func_800278E8(s32 updateRate) {
     s16 angleDiff;
