@@ -477,8 +477,6 @@ compute_scene_camera_transform_matrix = 0x80031018;
 func_80031130 = 0x80031130;
 func_800314DC = 0x800314DC;
 func_80031600 = 0x80031600;
-func_80031954 = 0x80031954;
-func_80031B24 = 0x80031B24;
 
 // lights.c .text
 free_lights = 0x80031B60;
