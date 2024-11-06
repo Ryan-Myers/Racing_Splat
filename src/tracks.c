@@ -69,7 +69,7 @@ s8 D_800DC92C[24] = {
 Gfx *gSceneCurrDisplayList;
 MatrixS *gSceneCurrMatrix;
 Vertex *gSceneCurrVertexList;
-TriangleList *gSceneCurrTriList;
+Triangle *gSceneCurrTriList;
 
 ObjectSegment *gSceneActiveCamera;
 
@@ -166,7 +166,7 @@ Vertex *D_8011D480[2];
 Vertex *D_8011D488;
 s32 D_8011D48C;
 TriangleList *D_8011D490[2];
-Vertex *D_8011D498;
+Triangle *D_8011D498;
 s16 D_8011D49C;
 s16 D_8011D49E;
 f32 D_8011D4A0;
@@ -175,7 +175,15 @@ f32 D_8011D4A8;
 f32 D_8011D4AC;
 f32 D_8011D4B0;
 s8 D_8011D4B4;
-s16 D_8011D4B6;
+typedef struct Unk8011D4B6 {
+    union {
+        struct {
+            u8 one, two;
+        };
+        s16 whole;
+    };
+} Unk8011D4B6;
+Unk8011D4B6 D_8011D4B6;
 s16 D_8011D4B8;
 s16 D_8011D4BA;
 s16 D_8011D4BC;
@@ -671,7 +679,104 @@ void func_80026C14(s16 arg0, s16 arg1, s32 arg2) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80026E54.s")
+
+#ifdef NON_EQUIVALENT
+s32 func_80027184(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3) {
+    Vertex *verts;
+    Triangle *tris;
+    s32 two;
+    s32 test;
+    s32 vertZ1;
+    s32 vertX2;
+    s32 vertZ2;
+    s32 vertX1;
+    ColourRGBA colour;
+
+    if (D_8011D4B8 >= D_8011D4BC) {
+        return 0;
+    } else {
+        if (D_8011D4B6.whole == 24) {
+            gSPVertexDKR(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(D_8011D488), D_8011D4B6.whole, 0);
+            if (two) {} \
+            gSPPolygon(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(D_8011D498), (D_8011D4B6.whole >> 1), TRIN_DISABLE_TEXTURE);
+            D_8011D4B6.whole = 0;
+            D_8011D488 = gSceneCurrVertexList;
+            D_8011D498 = gSceneCurrTriList;
+        }
+        verts = gSceneCurrVertexList;
+        colour.r = D_8011B0E1;
+        colour.g = D_8011B0E2;
+        colour.b = D_8011B0E3;
+        colour.a = 0xFF;
+        vertX1 = ((arg2 * D_8011D4A0) + D_8011D4AC);
+        vertZ1 = ((arg2 * D_8011D4A4) + D_8011D4B0);
+        vertX2 = ((arg3 * D_8011D4A0) + D_8011D4AC);
+        vertZ2 = ((arg3 * D_8011D4A4) + D_8011D4B0);
+        two = D_8011D4B6.two;
+        verts[0].x = vertX1;
+        verts[0].y = (arg0[0] + 2.0f);
+        verts[0].z = vertZ1;
+        if (1) {
+        verts[0].r = colour.r;
+        verts[0].g = colour.g;
+        verts[0].b = colour.b;
+        verts[0].a = colour.a;
+        verts[1].x = vertX2;
+        verts[1].y = (arg0[1] + 2.0f);
+        verts[1].z = vertZ2;
+        verts[1].r = colour.r;
+        verts[1].g = colour.g;
+        verts[1].b = colour.b;
+        verts[1].a = colour.a;
+        verts[2].x = vertX1;
+        verts[2].y = (arg1[0] - 2.0f);
+        verts[2].z = vertZ1;
+        verts[2].r = colour.r;
+        }
+        verts[2].g = colour.g;
+        verts[2].b = colour.b;
+        verts[2].a = colour.a;
+        verts[3].x = vertX2;
+        verts[3].y = (arg1[1] - 2.0f);
+        verts[3].z = vertZ2;
+        verts[3].r = colour.r;
+        verts[3].g = colour.g;
+        verts[3].b = colour.b;
+        verts[3].a = colour.a;
+        verts += 4;
+        gSceneCurrVertexList = verts;
+        tris = gSceneCurrTriList;
+        tris[0].flags = 0x40;
+        tris[0].vi0 = two + 2;
+        tris[0].vi1 = two + 1;
+        tris[0].vi2 = two;
+        tris[0].uv0.u = 0x3E0;
+        tris[0].uv0.v = 0x3E0;
+        tris[0].uv1.u = 0x3E0;
+        tris[0].uv1.v = 0;
+        tris[0].uv2.u = 1;
+        tris[0].uv2.v = 0;
+        tris[1].flags = 0x40;
+        tris[1].vi0 = two + 3;
+        tris[1].vi1 = two + 1;
+        tris[1].vi2 = two + 2;
+        tris[1].uv0.u = 1;
+        tris[1].uv0.v = 0x3E0;
+        tris[1].uv1.u = 0x3E0;
+        tris[1].uv1.v = 0x3E0;
+        tris[1].uv2.u = 1;
+        tris[1].uv2.v = 0;
+        tris += 2;
+        gSceneCurrTriList = tris;
+        D_8011D4B6.whole += 4;
+        D_8011D4B8 += 1;
+    }
+
+    return 0;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/tracks/func_80027184.s")
+#endif
 
 #ifdef NON_EQUIVALENT
 typedef struct Unk80027568_2 {

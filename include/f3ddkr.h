@@ -93,10 +93,10 @@
 #define TRIN_DISABLE_TEXTURE 0
 #define TRIN_ENABLE_TEXTURE 1
 
-#define gSPPolygon(dl, ptr, numTris, texEnabled) {                                                                              \
-    Gfx *_g = (Gfx *)(dl);                                                                                                      \
-    _g->words.w0 = _SHIFTL(((numTris - 1) << 4) | (texEnabled), 16, 8) | _SHIFTL(G_TRIN, 24, 8) | _SHIFTL((numTris*16), 0, 16); \
-    _g->words.w1 = (unsigned int)(ptr);                                                                                         \
+#define gSPPolygon(dl, ptr, numTris, texEnabled) {                                                                                  \
+    Gfx *_g = (Gfx *)(dl);                                                                                                          \
+    _g->words.w0 = _SHIFTL((((numTris) - 1) << 4) | (texEnabled), 16, 8) | _SHIFTL(G_TRIN, 24, 8) | _SHIFTL(((numTris)*16), 0, 16); \
+    _g->words.w1 = (unsigned int)(ptr);                                                                                             \
 }
 
 #define numberOfGfxCommands(gfxCmds) (sizeof(gfxCmds) / sizeof(Gwords))
