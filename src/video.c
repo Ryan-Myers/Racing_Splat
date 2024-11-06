@@ -31,7 +31,6 @@ VideoModeResolution gVideoModeResolutions[] = {
 s32 gVideoRefreshRate; // Official Name: viFramesPerSecond
 f32 gVideoAspectRatio;
 f32 gVideoHeightRatio;
-UNUSED s32 D_8012617C;
 OSMesg gVideoMesgBuf[8];
 OSMesgQueue gVideoMesgQueue[8];
 OSViMode gTvViMode;
