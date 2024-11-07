@@ -149,8 +149,8 @@ UNUSED s32 D_8011D34C;
 DrawTexture *gShadowHeapTextures[4];
 DrawTexture *gCurrentShadowTexture;
 s32 D_8011D364;
-s32 D_8011D368; // xOffset?
-s32 D_8011D36C; // yOffset?
+s32 D_8011D368;   // xOffset?
+s32 D_8011D36C;   // yOffset?
 u16 **D_8011D370; // Allocated 0x7D0
 s32 *D_8011D374;
 s32 D_8011D378;
@@ -697,8 +697,9 @@ s32 func_80027184(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3) {
     } else {
         if (D_8011D4B6.whole == 24) {
             gSPVertexDKR(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(D_8011D488), D_8011D4B6.whole, 0);
-            if (two) {} \
-            gSPPolygon(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(D_8011D498), (D_8011D4B6.whole >> 1), TRIN_DISABLE_TEXTURE);
+            if (two) {}
+            gSPPolygon(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(D_8011D498), (D_8011D4B6.whole >> 1),
+                       TRIN_DISABLE_TEXTURE);
             D_8011D4B6.whole = 0;
             D_8011D488 = gSceneCurrVertexList;
             D_8011D498 = gSceneCurrTriList;
@@ -717,21 +718,21 @@ s32 func_80027184(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3) {
         verts[0].y = (arg0[0] + 2.0f);
         verts[0].z = vertZ1;
         if (1) {
-        verts[0].r = colour.r;
-        verts[0].g = colour.g;
-        verts[0].b = colour.b;
-        verts[0].a = colour.a;
-        verts[1].x = vertX2;
-        verts[1].y = (arg0[1] + 2.0f);
-        verts[1].z = vertZ2;
-        verts[1].r = colour.r;
-        verts[1].g = colour.g;
-        verts[1].b = colour.b;
-        verts[1].a = colour.a;
-        verts[2].x = vertX1;
-        verts[2].y = (arg1[0] - 2.0f);
-        verts[2].z = vertZ1;
-        verts[2].r = colour.r;
+            verts[0].r = colour.r;
+            verts[0].g = colour.g;
+            verts[0].b = colour.b;
+            verts[0].a = colour.a;
+            verts[1].x = vertX2;
+            verts[1].y = (arg0[1] + 2.0f);
+            verts[1].z = vertZ2;
+            verts[1].r = colour.r;
+            verts[1].g = colour.g;
+            verts[1].b = colour.b;
+            verts[1].a = colour.a;
+            verts[2].x = vertX1;
+            verts[2].y = (arg1[0] - 2.0f);
+            verts[2].z = vertZ1;
+            verts[2].r = colour.r;
         }
         verts[2].g = colour.g;
         verts[2].b = colour.b;
@@ -819,12 +820,13 @@ s32 func_80027568(void) {
     if (numRacers == 0) {
         return FALSE;
     }
-    if ((check_if_showing_cutscene_camera() != 0) || (gSceneActiveCamera->object.unk36 >= 5) || (gSceneActiveCamera->object.unk36 == 3)) {
+    if ((check_if_showing_cutscene_camera() != 0) || (gSceneActiveCamera->object.unk36 >= 5) ||
+        (gSceneActiveCamera->object.unk36 == 3)) {
         return FALSE;
     }
     curViewport = get_current_viewport();
-    currentObjRacer = NULL;    
-    for  (i = 0; i < numRacers; i++) {
+    currentObjRacer = NULL;
+    for (i = 0; i < numRacers; i++) {
         if (curViewport == racerGroup[i]->unk64->racer.playerIndex) {
             currentObjRacer = racerGroup[i];
             i = numRacers; // Come on! Just use break!
@@ -846,12 +848,14 @@ s32 func_80027568(void) {
             camXPos = gSceneActiveCamera->trans.x_position;
             camYPos = gSceneActiveCamera->trans.y_position;
             camZPos = gSceneActiveCamera->trans.z_position;
-            projectedCamPos = (((vector->x * camXPos) + (vector->y * camYPos) + (vector->z * camZPos) + vector->w) - 14.0);
+            projectedCamPos =
+                (((vector->x * camXPos) + (vector->y * camYPos) + (vector->z * camZPos) + vector->w) - 14.0);
             if (projectedCamPos < -0.1) {
                 racerXPos = currentObjRacer->segment.trans.x_position;
                 racerYPos = currentObjRacer->segment.trans.y_position;
                 racerZPos = currentObjRacer->segment.trans.z_position;
-                projectedRacerPos = (vector->x * racerXPos) + (vector->y * racerYPos) + (vector->z * racerZPos) + vector->w;
+                projectedRacerPos =
+                    (vector->x * racerXPos) + (vector->y * racerYPos) + (vector->z * racerZPos) + vector->w;
                 if (projectedRacerPos >= -0.1) {
                     if (projectedRacerPos != projectedCamPos) {
                         scalingFactor = projectedRacerPos / (projectedRacerPos - projectedCamPos);
@@ -866,11 +870,9 @@ s32 func_80027568(void) {
                             isNegative = TRUE;
                         }
                         vector = &var_ra->unk18[var_v0];
-                        temp_f18_2 = 
-                            (vector->x * (racerXPos + ((camXPos - racerXPos) * scalingFactor))) +
-                            (vector->y * (racerYPos + ((camYPos - racerYPos) * scalingFactor))) +
-                            (vector->z * (racerZPos + ((camZPos - racerZPos) * scalingFactor))) +
-                            vector->w;
+                        temp_f18_2 = (vector->x * (racerXPos + ((camXPos - racerXPos) * scalingFactor))) +
+                                     (vector->y * (racerYPos + ((camYPos - racerYPos) * scalingFactor))) +
+                                     (vector->z * (racerZPos + ((camZPos - racerZPos) * scalingFactor))) + vector->w;
                         var_f16 = temp_f18_2;
                         if (isNegative) {
                             var_f16 = -temp_f18_2;

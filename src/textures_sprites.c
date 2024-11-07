@@ -838,7 +838,7 @@ void func_8007BF34(Gfx **dlist, s32 argFlags) {
         argFlags &= ~RENDER_VTX_ALPHA;
         argFlags &= ~gBlockedRenderFlags;
         if (((argFlags & RENDER_Z_COMPARE) != (gCurrentRenderFlags & RENDER_Z_COMPARE)) || gForceFlags) {
-            if ((argFlags) & RENDER_Z_COMPARE) {
+            if ((argFlags) &RENDER_Z_COMPARE) {
                 gSPSetGeometryMode((*dlist)++, G_ZBUFFER);
             } else {
                 gSPClearGeometryMode((*dlist)++, G_ZBUFFER);
