@@ -4,3 +4,4 @@ colorama>=0.4.6
 watchdog>=6.0.0
 Levenshtein>=0.26.1
 cxxfilt>=0.3.0
+mapfile-parser>=2.7.1
