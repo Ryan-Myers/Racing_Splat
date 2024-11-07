@@ -28,11 +28,13 @@ Gfx dDialogueBoxDrawModes[][2] = {
         gsDPSetCombineMode(DKR_CC_ENVIRONMENT, DKR_CC_ENVIRONMENT),
         gsDPSetOtherMode(DKR_OMH_1CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_XLU_SURF | G_RM_XLU_SURF2),
     },
-};
 #if REGION == REGION_JP
-// This is more GFX data like above. Likely even within that array.
-s32 D_800E51D8_E5DD8[] = { 0xFC5627FF, 0x1FFCFE38, 0xEF100C0F, 0x00104240 };
+    {
+        gsDPSetCombineMode(DKR_CC_UNK13, DKR_CC_UNK14),
+        gsDPSetOtherMode(DKR_OMH_2CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_NOOP | G_RM_XLU_SURF2),
+    },
 #endif
+};
 
 s8 sDialogueBoxIsOpen = FALSE;
 
