@@ -4,9 +4,13 @@ compiler_type = "ido"
 "g[DS]P.*" = "void"
 "gDma.*" = "void"
 "gDkr.*" = "void"
+"numberOfGfxCommands" = "unsigned int"
 "fast3d_cmd" = "void"
 "OS_PHYSICAL_TO_K0" = "void *"
 "_SHIFTL" = "unsigned int"
+"NULL" = "unsigned int"
+"TRUE" = "unsigned int"
+"FALSE" = "unsigned int"
 
 [decompme.compilers]
 "tools/ido-recomp/linux/cc" = "ido5.3"
