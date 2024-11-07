@@ -30,7 +30,7 @@ Gfx dDialogueBoxDrawModes[][2] = {
     },
 #if REGION == REGION_JP
     {
-        gsDPSetCombineMode(DKR_CC_UNK13, DKR_CC_UNK14),
+        gsDPSetCombineMode(DKR_CC_UNK13, G_CC_PASS2),
         gsDPSetOtherMode(DKR_OMH_2CYC_POINT_NOPERSP, DKR_OML_COMMON | G_RM_NOOP | G_RM_XLU_SURF2),
     },
 #endif
@@ -988,11 +988,7 @@ void render_dialogue_box(Gfx **dlist, MatrixS **mat, Vertex **verts, s32 dialogu
     // Render dialogue box background.
     if (dialogueBox->backgroundColourA != 0) {
         gSPDisplayList((*dlist)++, dDialogueBoxBegin);
-#if REGION == REGION_JP
-        gDkrDmaDisplayList((*dlist)++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[0][2]), 2);
-#else
         gDkrDmaDisplayList((*dlist)++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[1]), 2);
-#endif
         gDPSetEnvColor((*dlist)++, 0, 0, 0, 0);
         if (dialogueBox->x2 - dialogueBox->x1 < 10 || dialogueBox->y2 - dialogueBox->y1 < 10) {
             render_fill_rectangle(dlist, dialogueBox->x1 - 2, dialogueBox->y1 - 2, dialogueBox->x2 + 2,
