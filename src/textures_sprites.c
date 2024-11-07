@@ -829,35 +829,35 @@ void sprite_opaque(s32 setting) {
     gForceFlags = TRUE;
 }
 
-void func_8007BF34(Gfx **dlist, s32 argFlags) {
-    if ((argFlags != gCurrentRenderFlags) || gForceFlags) {
+void func_8007BF34(Gfx **dlist, s32 flags) {
+    if ((flags != gCurrentRenderFlags) || gForceFlags) {
         gDPPipeSync((*dlist)++);
         if ((gCurrentRenderFlags & RENDER_VTX_ALPHA) || gForceFlags) {
             gSPSetGeometryMode((*dlist)++, G_FOG);
         }
-        argFlags &= ~RENDER_VTX_ALPHA;
-        argFlags &= ~gBlockedRenderFlags;
-        if (((argFlags & RENDER_Z_COMPARE) != (gCurrentRenderFlags & RENDER_Z_COMPARE)) || gForceFlags) {
-            if ((argFlags) &RENDER_Z_COMPARE) {
+        flags &= ~RENDER_VTX_ALPHA;
+        flags &= ~gBlockedRenderFlags;
+        if (((flags & RENDER_Z_COMPARE) != (gCurrentRenderFlags & RENDER_Z_COMPARE)) || gForceFlags) {
+            if (flags & RENDER_Z_COMPARE) {
                 gSPSetGeometryMode((*dlist)++, G_ZBUFFER);
             } else {
                 gSPClearGeometryMode((*dlist)++, G_ZBUFFER);
             }
         }
         gForceFlags = FALSE;
-        gCurrentRenderFlags = argFlags;
-        argFlags &= ~RENDER_DECAL;
+        gCurrentRenderFlags = flags;
+        flags &= ~RENDER_DECAL;
         if (gSpriteOpaque == FALSE) {
             if ((gCurrentRenderFlags & RENDER_PRESERVE_COVERAGE)) {
-                gDkrDmaDisplayList((*dlist)++, OS_PHYSICAL_TO_K0(dRenderSettingsSpriteCld[(argFlags >> 1) & 1]),
+                gDkrDmaDisplayList((*dlist)++, OS_PHYSICAL_TO_K0(dRenderSettingsSpriteCld[(flags >> 1) & 1]),
                                    numberOfGfxCommands(dRenderSettingsSpriteCld[0]));
             } else {
                 // fake ^ 0 required for some reason
-                gDkrDmaDisplayList((*dlist)++, OS_PHYSICAL_TO_K0(dRenderSettingsSpriteXlu[(argFlags - 16) ^ 0]),
+                gDkrDmaDisplayList((*dlist)++, OS_PHYSICAL_TO_K0(dRenderSettingsSpriteXlu[(flags - 16) ^ 0]),
                                    numberOfGfxCommands(dRenderSettingsSpriteXlu[0]));
             }
         } else {
-            gDkrDmaDisplayList((*dlist)++, OS_PHYSICAL_TO_K0(dRenderSettingsCommon[argFlags]),
+            gDkrDmaDisplayList((*dlist)++, OS_PHYSICAL_TO_K0(dRenderSettingsCommon[flags]),
                                numberOfGfxCommands(dRenderSettingsCommon[0]));
         }
         gCurrentTextureHeader = NULL;

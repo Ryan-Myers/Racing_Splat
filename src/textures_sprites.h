@@ -124,7 +124,7 @@ s32 func_8007EF64(s16 arg0);
 void load_and_set_texture(Gfx **dlist, TextureHeader *texhead, s32 flags, s32 texOffset);
 void free_sprite(Sprite *sprite);
 void free_texture(TextureHeader *tex);
-void func_8007BF34(Gfx **dlist, s32 argFlags);
+void func_8007BF34(Gfx **dlist, s32 flags);
 
 // There might be a file boundary here.
 void tex_animate_texture(TextureHeader *texture, u32 *triangleBatchInfoFlags, s32 *arg2, s32 updateRate);
