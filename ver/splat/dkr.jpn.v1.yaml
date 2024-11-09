@@ -328,7 +328,7 @@ segments:
       - [0xE7080, .data, ../libultra/src/libc/xlitob]
       - [0xE70B0, .rodata, audio]
       - [0xE7150, .rodata, audiomgr]
-      - [0xE7310, .rodata, audiosfx]
+      - [0xE7210, .rodata, audiosfx]
       - [0xE7350, .rodata, audio_vehicle]
       - [0xE7460, .rodata, audio_spatial]
       - [0xE7690, .rodata, ../libultra/src/audio/mips1/seqplayer]

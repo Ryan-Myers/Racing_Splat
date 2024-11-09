@@ -236,7 +236,7 @@ clean:
 	rm -rf $(BUILD_DIR)
 	
 cleanall:
-	rm -rf build
+	rm -rf $(BUILD_DIR)
 
 distclean: clean
 	rm -rf $(ASM_DIRS)
