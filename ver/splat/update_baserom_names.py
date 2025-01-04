@@ -38,21 +38,14 @@ def update_yaml_file(yamlFilePath):
     target_path_dir = os.path.dirname(yamlOptions['target_path'])
     target_path_basename = os.path.basename(yamlOptions['target_path'])
     target_folder = os.path.join(basepath, target_path_dir)
+    target_path_full = os.path.join(target_folder, target_path_basename)
     target_folder_files = get_all_files_from_directory(target_folder)
-    newTargetPath = None
     for file in target_folder_files:
         if get_sha1_hash(file) == yamlSha1:
-            if os.path.basename(file) == target_path_basename:
-                #print('No need to update the name!')
+            if os.path.basename(file) != target_path_basename:
+                print(f'Baserom file "{os.path.basename(file)}" renamed to "{target_path_basename}"')
+                os.rename(file, target_path_full) 
                 return
-            # Name does NOT match, so need to update the yaml.
-            newTargetPath = os.path.relpath(file, start=basepath)
-            break
-    if newTargetPath == None:
-        return
-    yamlData['options']['target_path'] = newTargetPath
-    print('target_path in YAML config "' + yamlFilePath + '" was changed to "' + newTargetPath + '"')
-    yaml.dump(yamlData, open(yamlFilePath, 'w')) # Save the new change.
 
 def main():
     parser = argparse.ArgumentParser(description='Updates the target_path option for the yaml files.') 
@@ -63,8 +56,6 @@ def main():
         yamlFilePaths = get_yaml_files(CURRENT_DIR)
     else:
         yamlFilePaths = [ os.path.join(CURRENT_DIR, args.yamlFile) ]
-        
-    print(yamlFilePaths)
     
     for filePath in yamlFilePaths:
         update_yaml_file(filePath)

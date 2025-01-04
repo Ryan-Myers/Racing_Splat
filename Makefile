@@ -216,11 +216,11 @@ no_verify: $(TARGET).z64
 	$(V)$(PRINT) "$(GREEN)Build Complete!$(NO_COL)\n"
 
 extract:
-	$(V)python3 ver/splat/update_target_paths.py $(BASENAME).$(REGION).$(VERSION).yaml
+	$(V)python3 ver/splat/update_baserom_names.py $(BASENAME).$(REGION).$(VERSION).yaml
 	$(SPLAT) ver/splat/$(BASENAME).$(REGION).$(VERSION).yaml
 
 extractall:
-	$(V)python3 ver/splat/update_target_paths.py
+	$(V)python3 ver/splat/update_baserom_names.py
 	$(SPLAT) ver/splat/$(BASENAME).us.v1.yaml
 	$(SPLAT) ver/splat/$(BASENAME).pal.v1.yaml
 	$(SPLAT) ver/splat/$(BASENAME).jpn.v1.yaml
