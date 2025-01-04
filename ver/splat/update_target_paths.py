@@ -68,8 +68,6 @@ def main():
     
     for filePath in yamlFilePaths:
         update_yaml_file(filePath)
-    
-    
 
 if __name__ == '__main__':
     main()
