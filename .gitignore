@@ -6,24 +6,8 @@
 #compiled or ripped asm
 asm/*
 asm
-asm_jpn_v1
-asm_jpn_V1/*
-asm_pal_v1
-asm_pal_v1/*
 build/*
 build/
-build_jpn_v1/*
-build_jpn_V1/
-build_pal_v1/*
-build_pal_v1/
-asm_us_v2
-asm_us_v2/*
-asm_pal_v2
-asm_pal_v2/*
-build_us_v2/*
-build_us_v2/
-build_pal_v2/*
-build_pal_v2/
 
 #binaries ripped from the ROMs
 assets/

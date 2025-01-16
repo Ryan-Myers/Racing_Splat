@@ -1,6 +1,6 @@
 BASENAME  = dkr
 REGION  := us
-VERSION  := v1
+VERSION  := v77
 NON_MATCHING ?= 0
 
 LIBULTRA_VERSION_DEFINE := -DBUILD_VERSION=4 -DBUILD_VERSION_STRING=\"2.0G\" -DRAREDIFFS
@@ -219,11 +219,11 @@ extract:
 	$(SPLAT) ver/splat/$(BASENAME).$(REGION).$(VERSION).yaml
 
 extractall:
-	$(SPLAT) ver/splat/$(BASENAME).us.v1.yaml
-	$(SPLAT) ver/splat/$(BASENAME).pal.v1.yaml
-	$(SPLAT) ver/splat/$(BASENAME).jpn.v1.yaml
-	$(SPLAT) ver/splat/$(BASENAME).us.v2.yaml
-	$(SPLAT) ver/splat/$(BASENAME).pal.v2.yaml
+	$(SPLAT) ver/splat/$(BASENAME).us.v77.yaml
+	$(SPLAT) ver/splat/$(BASENAME).pal.v77.yaml
+	$(SPLAT) ver/splat/$(BASENAME).jpn.v79.yaml
+	$(SPLAT) ver/splat/$(BASENAME).us.v80.yaml
+	$(SPLAT) ver/splat/$(BASENAME).pal.v80.yaml
 
 dependencies:
 	$(V)$(PYTHON) ver/splat/update_baserom_names.py
@@ -249,16 +249,16 @@ distcleanall: cleanall
 	rm -rf asm
 	rm -rf assets
 	rm -f $(SYMBOLS_DIR)/*auto.*.txt
-	rm -f ver/dkr.us.v1.ld
-	rm -f ver/dkr.us.v2.ld
-	rm -f ver/dkr.pal.v1.ld
-	rm -f ver/dkr.pal.v2.ld
-	rm -f ver/dkr.jpn.v1.ld
-	rm -f $(SYMBOLS_DIR)/*auto.us.v1.txt
-	rm -f $(SYMBOLS_DIR)/*auto.pal.v1.txt
-	rm -f $(SYMBOLS_DIR)/*auto.jpn.v1.txt
-	rm -f $(SYMBOLS_DIR)/*auto.us.v2.txt
-	rm -f $(SYMBOLS_DIR)/*auto.pal.v2.txt
+	rm -f ver/dkr.us.v77.ld
+	rm -f ver/dkr.us.v80.ld
+	rm -f ver/dkr.pal.v77.ld
+	rm -f ver/dkr.pal.v80.ld
+	rm -f ver/dkr.jpn.v79.ld
+	rm -f $(SYMBOLS_DIR)/*auto.us.v77.txt
+	rm -f $(SYMBOLS_DIR)/*auto.pal.v77.txt
+	rm -f $(SYMBOLS_DIR)/*auto.jpn.v79.txt
+	rm -f $(SYMBOLS_DIR)/*auto.us.v80.txt
+	rm -f $(SYMBOLS_DIR)/*auto.pal.v80.txt
 
 #When you just need to wipe old symbol names and re-extract
 cleanextract: distclean extract

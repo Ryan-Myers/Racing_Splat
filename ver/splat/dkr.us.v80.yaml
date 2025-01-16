@@ -1,18 +1,18 @@
 name: Diddy Kong Racing (North America)
 sha1: 6d96743d46f8c0cd0edb0ec5600b003c89b93755
 options:
-  basename: dkr.us.v2
-  target_path: baseroms/baserom.us.v2.z64
+  basename: dkr.us.v80
+  target_path: baseroms/baserom.us.v80.z64
   base_path: ../../
   compiler: IDO
   find_file_boundaries: True
   header_encoding: ASCII
   platform: n64
-  undefined_funcs_auto_path: ver/symbols/undefined_funcs_auto.us.v2.txt
-  undefined_syms_auto_path: ver/symbols/undefined_syms_auto.us.v2.txt
-  symbol_addrs_path: ver/symbols/symbol_addrs.us.v2.txt
+  undefined_funcs_auto_path: ver/symbols/undefined_funcs_auto.us.v80.txt
+  undefined_syms_auto_path: ver/symbols/undefined_syms_auto.us.v80.txt
+  symbol_addrs_path: ver/symbols/symbol_addrs.us.v80.txt
   symbol_name_format: $VRAM_$ROM
-  ld_script_path: ver/dkr.us.v2.ld
+  ld_script_path: ver/dkr.us.v80.ld
   asm_path: asm
   src_path: src
   build_path: build

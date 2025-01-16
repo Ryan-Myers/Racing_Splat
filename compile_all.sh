@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# do us v1 last as that will make it easier to keep decompiling with the default version
+# do us v77 last as that will make it easier to keep decompiling with the default version
 regions=('pal' 'jpn' 'us' 'pal' 'us')
-versions=('v1' 'v1' 'v2' 'v2' 'v1')
+versions=('v77' 'v79' 'v80' 'v80' 'v77')
 
 for i in ${!regions[@]}; do
     region=${regions[$i]}
