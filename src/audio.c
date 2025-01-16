@@ -50,7 +50,7 @@ u8 gCurrentJingleID;
 s32 gMusicTempo;
 u32 *gSeqLengthTable;
 ALBankFile *gSequenceBank;
-ALBankFile *gSoundBank;
+ALBankFile *gSoundBank; // Official Name: sfxBankPtr
 SoundData *gSoundTable;
 MusicData *gSeqSoundTable;
 s32 gSoundCount;
@@ -895,6 +895,7 @@ UNUSED void sound_pitch_set(SoundMask *soundMask, u32 pitch) {
 
 /**
  * Return the number of playable sounds in the audio table.
+ * Official name: amGetSfxCount
  */
 u16 sound_count(void) {
     return gSoundBank->bankArray[0]->instArray[0]->soundCount;

@@ -216,11 +216,9 @@ no_verify: $(TARGET).z64
 	$(V)$(PRINT) "$(GREEN)Build Complete!$(NO_COL)\n"
 
 extract:
-	$(V)python3 ver/splat/update_baserom_names.py $(BASENAME).$(REGION).$(VERSION).yaml
 	$(SPLAT) ver/splat/$(BASENAME).$(REGION).$(VERSION).yaml
 
 extractall:
-	$(V)python3 ver/splat/update_baserom_names.py
 	$(SPLAT) ver/splat/$(BASENAME).us.v1.yaml
 	$(SPLAT) ver/splat/$(BASENAME).pal.v1.yaml
 	$(SPLAT) ver/splat/$(BASENAME).jpn.v1.yaml
@@ -228,6 +226,7 @@ extractall:
 	$(SPLAT) ver/splat/$(BASENAME).pal.v2.yaml
 
 dependencies:
+	$(V)$(PYTHON) ver/splat/update_baserom_names.py
 	$(V)make -C $(TOOLS_DIR)
 #Set up a python venv so we don't get warnings about breaking system packages.
 	$(V)python3 -m venv $(VENV)
