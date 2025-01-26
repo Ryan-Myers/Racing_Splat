@@ -226,12 +226,12 @@ extractall:
 	$(SPLAT) ver/splat/$(BASENAME).pal.v80.yaml
 
 dependencies:
-	$(V)$(PYTHON) ver/splat/update_baserom_names.py
-	$(V)make -C $(TOOLS_DIR)
 #Set up a python venv so we don't get warnings about breaking system packages.
 	$(V)python3 -m venv $(VENV)
 #Installing the splat dependencies
 	$(V)$(PYTHON) -m pip install -r requirements.txt
+	$(V)$(PYTHON) ver/splat/update_baserom_names.py
+	$(V)make -C $(TOOLS_DIR)
 
 clean:
 	rm -rf $(BUILD_DIR)
