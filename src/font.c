@@ -77,18 +77,33 @@ s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be relat
                      // Axis?
 
 #if REGION == REGION_JP
-#define JP_FONT_ARRAY_SIZE 128
+#define JP_FONT_ARRAY_SIZE 256
+#define NUMBER_OF_JP_FONTS 4
+
+// Header for a single japanese character. 0x10 bytes
+typedef struct JpCharHeader {
+    u8 pad[0xE];
+    u8 spacing;
+    u8 unkF;
+} JpCharHeader;
+
+// Japanese Font Header, 0x10 bytes
+// Asset45 contains 4 font headers.
 typedef struct FontData_JP {
     u8 unk0;
     u8 x;
     u8 y;
     u8 charWidth;
     u8 height;
-    u8 pad[11];
+    u8 pad[3];
+    s32 offsetToData;
+    s32 bytesPerCharacter;
 } FontData_JP;
+
 typedef struct FontJpSpacing {
     u8 spacing[256]; // 256 characters in the japanese font
 } FontJpSpacing;
+
 typedef struct Unk8012C2D4_JP {
     char unk0;
     char unk1;
@@ -99,7 +114,7 @@ typedef struct Unk8012C2D4_JP {
 FontData_JP *D_8012C2A4_EE5E4;
 FontJpSpacing* D_8012C2A8_EE5E8[4]; // 4 tables for spacing in different fonts?
 s32 D_8012C2B8_EE5F8;
-Unk8012C2D4_JP (*D_8012C2BC_EE5FC)[JP_FONT_ARRAY_SIZE];
+Unk8012C2D4_JP (*D_8012C2BC_EE5FC)[128];
 Unk8012C2D4_JP *D_8012C2C0_EE600;
 Unk8012C2D4_JP *D_8012C2C4_EE604;
 Unk8012C2D4_JP *D_8012C2C8_EE608;
@@ -1283,51 +1298,46 @@ void parse_string_with_number(char *input, char *output, s32 number) {
 
 #if REGION == REGION_JP
 
-#ifdef NON_EQUIVALENT
 void func_800C6464_C7064(void) {
     s32 i;
-    s32 var_s0;
-    s32 **var_s3;
-    u8 *asset46;
-    Asset45 *temp_s1;
+    s32 charIndex;
+    u8 **var_s3;
+    JpCharHeader *jpFontData;
+    FontData_JP *jpFontHeader;
 
     D_8012C2C4_EE604 = allocate_from_main_pool_safe(0x6C00, COLOUR_TAG_RED);
     D_8012C2C8_EE608 = allocate_from_main_pool_safe(0x400, COLOUR_TAG_RED);
     D_8012C2CC_EE60C = allocate_from_main_pool_safe(0x9000, COLOUR_TAG_RED);
-    var_s0 = 0;
-    for (i = 0; i < 0x80; i++) {
+    for (i = 0, charIndex = 0; i < 128; i++) {
         D_8012C2C8_EE608[i].unk0 = 0;
-        D_8012C2C8_EE608[i].unk4 = &D_8012C2C4_EE604[var_s0];
+        D_8012C2C8_EE608[i].unk4 = &D_8012C2C4_EE604[charIndex];
         if (i & 1) {
-            var_s0 += 10;
+            charIndex += 10;
         } else {
-            var_s0 += 17;
+            charIndex += 17;
         }
     }
 
-    D_8012C2A4_EE5E4 = load_asset_section_from_rom(ASSET_BINARY_45);
-    D_8012C2A8_EE5E8[0] = allocate_from_main_pool_safe(0x400, COLOUR_TAG_RED);
-    var_s3 = &D_8012C2A8_EE5E8[1];
-    for (i = 0x100; i < 0x400; i += 0x100) {
-        var_s3[0] = &D_8012C2A8_EE5E8[0][i];
-        var_s3++;
+    D_8012C2A4_EE5E4 = (FontData_JP *) load_asset_section_from_rom(ASSET_BINARY_45);
+
+    // Init the 4 pointers in D_8012C2A8_EE5E8 (table for spacing of each character in every font)
+    D_8012C2A8_EE5E8[0] = allocate_from_main_pool_safe(NUMBER_OF_JP_FONTS * JP_FONT_ARRAY_SIZE, COLOUR_TAG_RED);
+    for (i = 1; i < 4; i++) {
+        D_8012C2A8_EE5E8[i] = &D_8012C2A8_EE5E8[0]->spacing[i * JP_FONT_ARRAY_SIZE];
     }
 
-    asset46 = allocate_from_main_pool_safe(0x40, COLOUR_TAG_RED);
+    jpFontData = allocate_from_main_pool_safe(0x40, COLOUR_TAG_RED);
     for (i = 0; i < 4; i++) {
-        temp_s1 = &D_8012C2A4_EE5E4[i];
-        for (var_s0 = 0; var_s0 < 0x100; var_s0++) {
-            load_asset_to_address(ASSET_BINARY_46, (u32) asset46, temp_s1->unk8 + (var_s0 * temp_s1->unkC), 0x40);
-            D_8012C2A8_EE5E8[i][var_s0] = asset46[0xE];
+        jpFontHeader = &D_8012C2A4_EE5E4[i];
+        for (charIndex = 0; charIndex < JP_FONT_ARRAY_SIZE; charIndex++) {
+            load_asset_to_address(ASSET_BINARY_46, (u32) jpFontData, jpFontHeader->offsetToData + (charIndex * jpFontHeader->bytesPerCharacter), 0x40);
+            D_8012C2A8_EE5E8[i]->spacing[charIndex] = jpFontData->spacing;
         }
     }
 
-    free_from_memory_pool(asset46);
+    free_from_memory_pool(jpFontData);
     D_8012C2B8_EE5F8 = 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
-#endif
 
 void func_800C663C_C723C(void) {
     s32 i;
@@ -1639,7 +1649,7 @@ void func_800C78E0_C84E0(void) {
     D_8012C2BC_EE5FC = D_8012C2C8_EE608;
     D_8012C2C0_EE600 = D_8012C2CC_EE60C;
     do {
-        for (i = 0; i < JP_FONT_ARRAY_SIZE; i++) {
+        for (i = 0; i < 128; i++) {
             if ((*D_8012C2BC_EE5FC)[i].unk0) {
                 (*D_8012C2BC_EE5FC)[i].unk0--;
             }
