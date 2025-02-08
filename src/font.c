@@ -82,9 +82,15 @@ s32 gCompactKerning; // Official Name: squash - Boolean value, seems to be relat
 
 // Header for a single japanese character. 0x10 bytes
 typedef struct JpCharHeader {
-    u8 pad[0xE];
+    char *ptr;
+    char *unk4;
+    u8 pad8[2];
+    u8 left;
+    u8 top; 
+    u8 right;
+    u8 bottom;
     u8 spacing;
-    u8 unkF;
+    u8 padF;
 } JpCharHeader;
 
 // Japanese Font Header, 0x10 bytes
@@ -115,10 +121,10 @@ FontData_JP *D_8012C2A4_EE5E4;
 FontJpSpacing* D_8012C2A8_EE5E8[4]; // 4 tables for spacing in different fonts?
 s32 D_8012C2B8_EE5F8;
 Unk8012C2D4_JP (*D_8012C2BC_EE5FC)[128];
-Unk8012C2D4_JP *D_8012C2C0_EE600;
-Unk8012C2D4_JP *D_8012C2C4_EE604;
-Unk8012C2D4_JP *D_8012C2C8_EE608;
-Unk8012C2D4_JP *D_8012C2CC_EE60C;
+JpCharHeader (*D_8012C2C0_EE600)[18];
+JpCharHeader (*D_8012C2C4_EE604)[18];
+JpCharHeader (*D_8012C2C8_EE608)[18];
+JpCharHeader (*D_8012C2CC_EE60C)[18];
 Unk8012C2D4_JP *D_8012C2D0_EE610;
 Unk8012C2D4_JP *D_8012C2D4_EE614;
 Unk8012C2D4_JP *D_8012C2D8_EE618;
@@ -1298,6 +1304,7 @@ void parse_string_with_number(char *input, char *output, s32 number) {
 
 #if REGION == REGION_JP
 
+#ifdef NON_EQUIVALENT
 void func_800C6464_C7064(void) {
     s32 i;
     s32 charIndex;
@@ -1309,8 +1316,8 @@ void func_800C6464_C7064(void) {
     D_8012C2C8_EE608 = allocate_from_main_pool_safe(0x400, COLOUR_TAG_RED);
     D_8012C2CC_EE60C = allocate_from_main_pool_safe(0x9000, COLOUR_TAG_RED);
     for (i = 0, charIndex = 0; i < 128; i++) {
-        D_8012C2C8_EE608[i].unk0 = 0;
-        D_8012C2C8_EE608[i].unk4 = &D_8012C2C4_EE604[charIndex];
+        (*D_8012C2C8_EE608)[i].ptr = 0;
+        (*D_8012C2C8_EE608)[i].unk4 = &D_8012C2C4_EE604[charIndex];
         if (i & 1) {
             charIndex += 10;
         } else {
@@ -1338,6 +1345,9 @@ void func_800C6464_C7064(void) {
     free_from_memory_pool(jpFontData);
     D_8012C2B8_EE5F8 = 0;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
+#endif
 
 void func_800C663C_C723C(void) {
     s32 i;
@@ -1388,88 +1398,81 @@ void func_800C6870_C7470(void) {
     }
 }
 
-#ifdef NON_EQUIVALENT
 s32 func_800C68CC_C74CC(u16 arg0) {
     s32 assetSize;
     s32 i;
+    s32 var_t0; 
     s32 var_a3;
-    s32 var_s0;
-    s32 var_t0;
+    s32 curIndex;
     s32 var_v1;
-    u16 var_t2;
+    u16 glyphIndex;
     Unk8012C2D4_JP *asset;
 
-    var_t2 = ((D_8012C2B8_EE5F8 << 12) | (arg0 & 0xFFF));
-    var_a3 = (D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unkC + 0x11F) / 0x120;
+    glyphIndex = ((D_8012C2B8_EE5F8 << 12) | (arg0 & 0xFFF));
+    var_a3 = (D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].bytesPerCharacter + 0x11F) / 0x120;
     D_8012C2BC_EE5FC = D_8012C2C8_EE608;
     D_8012C2C0_EE600 = D_8012C2CC_EE60C;
-    var_s0 = -1;
-
+    curIndex = -1;
+    
     do {
-        i = 0;
-        if (var_a3 <= JP_FONT_ARRAY_SIZE && var_s0 < 0) {
-            do {
-                if ((*D_8012C2BC_EE5FC)[i].unk0 != 0 && (*D_8012C2BC_EE5FC)[i].unk2 == var_t2) {
-                    var_s0 = i;
-                }
-                i += var_a3;
-            } while (i <= JP_FONT_ARRAY_SIZE && var_s0 < 0);
+        for (i = 0; i + var_a3 <= 128 && curIndex < 0; i += var_a3) {
+            if ((*D_8012C2BC_EE5FC)[i].unk0 != 0 && (*D_8012C2BC_EE5FC)[i].unk2 == glyphIndex) {
+                curIndex = i;
+            }  
         }
-        if (var_s0 < 0) {
+        if (curIndex < 0) {
             func_800C6870_C7470();
         }
-    } while ((D_8012C2CC_EE60C != D_8012C2C0_EE600) && (var_s0 < 0));
-
-    if (var_s0 >= 0) {
-        return var_s0;
+    } while ((D_8012C2C0_EE600 != D_8012C2CC_EE60C) && (curIndex < 0));
+    
+    if (curIndex >= 0) {
+        return curIndex;
     } else {
         D_8012C2BC_EE5FC = D_8012C2C8_EE608;
         D_8012C2C0_EE600 = D_8012C2CC_EE60C;
         do {
-            i = 0;
-            if (var_a3 <= JP_FONT_ARRAY_SIZE && var_s0 < 0) {
-                var_t0 = var_a3;
-                do {
-                    if (((*D_8012C2BC_EE5FC)[i].unk0) == 0) {
-                        var_s0 = i;
-                        for (var_v1 = 1; var_v1 < var_a3; var_v1++) {
-                            if ((*D_8012C2BC_EE5FC)[i + var_v1].unk0 != 0) {
-                                var_s0 = -1;
-                            }
+            for (i = 0; i + var_a3 <= 128 && curIndex < 0; i += var_a3) {
+                if (((*D_8012C2BC_EE5FC)[i].unk0) == 0) {
+                    curIndex = i;
+                    for (var_v1 = 1; var_v1 < var_a3; var_v1++) {
+                        if ((*D_8012C2BC_EE5FC)[i + var_v1].unk0 != 0) {
+                            curIndex = -1;
                         }
                     }
-                    i = var_t0;
-                    var_t0 += var_a3;
-                } while (var_t0 <= JP_FONT_ARRAY_SIZE && var_s0 < 0);
-            }
-            if (var_s0 < 0) {
-                func_800C6870_C7470();
-            }
-        } while ((D_8012C2CC_EE60C != D_8012C2C0_EE600) && (var_s0 < 0));
-
-        if (var_s0 >= 0) {
-            for (var_v1 = 0; var_v1 < var_a3; var_v1++) {
-                (*D_8012C2BC_EE5FC)[var_s0 + var_v1].unk1 = var_a3;
-                if (var_v1 == 0) {
-                    (*D_8012C2BC_EE5FC)[var_s0 + var_v1].unk2 = var_t2;
-                } else {
-                    (*D_8012C2BC_EE5FC)[var_s0 + var_v1].unk2 = -1;
                 }
             }
-            asset = &D_8012C2C0_EE600[var_s0 * 0x24];
-            assetSize = D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unkC;
-            load_asset_to_address(ASSET_BINARY_46, (u32) asset,
-                                  (assetSize * arg0) + D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk8, assetSize);
-            func_800C6DD4_C79D4((*D_8012C2BC_EE5FC)[var_s0].unk4, asset, D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk1,
-                                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].unk2);
+            if (curIndex < 0) {
+                func_800C6870_C7470();
+            }
+        } while ((D_8012C2C0_EE600 != D_8012C2CC_EE60C) && (curIndex < 0));
+
+        if (curIndex >= 0) {
+            for (var_v1 = 0; var_v1 < var_a3; var_v1++) {
+                (*D_8012C2BC_EE5FC)[curIndex + var_v1].unk1 = var_a3;
+                if (var_v1 == 0) {
+                    (*D_8012C2BC_EE5FC)[curIndex + var_v1].unk2 = glyphIndex;
+                } else {
+                    (*D_8012C2BC_EE5FC)[curIndex + var_v1].unk2 = -1;
+                }
+            }
+            asset = &D_8012C2C0_EE600[curIndex];
+            load_asset_to_address(
+                ASSET_BINARY_46, 
+                (u32) asset,
+                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].offsetToData + (D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].bytesPerCharacter * arg0), 
+                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].bytesPerCharacter
+            );
+            func_800C6DD4_C79D4(
+                (*D_8012C2BC_EE5FC)[curIndex].unk4,
+                asset, 
+                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].x,
+                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].y
+            );
         }
 
-        return var_s0;
+        return curIndex;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C68CC_C74CC.s")
-#endif
 
 #ifdef NON_EQUIVALENT
 typedef struct Asset46Texture {
@@ -1586,25 +1589,21 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
 #pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
 #endif
 
-#ifdef NON_EQUIVALENT
-s32 func_800C7744_C8344(Gfx **dlist, u16 arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5) {
-    s32 temp_v0;
-    Unk8012C2D4_JP2 *temp_v1;
+s32 func_800C7744_C8344(Gfx **dlist, u16 charIndex, s32 *outLeft, s32 *outTop, s32 *outRight, s32 *outBottom) {
+    s32 index;
+    JpCharHeader *jpChar;
 
-    temp_v0 = func_800C68CC_C74CC(arg1);
-    if (temp_v0 >= 0) {
-        gSPDisplayList((*dlist)++, (*D_8012C2BC_EE5FC)[temp_v0].unk4);
-        temp_v1 = &D_8012C2C0_EE600[temp_v0];
-        *arg2 = temp_v1[0].unkA;
-        *arg3 = temp_v1[0].unkB;
-        *arg4 = temp_v1[0].unkC;
-        *arg5 = temp_v1[0].unkD;
+    index = func_800C68CC_C74CC(charIndex);
+    if (index >= 0) {
+        gSPDisplayList((*dlist)++, (*D_8012C2BC_EE5FC)[index].unk4);
+        jpChar = D_8012C2C0_EE600[index];
+        *outLeft = jpChar->left;
+        *outTop = jpChar->top;
+        *outRight = jpChar->right;
+        *outBottom = jpChar->bottom;
     }
-    return temp_v0;
+    return index;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C7744_C8344.s")
-#endif
 
 void func_800C7804_C8404(s32 arg0) {
     s32 i;
