@@ -90,7 +90,6 @@ typedef struct JpCharHeader {
     u8 right;
     u8 bottom;
     u8 spacing;
-    u8 padF;
 } JpCharHeader;
 
 // Japanese Font Header, 0x10 bytes
@@ -122,8 +121,8 @@ FontJpSpacing* D_8012C2A8_EE5E8[4]; // 4 tables for spacing in different fonts?
 s32 D_8012C2B8_EE5F8;
 Unk8012C2D4_JP (*D_8012C2BC_EE5FC)[128];
 JpCharHeader (*D_8012C2C0_EE600)[18];
-JpCharHeader (*D_8012C2C4_EE604)[18];
-JpCharHeader (*D_8012C2C8_EE608)[18];
+Unk8012C2D4_JP *D_8012C2C4_EE604;
+Unk8012C2D4_JP *D_8012C2C8_EE608;
 JpCharHeader (*D_8012C2CC_EE60C)[18];
 Unk8012C2D4_JP *D_8012C2D0_EE610;
 Unk8012C2D4_JP *D_8012C2D4_EE614;
@@ -1304,7 +1303,6 @@ void parse_string_with_number(char *input, char *output, s32 number) {
 
 #if REGION == REGION_JP
 
-#ifdef NON_EQUIVALENT
 void func_800C6464_C7064(void) {
     s32 i;
     s32 charIndex;
@@ -1316,8 +1314,8 @@ void func_800C6464_C7064(void) {
     D_8012C2C8_EE608 = allocate_from_main_pool_safe(0x400, COLOUR_TAG_RED);
     D_8012C2CC_EE60C = allocate_from_main_pool_safe(0x9000, COLOUR_TAG_RED);
     for (i = 0, charIndex = 0; i < 128; i++) {
-        (*D_8012C2C8_EE608)[i].ptr = 0;
-        (*D_8012C2C8_EE608)[i].unk4 = &D_8012C2C4_EE604[charIndex];
+        D_8012C2C8_EE608[i].unk0 = 0;
+        D_8012C2C8_EE608[i].unk4 = &D_8012C2C4_EE604[charIndex];
         if (i & 1) {
             charIndex += 10;
         } else {
@@ -1345,9 +1343,6 @@ void func_800C6464_C7064(void) {
     free_from_memory_pool(jpFontData);
     D_8012C2B8_EE5F8 = 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6464_C7064.s")
-#endif
 
 void func_800C663C_C723C(void) {
     s32 i;
