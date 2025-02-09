@@ -1260,7 +1260,22 @@ void render_dialogue_box(Gfx **dlist, MatrixS **mat, Vertex **verts, s32 dialogu
  * Takes in a string and a number, and replaces each instance of the
  * character '~' with the number.
  */
-#if REGION == REGION_JP
+#if REGION != REGION_JP
+void parse_string_with_number(char *input, char *output, s32 number) {
+    while (*input) {
+        if (*input == '~') { // ~ is equivalent to a %d.
+            // output the number as part of the string
+            s32_to_string(&output, number);
+            input++;
+        } else {
+            *output = *input;
+            input++;
+            output++;
+        }
+    }
+    *output = '\0'; // null terminator
+}
+#else
 void parse_string_with_number(char *input, char *output, s32 number) {
     char currentChar;
 
@@ -1284,24 +1299,6 @@ void parse_string_with_number(char *input, char *output, s32 number) {
     }
     *output = '\0'; // null terminator
 }
-#else
-void parse_string_with_number(char *input, char *output, s32 number) {
-    while (*input) {
-        if (*input == '~') { // ~ is equivalent to a %d.
-            // output the number as part of the string
-            s32_to_string(&output, number);
-            input++;
-        } else {
-            *output = *input;
-            input++;
-            output++;
-        }
-    }
-    *output = '\0'; // null terminator
-}
-#endif
-
-#if REGION == REGION_JP
 
 void func_800C6464_C7064(void) {
     s32 i;
@@ -1469,28 +1466,20 @@ s32 func_800C68CC_C74CC(u16 arg0) {
     }
 }
 
-#ifdef NON_EQUIVALENT
-typedef struct Asset46Texture {
-    s32 unk0; // Texture ID?
-} Asset46Texture;
-typedef struct Asset46 {
-    Asset46Texture *unk0;
-    Asset46Texture *unk4;
-    s32 unk8;
-} Asset46;
 void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
-    if (asset->unk0->unk0 != -1) {
-        asset->unk0 = (asset + 1);
+    if (asset->unk0.value != -1) {
+        asset->unk0.texture = (s32)asset + asset->unk0.value;
     } else {
-        asset->unk0 = NULL;
+        asset->unk0.value = NULL;
     }
-    if (asset->unk4->unk0 != -1) {
-        asset->unk4 = (asset + 2);
+    if (asset->unk4.value != -1) {
+        asset->unk4.texture = (s32)asset + asset->unk4.value;
     } else {
-        asset->unk4 = NULL;
+        asset->unk4.value = NULL;
     }
-    if (asset->unk4 != NULL) {
-        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height,
+
+    if (asset->unk4.value != NULL) {
+        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height,
                              0,                         // palette
                              G_TX_NOMIRROR | G_TX_WRAP, // cms
                              G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1499,7 +1488,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                              G_TX_NOLOD,                // shifts
                              G_TX_NOLOD);               // shiftt
 
-        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk4), G_IM_FMT_I, G_IM_SIZ_4b, width, height,
+        gDPLoadMultiBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk4.value), 0x100, 1, G_IM_FMT_I, width, height,
                              0,                         // palette
                              G_TX_NOMIRROR | G_TX_WRAP, // cms
                              G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1508,12 +1497,11 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                              G_TX_NOLOD,                // shifts
                              G_TX_NOLOD);               // shiftt
 
-        gDkrDmaDisplayList(dlist++, OS_PHYSICAL_TO_K0(&dDialogueBoxDrawModes[5][2]),
-                           numberOfGfxCommands(dDialogueBoxDrawModes[1]));
+        gDkrDmaDisplayList(dlist++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[2]), numberOfGfxCommands(dDialogueBoxDrawModes[1]));
     } else {
         switch (asset->unk8) {
-            case 0:
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_32b, width,
+            case 0: // RGBA32
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_RGBA, G_IM_SIZ_32b, width,
                                      height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
@@ -1523,8 +1511,8 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD,                // shifts
                                      G_TX_NOLOD);               // shiftt
                 break;
-            case 1:
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width,
+            case 1: // RGBA16
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_RGBA, G_IM_SIZ_16b, width,
                                      height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
@@ -1534,8 +1522,8 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD,                // shifts
                                      G_TX_NOLOD);               // shiftt
                 break;
-            case 5:
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_8b, width, height,
+            case 5: // IA8
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_IA, G_IM_SIZ_8b, width, height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
                                      G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1544,8 +1532,8 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD,                // shifts
                                      G_TX_NOLOD);               // shiftt
                 break;
-            case 6:
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_4b, width, height,
+            case 6: // IA4
+                gDPLoadTextureBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_IA, width, height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
                                      G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1554,8 +1542,8 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD,                // shifts
                                      G_TX_NOLOD);               // shiftt
                 break;
-            case 3:
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_4b, width, height,
+            case 3: // I4
+                gDPLoadTextureBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_I, width, height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
                                      G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1564,8 +1552,8 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD,                // shifts
                                      G_TX_NOLOD);               // shiftt
                 break;
-            case 2:
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_8b, width, height,
+            case 2: // I8
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_I, G_IM_SIZ_8b, width, height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
                                      G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1575,14 +1563,10 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD);               // shiftt
                 break;
         }
-        gDkrDmaDisplayList(dlist++, OS_PHYSICAL_TO_K0(&dDialogueBoxDrawModes[3][2]),
-                           numberOfGfxCommands(dDialogueBoxDrawModes[1]));
+        gDkrDmaDisplayList(dlist++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[0]), numberOfGfxCommands(dDialogueBoxDrawModes[1]));
     }
     gSPEndDisplayList(dlist++);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/font/func_800C6DD4_C79D4.s")
-#endif
 
 s32 func_800C7744_C8344(Gfx **dlist, u16 charIndex, s32 *outLeft, s32 *outTop, s32 *outRight, s32 *outBottom) {
     s32 index;
