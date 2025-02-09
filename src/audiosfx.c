@@ -27,7 +27,6 @@ const char D_800E4B34[] = "Sound state allocate failed - sndId %d\n";
 const char D_800E4B5C[] = "Don't worry - game should cope OK\n";
 const char D_800E4B80[] = "WARNING: Attempt to stop NULL sound aborted\n";
 
-
 static void _removeEvents(ALEventQueue *, ALSoundState *, u16);
 
 void set_sfx_volume_slider(u32 volume) {

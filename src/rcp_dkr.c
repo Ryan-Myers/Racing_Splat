@@ -179,7 +179,8 @@ s32 setup_ostask_xbus(Gfx *dlBegin, Gfx *dlEnd, UNUSED s32 recvMesg) {
     dkrtask->unused58 = COLOUR_TAG_RED;
     dkrtask->unused5C = COLOUR_TAG_RED;
     dkrtask->task.data_ptr = (u64 *) dlBegin;
-    dkrtask->task.data_size = ((s32) dlEnd - (s32) dlBegin) >> 3; // Shifted by 3, representing the size of the Gfx type.
+    dkrtask->task.data_size =
+        ((s32) dlEnd - (s32) dlBegin) >> 3; // Shifted by 3, representing the size of the Gfx type.
     dkrtask->task.type = M_GFXTASK;
     dkrtask->task.flags = OS_TASK_DP_WAIT;
     dkrtask->task.ucode_boot = (u64 *) rspF3DDKRBootStart;

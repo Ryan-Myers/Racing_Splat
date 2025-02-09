@@ -92,7 +92,7 @@ extern void     bzero(void *, size_t);
 
 /* Printf */
 
-extern int		sprintf(char *s, const char *fmt, ...);
+extern int sprintf(char *s, const char *format, ...);
 extern void		osSyncPrintf(const char *fmt, ...);
 
 

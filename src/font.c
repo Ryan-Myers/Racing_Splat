@@ -86,7 +86,7 @@ typedef struct JpCharHeader {
     char *unk4;
     u8 pad8[2];
     u8 left;
-    u8 top; 
+    u8 top;
     u8 right;
     u8 bottom;
     u8 spacing;
@@ -117,7 +117,7 @@ typedef struct Unk8012C2D4_JP {
 } Unk8012C2D4_JP;
 
 FontData_JP *D_8012C2A4_EE5E4;
-FontJpSpacing* D_8012C2A8_EE5E8[4]; // 4 tables for spacing in different fonts?
+FontJpSpacing *D_8012C2A8_EE5E8[4]; // 4 tables for spacing in different fonts?
 s32 D_8012C2B8_EE5F8;
 Unk8012C2D4_JP (*D_8012C2BC_EE5FC)[128];
 JpCharHeader (*D_8012C2C0_EE600)[18];
@@ -516,7 +516,8 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, Ali
     }
 }
 #elif defined(NON_EQUIVALENT)
-void render_text_string(Gfx** dList, DialogueBoxBackground* box, char* text, enum AlignmentFlags alignmentFlags, f32 scisScale) {
+void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, enum AlignmentFlags alignmentFlags,
+                        f32 scisScale) {
     s32 prevFont;
     s32 jpTexS;
     s32 jpTexT;
@@ -525,7 +526,7 @@ void render_text_string(Gfx** dList, DialogueBoxBackground* box, char* text, enu
     s32 textureS;
     s32 textureT;
     s32 textureS2;
-    s32 textureT2; 
+    s32 textureT2;
     s32 xpos;
     s32 ypos;
     s32 ulx;
@@ -538,22 +539,22 @@ void render_text_string(Gfx** dList, DialogueBoxBackground* box, char* text, enu
     s32 uly;
     s32 xAlignmentDiff;
     u8 curChar;
-    s32 charSpace; 
+    s32 charSpace;
     FontData_JP *fontData;
     s32 newTempX;
     s32 newTempY;
     s32 charIndex;
-    char otherText[228]; // Not sure about the length of this buffer. 
+    char otherText[228]; // Not sure about the length of this buffer.
 
     textureLry = 0; // Is this needed here?
-    xAlignmentDiff = -1; 
+    xAlignmentDiff = -1;
     if (text != NULL) {
         func_800C7864_C8464(text, otherText);
         prevFont = D_8012C2B8_EE5F8;
         D_8012C2B8_EE5F8 = box->font;
         xpos = box->xpos;
         ypos = box->ypos;
-        fontData = (FontData_JP*)&gFonts[D_8012C2B8_EE5F8];
+        fontData = (FontData_JP *) &gFonts[D_8012C2B8_EE5F8];
         gSPDisplayList((*dList)++, dDialogueBoxBegin);
         if (box != gDialogueBoxBackground) {
             scisPos = (box->y1 + box->y2) >> 1;
@@ -574,7 +575,7 @@ void render_text_string(Gfx** dList, DialogueBoxBackground* box, char* text, enu
                 lrx = 319;
             }
             uly = scisPos - scisOffset;
-            lry = scisPos + scisOffset; 
+            lry = scisPos + scisOffset;
             if (uly < 0) {
                 uly = 0;
             }
@@ -618,12 +619,12 @@ void render_text_string(Gfx** dList, DialogueBoxBackground* box, char* text, enu
         gDPSetEnvColor((*dList)++, box->textColourR, box->textColourG, box->textColourB, box->textColourA);
         gDkrDmaDisplayList((*dList)++, OS_K0_TO_PHYSICAL(dDialogueBoxDrawModes[0]), 2);
         gDPPipeSync((*dList)++);
-        
+
         xpos += box->textOffsetX;
         ypos += box->textOffsetY;
-        for (charIndex = 0; (otherText[charIndex] != '\0') && (box->y2 >= ypos); ) {
+        for (charIndex = 0; (otherText[charIndex] != '\0') && (box->y2 >= ypos);) {
             curChar = otherText[charIndex++];
-            jpCharValue = 0; 
+            jpCharValue = 0;
             if (curChar & 0x80) { // Test if this is a japanese character text.
                 // So this text system supports up to 32768 unique characters, although the game only uses 256.
                 jpCharValue = (otherText[charIndex++] | ((curChar & 0x7F) << 8));
@@ -633,13 +634,15 @@ void render_text_string(Gfx** dList, DialogueBoxBackground* box, char* text, enu
                 }
             }
             if (jpCharValue != 0) {
-                // Texture coordinates of the 256x256 japanese font texture. 
+                // Texture coordinates of the 256x256 japanese font texture.
                 jpTexS = box->x1 + xpos;
-                jpTexT = box->y1 + ypos; 
+                jpTexT = box->y1 + ypos;
                 // This seems to be a trouble spot.
-                charSpace = D_8012C2A8_EE5E8[D_8012C2B8_EE5F8]->spacing[jpCharValue]; 
-                if ((fontData->x + jpTexS > 0) && (fontData->y + jpTexT > 0) && (jpTexS < box->x2) && (jpTexT < box->y2)) { 
-                    someIndexForJpChar = func_800C7744_C8344(dList, jpCharValue, &textureS, &textureT, &textureS2, &textureT2);
+                charSpace = D_8012C2A8_EE5E8[D_8012C2B8_EE5F8]->spacing[jpCharValue];
+                if ((fontData->x + jpTexS > 0) && (fontData->y + jpTexT > 0) && (jpTexS < box->x2) &&
+                    (jpTexT < box->y2)) {
+                    someIndexForJpChar =
+                        func_800C7744_C8344(dList, jpCharValue, &textureS, &textureT, &textureS2, &textureT2);
                 } else {
                     someIndexForJpChar = -1;
                 }
@@ -668,17 +671,18 @@ void render_text_string(Gfx** dList, DialogueBoxBackground* box, char* text, enu
                     charSpace--;
                 }
                 xpos += charSpace;
-            } else { 
+            } else {
                 // This was a regular ascii character.
                 switch (curChar) {
                     case '\n': // newline
                         xpos = box->textOffsetX;
                         ypos += fontData->height;
                         break;
-                    case '\t':  // Tab
-                        xpos = (xpos + (fontData->charWidth * 4)) - ((xpos - box->textOffsetX) % (fontData->charWidth * 4));
+                    case '\t': // Tab
+                        xpos = (xpos + (fontData->charWidth * 4)) -
+                               ((xpos - box->textOffsetX) % (fontData->charWidth * 4));
                         break;
-                    case '\v':  // VT - Vertical Tab
+                    case '\v': // VT - Vertical Tab
                         ypos += fontData->height;
                         break;
                     case '\r': // Carriage Return
@@ -686,7 +690,7 @@ void render_text_string(Gfx** dList, DialogueBoxBackground* box, char* text, enu
                         break;
                     default:
                         xpos += fontData->charWidth;
-                        break; 
+                        break;
                 }
             }
         }
@@ -1332,7 +1336,8 @@ void func_800C6464_C7064(void) {
     for (i = 0; i < 4; i++) {
         jpFontHeader = &D_8012C2A4_EE5E4[i];
         for (charIndex = 0; charIndex < JP_FONT_ARRAY_SIZE; charIndex++) {
-            load_asset_to_address(ASSET_BINARY_46, (u32) jpFontData, jpFontHeader->offsetToData + (charIndex * jpFontHeader->bytesPerCharacter), 0x40);
+            load_asset_to_address(ASSET_BINARY_46, (u32) jpFontData,
+                                  jpFontHeader->offsetToData + (charIndex * jpFontHeader->bytesPerCharacter), 0x40);
             D_8012C2A8_EE5E8[i]->spacing[charIndex] = jpFontData->spacing;
         }
     }
@@ -1393,7 +1398,7 @@ void func_800C6870_C7470(void) {
 s32 func_800C68CC_C74CC(u16 arg0) {
     s32 assetSize;
     s32 i;
-    s32 var_t0; 
+    s32 var_t0;
     s32 var_a3;
     s32 curIndex;
     s32 var_v1;
@@ -1405,18 +1410,18 @@ s32 func_800C68CC_C74CC(u16 arg0) {
     D_8012C2BC_EE5FC = D_8012C2C8_EE608;
     D_8012C2C0_EE600 = D_8012C2CC_EE60C;
     curIndex = -1;
-    
+
     do {
         for (i = 0; i + var_a3 <= 128 && curIndex < 0; i += var_a3) {
             if ((*D_8012C2BC_EE5FC)[i].unk0 != 0 && (*D_8012C2BC_EE5FC)[i].unk2 == glyphIndex) {
                 curIndex = i;
-            }  
+            }
         }
         if (curIndex < 0) {
             func_800C6870_C7470();
         }
     } while ((D_8012C2C0_EE600 != D_8012C2CC_EE60C) && (curIndex < 0));
-    
+
     if (curIndex >= 0) {
         return curIndex;
     } else {
@@ -1448,18 +1453,12 @@ s32 func_800C68CC_C74CC(u16 arg0) {
                 }
             }
             asset = &D_8012C2C0_EE600[curIndex];
-            load_asset_to_address(
-                ASSET_BINARY_46, 
-                (u32) asset,
-                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].offsetToData + (D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].bytesPerCharacter * arg0), 
-                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].bytesPerCharacter
-            );
-            func_800C6DD4_C79D4(
-                (*D_8012C2BC_EE5FC)[curIndex].unk4,
-                asset, 
-                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].x,
-                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].y
-            );
+            load_asset_to_address(ASSET_BINARY_46, (u32) asset,
+                                  D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].offsetToData +
+                                      (D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].bytesPerCharacter * arg0),
+                                  D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].bytesPerCharacter);
+            func_800C6DD4_C79D4((*D_8012C2BC_EE5FC)[curIndex].unk4, asset, D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].x,
+                                D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].y);
         }
 
         return curIndex;
@@ -1468,12 +1467,12 @@ s32 func_800C68CC_C74CC(u16 arg0) {
 
 void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
     if (asset->unk0.value != -1) {
-        asset->unk0.texture = (s32)asset + asset->unk0.value;
+        asset->unk0.texture = (s32) asset + asset->unk0.value;
     } else {
         asset->unk0.value = NULL;
     }
     if (asset->unk4.value != -1) {
-        asset->unk4.texture = (s32)asset + asset->unk4.value;
+        asset->unk4.texture = (s32) asset + asset->unk4.value;
     } else {
         asset->unk4.value = NULL;
     }
@@ -1489,15 +1488,16 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                              G_TX_NOLOD);               // shiftt
 
         gDPLoadMultiBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk4.value), 0x100, 1, G_IM_FMT_I, width, height,
-                             0,                         // palette
-                             G_TX_NOMIRROR | G_TX_WRAP, // cms
-                             G_TX_NOMIRROR | G_TX_WRAP, // cmt
-                             8,                         // masks
-                             8,                         // maskt
-                             G_TX_NOLOD,                // shifts
-                             G_TX_NOLOD);               // shiftt
+                              0,                         // palette
+                              G_TX_NOMIRROR | G_TX_WRAP, // cms
+                              G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                              8,                         // masks
+                              8,                         // maskt
+                              G_TX_NOLOD,                // shifts
+                              G_TX_NOLOD);               // shiftt
 
-        gDkrDmaDisplayList(dlist++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[2]), numberOfGfxCommands(dDialogueBoxDrawModes[1]));
+        gDkrDmaDisplayList(dlist++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[2]),
+                           numberOfGfxCommands(dDialogueBoxDrawModes[1]));
     } else {
         switch (asset->unk8) {
             case 0: // RGBA32
@@ -1523,7 +1523,8 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD);               // shiftt
                 break;
             case 5: // IA8
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_IA, G_IM_SIZ_8b, width, height,
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_IA, G_IM_SIZ_8b, width,
+                                     height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
                                      G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1534,26 +1535,27 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                 break;
             case 6: // IA4
                 gDPLoadTextureBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_IA, width, height,
-                                     0,                         // palette
-                                     G_TX_NOMIRROR | G_TX_WRAP, // cms
-                                     G_TX_NOMIRROR | G_TX_WRAP, // cmt
-                                     8,                         // masks
-                                     8,                         // maskt
-                                     G_TX_NOLOD,                // shifts
-                                     G_TX_NOLOD);               // shiftt
+                                        0,                         // palette
+                                        G_TX_NOMIRROR | G_TX_WRAP, // cms
+                                        G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                                        8,                         // masks
+                                        8,                         // maskt
+                                        G_TX_NOLOD,                // shifts
+                                        G_TX_NOLOD);               // shiftt
                 break;
             case 3: // I4
                 gDPLoadTextureBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_I, width, height,
-                                     0,                         // palette
-                                     G_TX_NOMIRROR | G_TX_WRAP, // cms
-                                     G_TX_NOMIRROR | G_TX_WRAP, // cmt
-                                     8,                         // masks
-                                     8,                         // maskt
-                                     G_TX_NOLOD,                // shifts
-                                     G_TX_NOLOD);               // shiftt
+                                        0,                         // palette
+                                        G_TX_NOMIRROR | G_TX_WRAP, // cms
+                                        G_TX_NOMIRROR | G_TX_WRAP, // cmt
+                                        8,                         // masks
+                                        8,                         // maskt
+                                        G_TX_NOLOD,                // shifts
+                                        G_TX_NOLOD);               // shiftt
                 break;
             case 2: // I8
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_I, G_IM_SIZ_8b, width, height,
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_I, G_IM_SIZ_8b, width,
+                                     height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
                                      G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1563,7 +1565,8 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD);               // shiftt
                 break;
         }
-        gDkrDmaDisplayList(dlist++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[0]), numberOfGfxCommands(dDialogueBoxDrawModes[1]));
+        gDkrDmaDisplayList(dlist++, OS_K0_TO_PHYSICAL(&dDialogueBoxDrawModes[0]),
+                           numberOfGfxCommands(dDialogueBoxDrawModes[1]));
     }
     gSPEndDisplayList(dlist++);
 }

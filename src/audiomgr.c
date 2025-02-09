@@ -394,8 +394,8 @@ static s32 __amDMA(s32 addr, s32 len, UNUSED void *state) {
         buffEnd = dmaPtr->startAddr + DMA_BUFFER_LENGTH;
         if (dmaPtr->startAddr > (u32) addr) { /* since buffers are ordered */
             break;                            /* abort if past possible */
-        } else if (addrEnd <= buffEnd) {    /* yes, found a buffer with samples */
-            dmaPtr->lastFrame = audFrameCt; /* mark it used */
+        } else if (addrEnd <= buffEnd) {      /* yes, found a buffer with samples */
+            dmaPtr->lastFrame = audFrameCt;   /* mark it used */
             foundBuffer = dmaPtr->ptr + addr - dmaPtr->startAddr;
             return (int) osVirtualToPhysical(foundBuffer);
         }
@@ -494,7 +494,7 @@ static void __clearAudioDMA(void) {
      * overrun. (Bad news, but go for it anyway, and try and recover.
      */
     for (i = 0; i < nextDMA; i++) {
-        if (osRecvMesg(&audDMAMessageQ, (OSMesg *) &iomsg, OS_MESG_NOBLOCK) == -1) { 
+        if (osRecvMesg(&audDMAMessageQ, (OSMesg *) &iomsg, OS_MESG_NOBLOCK) == -1) {
             stubbed_printf("Dma not done\n");
         }
         // if (logging)
