@@ -523,10 +523,6 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, enu
     s32 jpTexT;
     s32 textureLrx;
     s32 textureLry;
-    s32 textureS;
-    s32 textureT;
-    s32 textureS2;
-    s32 textureT2;
     s32 xpos;
     s32 ypos;
     s32 ulx;
@@ -534,175 +530,183 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, enu
     s32 scisOffset;
     s32 scisPos;
     s32 someIndexForJpChar;
+    s32 textureS;
+    s32 textureT;
+    s32 charSpace;
+    s32 textureS2;
+    s32 textureT2;
+    s32 xAlignmentDiff; // sp18C
     u16 jpCharValue;
     s32 lry;
     s32 uly;
-    s32 xAlignmentDiff;
     u8 curChar;
-    s32 charSpace;
     FontData_JP *fontData;
     s32 newTempX;
     s32 newTempY;
     s32 charIndex;
-    char otherText[228]; // Not sure about the length of this buffer.
+    s32 temp;
+    char otherText[220]; // Not sure about the length of this buffer.
+    s32 temp2;
 
-    textureLry = 0; // Is this needed here?
     xAlignmentDiff = -1;
-    if (text != NULL) {
-        func_800C7864_C8464(text, otherText);
-        prevFont = D_8012C2B8_EE5F8;
-        D_8012C2B8_EE5F8 = box->font;
-        xpos = box->xpos;
-        ypos = box->ypos;
-        fontData = (FontData_JP *) &gFonts[D_8012C2B8_EE5F8];
-        gSPDisplayList((*dList)++, dDialogueBoxBegin);
-        if (box != gDialogueBoxBackground) {
-            scisPos = (box->y1 + box->y2) >> 1;
-            scisOffset = (((box->y2 - box->y1) + 1) / (f32) 2) * scisScale;
-            ulx = box->x1;
-            lrx = box->x2;
-            // Pretty sure these are macros.
-            if (ulx < 0) {
-                ulx = 0;
-            }
-            if (ulx >= 320) {
-                ulx = 319;
-            }
-            if (lrx < 0) {
-                lrx = 0;
-            }
-            if (lrx >= 320) {
-                lrx = 319;
-            }
-            uly = scisPos - scisOffset;
-            lry = scisPos + scisOffset;
-            if (uly < 0) {
-                uly = 0;
-            }
-            if (uly >= 240) {
-                uly = 239;
-            }
-            if (lry < 0) {
-                lry = 0;
-            }
-            if (lry >= 240) {
-                lry = 239;
-            }
-            gDPSetScissor((*dList)++, 0, ulx, uly, lrx, lry);
-        }
-        if (alignmentFlags & (HORZ_ALIGN_RIGHT | HORZ_ALIGN_CENTER)) {
-            xAlignmentDiff = get_text_width(otherText, xpos, box->font);
-            if (alignmentFlags & HORZ_ALIGN_RIGHT) {
-                xpos = (xpos - xAlignmentDiff) + 1;
-            } else {
-                xpos -= xAlignmentDiff >> 1;
-            }
-        }
-        if (alignmentFlags & VERT_ALIGN_BOTTOM) {
-            ypos = (ypos - fontData->y) + 1;
-        }
-        if (alignmentFlags & VERT_ALIGN_MIDDLE) {
-            ypos -= fontData->y >> 1;
-        }
-        if (box->textBGColourA != 0) {
-            gDPSetEnvColor((*dList)++, box->textBGColourR, box->textBGColourG, box->textBGColourB, box->textBGColourA);
-            if (xAlignmentDiff == -1) {
-                xAlignmentDiff = get_text_width(otherText, xpos, box->font);
-            }
-            newTempX = xpos + xAlignmentDiff;
-            newTempY = ypos + fontData->y;
-            gDkrDmaDisplayList((*dList)++, OS_K0_TO_PHYSICAL(dDialogueBoxDrawModes[1]), 2);
-            gDPFillRectangle((*dList)++, xpos + box->x1, ypos + box->y1, newTempX + box->x1, newTempY + box->y1);
-            gDPPipeSync((*dList)++);
-        }
-        gDPSetPrimColor((*dList)++, textureLry, 0, 255, 255, 255, box->opacity);
-        gDPSetEnvColor((*dList)++, box->textColourR, box->textColourG, box->textColourB, box->textColourA);
-        gDkrDmaDisplayList((*dList)++, OS_K0_TO_PHYSICAL(dDialogueBoxDrawModes[0]), 2);
-        gDPPipeSync((*dList)++);
+    if (text == NULL) {
+        return;
+    }
 
-        xpos += box->textOffsetX;
-        ypos += box->textOffsetY;
-        for (charIndex = 0; (otherText[charIndex] != '\0') && (box->y2 >= ypos);) {
-            curChar = otherText[charIndex++];
-            jpCharValue = 0;
-            if (curChar & 0x80) { // Test if this is a japanese character text.
-                // So this text system supports up to 32768 unique characters, although the game only uses 256.
-                jpCharValue = (otherText[charIndex++] | ((curChar & 0x7F) << 8));
-                if (jpCharValue == 15) { // Index 15 is the space character.
-                    jpCharValue = 0;
-                    curChar = ' ';
-                }
-            }
-            if (jpCharValue != 0) {
-                // Texture coordinates of the 256x256 japanese font texture.
-                jpTexS = box->x1 + xpos;
-                jpTexT = box->y1 + ypos;
-                // This seems to be a trouble spot.
-                charSpace = D_8012C2A8_EE5E8[D_8012C2B8_EE5F8]->spacing[jpCharValue];
-                if ((fontData->x + jpTexS > 0) && (fontData->y + jpTexT > 0) && (jpTexS < box->x2) &&
-                    (jpTexT < box->y2)) {
-                    someIndexForJpChar =
-                        func_800C7744_C8344(dList, jpCharValue, &textureS, &textureT, &textureS2, &textureT2);
-                } else {
-                    someIndexForJpChar = -1;
-                }
-                if (someIndexForJpChar >= 0) {
-                    jpTexS = jpTexS * 4;
-                    jpTexT = (jpTexT + textureT) * 4;
-                    textureLrx = ((textureS2 - textureS) * 4) + jpTexS;
-                    textureLry = ((textureT2 - textureT) * 4) + jpTexT;
-                    if ((textureLrx > 0) && (textureLry > 0)) {
-                        textureS <<= 5;
-                        textureT <<= 5;
-                        if (jpTexS < 0) { // Why is there a sll 0x2 here?
-                            textureS = textureS + (jpTexS * -8);
-                            jpTexS = 0;
-                        }
-                        if (jpTexT < 0) { // Why is there a sll 0x2 here?
-                            textureT = textureT + (jpTexT * -8);
-                            jpTexT = 0;
-                        }
-                        func_800C7804_C8404(someIndexForJpChar);
-                        gSPTextureRectangle((*dList)++, jpTexS, jpTexT, textureLrx, textureLry, 0, textureS, textureT,
-                                            1 << 10, 1 << 10);
-                    }
-                }
-                if ((gCompactKerning) && (charSpace != 0)) {
-                    charSpace--;
-                }
-                xpos += charSpace;
-            } else {
-                // This was a regular ascii character.
-                switch (curChar) {
-                    case '\n': // newline
-                        xpos = box->textOffsetX;
-                        ypos += fontData->height;
-                        break;
-                    case '\t': // Tab
-                        xpos = (xpos + (fontData->charWidth * 4)) -
-                               ((xpos - box->textOffsetX) % (fontData->charWidth * 4));
-                        break;
-                    case '\v': // VT - Vertical Tab
-                        ypos += fontData->height;
-                        break;
-                    case '\r': // Carriage Return
-                        xpos = box->textOffsetX;
-                        break;
-                    default:
-                        xpos += fontData->charWidth;
-                        break;
-                }
-            }
+    func_800C7864_C8464(text, otherText);
+    prevFont = D_8012C2B8_EE5F8;
+    D_8012C2B8_EE5F8 = box->font;
+    xpos = box->xpos;
+    ypos = box->ypos;
+
+    fontData = (FontData_JP *) &D_8012C2A4_EE5E4[D_8012C2B8_EE5F8];
+    gSPDisplayList((*dList)++, dDialogueBoxBegin);
+    if (box != gDialogueBoxBackground) {
+        scisOffset = (((box->y2 - box->y1) + 1) / (f32) 2) * scisScale;
+        scisPos = (box->y1 + box->y2) >> 1;
+        ulx = box->x1;
+        lrx = box->x2;
+        // Pretty sure these are macros.
+        if (ulx < 0) {
+            ulx = 0;
         }
-        box->xpos = xpos - box->textOffsetX;
-        box->ypos = ypos - box->textOffsetY;
-        D_8012C2B8_EE5F8 = prevFont; // Put previous font index back.
-        if (box != gDialogueBoxBackground) {
-            viewport_scissor(dList);
+        if (ulx >= 320) {
+            ulx = 319;
         }
-        reset_render_settings(dList);
+        if (lrx < 0) {
+            lrx = 0;
+        }
+        if (lrx >= 320) {
+            lrx = 319;
+        }
+        uly = scisPos - scisOffset;
+        lry = scisPos + scisOffset;
+        if (uly < 0) {
+            uly = 0;
+        }
+        if (uly >= 240) {
+            uly = 239;
+        }
+        if (lry < 0) {
+            lry = 0;
+        }
+        if (lry >= 240) {
+            lry = 239;
+        }
+        gDPSetScissor((*dList)++, 0, ulx, uly, lrx, lry);
+    }
+    if (alignmentFlags & (HORZ_ALIGN_RIGHT | HORZ_ALIGN_CENTER)) {
+        xAlignmentDiff = get_text_width(otherText, xpos, box->font);
+        if (alignmentFlags & HORZ_ALIGN_RIGHT) {
+            xpos = (xpos - xAlignmentDiff) + 1;
+        } else {
+            xpos -= xAlignmentDiff >> 1;
+        }
+    }
+    if (alignmentFlags & VERT_ALIGN_BOTTOM) {
+        ypos = (ypos - fontData->y) + 1;
+    }
+    if (alignmentFlags & VERT_ALIGN_MIDDLE) {
+        ypos -= fontData->y >> 1;
+    }
+    if (box->textBGColourA != 0) {
+        gDPSetEnvColor((*dList)++, box->textBGColourR, box->textBGColourG, box->textBGColourB, box->textBGColourA);
+        if (xAlignmentDiff == -1) {
+            xAlignmentDiff = get_text_width(otherText, xpos, box->font);
+        }
+        lrx = xpos + xAlignmentDiff;
+        lry = fontData->y + ypos;
+        gDkrDmaDisplayList((*dList)++, OS_K0_TO_PHYSICAL(dDialogueBoxDrawModes[1]), 2);
+        gDPFillRectangle((*dList)++, xpos + box->x1, ypos + box->y1, lrx + box->x1, lry + box->y1);
         gDPPipeSync((*dList)++);
     }
+    gDPSetPrimColor((*dList)++, 0, 0, 255, 255, 255, box->opacity);
+    gDPSetEnvColor((*dList)++, box->textColourR, box->textColourG, box->textColourB, box->textColourA);
+    gDkrDmaDisplayList((*dList)++, OS_K0_TO_PHYSICAL(dDialogueBoxDrawModes[0]), 2);
+    gDPPipeSync((*dList)++);
+
+    xpos += box->textOffsetX;
+    ypos += box->textOffsetY;
+    charIndex = 0;
+    while ((otherText[charIndex] != '\0') && (box->y2 >= ypos)) {
+        curChar = otherText[charIndex++];
+        jpCharValue = 0;
+        if (curChar & 0x80) { // Test if this is a japanese character text.
+            // So this text system supports up to 32768 unique characters, although the game only uses 256.
+            jpCharValue = (otherText[charIndex++] | ((curChar & 0x7F) << 8));
+            if (jpCharValue == 15) { // Index 15 is the space character.
+                jpCharValue = 0;
+                curChar = ' ';
+            }
+        }
+        if (jpCharValue != 0) {
+            // Texture coordinates of the 256x256 japanese font texture.
+            ulx = box->x1 + xpos;
+            uly = box->y1 + ypos;
+            lrx = ulx + fontData->x;
+            lry = uly + fontData->y;
+            charSpace = D_8012C2A8_EE5E8[D_8012C2B8_EE5F8]->spacing[jpCharValue];
+            if ((lrx > 0) && (lry > 0) && (ulx < box->x2) && (uly < box->y2)) {
+                someIndexForJpChar = func_800C7744_C8344(dList, jpCharValue, &textureS, &textureT, &textureS2, &textureT2);
+            } else {
+                someIndexForJpChar = -1;
+            }
+            if (someIndexForJpChar >= 0) {
+                ulx = ulx << 2;
+                uly = (uly + textureT) << 2;
+                lrx = (textureS2 - textureS) * 4 + ulx;
+                lry = (textureT2 - textureT) * 4 + uly;
+                if ((lrx > 0) && (lry > 0)) {
+                    textureS <<= 5;
+                    textureT <<= 5;
+                    if (ulx < 0) {
+                        textureS += (ulx * -1) << 3;
+                        ulx = 0;
+                    }
+                    if (uly < 0) {
+                        textureT += (uly * -1) << 3;
+                        uly = 0;
+                    }
+                    func_800C7804_C8404(someIndexForJpChar);
+                    gSPTextureRectangle((*dList)++, ulx, uly, lrx, lry, 0, textureS, textureT,
+                                        1 << 10, 1 << 10);
+                }
+            }
+            if ((gCompactKerning) && (charSpace != 0)) {
+                charSpace--;
+            }
+            xpos += charSpace;
+        } else {
+            // This was a regular ascii character.
+            switch (curChar) {
+                case '\n': // newline
+                    xpos = box->textOffsetX;
+                    ypos += fontData->height;
+                    break;
+                case '\t': // Tab
+                    xpos = ((s32) xpos + (fontData->charWidth * 4)) -
+                            ((xpos - box->textOffsetX) % (fontData->charWidth * 4));
+                    break;
+                case '\v': // VT - Vertical Tab
+                    ypos += fontData->height;
+                    break;
+                case '\r': // Carriage Return
+                    xpos = box->textOffsetX;
+                    break;
+                default:
+                    xpos += fontData->charWidth;
+                    break;
+            }
+        }
+    }
+    box->xpos = xpos - box->textOffsetX;
+    box->ypos = ypos - box->textOffsetY;
+    D_8012C2B8_EE5F8 = prevFont; // Put previous font index back.
+    if (box != gDialogueBoxBackground) {
+        viewport_scissor(dList);
+    }
+    reset_render_settings(dList);
+    gDPPipeSync((*dList)++);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/font/render_text_string.s")
