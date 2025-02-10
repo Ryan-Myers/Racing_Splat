@@ -113,7 +113,7 @@ typedef struct Unk8012C2D4_JP {
     char unk0;
     char unk1;
     u16 unk2;
-    Gfx *unk4;
+    Gfx *dlist;
 } Unk8012C2D4_JP;
 
 FontData_JP *D_8012C2A4_EE5E4;
@@ -121,10 +121,10 @@ FontJpSpacing *D_8012C2A8_EE5E8[4]; // 4 tables for spacing in different fonts?
 s32 D_8012C2B8_EE5F8;
 Unk8012C2D4_JP (*D_8012C2BC_EE5FC)[128];
 JpCharHeader (*D_8012C2C0_EE600)[18];
-Unk8012C2D4_JP *D_8012C2C4_EE604;
+Gfx *D_8012C2C4_EE604;
 Unk8012C2D4_JP *D_8012C2C8_EE608;
 JpCharHeader (*D_8012C2CC_EE60C)[18];
-Unk8012C2D4_JP *D_8012C2D0_EE610;
+Gfx *D_8012C2D0_EE610;
 Unk8012C2D4_JP *D_8012C2D4_EE614;
 Unk8012C2D4_JP *D_8012C2D8_EE618;
 #endif
@@ -1342,7 +1342,7 @@ void func_800C6464_C7064(void) {
     D_8012C2CC_EE60C = allocate_from_main_pool_safe(0x9000, COLOUR_TAG_RED);
     for (i = 0, charIndex = 0; i < 128; i++) {
         D_8012C2C8_EE608[i].unk0 = 0;
-        D_8012C2C8_EE608[i].unk4 = &D_8012C2C4_EE604[charIndex];
+        D_8012C2C8_EE608[i].dlist = &D_8012C2C4_EE604[charIndex];
         if (i & 1) {
             charIndex += 10;
         } else {
@@ -1387,7 +1387,7 @@ void func_800C663C_C723C(void) {
     var_v0 = 0;
     for (i = 0; i < 0x80; i++) {
         D_8012C2D4_EE614[i].unk0 = 0;
-        D_8012C2D4_EE614[i].unk4 = &D_8012C2D0_EE610[var_v0];
+        D_8012C2D4_EE614[i].dlist = &D_8012C2D0_EE610[var_v0];
         if (i & 1) {
             var_v0 += 10;
         } else {
@@ -1483,7 +1483,7 @@ s32 func_800C68CC_C74CC(u16 arg0) {
                                   D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].offsetToData +
                                       (D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].bytesPerCharacter * arg0),
                                   D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].bytesPerCharacter);
-            func_800C6DD4_C79D4((*D_8012C2BC_EE5FC)[curIndex].unk4, asset, D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].x,
+            func_800C6DD4_C79D4((*D_8012C2BC_EE5FC)[curIndex].dlist, asset, D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].x,
                                 D_8012C2A4_EE5E4[D_8012C2B8_EE5F8].y);
         }
 
@@ -1492,19 +1492,19 @@ s32 func_800C68CC_C74CC(u16 arg0) {
 }
 
 void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
-    if (asset->unk0.value != -1) {
-        asset->unk0.texture = (s32) asset + asset->unk0.value;
+    if (asset->unk0 != -1) {
+        asset->unk0 = (s32) asset + asset->unk0;
     } else {
-        asset->unk0.value = NULL;
+        asset->unk0 = NULL;
     }
-    if (asset->unk4.value != -1) {
-        asset->unk4.texture = (s32) asset + asset->unk4.value;
+    if (asset->unk4 != -1) {
+        asset->unk4 = (s32) asset + asset->unk4;
     } else {
-        asset->unk4.value = NULL;
+        asset->unk4 = NULL;
     }
 
-    if (asset->unk4.value != NULL) {
-        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height,
+    if (asset->unk4 != NULL) {
+        gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width, height,
                              0,                         // palette
                              G_TX_NOMIRROR | G_TX_WRAP, // cms
                              G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1513,7 +1513,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                              G_TX_NOLOD,                // shifts
                              G_TX_NOLOD);               // shiftt
 
-        gDPLoadMultiBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk4.value), 0x100, 1, G_IM_FMT_I, width, height,
+        gDPLoadMultiBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk4), 0x100, 1, G_IM_FMT_I, width, height,
                               0,                         // palette
                               G_TX_NOMIRROR | G_TX_WRAP, // cms
                               G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1527,7 +1527,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
     } else {
         switch (asset->unk8) {
             case 0: // RGBA32
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_RGBA, G_IM_SIZ_32b, width,
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_32b, width,
                                      height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
@@ -1538,7 +1538,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD);               // shiftt
                 break;
             case 1: // RGBA16
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_RGBA, G_IM_SIZ_16b, width,
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_RGBA, G_IM_SIZ_16b, width,
                                      height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
@@ -1549,7 +1549,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD);               // shiftt
                 break;
             case 5: // IA8
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_IA, G_IM_SIZ_8b, width,
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_8b, width,
                                      height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
@@ -1560,7 +1560,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD);               // shiftt
                 break;
             case 6: // IA4
-                gDPLoadTextureBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_IA, width, height,
+                gDPLoadTextureBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, width, height,
                                         0,                         // palette
                                         G_TX_NOMIRROR | G_TX_WRAP, // cms
                                         G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1570,7 +1570,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                         G_TX_NOLOD);               // shiftt
                 break;
             case 3: // I4
-                gDPLoadTextureBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_I, width, height,
+                gDPLoadTextureBlock_4bS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, width, height,
                                         0,                         // palette
                                         G_TX_NOMIRROR | G_TX_WRAP, // cms
                                         G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1580,7 +1580,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                         G_TX_NOLOD);               // shiftt
                 break;
             case 2: // I8
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0.value), G_IM_FMT_I, G_IM_SIZ_8b, width,
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_8b, width,
                                      height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
@@ -1603,7 +1603,7 @@ s32 func_800C7744_C8344(Gfx **dlist, u16 charIndex, s32 *outLeft, s32 *outTop, s
 
     index = func_800C68CC_C74CC(charIndex);
     if (index >= 0) {
-        gSPDisplayList((*dlist)++, (*D_8012C2BC_EE5FC)[index].unk4);
+        gSPDisplayList((*dlist)++, (*D_8012C2BC_EE5FC)[index].dlist);
         jpChar = D_8012C2C0_EE600[index];
         *outLeft = jpChar->left;
         *outTop = jpChar->top;

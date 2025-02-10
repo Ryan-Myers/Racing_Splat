@@ -146,19 +146,9 @@ typedef struct DialogueBoxBackground {
     DialogueBox *textBox;
 } DialogueBoxBackground;
 
-typedef struct Asset46Texture {
-    s32 unk0; // Texture ID?
-} Asset46Texture;
-
 typedef struct Asset46 {
-   union {
-        Asset46Texture *texture;
-        s32 value;
-    } unk0;
-    union {
-        Asset46Texture *texture;
-        s32 value;
-    } unk4;
+    s32 unk0;
+    s32 unk4;
     u8 unk8;
 } Asset46;
 
