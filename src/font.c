@@ -515,30 +515,30 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, Ali
         gDPPipeSync((*dList)++);
     }
 }
-#elif defined(NON_EQUIVALENT)
+#else
 void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, enum AlignmentFlags alignmentFlags,
                         f32 scisScale) {
-    s32 prevFont;
     s32 jpTexS;
+    s32 prevFont;
     s32 jpTexT;
-    s32 textureLrx;
-    s32 textureLry;
     s32 xpos;
-    s32 ypos;
     s32 ulx;
+    s32 uly;
     s32 lrx;
+    s32 lry;
+    s32 ypos;
     s32 scisOffset;
+    s32 charSpace;
     s32 scisPos;
-    s32 someIndexForJpChar;
     s32 textureS;
     s32 textureT;
-    s32 charSpace;
     s32 textureS2;
     s32 textureT2;
-    s32 xAlignmentDiff; // sp18C
+    s32 xAlignmentDiff;
+    s32 someIndexForJpChar;
     u16 jpCharValue;
-    s32 lry;
-    s32 uly;
+    s32 textureLrx;
+    s32 textureLry;
     u8 curChar;
     FontData_JP *fontData;
     s32 newTempX;
@@ -647,7 +647,8 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, enu
             lry = uly + fontData->y;
             charSpace = D_8012C2A8_EE5E8[D_8012C2B8_EE5F8]->spacing[jpCharValue];
             if ((lrx > 0) && (lry > 0) && (ulx < box->x2) && (uly < box->y2)) {
-                someIndexForJpChar = func_800C7744_C8344(dList, jpCharValue, &textureS, &textureT, &textureS2, &textureT2);
+                someIndexForJpChar =
+                    func_800C7744_C8344(dList, jpCharValue, &textureS, &textureT, &textureS2, &textureT2);
             } else {
                 someIndexForJpChar = -1;
             }
@@ -668,8 +669,7 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, enu
                         uly = 0;
                     }
                     func_800C7804_C8404(someIndexForJpChar);
-                    gSPTextureRectangle((*dList)++, ulx, uly, lrx, lry, 0, textureS, textureT,
-                                        1 << 10, 1 << 10);
+                    gSPTextureRectangle((*dList)++, ulx, uly, lrx, lry, 0, textureS, textureT, 1 << 10, 1 << 10);
                 }
             }
             if ((gCompactKerning) && (charSpace != 0)) {
@@ -685,7 +685,7 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, enu
                     break;
                 case '\t': // Tab
                     xpos = ((s32) xpos + (fontData->charWidth * 4)) -
-                            ((xpos - box->textOffsetX) % (fontData->charWidth * 4));
+                           ((xpos - box->textOffsetX) % (fontData->charWidth * 4));
                     break;
                 case '\v': // VT - Vertical Tab
                     ypos += fontData->height;
@@ -708,8 +708,6 @@ void render_text_string(Gfx **dList, DialogueBoxBackground *box, char *text, enu
     reset_render_settings(dList);
     gDPPipeSync((*dList)++);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/font/render_text_string.s")
 #endif
 
 /**
@@ -759,7 +757,31 @@ s32 get_text_width(char *text, s32 x, s32 font) {
     return diffX - x;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/font/get_text_width.s")
+s32 get_text_width(char *text, s32 x, s32 font) {
+    FontData_JP *currentFont;
+    FontJpSpacing *currentFontSpacing;
+    s32 glyphIndex;
+    s32 length;
+
+    currentFont = &D_8012C2A4_EE5E4[font];
+    currentFontSpacing = D_8012C2A8_EE5E8[font];
+    length = 0;
+    while (text[0]) {
+        if (text[0] & 0x80) {
+            glyphIndex = (text[1] & 0xFF) | ((text[0] & 0x7F) << 8);
+            text += 2;
+            if ((glyphIndex == 0) || (glyphIndex == 15)) {
+                length += currentFont->charWidth;
+            } else {
+                length += currentFontSpacing->spacing[glyphIndex];
+            }
+        } else {
+            text += 1;
+            length += currentFont->charWidth;
+        }
+    }
+    return length;
+}
 #endif
 
 /**
