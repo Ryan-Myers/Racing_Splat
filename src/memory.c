@@ -690,8 +690,21 @@ UNUSED void mmSlotPrint(void) {
             nextIndex = slot->nextIndex;
             skip = nextIndex == index2;
             if (index) {
-                if (((((((((!slot->nextIndex) & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) {
+                if (((((((((!slot->nextIndex) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) {
                     if (nextIndex && nextIndex) {} // Fakematch
+                    // Just need to determine what is actually being checked here to clean up some of the fake BS.
+                    if (1 /* free */) {
+                        stubbed_printf("FREE");
+                    } else if (1 /* allocated */) {
+                        if (1 /* !fixed */) {
+                            stubbed_printf("ALLOCATED");
+                        } else {
+                            stubbed_printf("ALLOCATED,FIXED");
+                        }
+                        stubbed_printf("\n");
+                    } else {
+                        stubbed_printf("\n");
+                    }
                 }
             }
             if (skip) {
@@ -702,13 +715,6 @@ UNUSED void mmSlotPrint(void) {
     }
 }
 
-UNUSED const char D_800E75B4[] = "FREE";
-UNUSED const char D_800E75BC[] = "ALLOCATED";
-UNUSED const char D_800E75C8[] = "ALLOCATED,FIXED";
-UNUSED const char D_800E75D8[] = "\n";
-UNUSED const char D_800E75DC[] = "\n";
-
-// Unused. Does nothing?
 UNUSED void func_80071CE8(void) {
     s32 i;
     for (i = gNumberOfMemoryPools; i != -1; i--) {
