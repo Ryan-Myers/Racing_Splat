@@ -18,7 +18,7 @@
 
 /************ .data ************/
 
-s8 *D_800DE440 = 0;
+s8 *gPakFileList = 0;
 
 u8 gN64FontCodes[] = "\0               0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
 
@@ -1701,7 +1701,7 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
     s32 ret;
     s32 maxNumOfFilesOnCpak;
     s32 files_used;
-    s8 *temp_D_800DE440;
+    s8 *temp_gPakFileList;
     s32 i;
     u32 gameCode;
 
@@ -1728,8 +1728,8 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
         maxNumOfFilesOnCpak = maxNumOfFilesToGet;
     }
 
-    if (D_800DE440 != NULL) {
-        free_from_memory_pool(D_800DE440);
+    if (gPakFileList != NULL) {
+        free_from_memory_pool(gPakFileList);
     }
 
 #if REGION == REGION_JP
@@ -1739,29 +1739,29 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
     files_used = maxNumOfFilesOnCpak * SAVE_FILE_BYTES;
 #endif
 
-    D_800DE440 = allocate_from_main_pool_safe(files_used, COLOUR_TAG_BLACK);
-    bzero(D_800DE440, files_used);
-    temp_D_800DE440 = D_800DE440;
+    gPakFileList = allocate_from_main_pool_safe(files_used, COLOUR_TAG_BLACK);
+    bzero(gPakFileList, files_used);
+    temp_gPakFileList = gPakFileList;
 
 #if REGION == REGION_JP
     ret = 0;
     for (i = 0; i < maxNumOfFilesOnCpak; i++) {
-        temp_D_800DE440 += ret; // fake
-        fileNames[i] = (char *) temp_D_800DE440;
-        temp_D_800DE440 += 0x24; // Could be doubled because file names bytes are doubled in JP?
-        fileExtensions[i] = (char *) temp_D_800DE440;
+        temp_gPakFileList += ret; // fake
+        fileNames[i] = (char *) temp_gPakFileList;
+        temp_gPakFileList += 0x24; // Could be doubled because file names bytes are doubled in JP?
+        fileExtensions[i] = (char *) temp_gPakFileList;
         fileSizes[i] = 0;
         fileTypes[i] = SAVE_FILE_TYPE_UNSET;
-        temp_D_800DE440 += 12;
+        temp_gPakFileList += 12;
     }
 #else
     for (i = 0; i < maxNumOfFilesOnCpak; i++) {
-        fileNames[i] = (char *) temp_D_800DE440;
-        temp_D_800DE440 += 0x12;
-        fileExtensions[i] = (char *) temp_D_800DE440;
+        fileNames[i] = (char *) temp_gPakFileList;
+        temp_gPakFileList += 0x12;
+        fileExtensions[i] = (char *) temp_gPakFileList;
         fileSizes[i] = 0;
         fileTypes[i] = SAVE_FILE_TYPE_UNSET;
-        temp_D_800DE440 += 6;
+        temp_gPakFileList += 6;
     }
 #endif
 
@@ -1799,12 +1799,15 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
     return CONTROLLER_PAK_GOOD;
 }
 
-// Free D_800DE440
-void packDirectoryFree(void) {
-    if (D_800DE440 != 0) {
-        free_from_memory_pool(D_800DE440);
+/**
+ * Free the controller pak file list from memory.
+ * Official Name: pakDirectoryFree
+ */
+void cpak_free_files(void) {
+    if (gPakFileList != 0) {
+        free_from_memory_pool(gPakFileList);
     }
-    D_800DE440 = 0;
+    gPakFileList = 0;
 }
 
 // Get Available Space in Controller Pak

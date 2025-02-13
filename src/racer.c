@@ -5944,7 +5944,7 @@ void racer_set_dialogue_camera(void) {
  * Antipiracy function that loops over an address of a function a number of times.
  * It compares the number it gets to a generated checksum to determine if the game has been tampered with at all.
  */
-void compare_balloon_checksums(void) {
+void drm_checksum_balloon(void) {
     s32 i;
     s32 count = 0;
     u8 *temp = (u8 *) &obj_loop_goldenballoon;

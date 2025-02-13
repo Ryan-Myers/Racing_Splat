@@ -747,7 +747,7 @@ timetrial_ghost_full = 0x80059E30;
 set_ghost_position_and_rotation = 0x80059E50;
 disable_racer_input = 0x8005A3DC;
 racer_set_dialogue_camera = 0x8005A3EC;
-compare_balloon_checksums = 0x8005A3FC;
+drm_checksum_balloon = 0x8005A3FC;
 racer_enter_door = 0x8005A450;
 update_AI_racer = 0x8005A71C;
 func_8005B818 = 0x8005B844;
@@ -991,7 +991,7 @@ main_game_loop = 0x8006C6DC;
 load_next_ingame_level = 0x8006CBBC;
 load_level_game = 0x8006CC30;
 unload_level_game = 0x8006CCEC;
-ingame_logic_loop = 0x8006CDC8;
+mode_game = 0x8006CDC8;
 set_drumstick_unlock_transition = 0x8006D97C;
 race_postrace_type = 0x8006D9B8;
 func_8006D8F0 = 0x8006D9C8;
@@ -1005,7 +1005,7 @@ get_level_default_vehicle = 0x8006DC04;
 load_level_menu = 0x8006DC14;
 unload_level_menu = 0x8006DCBC;
 update_menu_scene = 0x8006DD30;
-menu_logic_loop = 0x8006DDD0;
+mode_menu = 0x8006DDD0;
 load_level_for_menu = 0x8006E3C0;
 calc_and_alloc_heap_for_settings = 0x8006E494;
 init_racer_headers = 0x8006E694;
@@ -1031,7 +1031,7 @@ mark_save_file_to_erase = 0x8006ED84;
 mark_read_eeprom_settings = 0x8006ED9C;
 mark_write_eeprom_settings = 0x8006EDB8;
 alloc_displaylist_heap = 0x8006EDD4;
-check_dmem_validity = 0x8006F090;
+drm_validate_dmem = 0x8006F090;
 default_alloc_displaylist_heap = 0x8006F0B4;
 level_transition_begin = 0x8006F218;
 func_8006F20C = 0x8006F2E4;
@@ -1041,9 +1041,9 @@ begin_level_teleport = 0x8006F410;
 set_pause_lockout_timer = 0x8006F460;
 swap_lead_player = 0x8006F470;
 set_frame_blackout_timer = 0x8006F504;
-pre_intro_loop = 0x8006F514;
+mode_intro = 0x8006F514;
 is_controller_missing = 0x8006F5A0;
-check_imem_validity = 0x8006F5C4;
+drm_validate_imem = 0x8006F5C4;
 
 // math_util.c .text
 disable_interrupts = 0x8006F5F0;
@@ -1177,7 +1177,7 @@ check_for_rumble_pak = 0x80075DD8;
 repair_controller_pak = 0x80075E30;
 reformat_controller_pak = 0x80075EBC;
 get_controller_pak_file_list = 0x80075F58;
-packDirectoryFree = 0x8007625C;
+cpak_free_files = 0x8007625C;
 get_free_space = 0x8007628C;
 delete_file = 0x800763C0;
 copy_controller_pak_data = 0x80076480;
@@ -1246,7 +1246,7 @@ __scExec = 0x8007A2B8;
 __scYield = 0x8007A390;
 
 // set_rsp_segment.c .text
-set_rsp_segment = 0x8007A5E0;
+rsp_segment = 0x8007A5E0;
 
 // video.c .text
 init_video = 0x8007A620;
@@ -1715,7 +1715,7 @@ write_epc_data_to_cpak = 0x800B77B0;
 dump_memory_to_cpak = 0x800B7A60;
 update_object_stack_trace = 0x800B7CB8;
 get_lockup_status = 0x800B7CDC;
-lockup_screen_loop = 0x800B7DD4;
+mode_lockup = 0x800B7DD4;
 render_epc_lock_up_display = 0x800B7E10;
 
 
@@ -1839,7 +1839,7 @@ parse_string_with_number = 0x800C635C;
 osCreatePiManager = 0x800C7990;
 
 // gzip.c .text
-init_rzip = 0x800C7B00;
+gzip_init = 0x800C7B00;
 byteswap32 = 0x800C7B3C;
 get_asset_uncompressed_size = 0x800C7B6C;
 gzip_inflate = 0x800C7BA8;
@@ -2395,7 +2395,7 @@ gSineTable = 0x800DEDDC;
 gArcTanTable = 0x800DF5DE;
 
 // save_data.c .data
-D_800DE440 = 0x800DFDE0;
+gPakFileList = 0x800DFDE0;
 gN64FontCodes = 0x800DFDE4;
 sControllerPaksPresent = 0x800DFE28;
 gRumbleKillTimer = 0x800DFE2C;
@@ -2948,7 +2948,7 @@ __osPiDevMgr = 0x800E52A0; // size:0x1C
 
 // gzip.c .data
 gHuftTable = 0x800E52C0;
-gAssetAddress = 0x800E52C4;
+gPackedHeader = 0x800E52C4;
 gzip_inflate_input = 0x800E52C8;
 gzip_inflate_output = 0x800E52CC;
 
