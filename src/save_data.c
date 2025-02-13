@@ -1287,7 +1287,7 @@ SIDeviceStatus func_80074EB8(s32 controllerIndex, s16 levelId, s16 vehicleId, s1
     if (1) {} // fake
     ghost = allocate_from_main_pool_safe(sp24 + (GHSS_SIZE * 2), COLOUR_TAG_BLACK);
     ghost->signature = GHSS;
-    ghostBody = &ghost->data;
+    ghostBody = &ghost->data[0];
     ghostBody[0].unk0 = levelId;
     ghostBody[0].unk1 = vehicleId;
     ghostBody[0].unk2 = GHSS_SIZE;
@@ -1297,8 +1297,8 @@ SIDeviceStatus func_80074EB8(s32 controllerIndex, s16 levelId, s16 vehicleId, s1
         ghostBody[i].unk2 = ghostBody[1].unk2;
     }
 
-    func_80074AA8(AS_BYTES(ghost) + ghostBody[0].unk2, ghostCharacterId, ghostTime, ghostNodeCount, dest);
-    pakStatus = write_controller_pak_file(controllerIndex, -1, "DKRACING-GHOSTS", "", ghost, sp24 + GHSS_SIZE);
+    func_80074AA8((GhostHeader *) (AS_BYTES(ghost) + ghostBody[0].unk2), ghostCharacterId, ghostTime, ghostNodeCount, dest);
+    pakStatus = write_controller_pak_file(controllerIndex, -1, "DKRACING-GHOSTS", "", (u8 *) ghost, sp24 + GHSS_SIZE);
     free_from_memory_pool(ghost);
     return pakStatus;
 }
@@ -1701,7 +1701,7 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
     s32 ret;
     s32 maxNumOfFilesOnCpak;
     s32 files_used;
-    s8 *temp_gPakFileList;
+    s8 *list;
     s32 i;
     u32 gameCode;
 
@@ -1741,27 +1741,27 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
 
     gPakFileList = allocate_from_main_pool_safe(files_used, COLOUR_TAG_BLACK);
     bzero(gPakFileList, files_used);
-    temp_gPakFileList = gPakFileList;
+    list = gPakFileList;
 
 #if REGION == REGION_JP
     ret = 0;
     for (i = 0; i < maxNumOfFilesOnCpak; i++) {
-        temp_gPakFileList += ret; // fake
-        fileNames[i] = (char *) temp_gPakFileList;
-        temp_gPakFileList += 0x24; // Could be doubled because file names bytes are doubled in JP?
-        fileExtensions[i] = (char *) temp_gPakFileList;
+        list += ret; // fake
+        fileNames[i] = (char *) list;
+        list += 0x24; // Could be doubled because file names bytes are doubled in JP?
+        fileExtensions[i] = (char *) list;
         fileSizes[i] = 0;
         fileTypes[i] = SAVE_FILE_TYPE_UNSET;
-        temp_gPakFileList += 12;
+        list += 12;
     }
 #else
     for (i = 0; i < maxNumOfFilesOnCpak; i++) {
-        fileNames[i] = (char *) temp_gPakFileList;
-        temp_gPakFileList += 0x12;
-        fileExtensions[i] = (char *) temp_gPakFileList;
+        fileNames[i] = (char *) list;
+        list += 0x12;
+        fileExtensions[i] = (char *) list;
         fileSizes[i] = 0;
         fileTypes[i] = SAVE_FILE_TYPE_UNSET;
-        temp_gPakFileList += 6;
+        list += 6;
     }
 #endif
 
