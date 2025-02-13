@@ -632,7 +632,8 @@ void func_8002581C(u8 *segmentIds, s32 numberOfSegments, s32 viewportIndex) {
         }
         if (D_8011D4B6.whole != 0) {
             gSPVertexDKR(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(D_8011D488), D_8011D4B6.whole, 0);
-            gSPPolygon(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(D_8011D498), (D_8011D4B6.whole >> 1), TRIN_DISABLE_TEXTURE);
+            gSPPolygon(gSceneCurrDisplayList++, OS_PHYSICAL_TO_K0(D_8011D498), (D_8011D4B6.whole >> 1),
+                       TRIN_DISABLE_TEXTURE);
         }
         gSceneCurrVertexList = spAC;
         gSceneCurrTriList = spA8;

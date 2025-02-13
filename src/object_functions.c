@@ -5461,7 +5461,100 @@ void obj_init_texscroll(Object *obj, LevelObjectEntry_TexScroll *entry, s32 arg2
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_texscroll.s")
+void obj_loop_texscroll(Object *obj, s32 updateRate) {
+    s32 pad[2];
+    LevelModel *levelModel;
+    LevelModelSegment *curBlock;
+    Object_64 *obj64;
+    Triangle *curTriangle;
+    TriangleBatchInfo *curBatch;
+    s32 prevUnk8;
+    s32 prevUnkA;
+    s32 tri;
+    s32 uShift;
+    s32 vShift;
+    s32 block;
+    s32 batch;
+    TextureInfo *texture;
+    TextureHeader *tex;
+    s32 texIndex;
+    s32 temp;
+    s32 temp2;
+    u8 temp3;
+    s32 t0;
+    s32 t1;
+    s32 i;
+    s32 j;
+
+    obj64 = obj->unk64;
+    levelModel = get_current_level_model();
+
+    t0 = obj64->tex_scroll.unk4;
+    t1 = obj64->tex_scroll.unk6;
+
+    tex = levelModel->textures[obj64->tex_scroll.numTextures].texture;
+
+    uShift = tex->width;
+    vShift = tex->height;
+    uShift <<= 8;
+    vShift <<= 8;
+
+    t0 *= updateRate;
+    t1 *= updateRate;
+
+    obj64->tex_scroll.unk8 += t0;
+    obj64->tex_scroll.unkA += t1;
+
+    t0 = obj64->tex_scroll.unk8;
+    t1 = obj64->tex_scroll.unkA;
+
+    obj64->tex_scroll.unk8 &= 3;
+    obj64->tex_scroll.unkA &= 3;
+
+    t0 = t0 >> 2;
+    t1 = ((t1 >> 2) & 0xFFFFFFFFFFFFFFFF); // fake
+
+    curBlock = levelModel->segments;
+    for (i = 0; i < levelModel->numberOfSegments; i++) {
+        curBatch = curBlock[i].batches;
+        for (j = 0; j < curBlock[i].numberOfBatches; j++) {
+            if ((curBatch[j].textureIndex == obj64->tex_scroll.numTextures)) {
+                for (tri = curBatch[j].facesOffset; tri < curBatch[j + 1].facesOffset; tri++) {
+                    curTriangle = &curBlock[i].triangles[tri];
+                    if (!(curTriangle->flags & 0x80)) {
+                        if (vShift < curTriangle->uv0.v) {
+                            curTriangle->uv0.v -= vShift;
+                            curTriangle->uv1.v -= vShift;
+                            curTriangle->uv2.v -= vShift;
+                        }
+                        if (curTriangle->uv0.v < 0) {
+                            curTriangle->uv0.v += vShift;
+                            curTriangle->uv1.v += vShift;
+                            curTriangle->uv2.v += vShift;
+                        }
+                        if (uShift < curTriangle->uv0.u) {
+                            curTriangle->uv0.u -= uShift;
+                            curTriangle->uv1.u -= uShift;
+                            curTriangle->uv2.u -= uShift;
+                        }
+                        if (curTriangle->uv0.u < 0) {
+                            curTriangle->uv0.u += uShift;
+                            curTriangle->uv1.u += uShift;
+                            curTriangle->uv2.u += uShift;
+                        }
+
+                        curTriangle->uv0.v += t1;
+                        curTriangle->uv1.v += t1;
+                        curTriangle->uv2.v += t1;
+                        curTriangle->uv0.u += t0;
+                        curTriangle->uv1.u += t0;
+                        curTriangle->uv2.u += t0;
+                    }
+                }
+            }
+        }
+    }
+}
 
 /* Official name: rgbalightInit */
 void obj_init_rgbalight(Object *obj, LevelObjectEntry_RgbaLight *entry, UNUSED s32 arg2) {

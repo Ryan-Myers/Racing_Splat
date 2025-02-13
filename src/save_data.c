@@ -1734,7 +1734,7 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
 
 #if REGION == REGION_JP
     files_used = maxNumOfFilesOnCpak * 24; // SAVE_FILE_BYTES
-    files_used *= 2; // Skips a register to bring SAVE_FILE_BYTES to 48.
+    files_used *= 2;                       // Skips a register to bring SAVE_FILE_BYTES to 48.
 #else
     files_used = maxNumOfFilesOnCpak * SAVE_FILE_BYTES;
 #endif

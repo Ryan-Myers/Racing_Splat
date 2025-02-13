@@ -1549,8 +1549,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                      G_TX_NOLOD);               // shiftt
                 break;
             case 5: // IA8
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_8b, width,
-                                     height,
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_IA, G_IM_SIZ_8b, width, height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
                                      G_TX_NOMIRROR | G_TX_WRAP, // cmt
@@ -1580,8 +1579,7 @@ void func_800C6DD4_C79D4(Gfx *dlist, Asset46 *asset, s32 width, s32 height) {
                                         G_TX_NOLOD);               // shiftt
                 break;
             case 2: // I8
-                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_8b, width,
-                                     height,
+                gDPLoadTextureBlockS(dlist++, OS_PHYSICAL_TO_K0(asset->unk0), G_IM_FMT_I, G_IM_SIZ_8b, width, height,
                                      0,                         // palette
                                      G_TX_NOMIRROR | G_TX_WRAP, // cms
                                      G_TX_NOMIRROR | G_TX_WRAP, // cmt

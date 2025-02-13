@@ -3926,8 +3926,9 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
             text2 = gMenuText[ASSET_MENU_TEXT_TIMES];
             texture = gMenuAssets[TEXTURE_UNK_44];
             colour = gContPakSaveBgColours[file->controllerIndex];
-            for (i = 0; text2[i] != 0; i++) {
-                buffer[i] = text2[ASSET_MENU_TEXT_TIMES + i];
+            for (i = 0; (text2[i] & 0xFF) != 0; i++) {
+                firstDigit = text2[ASSET_MENU_TEXT_TIMES + i];
+                buffer[i] = firstDigit;
             }
             for (i = 0; file->saveFileExt[i] != 0 && file->saveFileExt[i] != 0x2E; i++) {}
             buffer[i] = '.';
