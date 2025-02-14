@@ -10,7 +10,7 @@ script_dir = os.path.dirname(os.path.realpath(__file__))
 root_dir = os.path.join(script_dir, "..")
 asm_dir = os.path.join(root_dir, "asm")
 build_dir = os.path.join(root_dir, "build")
-elf_path = os.path.join(build_dir, "dkr.us.v1.elf")
+elf_path = os.path.join(build_dir, "dkr.us.v77.elf")
 
 def get_func_sizes():
     try:

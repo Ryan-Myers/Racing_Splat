@@ -6,3 +6,4 @@ Levenshtein>=0.26.1
 cxxfilt>=0.3.0
 mapfile-parser>=2.7.1
 PyYAML>=6.0.2
+colour>=0.1.5
