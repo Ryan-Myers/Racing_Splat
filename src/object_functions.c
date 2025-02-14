@@ -5815,8 +5815,119 @@ void obj_init_butterfly(Object *butterflyObj, LevelObjectEntry_Butterfly *butter
 
 #pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_butterfly.s")
 
-// Scratch: https://decomp.me/scratch/h4CcJ
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_midifade.s")
+void obj_init_midifade(Object *obj, LevelObjectEntry_MidiFade *entry) {
+    Object_64 *obj64;
+    s32 pad0;
+    ObjectTransform transform;
+    f32 ox;
+    f32 oy;
+    f32 oz;
+    s32 pad[10];
+    Object_68 *obj68;
+    ObjectModel *objModel;
+    Vertex *vertices;
+    Vertex *vertex;
+    f32 mtx[4];
+    f32 sinYRot;
+    f32 tempF3;
+    f32 minX;
+    f32 minZ;
+    f32 scaleF;
+    f32 minY;
+    f32 maxX;
+    f32 maxZ;
+    f32 cosYRot;
+    f32 tempF2;
+    f32 maxY;
+    s32 numOfVertices;
+    s32 i;
+    f32 scaleF2;
+
+    obj->segment.trans.y_rotation = entry->angleY << 8 << 2; // Two shifts needed to skip a register.
+    obj64 = obj->unk64;
+    scaleF = (f32) (((s32) entry->scale) & 0xFFFF);
+    if (scaleF < 1.0f) {
+        scaleF = 1.0f;
+    }
+    scaleF /= 8;
+    obj->segment.trans.scale = obj->segment.header->scale * (scaleF);
+    transform.y_rotation = obj->segment.trans.y_rotation;
+    transform.x_rotation = obj->segment.trans.x_rotation;
+    transform.z_rotation = obj->segment.trans.z_rotation;
+    transform.scale = 1.0f;
+    transform.x_position = 0.0f;
+    transform.y_position = 0.0f;
+    transform.z_position = 0.0f;
+    object_transform_to_matrix(mtx, &transform);
+    guMtxXFMF(mtx, 0.0f, 0.0f, 1.0f, &ox, &oy, &oz);
+    obj64->midi_fade.unk8 = ox;
+    obj64->midi_fade.unkC = oy;
+    obj64->midi_fade.unk10 = oz;
+    obj64->midi_fade.unk14 = -((obj->segment.trans.x_position * ox) + (obj->segment.trans.y_position * oy) +
+                               (obj->segment.trans.z_position * oz));
+    obj64->midi_fade.unk2 = entry->unk1A;
+    obj64->midi_fade.unk40 = entry->unk1B;
+
+    for (i = 0; i < 15; i++) {
+        obj64->midi_fade.unk2F[i] = entry->unkA[i];
+    }
+
+    obj68 = *obj->unk68;
+    objModel = obj68->objModel;
+    vertex = &objModel->vertices[1];
+    maxX = vertex->x;
+    maxY = vertex->y;
+    maxZ = vertex->z;
+    minX = maxX;
+    minY = maxY;
+    minZ = maxZ;
+    for (i = 1; i < objModel->numberOfVertices; i++) {
+        vertex = &objModel->vertices[i];
+        if (vertex->x < minX) {
+            minX = vertex->x;
+        }
+        if (maxX < vertex->x) {
+            maxX = vertex->x;
+        }
+        if (vertex->y < minY) {
+            minY = vertex->y;
+        }
+        if (maxY < vertex->y) {
+            maxY = vertex->y;
+        }
+        if (vertex->z < minZ) {
+            minZ = vertex->z;
+        }
+        if (maxZ < vertex->z) {
+            maxZ = vertex->z;
+        }
+    }
+    cosYRot = coss_f(obj->segment.trans.y_rotation);
+    sinYRot = sins_f(obj->segment.trans.y_rotation);
+    tempF3 = minX;
+    minX = (minX * cosYRot) + (minZ * sinYRot);
+    minZ = (minZ * cosYRot) - (tempF3 * sinYRot);
+    tempF3 = maxX;
+    maxX = (maxX * cosYRot) + (maxZ * sinYRot);
+    maxZ = (maxZ * cosYRot) - (tempF3 * sinYRot);
+    if (maxX < minX) {
+        tempF2 = maxX;
+        maxX = minX;
+        minX = tempF2;
+    }
+    if (maxZ < minZ) {
+        tempF2 = maxZ;
+        maxZ = minZ;
+        minZ = tempF2;
+    }
+    obj64->midi_fade.unk18 = (obj->segment.trans.scale * minX) + obj->segment.trans.x_position;
+    obj64->midi_fade.unk1C = (obj->segment.trans.scale * minY) + obj->segment.trans.y_position;
+    obj64->midi_fade.unk20 = (obj->segment.trans.scale * minZ) + obj->segment.trans.z_position;
+    obj64->midi_fade.unk24 = (obj->segment.trans.scale * maxX) + obj->segment.trans.x_position;
+    obj64->midi_fade.unk28 = (obj->segment.trans.scale * maxY) + obj->segment.trans.y_position;
+    obj64->midi_fade.unk2C = (obj->segment.trans.scale * maxZ) + obj->segment.trans.z_position;
+    obj64->midi_fade.unk1 = 0;
+}
 
 void obj_init_midifadepoint(Object *obj, LevelObjectEntry_MidiFadePoint *entry) {
     Object_MidiFadePoint *obj64;
