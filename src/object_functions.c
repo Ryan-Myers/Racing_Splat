@@ -1695,93 +1695,97 @@ void obj_init_animator(Object *obj, LevelObjectEntry_Animator *entry, s32 param)
     obj_loop_animator(obj, 0x20000);
 }
 
-#ifdef NON_EQUIVALENT
-
-#define TEX_INDEX_NO_TEXTURE 255
-
-// Has minor issues
-
 void obj_loop_animator(Object *obj, s32 updateRate) {
-    Object_Animator *obj64; // 3C
-    s32 sp20;
-    s32 sp1C;
+    s32 pad[2];
+    Object_64 *obj64;
     LevelModel *levelModel;
-    s32 temp, temp2, segmentId, batchId;
-    s32 i;
-    s32 nextFacesOffset;
-    s32 curFacesOffset;
-    s32 texUVSpeed;
-    s32 texIndex;
-    TextureInfo *texInfo;
-    TriangleBatchInfo *triangleBatchInfo;
-    LevelModelSegment *levelModelSegment;
-    Triangle *triangle;
+    s32 trisStart;
+    s32 trisEnd;
+    s32 textureIndex;
+    s32 tri;
+    s32 shift; // a1
+    s32 t0;
+    s32 t1;
+    Triangle *curTriangle;
+    TriangleBatchInfo *curBatch;
+    LevelModelSegment *curBlock;
+    s32 shift2;
     TextureHeader *tex;
-    s32 maxSpeed;
 
-    obj64 = &obj->unk64->animator;
+    obj64 = obj->unk64;
 
-    temp = obj64->speedFactorX * updateRate;
-    obj64->xSpeed += temp << 4;
-    sp20 = obj64->xSpeed >> 4;
-    obj64->xSpeed &= 0xF;
+    t0 = obj64->animator.speedFactorX;
+    t1 = obj64->animator.speedFactorY;
 
-    temp2 = obj64->speedFactorY * updateRate;
-    obj64->ySpeed += temp2 << 4;
-    sp1C = obj64->ySpeed >> 4;
-    obj64->ySpeed &= 0xF;
+    t0 *= updateRate;
+    t1 *= updateRate;
 
-    segmentId = obj64->segmentId;
+    t0 <<= 4;
+    t1 <<= 4;
 
-    if (obj64->segmentId != -1) {
-        levelModel = get_current_level_model();
-        levelModelSegment = &levelModel->segments[segmentId];
-        batchId = obj64->batchId;
-        triangleBatchInfo = &levelModelSegment->batches[batchId];
-        texIndex = triangleBatchInfo->textureIndex;
-        curFacesOffset = triangleBatchInfo->facesOffset;
-        nextFacesOffset = triangleBatchInfo[1].facesOffset;
-        if (texIndex != TEX_INDEX_NO_TEXTURE) {
-            texUVSpeed = levelModel->textures[texIndex].texture->width << 7;
-            maxSpeed = texUVSpeed * 2;
-            for (i = curFacesOffset; i < nextFacesOffset; i++) {
-                triangle = &levelModelSegment->triangles[i];
-                if (!(triangle->flags & 0x80)) {
-                    if (maxSpeed < triangle->uv0.v) {
-                        triangle->uv0.v -= texUVSpeed;
-                        triangle->uv1.v -= texUVSpeed;
-                        triangle->uv2.v -= texUVSpeed;
-                    }
-                    if (triangle->uv0.v < 0) {
-                        triangle->uv0.v += texUVSpeed;
-                        triangle->uv1.v += texUVSpeed;
-                        triangle->uv2.v += texUVSpeed;
-                    }
-                    if (maxSpeed < triangle->uv0.u) {
-                        triangle->uv0.u -= texUVSpeed;
-                        triangle->uv1.u -= texUVSpeed;
-                        triangle->uv2.u -= texUVSpeed;
-                    }
-                    if (triangle->uv0.u < 0) {
-                        triangle->uv0.u += texUVSpeed;
-                        triangle->uv1.u += texUVSpeed;
-                        triangle->uv2.u += texUVSpeed;
-                    }
-                    triangle->uv0.v += sp1C;
-                    triangle->uv1.v += sp1C;
-                    triangle->uv2.v += sp1C;
-                    triangle->uv0.u += sp20;
-                    triangle->uv1.u += sp20;
-                    triangle->uv2.u += sp20;
+    obj64->animator.xSpeed += t0;
+    obj64->animator.ySpeed += t1;
+
+    trisStart = obj64->animator.xSpeed;
+    t0 = trisStart;
+    trisEnd = obj64->animator.ySpeed;
+    t1 = trisEnd;
+
+    obj64->animator.xSpeed &= 0xF;
+    obj64->animator.ySpeed &= 0xF;
+
+    t0 >>= 4;
+    t1 >>= 4;
+
+    if (obj64->animator.segmentId == -1) {
+        return;
+    }
+
+    levelModel = get_current_level_model();
+    curBlock = &levelModel->segments[obj64->animator.segmentId];
+    curBatch = &curBlock->batches[obj64->animator.batchId];
+    textureIndex = curBatch->textureIndex;
+    trisStart = curBatch->facesOffset;
+    trisEnd = (curBatch + 1)->facesOffset;
+
+    if (textureIndex != TEX_INDEX_NO_TEXTURE) {
+        if (!curBatch) {} // Fake
+        tex = levelModel->textures[textureIndex].texture;
+        shift2 = tex->width << 7;
+        shift = tex->width << 7;
+        for (tri = trisStart; tri < trisEnd; tri++) {
+            curTriangle = &curBlock->triangles[tri];
+            if (!(curTriangle->flags & 0x80)) {
+                if ((shift << 1) < curTriangle->uv0.v) {
+                    curTriangle->uv0.v -= shift;
+                    curTriangle->uv1.v -= shift;
+                    curTriangle->uv2.v -= shift;
                 }
+                if (curTriangle->uv0.v < 0) {
+                    curTriangle->uv0.v += shift;
+                    curTriangle->uv1.v += shift;
+                    curTriangle->uv2.v += shift;
+                }
+                if ((shift2 << 1) < curTriangle->uv0.u) {
+                    curTriangle->uv0.u -= shift2;
+                    curTriangle->uv1.u -= shift2;
+                    curTriangle->uv2.u -= shift2;
+                }
+                if (curTriangle->uv0.u < 0) {
+                    curTriangle->uv0.u += shift2;
+                    curTriangle->uv1.u += shift2;
+                    curTriangle->uv2.u += shift2;
+                }
+                curTriangle->uv0.v += t1;
+                curTriangle->uv1.v += t1;
+                curTriangle->uv2.v += t1;
+                curTriangle->uv0.u += t0;
+                curTriangle->uv1.u += t0;
+                curTriangle->uv2.u += t0;
             }
         }
     }
 }
-
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_animator.s")
-#endif
 
 void obj_init_animation(Object *obj, LevelObjectEntry_Animation *entry, s32 arg2) {
     Object_Animation *obj64;
