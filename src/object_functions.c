@@ -5445,13 +5445,13 @@ void obj_init_texscroll(Object *obj, LevelObjectEntry_TexScroll *entry, s32 arg2
 
     obj64 = &obj->unk64->tex_scroll;
     levelModel = get_current_level_model();
-    obj64->numTextures = entry->numTextures;
-    if (obj64->numTextures < 0) {
-        obj64->numTextures = 0;
+    obj64->textureIndex = entry->textureIndex;
+    if (obj64->textureIndex < 0) {
+        obj64->textureIndex = 0;
     }
     numberOfTexturesInLevel = levelModel->numberOfTextures;
-    if (obj64->numTextures >= numberOfTexturesInLevel) {
-        obj64->numTextures = numberOfTexturesInLevel - 1;
+    if (obj64->textureIndex >= numberOfTexturesInLevel) {
+        obj64->textureIndex = numberOfTexturesInLevel - 1;
     }
     obj64->unk4 = entry->unkA;
     obj64->unk6 = entry->unkB;
@@ -5492,7 +5492,7 @@ void obj_loop_texscroll(Object *obj, s32 updateRate) {
     t0 = obj64->tex_scroll.unk4;
     t1 = obj64->tex_scroll.unk6;
 
-    tex = levelModel->textures[obj64->tex_scroll.numTextures].texture;
+    tex = levelModel->textures[obj64->tex_scroll.textureIndex].texture;
 
     uShift = tex->width;
     vShift = tex->height;
@@ -5518,7 +5518,7 @@ void obj_loop_texscroll(Object *obj, s32 updateRate) {
     for (i = 0; i < levelModel->numberOfSegments; i++) {
         curBatch = curBlock[i].batches;
         for (j = 0; j < curBlock[i].numberOfBatches; j++) {
-            if ((curBatch[j].textureIndex == obj64->tex_scroll.numTextures)) {
+            if ((curBatch[j].textureIndex == obj64->tex_scroll.textureIndex)) {
                 for (tri = curBatch[j].facesOffset; tri < curBatch[j + 1].facesOffset; tri++) {
                     curTriangle = &curBlock[i].triangles[tri];
                     if (!(curTriangle->flags & 0x80)) {

@@ -240,7 +240,7 @@ typedef struct LevelObjectEntry_Torch_Mist {
 
 typedef struct LevelObjectEntry_TexScroll {
     /* 0x00 */ LevelObjectEntryCommon common;
-    /* 0x08 */ s16 numTextures;
+    /* 0x08 */ s16 textureIndex;
     /* 0x0A */ s8 unkA;
     /* 0x0B */ s8 unkB;
 } LevelObjectEntry_TexScroll;

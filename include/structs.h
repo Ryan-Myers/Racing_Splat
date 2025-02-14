@@ -1130,7 +1130,7 @@ typedef struct Object_AudioReverb {
 } Object_AudioReverb;
 
 typedef struct Object_TexScroll {
-  /* 0x0 */ s16 numTextures;
+  /* 0x0 */ s16 textureIndex;
   /* 0x2 */ s16 pad2;
   /* 0x4 */ s16 unk4;
   /* 0x6 */ s16 unk6;
