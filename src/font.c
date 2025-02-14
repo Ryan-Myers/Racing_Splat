@@ -150,7 +150,7 @@ void load_fonts(void) {
         gFonts[i].loadedFonts[0] = 0;
     }
 
-    gDialogueBoxBackground = (DialogueBoxBackground *) allocate_from_main_pool_safe(
+    gDialogueBoxBackground = (DialogueBoxBackground *) mempool_alloc_safe(
         DIALOGUEBOXBACKGROUND_TOTAL_SIZE + DialogueTextElement_TOTAL_SIZE, COLOUR_TAG_YELLOW);
     gDialogueText = (DialogueTextElement *) &gDialogueBoxBackground[DIALOGUEBOXBACKGROUND_COUNT];
 
@@ -1194,7 +1194,7 @@ void s32_to_string(char **outString, s32 number) {
  * lrx, lry = lower-right position
  */
 void render_fill_rectangle(Gfx **dlist, s32 ulx, s32 uly, s32 lrx, s32 lry) {
-    u32 widthAndHeight = get_video_width_and_height_as_s32();
+    u32 widthAndHeight = fb_size();
     u32 width = GET_VIDEO_WIDTH(widthAndHeight);
     u32 height = GET_VIDEO_HEIGHT(widthAndHeight);
 
@@ -1337,9 +1337,9 @@ void func_800C6464_C7064(void) {
     JpCharHeader *jpFontData;
     FontData_JP *jpFontHeader;
 
-    D_8012C2C4_EE604 = allocate_from_main_pool_safe(0x6C00, COLOUR_TAG_RED);
-    D_8012C2C8_EE608 = allocate_from_main_pool_safe(0x400, COLOUR_TAG_RED);
-    D_8012C2CC_EE60C = allocate_from_main_pool_safe(0x9000, COLOUR_TAG_RED);
+    D_8012C2C4_EE604 = mempool_alloc_safe(0x6C00, COLOUR_TAG_RED);
+    D_8012C2C8_EE608 = mempool_alloc_safe(0x400, COLOUR_TAG_RED);
+    D_8012C2CC_EE60C = mempool_alloc_safe(0x9000, COLOUR_TAG_RED);
     for (i = 0, charIndex = 0; i < 128; i++) {
         D_8012C2C8_EE608[i].unk0 = 0;
         D_8012C2C8_EE608[i].dlist = &D_8012C2C4_EE604[charIndex];
@@ -1353,12 +1353,12 @@ void func_800C6464_C7064(void) {
     D_8012C2A4_EE5E4 = (FontData_JP *) load_asset_section_from_rom(ASSET_BINARY_45);
 
     // Init the 4 pointers in D_8012C2A8_EE5E8 (table for spacing of each character in every font)
-    D_8012C2A8_EE5E8[0] = allocate_from_main_pool_safe(NUMBER_OF_JP_FONTS * JP_FONT_ARRAY_SIZE, COLOUR_TAG_RED);
+    D_8012C2A8_EE5E8[0] = mempool_alloc_safe(NUMBER_OF_JP_FONTS * JP_FONT_ARRAY_SIZE, COLOUR_TAG_RED);
     for (i = 1; i < 4; i++) {
         D_8012C2A8_EE5E8[i] = &D_8012C2A8_EE5E8[0]->spacing[i * JP_FONT_ARRAY_SIZE];
     }
 
-    jpFontData = allocate_from_main_pool_safe(0x40, COLOUR_TAG_RED);
+    jpFontData = mempool_alloc_safe(0x40, COLOUR_TAG_RED);
     for (i = 0; i < 4; i++) {
         jpFontHeader = &D_8012C2A4_EE5E4[i];
         for (charIndex = 0; charIndex < JP_FONT_ARRAY_SIZE; charIndex++) {
@@ -1368,7 +1368,7 @@ void func_800C6464_C7064(void) {
         }
     }
 
-    free_from_memory_pool(jpFontData);
+    mempool_free(jpFontData);
     D_8012C2B8_EE5F8 = 0;
 }
 
@@ -1377,9 +1377,9 @@ void func_800C663C_C723C(void) {
     s32 var_v0;
 
     func_800C67F4_C73F4();
-    D_8012C2D0_EE610 = allocate_from_main_pool_safe(0x6C00, COLOUR_TAG_RED);
-    D_8012C2D4_EE614 = allocate_from_main_pool_safe(0x400, COLOUR_TAG_RED);
-    D_8012C2D8_EE618 = allocate_from_main_pool_safe(0x9000, COLOUR_TAG_RED);
+    D_8012C2D0_EE610 = mempool_alloc_safe(0x6C00, COLOUR_TAG_RED);
+    D_8012C2D4_EE614 = mempool_alloc_safe(0x400, COLOUR_TAG_RED);
+    D_8012C2D8_EE618 = mempool_alloc_safe(0x9000, COLOUR_TAG_RED);
     if (D_8012C2D0_EE610 == NULL || D_8012C2D4_EE614 == NULL || D_8012C2D8_EE618 == NULL) {
         func_800C67F4_C73F4();
         return;
@@ -1398,15 +1398,15 @@ void func_800C663C_C723C(void) {
 
 void func_800C67F4_C73F4(void) {
     if (D_8012C2D0_EE610 != NULL) {
-        free_from_memory_pool(D_8012C2D0_EE610);
+        mempool_free(D_8012C2D0_EE610);
         D_8012C2D0_EE610 = NULL;
     }
     if (D_8012C2D4_EE614 != NULL) {
-        free_from_memory_pool(D_8012C2D4_EE614);
+        mempool_free(D_8012C2D4_EE614);
         D_8012C2D4_EE614 = NULL;
     }
     if (D_8012C2D8_EE618 != NULL) {
-        free_from_memory_pool(D_8012C2D8_EE618);
+        mempool_free(D_8012C2D8_EE618);
         D_8012C2D8_EE618 = NULL;
     }
 }

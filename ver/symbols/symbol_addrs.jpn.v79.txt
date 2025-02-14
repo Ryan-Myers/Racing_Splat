@@ -1046,8 +1046,8 @@ is_controller_missing = 0x8006F5A0;
 drm_validate_imem = 0x8006F5C4;
 
 // math_util.c .text
-disable_interrupts = 0x8006F5F0;
-enable_interrupts = 0x8006F61C;
+interrupts_disable = 0x8006F5F0;
+interrupts_enable = 0x8006F61C;
 set_gIntDisFlag = 0x8006F644;
 get_gIntDisFlag = 0x8006F650;
 s32_matrix_to_s16_matrix = 0x8006F65C;
@@ -1095,33 +1095,33 @@ set_breakpoint = 0x80070BB8;
 dmacopy_doubleword = 0x80070BE4;
 
 // memory.c .text
-init_main_memory_pool = 0x80070C10;
-new_sub_memory_pool = 0x80070C58;
-new_memory_pool = 0x80070CC4;
-allocate_from_main_pool_safe = 0x80070D7C;
-allocate_from_main_pool = 0x80070DF0;
-allocate_from_memory_pool = 0x80070E1C;
-allocate_from_pool_containing_slots = 0x80070F70;
-allocate_at_address_in_main_pool = 0x80070FD8;
-set_free_queue_state = 0x80071190;
-free_from_memory_pool = 0x80071220;
-clear_free_queue = 0x80071278;
-free_slot_containing_address = 0x80071358;
+mempool_init_main = 0x80070C10;
+mempool_new_sub = 0x80070C58;
+mempool_init = 0x80070CC4;
+mempool_alloc_safe = 0x80070D7C;
+mempool_alloc = 0x80070DF0;
+mempool_slot_find = 0x80070E1C;
+mempool_alloc_pool = 0x80070F70;
+mempool_alloc_fixed = 0x80070FD8;
+mempool_free_timer = 0x80071190;
+mempool_free = 0x80071220;
+mempool_free_queue_clear = 0x80071278;
+mempool_free_addr = 0x80071358;
 func_80071314 = 0x800713F4;
-add_to_free_queue = 0x80071520;
-func_80071478 = 0x80071558;
-memory_slot_exists = 0x80071618;
-get_memory_pool_index_containing_address = 0x800716CC;
-free_memory_pool_slot = 0x8007172C;
+mempool_free_queue = 0x80071520;
+mempool_locked_set = 0x80071558;
+mempool_locked_unset = 0x80071618;
+mempool_get_pool = 0x800716CC;
+mempool_slot_clear = 0x8007172C;
 get_memory_pool_address = 0x80071854;
-allocate_memory_pool_slot = 0x8007186C;
+mempool_slot_assign = 0x8007186C;
 align16 = 0x80071930;
 align8 = 0x8007194C;
 align4 = 0x80071968;
 find_active_pool_slot_colours = 0x80071984;
 get_memory_colour_tag_count = 0x80071B04;
-print_memory_colour_tags = 0x80071BB8;
-render_memory_colour_tags = 0x80071C34;
+mempool_print_tags_usb = 0x80071BB8;
+mempool_print_tags_screen = 0x80071C34;
 mmSlotPrint = 0x80071D54;
 func_80071CE8 = 0x80071DC8;
 
@@ -1205,26 +1205,26 @@ divider_draw = 0x80077360;
 divider_clear_coverage = 0x80077578;
 
 // rcp.c .text
-setup_ostask_xbus = 0x80077760;
-setup_ostask_xbus_2 = 0x800778C0;
-setup_ostask_fifo = 0x80077A44;
-setup_ostask_fifo_2 = 0x80077BD8;
-wait_for_gfx_task = 0x80077D64;
+gfxtask_run_xbus = 0x80077760;
+gfxtask_run_xbus_2 = 0x800778C0;
+gfxtask_run_fifo = 0x80077A44;
+gfxtask_run_fifo_2 = 0x80077BD8;
+gfxtask_wait = 0x80077D64;
 gfxtask_run_rdp = 0x80077DBC;
-set_background_prim_colour = 0x80077E44;
-set_background_fill_colour = 0x80077E6C;
-render_background = 0x80077EAC;
-init_rdp_and_framebuffer = 0x80078364;
-init_rsp = 0x800783EC;
-setup_gfx_mesg_queues = 0x80078410;
-mosaic_init = 0x80078480;
+bgdraw_primcolour = 0x80077E44;
+bgdraw_fillcolour = 0x80077E6C;
+bgdraw_render = 0x80077EAC;
+rdp_init = 0x80078364;
+rsp_init = 0x800783EC;
+gfxtask_init = 0x80078410;
+bgdraw_texture_init = 0x80078480;
 func_80078190 = 0x800784A0;
-set_chequer_background = 0x80078A88;
-disable_chequer_background = 0x80078B00;
-render_chequer_background = 0x80078B0C;
-set_background_draw_function = 0x80078DBC;
-render_textured_rectangle = 0x80078DC8;
-render_texture_rectangle_scaled = 0x80079010;
+bgdraw_chequer_on = 0x80078A88;
+bgdraw_chequer_off = 0x80078B00;
+bgdraw_chequer = 0x80078B0C;
+bgdraw_set_func = 0x80078DBC;
+texrect_draw = 0x80078DC8;
+texrect_draw_scaled = 0x80079010;
 
 // sched.c .text
 osCreateScheduler = 0x80079660;
@@ -1249,19 +1249,19 @@ __scYield = 0x8007A390;
 rsp_segment = 0x8007A5E0;
 
 // video.c .text
-init_video = 0x8007A620;
-set_video_mode_index = 0x8007A7D0;
-get_video_mode_index = 0x8007A7DC;
-set_video_width_and_height_from_index = 0x8007A7EC;
-get_video_width_and_height_as_s32 = 0x8007A830;
-init_vi_settings = 0x8007A860;
-init_framebuffer = 0x8007AAF8;
-reset_video_delta_time = 0x8007AC84;
-swap_framebuffer_when_ready = 0x8007AC9C;
+video_init = 0x8007A620;
+fb_mode_set = 0x8007A7D0;
+fb_mode = 0x8007A7DC;
+fb_mode_size = 0x8007A7EC;
+fb_size = 0x8007A830;
+fb_init_vi = 0x8007A860;
+fb_alloc = 0x8007AAF8;
+video_delta_reset = 0x8007AC84;
+fb_update = 0x8007AC9C;
 func_8007AB24 = 0x8007AE34;
-get_video_refresh_speed = 0x8007AE44;
-swap_framebuffers = 0x8007AEAC;
-memory_copy = 0x8007AF0C;
+vi_refresh_rate = 0x8007AE44;
+fb_swap = 0x8007AEAC;
+fb_memcpy = 0x8007AF0C;
 
 // textures_sprites.c .text
 tex_init_textures = 0x8007AF80;
@@ -1719,8 +1719,8 @@ mode_lockup = 0x800B7DD4;
 render_epc_lock_up_display = 0x800B7E10;
 
 
-// get_stack_pointer.c .text
-get_stack_pointer = 0x800B8310;
+// stack_pointer.c .text
+stack_pointer = 0x800B8310;
 
 // waves.c .text
 free_waves = 0x800B8320;
@@ -2403,17 +2403,17 @@ gRumbleEnable = 0x800DFE30;
 
 // rcp.c .data
 gGfxTaskMesgNums = 0x800DFE40;
-sBackgroundPrimColourR = 0x800DFE60;
-sBackgroundPrimColourG = 0x800DFE64;
-sBackgroundPrimColourB = 0x800DFE68;
+sBGPrimColourrR = 0x800DFE60;
+sBGPrimColourrG = 0x800DFE64;
+sBGPrimColourrB = 0x800DFE68;
 sBackgroundFillColour = 0x800DFE6C;
-gMosaicShiftX = 0x800DFE70;
-gMosaicTex1 = 0x800DFE74;
-gMosaicTex2 = 0x800DFE78;
+gTexBGShiftX = 0x800DFE70;
+gTexBGTex1 = 0x800DFE74;
+gTexBGTex2 = 0x800DFE78;
 gChequerBGEnabled = 0x800DFE7C;
-gBackgroundDrawFunc = 0x800DFE80;
-gfxBufCounter = 0x800DFE84;
-gfxBufCounter2 = 0x800DFE88;
+gBGDrawFunc = 0x800DFE80;
+gGfxBufCounter = 0x800DFE84;
+ggGfxBufCounter2 = 0x800DFE88;
 gGfxTaskIsRunning = 0x800DFE8C;
 dRspInit = 0x800DFE90;
 dRdpInit = 0x800DFED0;
@@ -4084,7 +4084,7 @@ gAssetsLookupTable = 0x80125D20;
 
 // rcp .bss
 gDramStack = 0x80125D30;
-gGfxSPTaskYieldBuffer = 0x80126130;
+gGfxTaskOutputBuffer = 0x80126130;
 gRCPMesgQueue = 0x80127930;
 gRCPMesgBuf = 0x80127948;
 gUnusedMesgQueue = 0x80127950;
