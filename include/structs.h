@@ -1015,8 +1015,8 @@ typedef struct Object_Butterfly {
   /* 0x0FD */ u8 unkFD;
   /* 0x0FE */ u8 unkFE;
   /* 0x0FF */ u8 unkFF;
-  /* 0x100 */ s32 unk100;
-  /* 0x104 */ s16 unk104;
+  /* 0x100 */ struct Object *unk100; 
+  /* 0x104 */ u16 unk104;
   /* 0x106 */ s16 unk106;
   /* 0x108 */ f32 unk108;
   /* 0x10C */ f32 unk10C;

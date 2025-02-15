@@ -438,12 +438,10 @@ void obj_init_scenery(Object *obj, LevelObjectEntry_Scenery *entry);
 void weapon_projectile(Object *obj, s32 updateRate);
 void obj_loop_texscroll(Object *obj, s32 updateRate);
 void obj_loop_animator(Object *obj, s32 updateRate);
-
-//Non Matching
 void calc_env_mapping_for_object(ObjectModel *, s16, s16, s16);
 void obj_init_fish(Object *fishObj, LevelObjectEntry_Fish *fishEntry, s32 param);
 void obj_init_midifade(Object *obj, LevelObjectEntry_MidiFade *entry);
-void obj_loop_butterfly(Object *obj, s32 updateRate);
+void obj_loop_butterfly(Object *butterflyObj, s32 updateRate);
 s32 ainode_find_nearest(f32 diffX, f32 diffY, f32 diffZ, s32 useElevation);
 s32 func_8001CC48(s32, s32, s32);
 f32 func_8001C6C4(Object_64 *, Object *, f32, f32, s32);

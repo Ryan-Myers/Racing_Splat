@@ -1429,15 +1429,17 @@ void play_tt_voice_clip(u16 soundID, s32 interrupt) {
     }
 }
 
-#ifdef NON_EQUIVALENT
 void obj_init_fish(Object *fishObj, LevelObjectEntry_Fish *fishEntry, s32 param) {
     Object_Fish *fish;
-    f32 sinsFE, cossFE, sins104, coss104;
+    s32 pad0[2];
     f32 xPos;
     f32 zPos;
+    f32 sins104;
     s32 uMask;
     s32 vMask;
+    f32 coss104;
     s32 i;
+    f32 tempxPos;
 
     fish = &fishObj->unk64->fish;
     fish->unk100 = fishEntry->unkE << 4;
@@ -1456,16 +1458,19 @@ void obj_init_fish(Object *fishObj, LevelObjectEntry_Fish *fishEntry, s32 param)
         fish->unkFE = 0x4000;
         fishObj->segment.trans.y_rotation = fish->unk104;
     }
-    sinsFE = sins_f((fish->unkFE * 2)) * fish->unk114;
-    cossFE = coss_f(fish->unkFE) * fish->unk114;
+
+    xPos = sins_f(fish->unkFE * 2) * fish->unk114;
+    zPos = coss_f(fish->unkFE) * fish->unk114;
     sins104 = sins_f(fish->unk104);
     coss104 = coss_f(fish->unk104);
 
-    fishObj->segment.trans.x_position = fish->unk108;
-    xPos = (sinsFE * coss104) + (cossFE * sins104);
+    tempxPos = xPos;
 
+    xPos = (tempxPos * coss104) + (zPos * sins104);
+    zPos = (zPos * coss104) - (tempxPos * sins104);
+
+    fishObj->segment.trans.x_position = fish->unk108;
     fishObj->segment.trans.z_position = fish->unk110;
-    zPos = (cossFE * coss104) - (sinsFE * sins104);
 
     ignore_bounds_check();
     move_object(fishObj, xPos, 0.0f, zPos);
@@ -1518,9 +1523,6 @@ void obj_init_fish(Object *fishObj, LevelObjectEntry_Fish *fishEntry, s32 param)
         fish->triangles[i].uv2.v = D_800DC9D0[i].uv2.v * vMask >> 2;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_init_fish.s")
-#endif
 
 void obj_loop_fish(Object *fishObj, s32 updateRate) {
     f32 zThing;
@@ -5813,7 +5815,307 @@ void obj_init_butterfly(Object *butterflyObj, LevelObjectEntry_Butterfly *butter
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/object_functions/obj_loop_butterfly.s")
+void obj_loop_butterfly(Object *butterflyObj, s32 updateRate) {
+    f32 xDiff;
+    f32 yDiff;
+    f32 zDiff;
+    f32 radius;
+    f32 sp84;
+    f32 var_f0;
+    f32 sp7C;
+    f32 sp78;
+    s16 var_v1;
+    s16 shiftAmount;
+    s16 sp72;
+    s16 temp;
+    s32 xPos;
+    s32 yPos;
+    s32 sp64;
+    Object *sp44[8];
+    Vertex *vertices;
+    Object_Butterfly *butterfly;
+    LevelObjectEntry_Butterfly *butterflyEntry;
+
+    butterflyEntry = &butterflyObj->segment.level_entry->butterfly;
+    butterfly = &butterflyObj->unk64->butterfly;
+    sp64 = butterflyEntry->unkA == 2;
+    sp72 = butterfly->unk106;
+    if (sp72 < 0) {
+        sp72 = -sp72;
+    }
+    sp7C = 0.1f;
+    sp72 *= updateRate;
+    if (sp64) {
+        sp7C *= 1.6f;
+    }
+    sp78 = 3.0f;
+    if (sp64) {
+        sp78 *= 1.6f;
+    }
+    switch (butterfly->unkFD) {
+        case 0:
+            butterfly->unk108 = 0.0f;
+            sp84 = butterflyEntry->unk8;
+            temp = obj_dist_racer(butterflyEntry->common.x, 0.0f, butterflyEntry->common.z, sp84, 1, sp44);
+            if (temp > 0) {
+                butterfly->unk100 = sp44[0];
+                butterfly->unk104 = 0xF0;
+                butterfly->unkFD = 3;
+            } else {
+                butterfly->unk100 =
+                    obj_butterfly_node(butterflyEntry->common.x, 0.0f, butterflyEntry->common.z, sp84, 1);
+                if (butterfly->unk100 != 0) {
+                    butterfly->unk104 = 0xF0;
+                    butterfly->unkFD = 3;
+                }
+            }
+            butterflyObj->segment.animFrame = (butterflyObj->segment.animFrame + updateRate) & 0xFF;
+            if (sp64) {
+                butterflyObj->segment.animFrame = 0x78;
+            }
+            break;
+        case 1:
+        case 2:
+            if (butterfly->unk106 < 0x480) {
+                butterfly->unk106 += (updateRate * 0x10);
+                if (butterfly->unk106 >= 0x481) {
+                    butterfly->unk106 = 0x480;
+                }
+            }
+            xDiff = butterflyObj->segment.trans.x_position - butterflyEntry->common.x;
+            zDiff = butterflyObj->segment.trans.z_position - butterflyEntry->common.z;
+            temp = arctan2_f(xDiff, zDiff);
+            temp -= butterflyObj->segment.trans.y_rotation & 0xffff & 0xffff;
+            if (temp < 0) {
+                if (temp > -sp72) {
+                    butterflyObj->segment.trans.y_rotation += temp;
+                } else {
+                    butterflyObj->segment.trans.y_rotation -= sp72;
+                }
+            } else if ((temp > 0)) {
+                if (temp < sp72) {
+                    butterflyObj->segment.trans.y_rotation += temp;
+                } else {
+                    butterflyObj->segment.trans.y_rotation += sp72;
+                }
+            }
+            sp84 = butterflyEntry->common.y - butterflyObj->segment.trans.y_position;
+            if (sp84 < 0.0f) {
+                butterflyObj->segment.y_velocity -= sp7C * updateRate;
+                if (butterflyObj->segment.y_velocity < sp84) {
+                    butterflyObj->segment.y_velocity = sp84;
+                }
+            } else if ((sp84 > 0.0f)) {
+                butterflyObj->segment.y_velocity += sp7C * updateRate;
+                if (sp84 < butterflyObj->segment.y_velocity) {
+                    butterflyObj->segment.y_velocity = sp84;
+                }
+            } else {
+                butterflyObj->segment.y_velocity = 0.0f;
+            }
+            if (butterfly->unkFD == 1) {
+                sp84 = butterflyEntry->unk8;
+                temp = obj_dist_racer(butterflyEntry->common.x, 0.0f, butterflyEntry->common.z, sp84, 1, sp44);
+                if (temp > 0) {
+                    butterfly->unk100 = sp44[0];
+                    butterfly->unk104 = 0x78;
+                    butterfly->unkFD = 3;
+                } else {
+                    butterfly->unk100 =
+                        obj_butterfly_node(butterflyEntry->common.x, 0.0f, butterflyEntry->common.z, sp84, 1);
+                    if (butterfly->unk100 != NULL) {
+                        butterfly->unk104 = 0xF0;
+                        butterfly->unkFD = 3;
+                    }
+                }
+            }
+            if (butterfly->unkFD != 3) {
+                yDiff = butterflyObj->segment.trans.y_position - butterflyEntry->common.y;
+                if (sqrtf((xDiff * xDiff) + (yDiff * yDiff) + (zDiff * zDiff)) < 4.0f) {
+                    ignore_bounds_check();
+                    move_object(butterflyObj, -xDiff, -yDiff, -zDiff);
+                    butterflyObj->segment.y_velocity = 0.0f;
+                    butterfly->unkFD = 0;
+                    butterfly->unk108 = 0.0f;
+                }
+            }
+            butterflyObj->segment.animFrame = (butterflyObj->segment.animFrame + (updateRate * 0x10)) & 0xFF;
+            break;
+        case 3:
+            if (butterfly->unk106 < 0x480) {
+                butterfly->unk106 += (updateRate * 0x10);
+                if (butterfly->unk106 >= 0x481) {
+                    butterfly->unk106 = 0x480;
+                }
+            }
+            xDiff = butterfly->unk100->segment.trans.x_position - butterflyEntry->common.x;
+            zDiff = butterfly->unk100->segment.trans.z_position - butterflyEntry->common.z;
+            radius = (butterflyEntry->unk8 * 2);
+            radius *= radius;
+            if (radius < ((xDiff * xDiff) + (zDiff * zDiff))) {
+                butterfly->unk100 = 0;
+                sp84 = butterflyEntry->unk8;
+                temp = obj_dist_racer(butterflyEntry->common.x, 0.0f, butterflyEntry->common.z, sp84, 1, sp44);
+                if (temp > 0) {
+                    butterfly->unk100 = sp44[0];
+                    butterfly->unk104 = 0xF0;
+                } else {
+                    butterfly->unk100 =
+                        obj_butterfly_node(butterflyEntry->common.x, 0.0f, butterflyEntry->common.z, sp84, 1);
+                    if (butterfly->unk100 != 0) {
+                        butterfly->unk104 = 0xF0;
+                    }
+                }
+            }
+            if (butterfly->unk100 != 0) {
+                xDiff = butterflyObj->segment.trans.x_position - butterfly->unk100->segment.trans.x_position;
+                zDiff = butterflyObj->segment.trans.z_position - butterfly->unk100->segment.trans.z_position;
+                temp = arctan2_f(xDiff, zDiff);
+                temp -= butterflyObj->segment.trans.y_rotation & 0xffff & 0xffff;
+                if (temp < 0) {
+                    if (-sp72 < temp) {
+                        butterflyObj->segment.trans.y_rotation += temp;
+                    } else {
+                        butterflyObj->segment.trans.y_rotation -= sp72;
+                    }
+                } else if ((temp > 0)) {
+                    if (temp < sp72) {
+                        butterflyObj->segment.trans.y_rotation += temp;
+                    } else {
+                        butterflyObj->segment.trans.y_rotation += sp72;
+                    }
+                }
+                sp84 = (butterfly->unk100->segment.trans.y_position + 16.0f) - butterflyObj->segment.trans.y_position;
+                if (sp84 < 0.0f) {
+                    butterflyObj->segment.y_velocity -= sp7C * updateRate;
+                    if (butterflyObj->segment.y_velocity < sp84) {
+                        butterflyObj->segment.y_velocity = sp84;
+                    }
+                } else if ((sp84 > 0.0f)) {
+                    butterflyObj->segment.y_velocity += sp7C * updateRate;
+                    if (sp84 < butterflyObj->segment.y_velocity) {
+                        butterflyObj->segment.y_velocity = sp84;
+                    }
+                }
+                if (((xDiff * xDiff) + (zDiff * zDiff)) < 256.0f) {
+                    butterfly->unkFD = 4;
+                }
+            } else {
+                butterfly->unkFD = 1;
+            }
+            butterflyObj->segment.animFrame = (butterflyObj->segment.animFrame + (updateRate * 0x10)) & 0xFF;
+            break;
+        case 4:
+            if (butterfly->unk106 >= 0x181) {
+                butterfly->unk106 -= (updateRate * 0x10);
+                if (butterfly->unk106 < 0x180) {
+                    butterfly->unk106 = 0x180;
+                }
+            }
+            xDiff = butterflyObj->segment.trans.x_position - butterflyEntry->common.x;
+            zDiff = butterflyObj->segment.trans.z_position - butterflyEntry->common.z;
+            radius = (butterflyEntry->unk8 * 2);
+            radius *= radius;
+            if (radius < ((xDiff * xDiff) + (zDiff * zDiff))) {
+                butterfly->unkFD = 2;
+            } else {
+                if (updateRate < butterfly->unk104) {
+                    butterfly->unk104 -= updateRate;
+                } else {
+                    butterfly->unk104 = 0;
+                    var_v1 = obj_dist_racer(butterflyObj->segment.trans.x_position, 0.0f,
+                                            butterflyObj->segment.trans.z_position, 150.0f, 1, sp44);
+                    if (var_v1 == 0) {
+                        butterfly->unk100 = 0;
+                        butterfly->unkFD = 1;
+                    } else {
+                        if (var_v1 >= 2) {
+                            var_v1 = get_random_number_from_range(1, var_v1);
+                        }
+                        var_v1--;
+                        butterfly->unk100 = sp44[var_v1];
+                        butterfly->unk104 = 0xF0;
+                    }
+                }
+                if (butterfly->unkFD == 4) {
+                    xDiff = butterflyObj->segment.trans.x_position - butterfly->unk100->segment.trans.x_position;
+                    zDiff = butterflyObj->segment.trans.z_position - butterfly->unk100->segment.trans.z_position;
+                    if (((xDiff * xDiff) + (zDiff * zDiff)) > 22500.0f) {
+                        butterfly->unkFD = 3;
+                    } else {
+                        if (get_random_number_from_range(0, 0x64) >= 0x63) {
+                            butterfly->unk106 = -butterfly->unk106;
+                        }
+                        butterflyObj->segment.trans.y_rotation += updateRate * butterfly->unk106;
+                        if ((butterfly->unk100->segment.trans.y_position + 64.0f) <
+                            butterflyObj->segment.trans.y_position) {
+                            butterfly->unkFE = 0;
+                        } else if (butterflyObj->segment.trans.y_position <
+                                   (butterfly->unk100->segment.trans.y_position + 8.0f)) {
+                            butterfly->unkFE = 1;
+                        }
+                        if (butterfly->unkFE != 0) {
+                            butterflyObj->segment.y_velocity += (sp7C * updateRate);
+                        } else {
+                            butterflyObj->segment.y_velocity -= (sp7C * updateRate);
+                        }
+                        butterflyObj->segment.trans.y_rotation += butterfly->unk106;
+                    }
+                }
+            }
+            butterflyObj->segment.animFrame = (butterflyObj->segment.animFrame + (updateRate * 0x10)) & 0xFF;
+            break;
+    }
+    if (butterfly->unkFD != 0) {
+        if (butterfly->unk108 < sp78) {
+            butterfly->unk108 += (0.25f * updateRate);
+            if (sp78 < butterfly->unk108) {
+                butterfly->unk108 = sp78;
+            }
+        }
+    }
+    if (butterfly->unk108 != 0.0f) {
+        if (butterfly->unkFD != 4) {
+            var_f0 = 1.2f;
+        } else {
+            var_f0 = 1.6f;
+        }
+        if (sp64) {
+            var_f0 *= 1.6f;
+        }
+        if (butterflyObj->segment.y_velocity < -var_f0) {
+            butterflyObj->segment.y_velocity = -var_f0;
+        }
+        if (var_f0 < butterflyObj->segment.y_velocity) {
+            butterflyObj->segment.y_velocity = var_f0;
+        }
+        if (butterfly->unk108 != 0.0f) {
+            butterflyObj->segment.x_velocity = sins_f(butterflyObj->segment.trans.y_rotation) * -butterfly->unk108;
+            butterflyObj->segment.z_velocity = coss_f(butterflyObj->segment.trans.y_rotation) * -butterfly->unk108;
+            move_object(butterflyObj, butterflyObj->segment.x_velocity, butterflyObj->segment.y_velocity,
+                        butterflyObj->segment.z_velocity);
+        }
+    }
+    butterfly->unkFC = 1 - butterfly->unkFC;
+    vertices = &butterfly->vertices[butterfly->unkFC * 6];
+    var_v1 = sp64 == 0 ? 7 : 8;
+    xPos = sins_1((butterflyObj->segment.animFrame << var_v1)) >> 10;
+    yPos = coss_1((butterflyObj->segment.animFrame << var_v1)) >> 10;
+    if (xPos < 0) {
+        xPos = -xPos;
+    }
+    if ((!sp64) && (yPos < 0)) {
+        yPos = -yPos;
+    }
+    vertices[0].x = -xPos;
+    vertices[0].y = yPos;
+    vertices[1].x = -xPos;
+    vertices[1].y = yPos;
+    vertices[4].x = xPos;
+    vertices[4].y = yPos;
+    vertices[5].x = xPos;
+    vertices[5].y = yPos;
+}
 
 void obj_init_midifade(Object *obj, LevelObjectEntry_MidiFade *entry) {
     Object_64 *obj64;
