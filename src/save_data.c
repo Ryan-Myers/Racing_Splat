@@ -1805,10 +1805,10 @@ s32 get_controller_pak_file_list(s32 controllerIndex, s32 maxNumOfFilesToGet, ch
  * Official Name: pakDirectoryFree
  */
 void cpak_free_files(void) {
-    if (gPakFileList != 0) {
+    if (gPakFileList) {
         mempool_free(gPakFileList);
     }
-    gPakFileList = 0;
+    gPakFileList = NULL;
 }
 
 // Get Available Space in Controller Pak

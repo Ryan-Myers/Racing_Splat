@@ -751,7 +751,7 @@ drm_checksum_balloon = 0x8005A3D0;
 racer_enter_door = 0x8005A424;
 update_AI_racer = 0x8005A6F0;
 func_8005B818 = 0x8005B818;
-antipiracy_modify_surface_traction_table = 0x8005C25C;
+drm_vehicle_traction = 0x8005C25C;
 func_8005C270 = 0x8005C270;
 
 //vehicle_tricky.c .text

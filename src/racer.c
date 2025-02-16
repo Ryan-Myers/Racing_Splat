@@ -6581,7 +6581,7 @@ void func_8005B818(Object *obj, Object_Racer *racer, s32 updateRate, f32 updateR
  * Triggered upon failure of an anti-tamper test. Sets the first index of the surface speed
  * table to an unreasonable value, wrecking drivability while on it.
  */
-void antipiracy_modify_surface_traction_table(void) {
+void drm_vehicle_traction(void) {
     gSurfaceTractionTable[SURFACE_DEFAULT] = 0.05f;
 }
 #endif

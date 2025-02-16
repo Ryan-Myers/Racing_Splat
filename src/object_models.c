@@ -11,7 +11,6 @@
 #include "textures_sprites.h"
 #include "racer.h"
 #include "save_data.h"
-#include "common.h"
 
 /************ .data ************/
 
@@ -75,7 +74,7 @@ void allocate_object_model_pools(void) {
         checksum += *(u8 *) (((s32) &render_scene) + i);
     }
     if (checksum != gTractionTableChecksum) {
-        antipiracy_modify_surface_traction_table();
+        drm_vehicle_traction();
     }
 #endif
 }

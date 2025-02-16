@@ -228,6 +228,8 @@ void fb_init_vi(void) {
 /**
  * Allocate the selected framebuffer index from the main pool.
  * Will also allocate the depthbuffer if it does not already exist.
+ * Framebuffers should be 64 bit aligned, but since the memory allocator
+ * already aligns by 16, it only needs 48 bits of alignment in addition.
  */
 void fb_alloc(s32 index) {
     if (gVideoFramebuffers[index] != 0) {
@@ -239,20 +241,20 @@ void fb_alloc(s32 index) {
     if (gVideoModeIndex >= VIDEO_MODE_MIDRES_MASK) {
         gVideoFramebuffers[index] =
             mempool_alloc_safe((HIGH_RES_SCREEN_WIDTH * HIGH_RES_SCREEN_HEIGHT * 2) + 0x30, COLOUR_TAG_WHITE);
-        gVideoFramebuffers[index] = (u16 *) (((s32) gVideoFramebuffers[index] + 0x3F) & ~0x3F);
+        gVideoFramebuffers[index] = FBALIGN(gVideoFramebuffers[index]);
         if (gVideoDepthBuffer == NULL) {
             gVideoDepthBuffer =
                 mempool_alloc_safe((HIGH_RES_SCREEN_WIDTH * HIGH_RES_SCREEN_HEIGHT * 2) + 0x30, COLOUR_TAG_WHITE);
-            gVideoDepthBuffer = (u16 *) (((s32) gVideoDepthBuffer + 0x3F) & ~0x3F);
+            gVideoDepthBuffer = FBALIGN(gVideoDepthBuffer);
         }
     } else {
         gVideoFramebuffers[index] =
             mempool_alloc_safe((gVideoFbWidths[index] * gVideoFbHeights[index] * 2) + 0x30, COLOUR_TAG_WHITE);
-        gVideoFramebuffers[index] = (u16 *) (((s32) gVideoFramebuffers[index] + 0x3F) & ~0x3F);
+        gVideoFramebuffers[index] = FBALIGN(gVideoFramebuffers[index]);
         if (gVideoDepthBuffer == NULL) {
             gVideoDepthBuffer =
                 mempool_alloc_safe((gVideoFbWidths[index] * gVideoFbHeights[index] * 2) + 0x30, COLOUR_TAG_WHITE);
-            gVideoDepthBuffer = (u16 *) (((s32) gVideoDepthBuffer + 0x3F) & ~0x3F);
+            gVideoDepthBuffer = FBALIGN(gVideoDepthBuffer);
         }
     }
 }
