@@ -729,7 +729,7 @@ void func_80046524(s32 updateRate, f32 updateRateF, Object *obj, Object_Racer *r
 
     sp67 = 0;
     if (racer->playerIndex >= PLAYER_ONE && gNumViewports < 2) {
-        obj->particleEmitFlags |= 0x100;
+        obj->particleEmitFlags |= OBJ_EMIT_UNK_100;
     }
 
     D_8011D550 = 0;
@@ -825,7 +825,7 @@ void func_80046524(s32 updateRate, f32 updateRateF, Object *obj, Object_Racer *r
     if (1) {}
     if (1) {}
 
-    if (!racer->zipperDirCorrection) {
+    if (racer->zipperDirCorrection != 0) {
         gCurrentStickX = 0;
         racer->magnetTimer = 0;
         racer->steerAngle = 0;
@@ -1007,7 +1007,7 @@ void func_80046524(s32 updateRate, f32 updateRateF, Object *obj, Object_Racer *r
     }
 
     if (racer->playerIndex == PLAYER_ONE && racer->groundedWheels && var_t1 == 12 && gCurrentButtonsPressed & Z_TRIG) {
-        gTajInteractStatus = 2;
+        gTajInteractStatus = TAJ_TELEPORT;
     }
     if ((racer->groundedWheels) || (racer->buoyancy > 0.0f)) {
         if (racer->trickType != 0) {
@@ -1018,7 +1018,7 @@ void func_80046524(s32 updateRate, f32 updateRateF, Object *obj, Object_Racer *r
                 }
             } else if (racer->approachTarget == 0) {
                 racer_play_sound(obj, SOUND_UNK_AF);
-                obj->particleEmitFlags |= 0x30;
+                obj->particleEmitFlags |= OBJ_EMIT_UNK_10 | OBJ_EMIT_UNK_20;
             }
             temp_f2 = racer->trickType - 5.0f;
             if ((temp_f2 > 0.0f) && (racer->approachTarget == 0)) {
@@ -3128,7 +3128,7 @@ void func_80050A28(Object *obj, Object_Racer *racer, s32 updateRate, f32 updateR
     // If on the Taj pad and the horn is honked, summon Taj
     if (racer->playerIndex == PLAYER_ONE && racer->groundedWheels && surfaceType == SURFACE_TAJ_PAD &&
         gCurrentButtonsPressed & Z_TRIG) {
-        gTajInteractStatus = 2;
+        gTajInteractStatus = TAJ_TELEPORT;
     }
     // Set grip levels to basically zero when floating on water.
     if (racer->buoyancy != 0.0) {
@@ -3342,7 +3342,7 @@ s32 should_taj_teleport(void) {
 /**
  * Sets Taj's interaction status.
  */
-void set_taj_status(s32 status) {
+void set_taj_status(TajInteraction status) {
     gTajInteractStatus = status;
 }
 
