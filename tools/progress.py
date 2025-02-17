@@ -4,7 +4,6 @@ import argparse
 import os
 import subprocess
 import sys
-from colour import Color
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 root_dir = os.path.join(script_dir, "..")
@@ -14,10 +13,12 @@ elf_path = os.path.join(build_dir, "dkr.us.v77.elf")
 
 def get_func_sizes():
     try:
-        result = subprocess.run(['objdump', '-x', elf_path], stdout=subprocess.PIPE)
+        result = subprocess.run(["objdump", "-x", elf_path], stdout=subprocess.PIPE)
         nm_lines = result.stdout.decode().split("\n")
     except:
-        print(f"Error: Could not run objdump on {elf_path} - make sure that the project is built")
+        print(
+            f"Error: Could not run objdump on {elf_path} - make sure that the project is built"
+        )
         sys.exit(1)
 
     sizes = {}
@@ -28,8 +29,7 @@ def get_func_sizes():
             components = line.split()
             size = int(components[4], 16)
             name = components[5]
-            #Labels are coming through here as functions, and this finds and ignores them
-            if name[0:4] != "L800":
+            if not name.startswith(".L") or not name.startswith("D_"):
                 total += size
                 sizes[name] = size
 
@@ -40,7 +40,7 @@ def get_nonmatching_funcs():
 
     for root, dirs, files in os.walk(asm_dir):
         for f in files:
-            if f.endswith(".s"):
+            if f.endswith(".s") and not f.startswith(".L"):
                 funcs.add(f[:-2])
 
     return funcs
@@ -58,7 +58,6 @@ def get_funcs_sizes(sizes, matchings, nonmatchings):
             # print(func)
         else:
             nmsize += sizes[func]
-            #print("% s,%i" % (func, sizes[func]))
 
     return msize, nmsize
 
@@ -72,7 +71,9 @@ def main(args):
     nonmatching_funcs = get_nonmatching_funcs()
     matching_funcs = all_funcs - nonmatching_funcs
 
-    matching_size, nonmatching_size = get_funcs_sizes(func_sizes, matching_funcs, nonmatching_funcs)
+    matching_size, nonmatching_size = get_funcs_sizes(
+        func_sizes, matching_funcs, nonmatching_funcs
+    )
 
     if len(all_funcs) == 0:
         funcs_matching_ratio = 0.0
@@ -83,6 +84,7 @@ def main(args):
 
     if args.shield_json:
         import json
+        from colour import Color
 
         # https://shields.io/endpoint
         color = Color("#50ca22", hue=lerp(0, 105/255, matching_ratio / 100))
@@ -95,13 +97,18 @@ def main(args):
     else:
         if matching_size + nonmatching_size != total_size:
             print("Warning: category/total size mismatch!\n")
-        print(f"{len(matching_funcs)} matched functions / {len(all_funcs)} total ({funcs_matching_ratio:.2f}%)")
-        print(f"{matching_size} matching bytes / {total_size} total ({matching_ratio:.2f}%)")
+        print(
+            f"{len(matching_funcs)} matched functions / {len(all_funcs)} total ({funcs_matching_ratio:.2f}%)"
+        )
+        print(
+            f"{matching_size} matching bytes / {total_size} total ({matching_ratio:.2f}%)"
+        )
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Reports progress for the project")
-    parser.add_argument("--csv", action="store_true")
+    parser = argparse.ArgumentParser(
+        description="Calculate the progress of the project"
+    )
     parser.add_argument("--shield-json", action="store_true")
     args = parser.parse_args()
 

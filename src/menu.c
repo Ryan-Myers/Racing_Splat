@@ -4054,6 +4054,7 @@ void savemenu_render_element(SaveFileData *file, s32 x, s32 y) {
     }
 }
 #else
+// No match JPN savemenu_render_element
 #pragma GLOBAL_ASM("asm/nonmatchings/menu/savemenu_render_element.s")
 #endif
 
@@ -5471,6 +5472,7 @@ void pakmenu_render(UNUSED s32 updateRate) {
     }
 }
 #else
+// No match JPN pakmenu_render
 #pragma GLOBAL_ASM("asm/nonmatchings/menu/pakmenu_render.s")
 #endif
 
@@ -10839,6 +10841,7 @@ void results_render(UNUSED s32 updateRate, f32 opacity) {
     }
 }
 #else
+// No match JPN results_render
 #pragma GLOBAL_ASM("asm/nonmatchings/menu/results_render.s")
 #endif
 

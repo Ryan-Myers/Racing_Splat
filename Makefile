@@ -1,6 +1,6 @@
 BASENAME  = dkr
-REGION  := jpn
-VERSION  := v79
+REGION  := us
+VERSION  := v77
 NON_MATCHING ?= 0
 
 LIBULTRA_VERSION_DEFINE := -DBUILD_VERSION=4 -DBUILD_VERSION_STRING=\"2.0G\" -DRAREDIFFS
@@ -221,6 +221,10 @@ no_verify: $(TARGET).z64
 
 extract:
 	$(SPLAT) ver/splat/$(BASENAME).$(REGION).$(VERSION).yaml
+#These are the only 3 jpn region functions that match elsewhere, but not for this region. As a temp hack for progrss script reasons, just delete these for other regions.
+ifneq ($(REGION),jpn)
+	rm asm/nonmatchings/menu/savemenu_render_element.s asm/nonmatchings/menu/pakmenu_render.s asm/nonmatchings/menu/results_render.s
+endif	
 
 extractall:
 	$(SPLAT) ver/splat/$(BASENAME).us.v77.yaml
