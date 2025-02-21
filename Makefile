@@ -49,7 +49,7 @@ LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/debug $(LIBULTRA_DIR)/src/gu $(LIBULTRA
 LIBULTRA_SRC_DIRS += $(LIBULTRA_DIR)/src/libc $(LIBULTRA_DIR)/src/os $(LIBULTRA_DIR)/src/sc
 
 # Files requiring pre/post-processing
-GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) $(LIBULTRA_DIR) </dev/null 2>/dev/null)
+GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
 SRC_DIRS = $(SRC_DIR) $(LIBULTRA_SRC_DIRS)
@@ -223,7 +223,7 @@ extract:
 	$(SPLAT) ver/splat/$(BASENAME).$(REGION).$(VERSION).yaml
 #These are the only 3 jpn region functions that match elsewhere, but not for this region. As a temp hack for progrss script reasons, just delete these for other regions.
 ifneq ($(REGION),jpn)
-	rm asm/nonmatchings/menu/savemenu_render_element.s asm/nonmatchings/menu/pakmenu_render.s asm/nonmatchings/menu/results_render.s
+	@$(RM) asm/nonmatchings/menu/savemenu_render_element.s asm/nonmatchings/menu/pakmenu_render.s asm/nonmatchings/menu/results_render.s
 endif	
 
 extractall:
@@ -307,11 +307,6 @@ $(BUILD_DIR)/$(LIBULTRA_DIR)/src/libc/ll.c.o: $(LIBULTRA_DIR)/src/libc/ll.c
 	$(call print,Compiling mips3:,$<,$@)
 	@$(CC)  -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(V)$(PYTHON) tools/patchmips3.py $@ || rm $@
-
-# libultra asm files need to be pre-processed with the C compiler first
-# $(BUILD_DIR)/$(LIBULTRA_DIR)/%.s.o: $(LIBULTRA_DIR)/%.s
-# 	@printf "[$(GREEN)  ASSEMBLER CC  $(NO_COL)]  $<\n"
-# 	$(V)$(ASM_PROCESSOR) $(CC) -- $(AS) $(ASFLAGS) -- -c $(CFLAGS) $(CC_WARNINGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 
 $(BUILD_DIR)/%.s.o: %.s
 	$(call print,Assembling:,$<,$@)
