@@ -92,12 +92,10 @@ s32 __osContRamRead(OSMesgQueue* mq, int channel, u16 address, u8* buffer) {
     osRecvMesg(mq, NULL, OS_MESG_BLOCK);
 
     do {
-#ifdef RAREDIFFS
         for (i = 0; i < ARRLEN(__osPfsPifRam.ramarray) + 1; i++) { // also clear pifstatus
             __osPfsPifRam.ramarray[i] = 0xFFU;
         }
         __osPfsPifRam.pifstatus = CONT_CMD_REQUEST_STATUS;
-#endif
 
         ret = __osSiRawStartDma(OS_READ, &__osPfsPifRam);
         osRecvMesg(mq, NULL, OS_MESG_BLOCK);
@@ -128,10 +126,6 @@ s32 __osContRamRead(OSMesgQueue* mq, int channel, u16 address, u8* buffer) {
                     *buffer++ = ramreadformat.data[i];
                 }
             }
-#ifndef RAREDIFFS
-        } else {
-            ret = PFS_ERR_NOPACK;
-#endif
         }
     } while ((ret == PFS_ERR_CONTRFAIL) && retry-- >= 0);
 
@@ -147,11 +141,9 @@ static void __osPackRamReadData(int channel, u16 address) {
 
     ptr = (u8 *)__osPfsPifRam.ramarray;
 
-#ifdef RAREDIFFS
     for (i = 0; i < ARRLEN(__osPfsPifRam.ramarray) + 1; i++) { // also clear pifstatus
         __osPfsPifRam.ramarray[i] = 0;
     }
-#endif
 
     __osPfsPifRam.pifstatus = CONT_CMD_EXE;
     ramreadformat.dummy = CONT_CMD_NOP;

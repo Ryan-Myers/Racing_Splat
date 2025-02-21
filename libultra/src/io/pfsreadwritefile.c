@@ -53,12 +53,6 @@ s32 osPfsReadWriteFile(OSPfs* pfs, s32 file_no, u8 flag, int offset, int size_in
     SET_ACTIVEBANK_TO_ZERO();
     ERRCK(__osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + file_no, (u8*)&dir));
 
-#ifndef RAREDIFFS
-    if (dir.company_code == 0 || dir.game_code == 0) {
-        return PFS_ERR_INVALID;
-    }
-#endif
-
     if (!CHECK_IPAGE(dir.start_page)) {
         if ((dir.start_page.ipage == PFS_EOF)) {
             return PFS_ERR_INVALID;

@@ -10,9 +10,6 @@ s32 osEepromWrite(OSMesgQueue* mq, u8 address, u8* buffer) {
 #if BUILD_VERSION < VERSION_J
     int i;
 #endif
-#ifndef RAREDIFFS
-    u16 type;
-#endif
     u8* ptr = (u8*)&__osEepPifRam.ramarray;
     __OSContEepromFormat eepromformat;
     OSContStatus sdata;
@@ -20,21 +17,12 @@ s32 osEepromWrite(OSMesgQueue* mq, u8 address, u8* buffer) {
     u8 temp[8];
 #endif
 
-#ifdef RAREDIFFS
     if (address > EEPROM_MAXBLOCKS)  {
         return -1;
     }
-#endif
 
     __osSiGetAccess();
     ret = __osEepStatus(mq, &sdata);
-#if BUILD_VERSION < VERSION_J && !defined(RAREDIFFS)
-    ret = __osEepStatus(mq, &sdata); // Duplicate that was removed in 2.0J
-#endif
-
-#ifndef RAREDIFFS
-    type = sdata.type & (CONT_EEPROM | CONT_EEP16K);
-#endif
 
 #if BUILD_VERSION >= VERSION_J
     if (ret == 0) {
@@ -68,37 +56,10 @@ s32 osEepromWrite(OSMesgQueue* mq, u8 address, u8* buffer) {
         return ret;
     }
 #else
-#ifdef RAREDIFFS
     if (ret != 0 || sdata.type != CONT_EEPROM)
     {
         return CONT_NO_RESPONSE_ERROR;
     }
-#else
-    if (ret != 0) {
-        __osSiRelAccess();
-        return CONT_NO_RESPONSE_ERROR;
-    } else {
-        switch (type) {
-            case CONT_EEPROM:
-                if (address > EEPROM_MAXBLOCKS) {
-                    __osSiRelAccess();
-                    return -1;
-                }
-
-                break;
-            case CONT_EEPROM | CONT_EEP16K:
-                if (address > EEP16K_MAXBLOCKS) {
-                    // not technically possible
-                    __osSiRelAccess();
-                    return -1;
-                }
-                break;
-            default:
-                __osSiRelAccess();
-                return CONT_NO_RESPONSE_ERROR;
-        }
-    }
-#endif
 #endif
 
     while (sdata.status & CONT_EEPROM_BUSY) {
@@ -109,13 +70,11 @@ s32 osEepromWrite(OSMesgQueue* mq, u8 address, u8* buffer) {
     ret = __osSiRawStartDma(OS_WRITE, &__osEepPifRam); // send command to pif
     osRecvMesg(mq, NULL, OS_MESG_BLOCK);
 
-#ifdef RAREDIFFS
     for (i = 0; i <= ARRLEN(__osEepPifRam.ramarray); i++) {
         __osEepPifRam.ramarray[i] = 255;
     }
 
     __osEepPifRam.pifstatus = CONT_CMD_REQUEST_STATUS;
-#endif
 
     ret = __osSiRawStartDma(OS_READ, &__osEepPifRam); // recv response
     __osContLastCmd = CONT_CMD_WRITE_EEPROM;
@@ -144,11 +103,7 @@ static void __osPackEepWriteData(u8 address, u8* buffer) {
     int i;
 
 #if BUILD_VERSION < VERSION_J
-#ifdef RAREDIFFS
     for (i = 0; i < ARRLEN(__osEepPifRam.ramarray) + 1; i++) {
-#else
-    for (i = 0; i < ARRLEN(__osEepPifRam.ramarray); i++) {
-#endif
         __osEepPifRam.ramarray[i] = CONT_CMD_NOP;
     }
 #endif
@@ -205,10 +160,8 @@ s32 __osEepStatus(OSMesgQueue* mq, OSContStatus* data) {
     osRecvMesg(mq, NULL, OS_MESG_BLOCK);
 #if BUILD_VERSION >= VERSION_J
     __osContLastCmd = CONT_CMD_END;
-#elif RAREDIFFS
-    __osContLastCmd = CONT_CMD_WRITE_EEPROM;
 #else
-    __osContLastCmd = CONT_CMD_REQUEST_STATUS;
+    __osContLastCmd = CONT_CMD_WRITE_EEPROM;
 #endif
     ret = __osSiRawStartDma(OS_READ, &__osEepPifRam);
     osRecvMesg(mq, NULL, OS_MESG_BLOCK);

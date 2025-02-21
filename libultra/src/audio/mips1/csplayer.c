@@ -44,11 +44,8 @@
 #include "cseqp.h"
 #include "cseq.h"
 
-#ifdef RAREDIFFS
 /************ .rodata ************/
-
 const char D_800E6C20[] = "CSP: oh oh \n";
-#endif
 
 // TODO: this comes from a header
 #ident "$Revision: 1.17 $"
@@ -78,11 +75,7 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
     seqp->bank          = 0;
     seqp->target        = NULL;
     seqp->drvr          = &alGlobals->drvr;
-#ifdef RAREDIFFS
     seqp->chanMask      = 0xffff;
-#else
-    seqp->chanMask      = 0xff;
-#endif
     seqp->uspt          = 488;
     seqp->nextDelta     = 0;
     seqp->state         = AL_STOPPED;
@@ -92,10 +85,8 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
     seqp->initOsc       = c->initOsc;
     seqp->updateOsc     = c->updateOsc;
     seqp->stopOsc       = c->stopOsc;
-#ifdef RAREDIFFS
     seqp->unk71         = 0;
     seqp->unk70         = c->unknown_0x10;
-#endif
 
     seqp->nextEvent.type = AL_SEQP_API_EVT;	/* this will start the voice handler "spinning" */
 
@@ -103,11 +94,7 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
      * init the channel state
      */
     seqp->maxChannels = c->maxChannels;
-#ifdef RAREDIFFS
     seqp->chanState = alHeapAlloc(hp, c->maxChannels, sizeof(ALChanState) + 4);
-#else
-    seqp->chanState = alHeapAlloc(hp, c->maxChannels, sizeof(ALChanState) );
-#endif
     __initChanState((ALSeqPlayer*)seqp);	/* sct 11/6/95 */
     
     /*
@@ -144,11 +131,7 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
  *************************************************************/
 static ALMicroTime __CSPVoiceHandler(void *node)
 {
-#ifdef RAREDIFFS
     ALCSPlayer_Custom *seqp = (ALCSPlayer_Custom *) node;
-#else
-    ALCSPlayer      *seqp = (ALCSPlayer *) node;
-#endif
     ALEvent         evt;
     ALVoice         *voice;
     ALMicroTime     delta;
@@ -251,14 +234,12 @@ static ALMicroTime __CSPVoiceHandler(void *node)
 	case (AL_SEQP_STOP_EVT):
 	    if ( seqp->state == AL_STOPPING )
 	    {
-#ifdef RAREDIFFS
         seqp->chanMask = 0xFFFF;
         for (chan = 0; chan < seqp->maxChannels; chan++)
         {
             seqp->chanState[chan].fade = 0x7F;
             seqp->chanState[chan].vol = seqp->chanState[chan].unk11;
         }
-#endif
 
 		for (vs = seqp->vAllocHead; vs != 0; vs = seqp->vAllocHead)
 		{
@@ -329,9 +310,6 @@ static ALMicroTime __CSPVoiceHandler(void *node)
 	    assert(seqp->state != AL_PLAYING);	/* Must be done playing to change sequences. */
 
 	    seqp->target = seqp->nextEvent.msg.spseq.seq;
-#ifndef RAREDIFFS
-	    __setUsptFromTempo (seqp, 500000.0);
-#endif
 	    if (seqp->bank)
 		__initFromBank((ALSeqPlayer *)seqp, seqp->bank);
 	    break;

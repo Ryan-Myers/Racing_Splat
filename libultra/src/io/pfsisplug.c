@@ -50,24 +50,16 @@ s32 osPfsIsPlug(OSMesgQueue* mq, u8* pattern) {
 }
 
 void __osPfsRequestData(u8 cmd) {
-#ifdef RAREDIFFS
     u8 *ptr;
-#else
-    u8* ptr = (u8*)&__osPfsPifRam;
-#endif
     __OSContRequesFormat requestformat;
     int i;
 
     __osContLastCmd = cmd;
-#ifdef RAREDIFFS
     for (i = 0; i < ARRLEN(__osPfsPifRam.ramarray) + 1; i++) {
         __osPfsPifRam.ramarray[i] = 0;
     }
-#endif
     __osPfsPifRam.pifstatus = CONT_CMD_EXE;
-#ifdef RAREDIFFS
     ptr = (u8 *)&__osPfsPifRam;
-#endif
     requestformat.dummy = CONT_CMD_NOP;
     requestformat.txsize = CONT_CMD_REQUEST_STATUS_TX;
     requestformat.rxsize = CONT_CMD_REQUEST_STATUS_RX;

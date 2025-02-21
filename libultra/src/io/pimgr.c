@@ -22,19 +22,6 @@ static OSMesg piEventBuf[1];
 
 OSDevMgr __osPiDevMgr = { 0 };
 
-#ifndef RAREDIFFS
-OSPiHandle* __osPiTable = NULL;
-#if BUILD_VERSION >= VERSION_J
-OSPiHandle __Dom1SpeedParam ALIGNED(0x8);
-OSPiHandle __Dom2SpeedParam ALIGNED(0x8);
-OSPiHandle* __osCurrentHandle[2] ALIGNED(0x8) = { &__Dom1SpeedParam, &__Dom2SpeedParam };
-#else
-extern OSPiHandle CartRomHandle;
-extern OSPiHandle LeoDiskHandle;
-OSPiHandle* __osCurrentHandle[2] ALIGNED(0x8) = { &CartRomHandle, &LeoDiskHandle };
-#endif
-#endif
-
 void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt) {
     u32 savedMask;
     OSPri oldPri;

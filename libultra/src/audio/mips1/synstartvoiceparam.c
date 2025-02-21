@@ -27,7 +27,6 @@
 #ident "$Revision: 1.17 $"
 #endif
 
-#ifdef RAREDIFFS
 #include "synstartvoiceparam.h"
 #include "macros.h"
 
@@ -53,7 +52,6 @@ s32 modify_panning(s32 pan) {
             return 64;
     }
 }
-#endif
 
 void alSynStartVoiceParams(ALSynth *s, ALVoice *v, ALWaveTable *w,
                            f32 pitch, s16 vol, ALPan pan, u8 fxmix,
@@ -87,11 +85,7 @@ void alSynStartVoiceParams(ALSynth *s, ALVoice *v, ALWaveTable *w,
         update->type   = AL_FILTER_START_VOICE_ALT;
 
         update->unity  = v->unityPitch;
-#ifdef RAREDIFFS
         update->pan = modify_panning(pan);
-#else
-        update->pan    = pan;
-#endif
         update->volume = vol;
         update->fxMix  = fxmix;
         update->pitch  = pitch;

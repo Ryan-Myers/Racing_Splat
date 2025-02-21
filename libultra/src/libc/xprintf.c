@@ -56,18 +56,12 @@ int _Printf(outfun prout, char *arg, const char *fmt, va_list args) {
         char ac[32];
         s = fmt;
 
-#ifdef RAREDIFFS
         while ((c = *s++) > 0) {
             if (c == '%') {
                 s--;
                 break;
             }
         }
-#else
-        for (c = *s; c != 0 && c != '%';) {
-            c = *++s;
-        }
-#endif
         
         PUT(fmt, s - fmt);
         

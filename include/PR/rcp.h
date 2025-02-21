@@ -708,19 +708,13 @@
 
 /*
  * PI status register has 3 bits active when read from (PI_STATUS_REG - read)
- *  Bit 0: DMA busy - set when DMA is in progress
- *  Bit 1: IO busy  - set when IO is in progress
- *  Bit 2: Error    - set when CPU issues IO request while DMA is busy
+ *  1: DMA busy - set when DMA is in progress
+ *  2: IO busy  - set when IO is in progress
+ *  3: Error    - set when CPU issues IO request while DMA is busy
  */
-#ifdef RAREDIFFS
 #define	PI_STATUS_DMA_BUSY	0x01
 #define	PI_STATUS_IO_BUSY	0x02
 #define	PI_STATUS_ERROR		0x03
-#else
-#define PI_STATUS_DMA_BUSY  (1 << 0)
-#define PI_STATUS_IO_BUSY   (1 << 1)
-#define PI_STATUS_ERROR     (1 << 2)
-#endif
 
 /* PI status register has 2 bits active when written to:
  *  Bit 0: When set, reset PIC

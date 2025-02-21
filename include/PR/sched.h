@@ -70,14 +70,12 @@ typedef struct OSScTask_s {
     OSTime              startTime;      /* remain at the end!!, or    */
     OSTime              totalTime;      /* possible conflict if       */
 #endif                                  /* FINALROM library used with */
-#ifdef RAREDIFFS
     s32                 unk58;
     s32                 unk5C;
     s32                 unk60;
     s32                 unk64;
     s32                 unk68;          /* Added by Rare?             */
     s32                 unk6C;          /* Task ID, used in debug functions in JFG */
-#endif
 } OSScTask;                             /* non FINALROM code          */
 
 /*
@@ -100,9 +98,7 @@ typedef struct OSScTask_s {
  *
  */
 typedef struct SCClient_s {
-#ifdef RAREDIFFS
     u8                  id;   /* Client ID, added by Rareware to single out individual scheduler clients */
-#endif
     struct SCClient_s   *next;  /* next client in the list      */
     OSMesgQueue         *msgQ;  /* where to send the frame msg  */
 } OSScClient;
@@ -122,22 +118,16 @@ typedef struct {
     OSScTask    *gfxListTail;
     OSScTask    *curRSPTask;
     OSScTask    *curRDPTask;
-#ifdef RAREDIFFS
    OSScTask    *unkTask;
-#endif
     u32         frameCount;
     s32         doAudio;
 } OSSched;
 
 void            osCreateScheduler(OSSched *s, void *stack, OSPri priority,
                                   u8 mode, u8 numFields);
-#ifdef RAREDIFFS
 void            osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ, u8 id);
 OSMesgQueue    *osScGetInterruptQ(OSSched *s);
 void            func_80079760(OSSched *s);
-#else
-void            osScAddClient(OSSched *s, OSScClient *c, OSMesgQueue *msgQ);
-#endif
 void            osScRemoveClient(OSSched *s, OSScClient *c);
 OSMesgQueue     *osScGetCmdQ(OSSched *s);
 

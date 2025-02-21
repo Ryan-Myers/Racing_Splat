@@ -147,11 +147,7 @@ s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u16 *sum, u
         }
     }
 
-#ifdef RAREDIFFS
     if (next_page.ipage >= pfs->inode_start_page) {
-#else
-    if (next_page.ipage >= pfs->inode_start_page && next_page.inode_t.bank == bank) {
-#endif
         inode->inode_page[next_page.inode_t.page].ipage = 3;
     }
 

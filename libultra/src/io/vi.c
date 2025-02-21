@@ -10,9 +10,7 @@
 static __OSViContext vi[2] ALIGNED(0x8) = { 0 };
 __OSViContext* __osViCurr = &vi[0];
 __OSViContext* __osViNext = &vi[1];
-#ifdef RAREDIFFS
 s32 osViClock = VI_NTSC_CLOCK;
-#endif
 
 void __osViInit(void) {
     bzero(vi, sizeof(vi));
@@ -21,7 +19,6 @@ void __osViInit(void) {
     __osViNext->retraceCount = 1;
     __osViCurr->retraceCount = 1;
 
-#ifdef RAREDIFFS
     if (osTvType == OS_TV_TYPE_PAL) {
 		__osViNext->modep = &osViModePalLan1;
         osViClock = VI_PAL_CLOCK;
@@ -32,18 +29,6 @@ void __osViInit(void) {
 		__osViNext->modep = &osViModeNtscLan1;
         osViClock = VI_NTSC_CLOCK;
 	}
-#else
-    __osViNext->framep = (void*)K0BASE;
-    __osViCurr->framep = (void*)K0BASE;
-
-    if (osTvType == OS_TV_TYPE_PAL) {
-        __osViNext->modep = &osViModePalLan1;
-    } else if (osTvType == OS_TV_TYPE_MPAL) {
-        __osViNext->modep = &osViModeMpalLan1;
-    } else {
-        __osViNext->modep = &osViModeNtscLan1;
-    }
-#endif
 
     __osViNext->state = VI_STATE_BLACK;
     __osViNext->control = __osViNext->modep->comRegs.ctrl;

@@ -26,7 +26,6 @@ CPP_FLAGS = [
     "-Ilibultra/src/audio",
     "-Ilibultra/src/os",
     "-D_LANGUAGE_C",
-    "-DRAREDIFFS",
     "-DF3DDKR_GBI",
     "-D_MIPS_SZLONG=32",
     "-DBUILD_VERSION=4",

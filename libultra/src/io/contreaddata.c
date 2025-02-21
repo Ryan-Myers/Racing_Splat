@@ -7,9 +7,7 @@ static void __osPackReadData(void);
 
 s32 osContStartReadData(OSMesgQueue* mq) {
     s32 ret = 0;
-#ifdef RAREDIFFS
     int i;
-#endif
 
 
     __osSiGetAccess();
@@ -20,12 +18,10 @@ s32 osContStartReadData(OSMesgQueue* mq) {
         osRecvMesg(mq, NULL, OS_MESG_BLOCK);
     }
 
-#ifdef RAREDIFFS
 	for (i = 0; i <= ARRLEN(__osContPifRam.ramarray); i++) {
         __osContPifRam.ramarray[i] = CONT_CMD_RESET;
     }
 	__osContPifRam.pifstatus = CONT_CMD_REQUEST_STATUS;
-#endif
 
     ret = __osSiRawStartDma(OS_READ, __osContPifRam.ramarray);
     __osContLastCmd = CONT_CMD_READ_BUTTON;

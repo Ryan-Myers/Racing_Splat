@@ -139,10 +139,6 @@ OSPifRam _MotorStartData[MAXCONTROLLERS] ALIGNED(0x8);
 u8 _motorstopbuf[32] ALIGNED(0x8);
 u8 _motorstartbuf[32] ALIGNED(0x8);
 
-#ifndef RAREDIFFS
-u32 __osMotorinitialized[MAXCONTROLLERS] = {0, 0, 0, 0};
-#endif
-
 s32 osMotorStop(OSPfs *pfs) {
     int i;
     s32 ret;
@@ -150,12 +146,6 @@ s32 osMotorStop(OSPfs *pfs) {
     __OSContRamReadFormat ramreadformat;
 
     ptr = (u8 *)&__osPfsPifRam;
-
-#ifndef RAREDIFFS
-    if (!__osMotorinitialized[pfs->channel]) {
-        return PFS_ERR_INVALID;
-    }
-#endif
 
     __osSiGetAccess();
 
@@ -175,11 +165,7 @@ s32 osMotorStop(OSPfs *pfs) {
     ramreadformat = *(__OSContRamReadFormat *)ptr;
     ret = CHNL_ERR(ramreadformat);
 
-#ifdef RAREDIFFS
     if (ret == 0 && ramreadformat.datacrc != 0) {
-#else
-    if (ret == 0 && __osContDataCrc((u8*)&_motorstopbuf) != ramreadformat.datacrc) {
-#endif
         ret = PFS_ERR_CONTRFAIL;
     }
 
@@ -193,15 +179,6 @@ s32 osMotorStart(OSPfs *pfs) {
     s32 ret;
     u8 *ptr;
     __OSContRamReadFormat ramreadformat;
-
-
-#ifndef RAREDIFFS
-    ptr = (u8 *)&__osPfsPifRam;
-
-    if (!__osMotorinitialized[pfs->channel]) {
-        return PFS_ERR_INVALID;
-    }
-#endif
 
     __osSiGetAccess();
 
@@ -220,11 +197,7 @@ s32 osMotorStart(OSPfs *pfs) {
 
     ramreadformat = *(__OSContRamReadFormat *)ptr;
     ret = CHNL_ERR(ramreadformat);
-#ifdef RAREDIFFS
     if (ret == 0 && ramreadformat.datacrc != 0xEB) {
-#else
-    if (ret == 0 && __osContDataCrc((u8*)&_motorstartbuf) != ramreadformat.datacrc) {
-#endif
         ret = PFS_ERR_CONTRFAIL;
     }
 
@@ -277,39 +250,6 @@ s32 osMotorInit(OSMesgQueue* mq, OSPfs* pfs, int channel) {
     pfs->activebank = 128;
 
     for (i = 0; i < ARRLEN(temp); i++) {
-#ifdef RAREDIFFS
-        temp[i] = 128;
-#else
-        temp[i] = 254;
-#endif
-    }
-
-    ret = __osContRamWrite(mq, channel, CONT_BLOCK_DETECT, temp, FALSE);
-
-    if (ret == PFS_ERR_NEW_PACK) {
-        ret = __osContRamWrite(mq, channel, CONT_BLOCK_DETECT, temp, FALSE);
-    }
-
-    if (ret != 0) {
-        return ret;
-    }
-
-    ret = __osContRamRead(mq, channel, CONT_BLOCK_DETECT, temp);
-
-#ifndef RAREDIFFS
-    if (ret == PFS_ERR_NEW_PACK) {
-        ret = PFS_ERR_CONTRFAIL;
-    }
-
-    if (ret != 0) {
-        return ret;
-    }
-
-    if (temp[31] == 254) {
-        return PFS_ERR_DEVICE;
-    }
-
-    for (i = 0; i < ARRLEN(temp); i++) {
         temp[i] = 128;
     }
 
@@ -324,11 +264,6 @@ s32 osMotorInit(OSMesgQueue* mq, OSPfs* pfs, int channel) {
     }
 
     ret = __osContRamRead(mq, channel, CONT_BLOCK_DETECT, temp);
-
-    if (ret == PFS_ERR_NEW_PACK) {
-        ret = PFS_ERR_CONTRFAIL;
-    }
-#endif
 
     if (ret != 0) {
         return ret;
@@ -338,19 +273,12 @@ s32 osMotorInit(OSMesgQueue* mq, OSPfs* pfs, int channel) {
         return PFS_ERR_DEVICE;
     }
 
-#ifndef RAREDIFFS
-    if (!__osMotorinitialized[channel]) {
-#endif
-        for (i = 0; i < ARRLEN(_motorstartbuf); i++) {
-            _motorstartbuf[i] = 1;
-            _motorstopbuf[i] = 0;
-        }
-        _MakeMotorData(channel, CONT_BLOCK_RUMBLE, _motorstartbuf, &_MotorStartData[channel]);
-        _MakeMotorData(channel, CONT_BLOCK_RUMBLE, _motorstopbuf, &_MotorStopData[channel]);
-#ifndef RAREDIFFS
-        __osMotorinitialized[channel] = 1;
+    for (i = 0; i < ARRLEN(_motorstartbuf); i++) {
+        _motorstartbuf[i] = 1;
+        _motorstopbuf[i] = 0;
     }
-#endif
+    _MakeMotorData(channel, CONT_BLOCK_RUMBLE, _motorstartbuf, &_MotorStartData[channel]);
+    _MakeMotorData(channel, CONT_BLOCK_RUMBLE, _motorstopbuf, &_MotorStopData[channel]);
 
     return 0;
 }

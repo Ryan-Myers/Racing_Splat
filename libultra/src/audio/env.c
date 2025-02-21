@@ -102,16 +102,11 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
 #if BUILD_VERSION < VERSION_J
 #line 103
 #endif
-#ifdef RAREDIFFS
         // Something must have gone wrong when compiling this file, and the asserts got left in.
         if (samples >= 0) {} 
         else { __assert("samples >= 0", "env.c", 104); }
         if (samples <= AL_MAX_RSP_SAMPLES) {} 
         else { __assert("samples <= AL_MAX_RSP_SAMPLES", "env.c", 105); }
-#else
-        assert(samples >= 0);
-        assert(samples <= AL_MAX_RSP_SAMPLES);
-#endif
 
         switch (e->ctrlList->type) {
           case (AL_FILTER_START_VOICE_ALT):
@@ -133,12 +128,8 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
 
                   e->delta  = 0;
                   e->segEnd = param->samples;
-
-#ifdef RAREDIFFS
+                  
                   tmp = ((s32)param->volume + (s32)param->volume) / 2;
-#else
-                  tmp = ((s32)param->volume * (s32)param->volume) >> 15;
-#endif
                   e->volume = (s16) tmp;
                   e->pan    = param->pan;
                   e->dryamt = eqpower[param->fxMix];
@@ -175,9 +166,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
           case (AL_FILTER_SET_PAN):
           case (AL_FILTER_SET_VOLUME):
 	      ptr = _pullSubFrame(e, &inp, &loutp, samples, sampleOffset, ptr);
-#ifdef RAREDIFFS
           e->delta += samples;
-#endif
               if (e->delta >= e->segEnd){
                   /*
                    * We should have reached our target, calculate
@@ -224,11 +213,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
                    * loudness
                    */
                   fVol = (e->ctrlList->data.i);
-#ifdef RAREDIFFS
                   fVol = (fVol+fVol)/2;
-#else
-                  fVol = (fVol*fVol)>>15;
-#endif
                   e->volume = (s16) fVol;
                 
                   e->segEnd = e->ctrlList->moredata.i;
@@ -291,9 +276,7 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
                * on down the chain
                */
 	      ptr = _pullSubFrame(e, &inp, &loutp, samples, sampleOffset, ptr);
-#ifdef RAREDIFFS
           e->delta += samples;
-#endif
               (*e->filter.setParam)(&e->filter, e->ctrlList->type,
                                     (void *) e->ctrlList->data.i);
               break;
@@ -313,14 +296,10 @@ Acmd *alEnvmixerPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
         
     }
 
-#ifdef RAREDIFFS
     if (e->motion == 1) {
         ptr = _pullSubFrame(e, &inp, &loutp, outCount, sampleOffset, ptr);
         e->delta += outCount; 
-    }    
-#else
-    ptr = _pullSubFrame(e, &inp, &loutp, outCount, sampleOffset, ptr);
-#endif
+    }
 
     /*
      * Prevent overflow in e->delta
@@ -386,26 +365,17 @@ static Acmd* _pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount,
     ALFilter      *source= e->filter.source;
 
     /* filter must be playing and request non-zero output samples to pull. */
-#ifdef RAREDIFFS
     if (!outCount)
         return ptr;
-#else
-    if (e->motion != AL_PLAYING || !outCount)
-        return ptr;
-#endif
 
     /*
      * ask all filters upstream from us to build their command
      * lists.
      */
 
-#ifdef RAREDIFFS
     // Something must have gone wrong when compiling this file, and the asserts got left in.
     if (source) {}
     else { __assert("source", "env.c", 373); }
-#else
-    assert(source);
-#endif
     
     ptr = (*source->handler)(source, inp, outCount, sampleOffset, p);
 
@@ -445,9 +415,6 @@ static Acmd* _pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount,
      */
 
     *inp += (outCount<<1);
-#ifndef RAREDIFFS
-    e->delta += outCount;
-#endif
 
     return ptr;
 }
@@ -499,12 +466,7 @@ static
 s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel)
 {
     s16         s;
-#ifdef RAREDIFFS
     f64         a;
-#else
-    f64         invn = 1.0/count, eps, a, fs, mant;
-    s32         i_invn, ex, indx;
-#endif
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -517,83 +479,15 @@ s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel)
         }
         else{
             *ratel = 0;
-
-#ifdef RAREDIFFS
             return -0x8000;
-#else
-            return 0;
-#endif
         }
     }
 
-
-#ifdef RAREDIFFS
     a = (tgt - vol) / (f32)count;
     a *= 8;
     if (a < 0.0) {
         a -= 1.0;
     }
-#else
-    if (tgt < 1.0)
-        tgt = 1.0;
-    if (vol <= 0) vol = 1;	/* zero and neg values not allowed */
-
-#define NBITS (3)
-#define NPOS  (1<<NBITS)
-#define NFRACBITS (30)
-#define M_LN2		0.69314718055994530942
-    /*
-     * rww's parametric pow()
-     Goal: compute a = (tgt/vol)^(1/count)
-
-     Approach:
-     (tgt/vol)^(1/count) =
-     ((tgt/vol)^(1/2^30))^(2^30*1/count)
-
-     (tgt/vol)^(1/2^30) ~= 1 + eps
-
-     where
-
-     eps ~= ln(tgt/vol)/2^30
-
-     ln(tgt/vol) = ln2(tgt/vol) * ln(2)
-
-     ln2(tgt/vol) = fp_exponent( tgt/vol ) +
-     ln2( fp_mantissa( tgt/vol ) )
-		
-     fp_mantissa() and fp_exponent() are
-     calculated via tricky bit manipulations of
-     the floating point number. ln2() is
-     approximated by a look up table.
-
-     Note that this final (1+eps) value needs
-     to be raised to the 2^30/count power. This
-     is done by operating on the binary representaion
-     of this number in the final while loop.
-	
-     Enjoy!
-     */
-    {
-	f64 logtab[] = { -0.912537, -0.752072, -0.607683, -0.476438,
-                         -0.356144, -0.245112, -0.142019, -0.045804  };
-
-	i_invn = (s32) _ldexpf( invn, NFRACBITS );
-	mant = _frexpf( tgt/vol, &ex );
-	indx = (s32) (_ldexpf( mant, NBITS+1 ) ); /* NPOS <= indx < 2*NPOS */
-	eps = (logtab[indx - NPOS] + ex) * M_LN2;
-	eps /= _ldexpf( 1, NFRACBITS ); /* eps / 2^NFRACBITS */
-	fs = (1.0 + eps);
-	a = 1.0;
-	while( i_invn ) {
-	    if( i_invn & 1 )
-		a = a * fs;
-	    fs *= fs;
-	    i_invn >>= 1;
-	}
-    }
-
-    a *= (a *= (a *= a));
-#endif
     s = (s16) a;
     *ratel = (s16)(0xffff * (a - (f32) s));
 
@@ -604,7 +498,6 @@ s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel)
 
 }
 
-#ifdef RAREDIFFS
 static
 f32 _getVol(f32 ivol, s32 samples, s16 ratem, u16 ratel) {
     f32 r;
@@ -612,43 +505,6 @@ f32 _getVol(f32 ivol, s32 samples, s16 ratem, u16 ratel) {
     ivol += (r * samples) / 8.0;
     return ivol;
 }
-#else
-static
-f32 _getVol(f32 ivol, s32 samples, s16 ratem, u16 ratel)
-{
-    f32 r;
-    f32	        r, a;
-    s32	      	i;
-
-#ifdef AUD_PROFILE
-    lastCnt[++cnt_index] = osGetCount();
-#endif
-    
-    /*
-     * Rate values are actually rate^8
-     */
-    samples >>=3;
-    if (samples == 0){
-        return ivol;
-    }
-    r = ((f32) (ratem<<16) + (f32) ratel)/65536;
-    
-    a = 1.0;
-    for (i=0; i<32; i++){
-	if( samples & 1 )
-	    a *= r;
-        samples >>= 1;
-        if (samples == 0)
-            break;
-	r *= r;
-    }
-    ivol *= a;
-#ifdef AUD_PROFILE
-    PROFILE_AUD(vol_num, vol_cnt, vol_max, vol_min);
-#endif
-    return ivol;
-}
-#endif
 
 
 

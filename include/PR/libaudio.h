@@ -299,11 +299,7 @@ typedef struct {
     void                *dmaproc;
     ALHeap              *heap;
     s32                 outputRate;     /* output sample rate */
-#ifdef RAREDIFFS
     ALFxId              fxType[2];
-#else
-    ALFxId              fxType;
-#endif
     s32                 *params;
 } ALSynConfig;
 
@@ -504,13 +500,10 @@ enum AL_MIDIctrl {
     AL_MIDI_FX_CTRL_9           = 0x1D,
     AL_MIDI_SUSTAIN_CTRL        = 0x40,
     AL_MIDI_FX1_CTRL            = 0x5B,
-    AL_MIDI_FX3_CTRL            = 0x5D
-#ifdef RAREDIFFS
-    ,
+    AL_MIDI_FX3_CTRL            = 0x5D,
     AL_MIDI_UNK_5F              = 0x5F,
     AL_MIDI_UNK_6A              = 0x6A, /* channel off? */
     AL_MIDI_UNK_6C              = 0x6C  /* channel on? */
-#endif
 };
 
 enum AL_MIDImeta {
@@ -673,7 +666,6 @@ typedef struct {
     f32                 pitchBend;      /* current pitch bend val in cents  */
 } ALChanState;
 
-#ifdef RAREDIFFS
 /* Can't just replace the original with this, because alCSPGetChlVol won't match. */
 typedef struct {
     ALInstrument        *instrument;    /* instrument assigned to this chan */
@@ -688,7 +680,7 @@ typedef struct {
     u8                  fade;
     u8                  unk11;
 } ALChanState_Custom;
-#endif
+
 typedef struct ALSeq_s {
     u8          *base;                  /* ptr to start of sequence file   */
     u8          *trackStart;            /* ptr to first MIDI event         */
@@ -742,9 +734,7 @@ typedef struct {
     u8          maxChannels;       /* max MIDI channels to support (16)*/
     u8          debugFlags;        /* control which error get reported */
     ALHeap      *heap;             /* ptr to initialized heap          */
-#ifdef RAREDIFFS
     u8          unknown_0x10;
-#endif
     void        *initOsc;
     void        *updateOsc;
     void        *stopOsc;
@@ -775,11 +765,9 @@ typedef struct {
     ALVoiceState        *vAllocHead;    /* list head for allocated voices   */
     ALVoiceState        *vAllocTail;    /* list tail for allocated voices   */
     ALVoiceState        *vFreeList;     /* list of free voice state structs */
-#ifdef RAREDIFFS
     u8                  voiceLimit;
     u8                  mappedVoices;
     u16                 unk72;          /* Might just be padding?           */
-#endif
     ALOscInit           initOsc;
     ALOscUpdate         updateOsc;
     ALOscStop           stopOsc;
@@ -801,10 +789,8 @@ typedef struct {
     s16                 vol;            /* overall sequence volume          */
     u8                  maxChannels;    /* number of MIDI channels          */
     u8                  debugFlags;     /* control which error get reported */
-#ifdef RAREDIFFS
     u8                  unk36;
     u8                  unk37;
-#endif
     ALEvent             nextEvent;
     ALEventQueue        evtq;
     ALMicroTime         frameTime;
@@ -812,18 +798,15 @@ typedef struct {
     ALVoiceState        *vAllocHead;    /* list head for allocated voices   */
     ALVoiceState        *vAllocTail;    /* list tail for allocated voices   */
     ALVoiceState        *vFreeList;     /* list of free voice state structs */
-#ifdef RAREDIFFS
     s8                  unk70;
     s8                  unk71;
     s8                  unk72;
     s8                  unk73;
-#endif
     ALOscInit           initOsc;
     ALOscUpdate         updateOsc;
     ALOscStop           stopOsc;
 } ALCSPlayer;
 
-#ifdef RAREDIFFS
 /**
  * Same as above, but the chanState is the new custom one.
  * Size: 0x80 bytes */
@@ -857,7 +840,6 @@ typedef struct {
     /* 0x78 */ ALOscUpdate         updateOsc;
     /* 0x7C */ ALOscStop           stopOsc;
 } ALCSPlayer_Custom;
-#endif
 
 /*
  * Sequence data representation routines

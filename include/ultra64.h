@@ -32,7 +32,7 @@
 #include <PR/libaudio.h>
 #include <PR/gu.h>
 #include <PR/ramrom.h>
-#ifndef RAREDIFFS
+#if 0
 /* This file fails in DKR because of the same named sprite structs. */
 #include <PR/sp.h>
 #endif

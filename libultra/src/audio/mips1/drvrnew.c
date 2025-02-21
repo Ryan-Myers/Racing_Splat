@@ -22,9 +22,8 @@
 #include <os.h>
 #include <stdio.h>
 #include "initfx.h"
-#ifdef RAREDIFFS
 #include "src/memory.h"
-#endif
+
 // TODO: this comes from a header
 #ident "$Revision: 1.49 $"
 /*
@@ -114,11 +113,7 @@ void _init_lpfilter(ALLowPass *lp)
     }
 }
 
-#ifdef RAREDIFFS
 void alFxNew(ALFx *r, ALSynConfig *c, s16 bus, UNUSED ALHeap *hp)
-#else
-void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp)
-#endif
 {
     u16		i, j, k;
     s32		*param = 0;
@@ -129,21 +124,13 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp)
     f->handler = alFxPull;
     r->paramHdl = (ALSetFXParam)alFxParamHdl;
 
-#ifdef RAREDIFFS
     switch (c->fxType[bus]) {
-#else
-    switch (c->fxType) {
-#endif
       case AL_FX_SMALLROOM:	param = SMALLROOM_PARAMS;	break;
       case AL_FX_BIGROOM:	param = BIGROOM_PARAMS;		break;
       case AL_FX_ECHO:		param = ECHO_PARAMS;		break;
       case AL_FX_CHORUS:	param = CHORUS_PARAMS;		break;
       case AL_FX_FLANGE:	param = FLANGE_PARAMS;		break;
-#ifdef RAREDIFFS
       case AL_FX_CUSTOM:	param = (&c->params)[bus];	break;
-#else
-      case AL_FX_CUSTOM:	param = c->params;		break;
-#endif
       default:			param = NULL_PARAMS;		break;
     }
 
@@ -153,13 +140,8 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp)
     r->section_count = param[j++];
     r->length 	     = param[j++];
 
-#ifdef RAREDIFFS
     r->delay = mempool_alloc_safe(sizeof(ALDelay) * r->section_count, COLOUR_TAG_CYAN);
     r->base = mempool_alloc_safe(sizeof(s16) * r->length, COLOUR_TAG_CYAN);
-#else
-    r->delay = alHeapAlloc(hp, r->section_count, sizeof(ALDelay));
-    r->base = alHeapAlloc(hp, r->length, sizeof(s16));
-#endif
     r->input = r->base;
 
     for ( k=0; k < r->length; k++)
@@ -195,13 +177,8 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp)
 	    d->rsgain 	 = (((f32) param[j++])/CONVERT) * LENGTH;
 	    d->rsval	 = 1.0;
 	    d->rsdelta	 = 0.0;
-#ifdef RAREDIFFS
         d->rs 	 = mempool_alloc_safe(sizeof(ALResampler), COLOUR_TAG_CYAN);
         d->rs->state = mempool_alloc_safe(sizeof(RESAMPLE_STATE), COLOUR_TAG_CYAN);
-#else
-	    d->rs 	 = alHeapAlloc(hp, 1, sizeof(ALResampler));
-	    d->rs->state = alHeapAlloc(hp, 1, sizeof(RESAMPLE_STATE));
-#endif
 	    d->rs->delta = 0.0;
 	    d->rs->first = 1;
 	} else {
@@ -211,13 +188,8 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp)
 	}
 
 	if (param[j]) {
-#ifdef RAREDIFFS
         d->lp = mempool_alloc_safe(sizeof(ALLowPass), COLOUR_TAG_CYAN);
         d->lp->fstate = mempool_alloc_safe(sizeof(POLEF_STATE), COLOUR_TAG_CYAN);
-#else
-	    d->lp = alHeapAlloc(hp, 1, sizeof(ALLowPass));
-	    d->lp->fstate = alHeapAlloc(hp, 1, sizeof(POLEF_STATE));
-#endif
 	    d->lp->fc = param[j++];
 	    _init_lpfilter(d->lp);
 	} else {

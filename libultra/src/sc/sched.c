@@ -29,7 +29,7 @@
 #define RSP_DONE_MSG    667
 #define RDP_DONE_MSG    668
 #define PRE_NMI_MSG     669
-#define SCHED_THREAD_ID 4
+#define SCHED_THREAD_ID 5
 
 /*
  * OSScTask state
@@ -62,10 +62,6 @@ OSScTask        *__scTaskReady(OSScTask *t);
 static s32      __scTaskComplete(OSSched *s,OSScTask *t);
 static void     __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
 static void	__scYield(OSSched *s);
-
-#ifdef RAREDIFFS
-#undef SCHED_THREAD_ID
-#define SCHED_THREAD_ID 5
 
 /************ .data ************/
 
@@ -115,7 +111,6 @@ OSTime gYieldTime;
 u32 gRSPAudTaskFlushTime;
 u32 gRSPAudTaskDoneTime;
 UNUSED s32 D_80126128[18];
-#endif
 
 static s32      __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp,
                              s32 availRCP);
@@ -142,24 +137,14 @@ void osCreateScheduler(OSSched *sc, void *stack, OSPri priority,
     sc->curRSPTask      = 0;
     sc->curRDPTask      = 0;
     sc->clientList      = 0;
-#ifndef RAREDIFFS
-    sc->frameCount      = 0;
-#endif
     sc->audioListHead   = 0;
     sc->gfxListHead     = 0;
     sc->audioListTail   = 0;
     sc->gfxListTail     = 0;
-#ifdef RAREDIFFS
     sc->frameCount      = 0;
     sc->unkTask         = 0;
-#endif
     sc->retraceMsg.type = OS_SC_RETRACE_MSG;  /* sent to apps */
     sc->prenmiMsg.type  = OS_SC_PRE_NMI_MSG;
-    
-#ifndef RAREDIFFS
-    osCreateMesgQueue(&sc->interruptQ, sc->intBuf, OS_SC_MAX_MESGS);
-    osCreateMesgQueue(&sc->cmdQ, sc->cmdMsgBuf, OS_SC_MAX_MESGS);
-#endif
 
     /*
      * Set up video manager, listen for Video, RSP, and RDP interrupts
@@ -167,10 +152,8 @@ void osCreateScheduler(OSSched *sc, void *stack, OSPri priority,
     osCreateViManager(OS_PRIORITY_VIMGR);    
     osViSetMode(&osViModeTable[mode]);
     osViBlack(TRUE);
-#ifdef RAREDIFFS
     osCreateMesgQueue(&sc->interruptQ, sc->intBuf, OS_SC_MAX_MESGS);
     osCreateMesgQueue(&sc->cmdQ, sc->cmdMsgBuf, OS_SC_MAX_MESGS);
-#endif
     osSetEventMesg(OS_EVENT_SP, &sc->interruptQ, (OSMesg)RSP_DONE_MSG);
     osSetEventMesg(OS_EVENT_DP, &sc->interruptQ, (OSMesg)RDP_DONE_MSG);    
     osSetEventMesg(OS_EVENT_PRENMI, &sc->interruptQ, (OSMesg)PRE_NMI_MSG);    
@@ -188,11 +171,7 @@ void osCreateScheduler(OSSched *sc, void *stack, OSPri priority,
 /*
  * Add a client to the scheduler.  Clients receive messages at retrace time
  */
-#ifdef RAREDIFFS
 void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, u8 id)
-#else
-void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ)
-#endif
 {
     OSIntMask mask;
 
@@ -200,9 +179,7 @@ void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ)
 
     c->msgQ = msgQ;
     c->next = sc->clientList;
-#ifdef RAREDIFFS
     c->id = id;
-#endif
     sc->clientList = c;
 
     osSetIntMask(mask);
@@ -236,7 +213,6 @@ OSMesgQueue *osScGetCmdQ(OSSched *sc)
     return &sc->cmdQ;
 }
 
-#ifdef RAREDIFFS
 OSMesgQueue *osScGetInterruptQ(OSSched *sc) {
     return &sc->interruptQ;
 }
@@ -249,26 +225,18 @@ UNUSED void scGetAudioTaskTimers(f32 *timer0, f32 *timer1, f32 *timer2) {
     *timer1 = gAudTaskTimer2;
     *timer2 = gAudTaskTimer3;
 }
-#endif
 
 /***********************************************************************
  * Scheduler implementation
  **********************************************************************/
 static void __scMain(void *arg)
 {
-#ifdef RAREDIFFS
     OSMesg msg = NULL;
     OSSched *sc = (OSSched *)arg;
     OSScClient *client;
     s32 state = 0;
     OSScTask *sp = NULL;
     OSScTask *dp = NULL;
-#else
-    OSMesg msg;
-    OSSched *sc = (OSSched *)arg;
-    OSScClient *client;
-    static int count = 0;
-#endif
     
     while (1) {
         
@@ -292,12 +260,9 @@ static void __scMain(void *arg)
           case (RDP_DONE_MSG):
               __scHandleRDP(sc);
               break;
-
-#ifdef RAREDIFFS
-            case (UNK_MSG):
+          case (UNK_MSG):
                 func_80079760(sc);
                 break;
-#endif
 
           case (PRE_NMI_MSG):
 	      /*
@@ -308,21 +273,16 @@ static void __scMain(void *arg)
                              OS_MESG_NOBLOCK);
               }
               break;
-
-#ifdef RAREDIFFS
-
-            default:
+          default:
                 __scAppendList(sc, (OSScTask *) msg);
                 state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
                 if (__scSchedule(sc, &sp, &dp, state) != state)
                     __scExec(sc, sp, dp);
                 break;
-#endif
         }
     }
 }
 
-#ifdef RAREDIFFS
 void func_80079760(OSSched *sc) {
     s32 state;
     OSScTask *sp = 0;
@@ -438,62 +398,6 @@ void __scHandleRetrace(OSSched *sc) {
     }
 }
 
-#else
-/*
- * scHandleRetrace()
- */
-static int dp_busy = 0;
-static int dpCount = 0;
-
-void __scHandleRetrace(OSSched *sc)
-{
-    OSScTask    *rspTask;
-    OSScClient  *client;
-    s32         i;
-    s32         state;
-    OSScTask    *sp = 0;
-    OSScTask    *dp = 0;
-    
-    sc->frameCount++;
-    
-#ifdef SC_LOGGING
-    osLogEvent(l, 500, 4, sc->frameCount, sc->curRSPTask, sc->curRDPTask);
-#endif
-
-    /*
-     * Read the task command queue and schedule tasks
-     */
-    while (osRecvMesg(&sc->cmdQ, (OSMesg *)&rspTask, OS_MESG_NOBLOCK) != -1) {
-        __scAppendList(sc, rspTask);
-    }
-    
-    if (sc->doAudio && sc->curRSPTask) {
-        /*
-         * Preempt the running gfx task.  Note: if the RSP
-         * component of the graphics task has finished, but the
-         * RDP component is still running, we can start an audio
-         * task which will freeze the RDP (and save the RDP cmd
-         * FIFO) while the audio RSP code is running.
-         */
-        __scYield(sc);
-    } else {
-        state = ((sc->curRSPTask == 0) << 1) | (sc->curRDPTask == 0);
-        if ( __scSchedule (sc, &sp, &dp, state) != state)
-            __scExec(sc, sp, dp);
-    }
-    
-    /*
-     * notify audio and graphics threads to start building the command
-     * lists for the next frame (client threads may choose not to
-     * build the list in overrun case)
-     */
-    for (client = sc->clientList; client != 0; client = client->next) {
-        osSendMesg(client->msgQ, (OSMesg) &sc->retraceMsg, OS_MESG_NOBLOCK);
-    }
-}
-
-#endif
-
 /*
  * __scHandleRSP is called when an RSP task signals that it has
  * finished or yielded (at the hosts request)
@@ -513,7 +417,6 @@ void __scHandleRSP(OSSched *sc)
     osLogEvent(l, 510, 3, t, t->state, t->flags);
 #endif
 
-#ifdef RAREDIFFS
     //Rare seems to have edited this function, most specifically here.
     //This should probably have all been behind a debug #ifdef as none of these values are used.
     if (t->list.t.type == M_AUDTASK) {
@@ -548,24 +451,6 @@ void __scHandleRSP(OSSched *sc)
             do{} while(0);
         }
         if ((t->flags & OS_SC_TYPE_MASK) != OS_SC_XBUS){}
-#else
-    if ((t->state & OS_SC_YIELD) && osSpTaskYielded(&t->list)) {
-        t->state |= OS_SC_YIELDED;
-#ifndef _FINALROM
-	t->totalTime += osGetTime() - t->startTime;
-#endif
-        if ((t->flags & OS_SC_TYPE_MASK) == OS_SC_XBUS) {
-            /* push the task back on the list */
-            t->next = sc->gfxListHead;
-            sc->gfxListHead = t;
-            if (sc->gfxListTail == 0)
-                sc->gfxListTail = t;
-        }
-        
-#ifdef SC_LOGGING
-        osLogEvent(l, 521, 1, t);
-#endif
-#endif
     } else {
         t->state &= ~OS_SC_NEEDS_RSP;
         __scTaskComplete(sc, t);
@@ -610,22 +495,13 @@ void __scHandleRDP(OSSched *sc)
  */
 OSScTask *__scTaskReady(OSScTask *t) 
 {
-#ifndef RAREDIFFS
-    int rv = 0;
-    void *a;
-    void *b;    
-#endif
 
     if (t) {    
         /*
          * If there is a pending swap bail out til later (next
          * retrace).
          */
-#ifdef RAREDIFFS
         if ((osViGetCurrentFramebuffer()) != (osViGetNextFramebuffer())) {
-#else
-        if ((a=osViGetCurrentFramebuffer()) != (b=osViGetNextFramebuffer())) {
-#endif
 #ifdef SC_LOGGING
             osLogEvent(l, 513, 2, a, b);
 #endif            
@@ -643,7 +519,6 @@ OSScTask *__scTaskReady(OSScTask *t)
  * operations have been performed) and sends the done message to the
  * client if it is.
  */
-#ifdef RAREDIFFS
 s32 __scTaskComplete(OSSched *sc, OSScTask *t) {
     if ((t->state & OS_SC_RCP_MASK) == 0) {
         if (t->msgQ) {
@@ -670,43 +545,6 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t) {
     }
     return 0;
 }
-#else
-s32 __scTaskComplete(OSSched *sc, OSScTask *t) 
-{
-    int rv;
-    static int firsttime = 1;
-
-    if ((t->state & OS_SC_RCP_MASK) == 0) { /* none of the needs bits set */
-
-        assert (t->msgQ);
-
-#ifndef _FINALROM
-	t->totalTime += osGetTime() - t->startTime;
-#endif
-	
-#ifdef SC_LOGGING
-        osLogEvent(l, 504, 1, t);
-#endif
-        rv = osSendMesg(t->msgQ, t->msg, OS_MESG_BLOCK);
-
-	if (t->list.t.type == M_GFXTASK) {
-            if ((t->flags & OS_SC_SWAPBUFFER) && (t->flags & OS_SC_LAST_TASK)){
-		if (firsttime) {
-    		    osViBlack(FALSE);
-		    firsttime = 0;
-		}
-                osViSwapBuffer(t->framebuffer);
-#ifdef SC_LOGGING
-            osLogEvent(l, 525, 1, t->framebuffer);
-#endif
-            }
-	}
-        return 1;
-    }
-    
-    return 0;
-}
-#endif
 
 /*
  * Place task on either the audio or graphics queue
@@ -724,9 +562,6 @@ void __scAppendList(OSSched *sc, OSScTask *t)
             sc->audioListHead = t;
             
         sc->audioListTail = t;
-#ifndef RAREDIFFS
-        sc->doAudio = 1;
-#endif
 #ifdef SC_LOGGING
         osLogEvent(l, 506, 1, t);
 #endif
@@ -751,9 +586,6 @@ void __scAppendList(OSSched *sc, OSScTask *t)
  */
 void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 {
-#ifndef RAREDIFFS
-    int rv;
-#endif
     
 #ifdef SC_LOGGING
     osLogEvent(l, 511, 2, sp, dp);
@@ -764,9 +596,7 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
     if (sp) {
         if (sp->list.t.type == M_AUDTASK) {
             osWritebackDCacheAll();  /* flush the cache */
-#ifdef RAREDIFFS
             gRSPAudTaskFlushTime = osGetCount();
-#endif
 
         }
     
@@ -775,11 +605,9 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 	sp->startTime = osGetTime();
 #endif
         osSpTaskLoad(&sp->list);
-        osSpTaskStartGo(&sp->list);    
-#ifdef RAREDIFFS
+        osSpTaskStartGo(&sp->list);
         gCurRSPTaskCounter = 0;
         gCurRDPTaskCounter = 0;
-#endif
         sc->curRSPTask = sp;
         if (sp == dp)
             sc->curRDPTask = dp;
@@ -793,17 +621,8 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
                    (u32)*dp->list.t.output_buff_size);
 #endif
 
-#ifdef RAREDIFFS
         osDpSetNextBuffer(dp->list.t.output_buff,
                                *dp->list.t.output_buff_size);
-#else
-        rv = osDpSetNextBuffer(dp->list.t.output_buff,
-                               *dp->list.t.output_buff_size);
-        dp_busy = 1;
-        dpCount = 0;
-        
-        assert(rv == 0);
-#endif
         
         sc->curRDPTask = dp;
     }
@@ -821,9 +640,7 @@ static void __scYield(OSSched *sc)
 /*	assert(sc->curRSPTask->state & OS_SC_YIELD);*/
 
         sc->curRSPTask->state |= OS_SC_YIELD;
-#ifdef RAREDIFFS 
         gYieldTime = osGetTime();
-#endif
 
         osSpTaskYield();
     } else {
@@ -919,11 +736,7 @@ s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP)
                           avail &= ~OS_SC_SP;
                       }
                   }
-#ifdef RAREDIFFS 
                   if (gfx->state & OS_SC_DP) {   /* if needs DP */
-#else
-                  else if (gfx->state & OS_SC_DP) {   /* if needs DP */
-#endif
                       if (avail & OS_SC_DP) {        /* if DP available */
                           *dp = gfx;
                           avail &= ~OS_SC_DP;

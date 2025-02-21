@@ -67,12 +67,7 @@ void guMtxL2F(float mf[4][4], Mtx *m)
 		q1 = *((int *)&e1); 
 		q2 = *((int *)&e2); 
 
-#ifdef RAREDIFFS
         mf[i][j*2] = q1 / (float)0x00010000;
         mf[i][j*2+1] = q2 / (float)0x00010000;
-#else
-		mf[i][j*2] = FIX32TOF(q1);
-		mf[i][j*2+1] = FIX32TOF(q2);
-#endif
 	}
 }

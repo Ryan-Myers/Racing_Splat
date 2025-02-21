@@ -40,13 +40,7 @@ static s32 _timeToSamplesNoRound(ALSynth *ALSynth, s32 micros);
 void alSynNew(ALSynth *drvr, ALSynConfig *c)
 {
     s32         i;
-#ifdef RAREDIFFS
     PVoice      *pv;
-#else
-    ALVoice     *vv;
-    PVoice      *pv;
-    ALVoice     *vvoices;
-#endif
     PVoice      *pvoices;
     ALHeap      *hp = c->heap;
     ALSave      *save;
@@ -66,7 +60,6 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c)
     alSaveNew(save);
     drvr->outputFilter = (ALFilter *)save;
 
-#ifdef RAREDIFFS
     drvr->auxBus = alHeapAlloc(hp, 2, sizeof(ALAuxBus));
     drvr->maxAuxBusses = 2;
     sources = alHeapAlloc(hp, c->maxPVoices, sizeof(ALFilter *));
@@ -95,34 +88,6 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c)
             alMainBusParam(drvr->mainBus, 2, drvr->auxBus + i);
         }
     }
-#else
-    /*
-     * allocate and initialize the auxilliary effects bus. at present
-     * we only support 1 effects bus.
-     */
-    drvr->auxBus = alHeapAlloc(hp, 1, sizeof(ALAuxBus));
-    drvr->maxAuxBusses = 1;
-    sources = alHeapAlloc(hp, c->maxPVoices, sizeof(ALFilter *));
-    alAuxBusNew(drvr->auxBus, sources, c->maxPVoices);
-
-    /*
-     * allocate and initialize the main bus.
-     */
-    drvr->mainBus = alHeapAlloc(hp, 1, sizeof(ALMainBus));
-    sources = alHeapAlloc(hp, c->maxPVoices, sizeof(ALFilter *));
-    alMainBusNew(drvr->mainBus, sources, c->maxPVoices);
-
-    if (c->fxType != AL_FX_NONE){
-        /*
-         * Allocate an effect and set parameters
-         */
-        alSynAllocFX(drvr, 0, c, hp);
-    } else
-        /*
-         * Connect the aux bus to the main bus
-         */
-    	alMainBusParam(drvr->mainBus, AL_FILTER_ADD_SOURCE, &drvr->auxBus[0]);
-#endif
     
     /*
      * Build the physical voice lists
@@ -295,14 +260,10 @@ void __freeParam(ALParam *param)
 void _collectPVoices(ALSynth *drvr) 
 {
     ALLink       *dl;
-#ifdef RAREDIFFS
     PVoice      *pv;
-#endif
 
     while ((dl = drvr->pLameList.next) != 0) {
-#ifdef RAREDIFFS
         pv = (PVoice *)dl;
-#endif
 
         /* ### remove from mixer */
 

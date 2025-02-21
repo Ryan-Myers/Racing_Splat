@@ -52,9 +52,7 @@ Acmd *_saveBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
 Acmd *_filterBuffer(ALLowPass *lp, s32 buff, s32 count, Acmd *p);
 f32  _doModFunc(ALDelay *d, s32 count);
 
-#ifdef RAREDIFFS
 u8 alFXEnabled = TRUE;
-#endif
 
 static s32 L_INC[] = { L0_INC, L1_INC, L2_INC };
 
@@ -68,13 +66,8 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
     ALFx	*r = (ALFx *)filter;
     ALFilter    *source = r->filter.source;
     s16		i, buff1, buff2, input, output;
-#ifdef RAREDIFFS
     s16		*in_ptr, *out_ptr, *prev_out_ptr = 0;
     ALDelay	*d;
-#else
-    s16		*in_ptr, *out_ptr, gain, *prev_out_ptr = 0;
-    ALDelay	*d, *pd;
-#endif
 
 #ifdef AUD_PROFILE
     lastCnt[++cnt_index] = osGetCount();
@@ -89,11 +82,9 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
      */
     ptr = (*source->handler)(source, outp, outCount, sampleOffset, p);
 
-#ifdef RAREDIFFS
     if (alFXEnabled == FALSE) {
         return ptr;
     }
-#endif
 
     input  = AL_AUX_L_OUT;
     output = AL_AUX_R_OUT;
@@ -254,10 +245,6 @@ Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p)
     s16         *out_ptr;
     f32         fincount, fratio, delta;
     s32         ramalign = 0, length;
-#ifndef RAREDIFFS
-    static f32  val=0.0, lastval=-10.0;
-    static f32  blob=0;
-#endif
 
 /*
  * The following section implements the chorus resampling. Modulate where you pull
@@ -466,7 +453,6 @@ f32 _doModFunc(ALDelay *d, s32 count)
   return(d->rsgain * val);
 }
 
-#ifdef RAREDIFFS
 void alFxReverbSet(u8 setting) {
     alFXEnabled = setting;
 }
@@ -474,4 +460,3 @@ void alFxReverbSet(u8 setting) {
 u8 _alFxEnabled() {
     return alFXEnabled;
 }
-#endif

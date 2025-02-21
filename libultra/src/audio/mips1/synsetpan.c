@@ -21,9 +21,7 @@
 #include "synthInternals.h"
 #include <os_internal.h>
 #include <ultraerror.h>
-#ifdef RAREDIFFS
 #include "synstartvoiceparam.h"
-#endif
 
 void alSynSetPan(ALSynth *synth, ALVoice *v, u8 pan)
 {
@@ -43,11 +41,7 @@ void alSynSetPan(ALSynth *synth, ALVoice *v, u8 pan)
          */
         update->delta  = synth->paramSamples + v->pvoice->offset;
         update->type   = AL_FILTER_SET_PAN;
-#ifdef RAREDIFFS
         update->data.i = modify_panning(pan);
-#else
-        update->data.i = pan;
-#endif
         update->next   = 0;
 
         f = v->pvoice->channelKnob;

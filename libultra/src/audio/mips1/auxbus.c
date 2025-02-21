@@ -52,7 +52,6 @@ s32 alAuxBusParam(void *filter, s32 paramID, void *param) {
         case AL_FILTER_ADD_SOURCE:
             sources[m->sourceCount++] = (ALFilter *) param;
             break;
-#ifdef RAREDIFFS
         case AL_FILTER_UNK11:
             for (i = 0; i < m->sourceCount; i++) {
                 if ((ALFilter *) param == sources[i]) {
@@ -60,8 +59,7 @@ s32 alAuxBusParam(void *filter, s32 paramID, void *param) {
                     sources[i] = sources[m->sourceCount];
                 }
             }
-            break;
-#endif            
+            break;    
         default:
             /* ??? */
             break;
@@ -71,7 +69,6 @@ s32 alAuxBusParam(void *filter, s32 paramID, void *param) {
     
 }
 
-#ifdef RAREDIFFS
 void func_80065A80(ALSynth *arg0, PVoice *arg1, s16 arg2) {
     if (arg2 != arg1->unkDC) {
         alAuxBusParam(&arg0->auxBus[arg1->unkDC], AL_FILTER_UNK11, &arg1->envmixer);
@@ -79,4 +76,3 @@ void func_80065A80(ALSynth *arg0, PVoice *arg1, s16 arg2) {
         arg1->unkDC = arg2;
     }
 }
-#endif

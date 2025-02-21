@@ -16,9 +16,6 @@ s32 osPfsInit(OSMesgQueue* queue, OSPfs* pfs, int channel) {
     pfs->queue = queue;
     pfs->channel = channel;
     pfs->status = 0;
-#ifndef RAREDIFFS
-    pfs->activebank = -1;
-#endif
     ERRCK(__osGetId(pfs));
 
     ret = osPfsChecker(pfs);
@@ -26,7 +23,6 @@ s32 osPfsInit(OSMesgQueue* queue, OSPfs* pfs, int channel) {
     return ret;
 }
 
-#ifdef RAREDIFFS
 s32 __osPfsGetStatus(OSMesgQueue *queue, int channel) {
     s32 ret;
     OSMesg dummy;
@@ -54,4 +50,3 @@ s32 __osPfsGetStatus(OSMesgQueue *queue, int channel) {
 
     return ret;
 }
-#endif
