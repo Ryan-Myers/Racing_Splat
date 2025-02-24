@@ -78,7 +78,7 @@ segments:
       - [0x667D0, c, ../libultra/src/audio/mips1/synstartvoiceparam]
       - [0x66940, c, main]
       - [0x66AA0, c, camera]
-      - [0x6AD00, c, controller_dkr]
+      - [0x6AD00, c, joypad]
       - [0x6B2B0, c, game]
       - [0x6CF30, c, thread3_main]
       - [0x70110, hasm, hasm/math_util]
@@ -288,7 +288,7 @@ segments:
       - [0xDDAC0, .data, ../libultra/src/audio/mips1/drvrnew]
       - [0xDDC50, .data, ../libultra/src/audio/mips1/synstartvoiceparam]
       - [0xDDC60, .data, camera]
-      - [0xDDF00, .data, controller_dkr]
+      - [0xDDF00, .data, joypad]
       - [0xDDF10, .data, game]
       - [0xDDF40, .data, thread3_main]
       - [0xDE030, .data, hasm/math_util]
@@ -406,7 +406,7 @@ segments:
       - { start: auto, type: .bss, vram: 0x8011D620, name: object_models }
       - { start: auto, type: .bss, vram: 0x8011D750, name: main }
       - { start: auto, type: .bss, vram: 0x80120AC0, name: camera }
-      - { start: auto, type: .bss, vram: 0x801210E0, name: controller_dkr }
+      - { start: auto, type: .bss, vram: 0x801210E0, name: joypad }
       - { start: auto, type: .bss, vram: 0x80121160, name: game }
       - { start: auto, type: .bss, vram: 0x801211F0, name: thread3_main }
       - { start: auto, type: .bss, vram: 0x80123580, name: memory }

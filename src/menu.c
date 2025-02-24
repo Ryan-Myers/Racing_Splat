@@ -29,7 +29,7 @@
 #include "racer.h"
 #include "tracks.h"
 #include "libultra/src/audio/synstartvoiceparam.h"
-#include "controller_dkr.h"
+#include "joypad.h"
 #include "math_util.h"
 #include "PRinternal/viint.h"
 
@@ -12571,8 +12571,8 @@ s32 menu_credits_loop(s32 updateRate) {
         temp_s4 = (var_s4 * 5) + 72;
         temp_s2 = (fb_size() >> 17) & 0x7FFF; // Truncated video height? Height / 2?
         for (i = 0; i < ARRAY_COUNT(gRacerPortraits); i++) {
-            texrect_draw(&sMenuCurrDisplayList, gRacerPortraits[i], ((sins_1(var_s5) * temp_s4) >> 16) + 140,
-                         ((coss_1(var_s5) * temp_s4) >> 16) + (temp_s2 - 20), 255, 255, 255, 255);
+            texrect_draw(&sMenuCurrDisplayList, gRacerPortraits[i], ((sins_s16(var_s5) * temp_s4) >> 16) + 140,
+                         ((coss_s16(var_s5) * temp_s4) >> 16) + (temp_s2 - 20), 255, 255, 255, 255);
             var_s5 += 0x1999;
         }
         reset_render_settings(&sMenuCurrDisplayList);
