@@ -25,7 +25,8 @@ def get_func_sizes():
     total = 0
 
     for line in nm_lines:
-        if " F " in line:
+        #This will filter out "weak" functions like fcos.
+        if "g     F" in line or "l     F" in line:
             components = line.split()
             size = int(components[4], 16)
             name = components[5]
