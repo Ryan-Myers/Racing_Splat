@@ -5717,7 +5717,6 @@ void set_position_goal_from_path(UNUSED Object *obj, Object_Racer *racer, f32 *x
     *x = catmull_rom_interpolation(splineX, destReached, magnitude);
     *y = catmull_rom_interpolation(splineY, destReached, magnitude);
     *z = catmull_rom_interpolation(splineZ, destReached, magnitude);
-    
 }
 
 #ifdef NON_MATCHING

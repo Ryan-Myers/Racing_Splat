@@ -23,3 +23,14 @@ make extract
 make
 ```
 
+```
+As of 2025-02-25
+
+JPN Match:
+1803 matched functions / 1939 total (92.99%)
+606588 matching bytes / 866924 total (69.97%)
+
+US V77 Match:
+1795 matched functions / 1928 total (93.10%)
+606792 matching bytes / 860372 total (70.53%)
+```

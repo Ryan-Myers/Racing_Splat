@@ -2152,12 +2152,12 @@ lldiv = 0x800D8E00;
 ldiv = 0x800D8F00;
 
 // ucode_text
-aspMainTextStart = 0x800D8F90;
-rspF3DDKRBootStart = 0x800D9E50;
-rspF3DDKRDramStart = 0x800D9F20;
-rspF3DDKRFifoStart = 0x800DB120;
-rspF3DDKRXbusStart = 0x800DC300;
-rspUnknown2Start = 0x800DD500;
+aspMainTextStart = 0x800D8F90; // size:0xEC0
+rspF3DDKRBootStart = 0x800D9E50; // size:0xD0
+rspF3DDKRDramStart = 0x800D9F20; // size:0x1200
+rspF3DDKRFifoStart = 0x800DB120; // size:0x11E0
+rspF3DDKRXbusStart = 0x800DC300; // size:0x1200
+rspUnknown2Start = 0x800DD500; // size:0xAC0
 
 // audio.c .data
 gMusicPlayer = 0x800DDFC0;
@@ -3503,11 +3503,11 @@ _Ldtob_1e8 = 0x800EB328; // type:f64
 __libm_qnan_f = 0x800EB330; // type:f64
 
 // ucode_data
-aspMainDataStart = 0x800EB340;
-rspF3DDKRDataDramStart = 0x800EB610;
-rspF3DDKRDataFifoStart = 0x800EBE10;
-rspF3DDKRDataXbusStart = 0x800EC610;
-rspUnknown2DataStart = 0x800ECE10;
+aspMainDataStart = 0x800EB340; // size:0x2D0
+rspF3DDKRDataDramStart = 0x800EB610; // size:0x800
+rspF3DDKRDataFifoStart = 0x800EBE10; // size:0x800
+rspF3DDKRDataXbusStart = 0x800EC610; // size:0x800
+rspUnknown2DataStart = 0x800ECE10; // size:0xBC0
 
 // Start of BSS
 gAudioHeapStack = 0x800ED9D0; // size:0x29D88
