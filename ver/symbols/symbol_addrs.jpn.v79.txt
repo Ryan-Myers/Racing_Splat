@@ -2151,7 +2151,7 @@ __osSetCompare = 0x800D8DF0;
 lldiv = 0x800D8E00;
 ldiv = 0x800D8F00;
 
-// ucode_text
+// ucode_text jpn v79
 aspMainTextStart = 0x800D8F90; // size:0xEC0
 rspF3DDKRBootStart = 0x800D9E50; // size:0xD0
 rspF3DDKRDramStart = 0x800D9F20; // size:0x1200

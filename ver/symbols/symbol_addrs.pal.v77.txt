@@ -2061,12 +2061,15 @@ _Ldtob = 0x800D6FA0;
 __osSetCompare = 0x800D74F0;
 lldiv = 0x800D7500;
 ldiv = 0x800D7600;
+
+// ucode_text pal v77
 aspMainTextStart = 0x800D7690; // size:0xEC0
 rspF3DDKRBootStart = 0x800D8550; // size:0xD0
 rspF3DDKRDramStart = 0x800D8620; // size:0x1200
 rspF3DDKRFifoStart = 0x800D9820; // size:0x11E0
 rspF3DDKRXbusStart = 0x800DAA00; // size:0x1200
 rspUnknown2Start = 0x800DBC00; // size:0xAC0
+
 gMusicPlayer = 0x800DC6C0;
 gJinglePlayer = 0x800DC6C4;
 gMusicBaseVolume = 0x800DC6C8;
