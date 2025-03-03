@@ -154,7 +154,6 @@ TARGET     = $(BUILD_DIR)/$(BASENAME).$(REGION).$(VERSION)
 LD_SCRIPT  = ver/$(BASENAME).$(REGION).$(VERSION).ld
 
 LD_FLAGS   = -T $(LD_SCRIPT) -T $(SYMBOLS_DIR)/undefined_syms.txt -Map $(TARGET).map
-LD_FLAGS_EXTRA  = $(foreach sym,$(UNDEFINED_SYMS),-u $(sym))
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/build.py
@@ -197,9 +196,6 @@ $(BUILD_DIR)/$(LIBULTRA_DIR)/%.c.o: CC_CHECK := :
 default: all
 
 all: $(VERIFY)
-
-ldflags:
-	$(V)printf "[$(PINK) LDFLAGS $(NO_COL)]: $(LD_FLAGS)\n[$(PINK) EXTRA $(NO_COL)]: $(LD_FLAGS_EXTRA)\n"
 
 dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(HASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
@@ -283,7 +279,7 @@ $(GLOBAL_ASM_O_FILES): CC := $(ASM_PROCESSOR) $(CC) -- $(AS) $(ASFLAGS) --
 
 $(TARGET).elf: dirs $(LD_SCRIPT) $(O_FILES)
 	@$(PRINT) "$(GREEN)Linking: $(BLUE)$@$(NO_COL)\n"
-	$(V)$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
+	$(V)$(LD) $(LD_FLAGS) -o $@
 
 ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c
@@ -325,6 +321,5 @@ $(TARGET).z64: $(TARGET).bin
 	$(V)$(TOOLS_DIR)/CopyRom.py $< $@
 
 ### Settings
-.SECONDARY:
-.PHONY: all clean default
+.PHONY: all clean cleanextract default
 SHELL = /bin/bash -e -o pipefail
